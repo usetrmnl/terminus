@@ -1,0 +1,42 @@
+<% content_for :title, "Screen Preview | Terminus" %>
+
+<section class="page-devices">
+  <header class="page-header">
+    <h1 class="label">Screens</h1>
+  </header>
+
+  <div class="page-body page-editor">
+    <figure class="site-figure"
+            hx-ext="sse"
+            sse-connect="/devices/1/screen_preview"
+            sse-swap="preview">
+      <p>Waiting for updates...</p>
+    </figure>
+
+    <form action="/devices/<%= 1 %>/screens" method="post" class="form">
+      <textarea name="screen[content]"
+                class="source"
+                hx-post="/devices/<%= 1 %>/screens"
+                hx-trigger="change">
+        <!DOCTYPE html>
+
+        <html lang="en">
+          <head>
+            <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+            <meta charset="utf-8">
+
+            <style type="text/css">
+              * {
+                margin: 0;
+              }
+            </style>
+          </head>
+
+          <body>
+            <p>TEST</p>
+          </body>
+        </html>
+      </textarea>
+    </form>
+  </div>
+</section>
