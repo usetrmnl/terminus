@@ -1,0 +1,27 @@
+<form action="/screens/templates" method="post" class="form">
+  <%= scope(:form_field, key: :content, errors:).render do %>
+    <label class="key" for="device[content]">
+      Content
+    </label>
+
+    <textarea name="template[content]"
+              class="source"
+              hx-post="/devices/<%= 1 %>/screens"
+              hx-trigger="change">
+      <%= render :example %>
+    </textarea>
+
+    <%= tag.input name: "device[content]",
+                  value: field_for(:content, fields, device),
+                  class: :value,
+                  autocomplete: :content %>
+  <% end %>
+
+
+  <textarea name="template[content]"
+            class="source"
+            hx-post="/devices/<%= 1 %>/screens"
+            hx-trigger="change">
+    <%= render :example %>
+  </textarea>
+</form>
