@@ -18,19 +18,12 @@
   </div>
 
   <div class="actions">
-    <%= render "shared/popovers/triggers/default",
-               name: :import,
-               icon: :plus,
-               class: "action bit-popover-trigger",
-               width: 25,
-               height: 25 %>
+    <%= form_for routes.path(:extensions_gallery_create) do |form| %>
+      <%= form.hidden_field :id, value: item.id %>
 
-    <%#= form_for routes.path(:extensions_gallery_create) do |form| %>
-      <%#= form.hidden_field :id, value: item.id %>
-
-      <%#= form.submit class: "action bit-button" do %>
-       <%#= image_tag "icons/plus.svg", alt: "Import", class: :icon, width: 25, height: 25 %>
-      <%# end %>
-    <%# end %>
+      <%= form.submit class: "action bit-button" do %>
+        <%= image_tag "icons/plus.svg", alt: "Import", class: :icon, width: 25, height: 25 %>
+      <% end %>
+    <% end %>
   </div>
 </li>
