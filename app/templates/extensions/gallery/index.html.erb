@@ -24,6 +24,8 @@
   <% end %>
 
   <% if recipe.data.any? %>
+    <p class="bit-text-center">⚠️ Import support is experimental and might require manual adjustment on your part to make the imported extension work. ⚠️</p>
+
     <ul class="bit-gallery">
       <% recipe.data.each do |item| %>
         <%= render :item, item: %>
@@ -46,9 +48,5 @@
     <div class="bit-gallery">
       <%= render "shared/empty", message: "No recipes found." %>
     </div>
-  <% end %>
-
-  <%= scope(:popover_default_content, name: :import, label: "Import").render do %>
-    <p>We are working on the ability to import recipes as extensions within Terminus! For now, this is a placeholder for full import capabilities that will be added in the future.</p>
   <% end %>
 </section>
