@@ -39,6 +39,8 @@ RSpec/ExampleLength:
 RSpec/SpecFilePathFormat:
   CustomTransform:
     Terminus: ""
+    URIs: "uris"
 Style/IpAddresses:
   Exclude:
     - spec/**/*
+
