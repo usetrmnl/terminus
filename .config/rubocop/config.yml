@@ -42,3 +42,4 @@ RSpec/SpecFilePathFormat:
 Style/IpAddresses:
   Exclude:
     - spec/**/*
+
