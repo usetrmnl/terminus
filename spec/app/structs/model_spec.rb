@@ -4,12 +4,25 @@ require "hanami_helper"
 
 RSpec.describe Terminus::Structs::Model do
   subject :model do
-    Factory.structs[:model, name: "test", label: "Test", bit_depth: 2]
+    Factory.structs[
+      :model,
+      name: "test",
+      label: "Test",
+      bit_depth: 2,
+      css: {"classes" => {"size" => "screen--lg"}}
+    ]
   end
 
-  describe "#liquid_attributes" do
-    it "answers liquid specific attributes" do
-      expect(model.liquid_attributes).to eq(bit_depth: 2, name: "test", orientation: "landscape")
+  describe "#css_classes" do
+    it "answers classes with full information" do
+      expect(model.css_classes).to eq(
+        "screen screen--test screen--2bit screen--landscape screen--lg screen--1x"
+      )
+    end
+
+    it "answers classes with missing information" do
+      model = Factory.structs[:model, name: nil]
+      expect(model.css_classes).to eq("screen screen-- screen--bit screen--landscape screen--1x")
     end
   end
 
