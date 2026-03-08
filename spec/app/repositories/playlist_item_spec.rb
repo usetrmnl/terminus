@@ -38,6 +38,25 @@ RSpec.describe Terminus::Repositories::PlaylistItem, :db do
     end
   end
 
+  describe "#delete_all" do
+    it "deletes records with specific attributes" do
+      playlist_item
+      Factory[:playlist_item, repeat_type: "minute"]
+      repository.delete_all repeat_type: "minute"
+
+      expect(repository.all).to contain_exactly(playlist_item)
+    end
+
+    it "answers number of records deleted" do
+      playlist_item
+      expect(repository.delete_all).to eq(1)
+    end
+
+    it "answers zero when there is nothing to delete" do
+      expect(repository.delete_all).to eq(0)
+    end
+  end
+
   describe "#find" do
     it "answers record by ID" do
       expect(repository.find(playlist_item.id)).to eq(playlist_item)

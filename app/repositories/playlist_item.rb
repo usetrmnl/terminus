@@ -23,6 +23,8 @@ module Terminus
         end
       end
 
+      def delete_all(**) = playlist_item.where(**).delete
+
       def find(id) = (with_associations.by_pk(id).one if id)
 
       def find_by(**) = with_associations.where(**).one
