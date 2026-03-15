@@ -15,7 +15,7 @@ RSpec.describe Terminus::Models::Firmware::Header do
       height: 480,
       host: "https://localhost",
       mac_address: "A1:B2:C3:D4:E5:F6",
-      model_name: "og_png",
+      model_name: "og",
       refresh_rate: 25,
       sensors: [],
       user_agent: "ESP32HTTPClient",
@@ -38,19 +38,10 @@ RSpec.describe Terminus::Models::Firmware::Header do
           height: "480",
           host: "https://localhost",
           mac_address: "A1:B2:C3:D4:E5:F6",
-          model_name: "og_png",
+          model_name: "og",
           refresh_rate: "25",
-          sensors: [
-            {
-              make: "Sensirion",
-              model: "SCD41",
-              kind: "humidity",
-              value: "26",
-              unit: "percent",
-              source: "device",
-              created_at: Time.at(1735714800)
-            }
-          ],
+          sensors: "make=Sensirion;model=SCD41;kind=humidity;value=26;" \
+                   "unit=percent;created_at=1735714800",
           user_agent: "ESP32HTTPClient",
           width: "800",
           wifi: "-54"

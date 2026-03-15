@@ -24,13 +24,7 @@ module Terminus
       Header = Struct.new(*KEY_MAP.values) do
         using Refinements::Hash
 
-        def self.for headers,
-                     key_map: KEY_MAP,
-                     sensors_transformer: Aspects::Firmware::Headers::SensorsTransformer.new
-          headers.transform_keys(key_map)
-                 .transform_value!(:sensors) { sensors_transformer.call it }
-                 .then { new(**it) }
-        end
+        def self.for(headers, key_map: KEY_MAP) = headers.transform_keys(key_map).then { new(**it) }
 
         def initialize(**)
           super
