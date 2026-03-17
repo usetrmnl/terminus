@@ -2,6 +2,10 @@ firmware_poller:
   class: Terminus::Jobs::Pollers::Firmware
   cron: "0 */6 * * *"
   description: "Polls TRMNL API for firmware changes."
+font_synchronizer:
+  class: Terminus::Jobs::Synchronizers::Font
+  cron: "0 0 */1 * *"
+  description: "Synchronizes TRMNL Framework fonts."
 model_poller:
   class: Terminus::Jobs::Pollers::Model
   cron: "0 0 */1 * *"
