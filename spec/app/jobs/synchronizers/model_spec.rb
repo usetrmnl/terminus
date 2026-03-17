@@ -2,10 +2,10 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Jobs::Pollers::Firmware do
+RSpec.describe Terminus::Jobs::Synchronizers::Model do
   subject(:job) { described_class.new synchronizer: }
 
-  let(:synchronizer) { instance_spy Terminus::Aspects::Firmware::Synchronizer }
+  let(:synchronizer) { instance_spy Terminus::Aspects::Models::Synchronizer }
 
   include_context "with application dependencies"
 
@@ -16,7 +16,7 @@ RSpec.describe Terminus::Jobs::Pollers::Firmware do
     end
 
     context "when disabled" do
-      before { allow(settings).to receive(:firmware_poller).and_return false }
+      before { allow(settings).to receive(:model_synchronizer).and_return false }
 
       it "doesn't call synchronizer when disabled" do
         job.perform
@@ -25,7 +25,7 @@ RSpec.describe Terminus::Jobs::Pollers::Firmware do
 
       it "logs information" do
         job.perform
-        expect(logger.reread).to match(/INFO.+Firmware polling disabled\./)
+        expect(logger.reread).to match(/INFO.+Model polling disabled\./)
       end
     end
   end

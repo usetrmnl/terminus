@@ -3,7 +3,7 @@
 require "hanami_helper"
 require "trmnl/api"
 
-RSpec.describe Terminus::Jobs::Pollers::Screen, :db do
+RSpec.describe Terminus::Jobs::Synchronizers::Screen, :db do
   subject(:job) { described_class.new synchronizer:, trmnl_api: }
 
   let(:synchronizer) { instance_spy Terminus::Aspects::Screens::Synchronizer }
@@ -53,7 +53,7 @@ RSpec.describe Terminus::Jobs::Pollers::Screen, :db do
     end
 
     context "when disabled" do
-      before { allow(settings).to receive(:screen_poller).and_return false }
+      before { allow(settings).to receive(:screen_synchronizer).and_return false }
 
       it "doesn't call synchronizer when disabled" do
         job.perform

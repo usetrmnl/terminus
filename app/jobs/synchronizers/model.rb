@@ -3,15 +3,15 @@
 
 module Terminus
   module Jobs
-    module Pollers
-      # Polls TRMNL API for model changes.
+    module Synchronizers
+      # Synchronizes TRMNL models for local use.
       class Model < Base
         include Deps[:settings, :logger, "aspects.models.synchronizer"]
 
         sidekiq_options queue: "within_1_minute"
 
         def perform
-          return synchronizer.call if settings.model_poller
+          return synchronizer.call if settings.model_synchronizer
 
           logger.info { "Model polling disabled." }
         end

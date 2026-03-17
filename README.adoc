@@ -188,17 +188,17 @@ There are several environment variables you can use to customize behavior by upd
 * `DATABASE_URL`: Defines the full URL based on the `+DATABASE_*+` settings. This is automatically configured for you during setup. See your `+.env*+` files for details.
 * `DATABASE_URL`: Necessary to connect to your {postgres_link} database. Can be customized by changing the value in the `.env.development` or `.env.test` file created when you ran `bin/setup`.
 * `DATABASE_USER`: Defines your database user. Used by {docker_doc_link} only. Default: `terminus`.
-* `FIRMWARE_POLLER`: Enables/disables firmware polling. See {jobs_link} for details. Defaults to enabled.
+* `FIRMWARE_SYNCHRONIZER`: Enables/disables firmware synchronization. See {jobs_link} for details. Defaults to enabled.
 * `FONTS_PATH`: The path to where {trmnl_framework_link} fonts are stored since the Framework stylesheets require a relative path to all fonts to load properly. This is necessary when rendering screens for {extensions_link}. Default: `public/fonts`.
 * `HANAMI_PORT`: The default port when running the app locally or via {docker_doc_link}. When using Docker, this is used for the internal and external port mapping.
 * `KEYVALUE_DATABASE`: Defines your database ID. Used by {docker_doc_link} only. Default: `0`.
 * `KEYVALUE_PASSWORD`: Defines your password. Used by {docker_doc_link} only. Default: (auto-generated for you during setup).
 * `KEYVALUE_PORT`: Defines your port. Used by {docker_doc_link} only. Default: `6379`.
 * `KEYVALUE_URL`: Defines the full URL based on the above `+KEYVALUE_*+` settings. This is automatically configured for you during setup. See your `+.env*+` files for details.
-* `MODEL_POLLER`: Enables/disables model polling. See {jobs_link} for details. Defaults to enabled.
+* `MODEL_SYNCHRONIZER`: Enables/disables model synchronization. See {jobs_link} for details. Defaults to enabled.
 * `RACK_ATTACK_ALLOWED_SUBNETS`: Defines the {rack_attack_link} subnets that are allowed to connect to this server which helps when adding DNS, a reverse proxy, or a VPN, etc. between your device and this application so you can use this environment variable to add more subnets as desired. This takes a single subnet/IP or an array -- with no spaces -- of subnets/IPs as values. Example: "111.111.111.111,150.120.0.0/16". Alternatively, you can disable Rack Attack altogether by removing the `config.middleware.use Rack::Attack` line from `config/app.rb` or customize Rack Attack via the `config/initializers/rack_attack.rb` file. Any of these approaches will allow you to get your service layer properly configured so your device can talk to this server. By default, the following subnets are allowed: `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.1`, and `::1`.
 * `SENSORS_PATH`: The path to where sensor information is written. See {raspberry_pi_link} for details. Default: `public/sensors.json`.
-* `SCREEN_POLLER`: Enables/disables model polling. See {jobs_link} for details. Defaults to enabled.
+* `SCREEN_SYNCHRONIZER`: Enables/disables device proxied screen synchronization. See {jobs_link} for details. Defaults to enabled.
 
 === Users
 

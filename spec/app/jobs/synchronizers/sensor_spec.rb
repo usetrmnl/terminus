@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Jobs::Pollers::Sensor do
+RSpec.describe Terminus::Jobs::Synchronizers::Sensor do
   subject(:job) { described_class.new synchronizer: }
 
   let(:synchronizer) { instance_spy Terminus::Aspects::Devices::Sensors::Synchronizer }

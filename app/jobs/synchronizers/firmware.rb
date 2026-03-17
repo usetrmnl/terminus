@@ -3,15 +3,15 @@
 
 module Terminus
   module Jobs
-    module Pollers
-      # Polls TRMNL API for firmware changes.
+    module Synchronizers
+      # Synchronizes TRMNL Firmware for local use.
       class Firmware < Base
         include Deps[:settings, :logger, "aspects.firmware.synchronizer"]
 
         sidekiq_options queue: "within_1_minute"
 
         def perform
-          return synchronizer.call if settings.firmware_poller
+          return synchronizer.call if settings.firmware_synchronizer
 
           logger.info { "Firmware polling disabled." }
         end

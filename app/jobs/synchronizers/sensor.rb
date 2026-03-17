@@ -3,8 +3,8 @@
 
 module Terminus
   module Jobs
-    module Pollers
-      # Polls server sensor data if available.
+    module Synchronizers
+      # Synchronizes server hosted sensor data.
       class Sensor < Base
         include Deps["aspects.devices.sensors.synchronizer"]
 

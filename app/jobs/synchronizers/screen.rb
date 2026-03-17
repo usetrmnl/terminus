@@ -3,8 +3,8 @@
 
 module Terminus
   module Jobs
-    module Pollers
-      # Polls TRMNL API for proxied device screen changes.
+    module Synchronizers
+      # Synchronizes TRMNL proxied device screen updates.
       class Screen < Base
         include Deps[
           :settings,
@@ -17,7 +17,7 @@ module Terminus
         sidekiq_options queue: "within_1_minute"
 
         def perform
-          return process_devices if settings.screen_poller
+          return process_devices if settings.screen_synchronizer
 
           logger.info { "Screen polling disabled." }
         end

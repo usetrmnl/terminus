@@ -23,12 +23,12 @@ module Terminus
     setting :git_tag,
             constructor: Types::Params::String,
             default: `git tag --list --sort=taggerdate | tail -n 1`.strip
-    setting :firmware_poller, constructor: Types::Params::Bool, default: true
+    setting :firmware_synchronizer, constructor: Types::Params::Bool, default: true
     setting :keyvalue_url, constructor: Types::Params::String.constrained(filled: true)
-    setting :model_poller, constructor: Types::Params::Bool, default: true
+    setting :model_synchronizer, constructor: Types::Params::Bool, default: true
     setting :sensors_path,
             constructor: Terminus::Types::Pathname,
             default: Hanami.app.root.join("public/sensors.json")
-    setting :screen_poller, constructor: Types::Params::Bool, default: true
+    setting :screen_synchronizer, constructor: Types::Params::Bool, default: true
   end
 end

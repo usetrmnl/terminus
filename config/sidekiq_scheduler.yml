@@ -1,20 +1,20 @@
-firmware_poller:
-  class: Terminus::Jobs::Pollers::Firmware
+firmware_synchronizer:
+  class: Terminus::Jobs::Synchronizers::Firmware
   cron: "0 */6 * * *"
-  description: "Polls TRMNL API for firmware changes."
+  description: "Synchronizes TRMNL Firmware."
 font_synchronizer:
   class: Terminus::Jobs::Synchronizers::Font
   cron: "0 0 */1 * *"
   description: "Synchronizes TRMNL Framework fonts."
-model_poller:
-  class: Terminus::Jobs::Pollers::Model
+model_synchronizer:
+  class: Terminus::Jobs::Synchronizers::Model
   cron: "0 0 */1 * *"
-  description: "Polls TRMNL API for model changes."
-screen_poller:
-  class: Terminus::Jobs::Pollers::Screen
+  description: "Synchronizes TRMNL models."
+screen_synchronizer:
+  class: Terminus::Jobs::Synchronizers::Screen
   cron: "0/5 * * * *"
-  description: "Polls TRMNL API for device screen updates."
-sensor_poller:
-  class: Terminus::Jobs::Pollers::Sensor
+  description: "Synchronizes TRMNL proxied device screen updates."
+sensor_synchronizer:
+  class: Terminus::Jobs::Synchronizers::Sensor
   cron: "0/1 * * * *"
-  description: "Polls local sensor data on host (if any)."
+  description: "Synchronizes server hosted sensor data (if any)."
