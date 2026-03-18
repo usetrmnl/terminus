@@ -549,7 +549,7 @@ GEM
       refinements (~> 14.0)
       zeitwerk (~> 2.7)
     transproc (1.1.1)
-    trmnl-api (0.12.0)
+    trmnl-api (0.13.0)
       cogger (~> 2.0)
       containable (~> 2.0)
       dry-monads (~> 1.9)
@@ -663,7 +663,7 @@ DEPENDENCIES
   sidekiq (~> 8.0)
   sidekiq-scheduler (~> 6.0)
   simplecov (~> 0.22)
-  trmnl-api (~> 0.12)
+  trmnl-api (~> 0.13)
   trmnl-liquid (~> 0.5)
   versionaire (~> 15.0)
   warning (~> 1.5)
@@ -869,7 +869,7 @@ CHECKSUMS
   tilt (2.7.0) sha256=0d5b9ba69f6a36490c64b0eee9f6e9aad517e20dcc848800a06eb116f08c6ab3
   tone (3.1.0) sha256=2e2e77f4f43e77d05ae9160c5b16306502b3efc3da1e418c342051f3f4cb2995
   transproc (1.1.1) sha256=b2f9a85ecaf7064f0b3893ffac929de9fd713b13f5aaf822b0bd091fd6f5c8c2
-  trmnl-api (0.12.0) sha256=7d5e3bc60a638f5540ef9f0e080990320d66c89e523804878adbe71c31ee2c31
+  trmnl-api (0.13.0) sha256=7c5db900f2c6758cdc5cb1f4fea092ca64587e2527ac0c4e8dca26d8ec788c21
   trmnl-liquid (0.5.0) sha256=37f768cc0bd1155b68042b75970a2792773c7d044e26c9a0b5896907db96e1e1
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
