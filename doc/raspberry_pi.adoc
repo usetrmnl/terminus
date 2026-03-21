@@ -2,15 +2,22 @@
 :toclevels: 5
 :figure-caption!:
 
+:brant_herbert_link: link:https://www.thingiverse.com/az3dr[Brant Herbert]
+:onshape_link: link:https://www.onshape.com[Onshape]
 :pi_project_link: link:https://alchemists.io/projects/pi[Pi]
 :sensor_project_link: link:https://github.com/usetrmnl/sensor_scanner[Sensor Scanner]
+:sparkfun_link: link:https://www.sparkfun.com[SparkFun]
 
 = Raspberry Pi
 
-We support Raspberry Pi and have tested using the following:
+We support Raspberry Pi and have tested Terminus with the following hardware:
 
 * link:https://www.raspberrypi.com/products/raspberry-pi-5[Raspberry Pi 5]: Recommended due to great performance and feature set.
 * link:https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/[Raspberry Pi Zero 2 W]: Good if you want a compact form factor and don't care about speed.
+
+toc::[]
+
+== Setup
 
 A great project to help you manage multiple Raspberry Pi devices is the {pi_project_link} project. This project provides Bash shell scripts for formatting, installing the Raspberry Pi OS, and spinning up Terminus.
 
@@ -30,7 +37,7 @@ cd terminus
 bin/setup docker
 ----
 
-If you'd like sensor support, you can add a service for the {sensor_project_link} (i.e. `$XDG_CONFIG_HOME/pi/scripts/services/trmnl_sensors`) with the following contents
+If you'd like sensor support, you can add a service for the {sensor_project_link} (i.e. `$XDG_CONFIG_HOME/pi/scripts/services/trmnl_sensors`) with the following contents:
 
 [source,bash]
 ----
@@ -62,6 +69,8 @@ git clone https://github.com/usetrmnl/sensor_scanner
 )
 ----
 
+== Launch
+
 With the above services in place, you can then run `bin/run s` to format and configure your micro SSD card and run a dockerized version of Terminus on your Raspberry Pi device. Finally, once your Raspberry Pi has booted, you can SSH in to launch Terminus. Example:
 
 [source,bash]
@@ -74,3 +83,13 @@ docker compose up
 This would allow you to visit `http://demo.local:2300`, for example, in your browser to register/login and start using Terminus. That's it!
 
 Definitely check out the {pi_project_link} and {sensor_project_link} projects for more details.
+
+== 3D Cases
+
+For those that have a 3D printer and would like Terminus branded 3D cases to print and use with your Raspberry Pi hardware, then definitely check out the following:
+
+* link:https://www.thingiverse.com/thing:7319921[Raspberry Pi 5 Case] by {brant_herbert_link}: Comes complete with open/closed variations for GPIO ports.
+* link:https://www.thingiverse.com/thing:7319935[Raspberry Pi Zero 2 W Case] by {brant_herbert_link}: Comes complete with open/closed variations for GPIO ports.
+* link:https://www.thingiverse.com/thing:7319907[Sensor Stand] by {brant_herbert_link}: Provides a tray/stand with mounts for up to two {sparkfun_link} sensors.
+
+💡 For those that use the {onshape_link} CAD software, you can find the STI files link:https://cad.onshape.com/documents/a33dd8b532e108e0b9e9aca4/w/7153ef51463a5e0ac02bf67e/e/981016e3ff668d397a23e45b[here] for further customization.
