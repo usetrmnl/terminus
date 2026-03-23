@@ -3,7 +3,7 @@
 require "hanami_helper"
 
 RSpec.describe "Models", :db do
-  it "creates and edits model", :aggregate_failures, :js do
+  it "creates, edits, clones, and deletes model", :aggregate_failures, :js do
     visit routes.path(:models)
     click_link "New"
     fill_in "model[label]", with: "Test"
@@ -27,14 +27,30 @@ RSpec.describe "Models", :db do
     click_button "Save"
 
     expect(page).to have_content("Test II")
-  end
-
-  it "deletes model", :js do
-    model = Factory[:model]
 
     visit routes.path(:models)
-    accept_prompt { click_button "Delete" }
+    click_link "Clone"
+    fill_in "model[name]", with: nil
+    click_button "Save"
 
-    expect(page).to have_no_content(model.label)
+    expect(page).to have_content("must be filled")
+
+    fill_in "Name", with: "test"
+    click_button "Save"
+
+    expect(page).to have_content("must be unique")
+
+    fill_in "model[name]", with: "test_clone"
+    click_button "Save"
+
+    expect(page).to have_content("Test II Clone")
+
+    visit routes.path(:models)
+
+    within ".bit-card", text: "Test II Clone" do
+      accept_prompt { click_button "Delete" }
+    end
+
+    expect(page).to have_no_content("Test II Clone")
   end
 end
