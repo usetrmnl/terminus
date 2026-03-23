@@ -113,6 +113,7 @@ module Terminus
     delete "/models/:id", to: "models.delete", as: :model_delete
 
     get "/models/:model_id/clone/new", to: "models.clone.new", as: :model_clone_new
+    post "/models/:model_id/clone", to: "models.clone.create", as: :model_clone_create
 
     get "/playlists", to: "playlists.index", as: :playlists
     get "/playlists/:id", to: "playlists.show", as: :playlist
