@@ -71,7 +71,7 @@ services:
       - ".:/app"
       - certificates:/etc/ssl/certs
     depends_on:
-      web :
+      web:
         condition: service_healthy
     networks:
       - terminus-network
