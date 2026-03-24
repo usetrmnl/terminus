@@ -28,7 +28,7 @@ RSpec.describe "Screens", :db do
     expect(page).to have_content("Test")
 
     click_link "Edit"
-    fill_in "screen[label]", with: nil
+    fill_in "screen[label]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")

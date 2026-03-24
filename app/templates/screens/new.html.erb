@@ -10,7 +10,11 @@
 
   <div class="bit-body">
     <div class="screens">
-      <%= form_for :screen, routes.path(:screens), class: "bit-card bit-form" do |form| %>
+      <%= form_for :screen,
+                   routes.path(:screens),
+                   enctype: "multipart/form-data",
+                   accept: "application/octet-stream",
+                   class: "bit-card bit-form" do |form| %>
         <h1 class="label">New Screen</h1>
 
         <%= render "screens/shared/fields", form:, models:, screen:, fields: fields.value, errors: %>
