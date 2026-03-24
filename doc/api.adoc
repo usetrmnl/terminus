@@ -21,25 +21,21 @@ The following endpoints are used to communicate with your device's {trmnl_firmwa
 
 === Display
 
-Used for displaying new content to your device. Your device's refresh rate determines how often this occurs.
+Used for displaying new content on your device via a HTTP GET request. These requests happen on a scheduled interval as determined by the `refresh_rate` (see the response example below).
+
+In truth, the design of this API request should have been a POST request but the {trmnl_firmware_link} only uses GET requests at the moment. The reason is because each request includes header information which provides updates to device activity (such as WiFi signal strength, battery voltage, etc) that the server stores with the associated device. This means each request is an update from the device to the server while each response is a potential settings change from the server to the device.
 
 .Request
 [%collapsible]
 ====
-Only the `ID` HTTP header (i.e. MAC address of your device) is required for these API calls.
-
 [source,bash]
 ----
 curl "https://localhost:2443/api/display" \
      -H 'ID: <redacted>' \
      -H 'Content-Type: application/json'
 ----
-====
 
-.Response
-[%collapsible]
-====
-The device will include the following headers in each HTTP response. All are optional except for the `ID` header. Here's the full list:
+The {trmnl_firmware_link} will include the following headers in each HTTP request. All are optional except for the `ID` header. Here's the full list:
 
 * `ACCESS_TOKEN`: The API key (or an empty string if not present).
 * `BATTERY_VOLTAGE`: The remaining battery level. This is a float (usually 0.0 to 4.1).
@@ -52,6 +48,15 @@ The device will include the following headers in each HTTP response. All are opt
 * `RSSI`: The WiFi signal strength (usually -100 to 100).
 * `USER_AGENT`: The device name (usually the ESP32 board name).
 * `WIDTH`: The device width. Example: 800.
+
+The above can be used to update your device settings upon each request.
+====
+
+.Response
+[%collapsible]
+====
+
+The following is an example of the response sent back to the device which also how you can change the behavior of the device.
 
 [source,json]
 ----
