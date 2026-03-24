@@ -6,6 +6,7 @@
 :image_magick_geometry_link: link:https://www.imagemagick.org/script/command-line-processing.php#geometry[ImageMagick Geometry]
 :petail_link: link:https://alchemists.io/projects/petail[Petail]
 :rodauth_link: link:https://rodauth.jeremyevans.net[Rodauth]
+:trmnl_api_gem_link: link:https://github.com/usetrmnl/trmnl-api[TRMNL API]
 :trmnl_firmware_link: link:https://github.com/usetrmnl/trmnl-firmware[TRMNL Firmware]
 
 = API
@@ -25,7 +26,7 @@ Used for displaying new content to your device. Your device's refresh rate deter
 .Request
 [%collapsible]
 ====
-*Without Base64 Encryption*
+Only the `ID` HTTP header (i.e. MAC address of your device) is required for these API calls.
 
 [source,bash]
 ----
@@ -33,43 +34,25 @@ curl "https://localhost:2443/api/display" \
      -H 'ID: <redacted>' \
      -H 'Content-Type: application/json'
 ----
-
-*With Base64 Encryption via HTTP Header*
-
-[source,bash]
-----
-curl "https://localhost:2443/api/display" \
-     -H 'ID: <redacted>' \
-     -H 'Content-Type: application/json' \
-     -H 'BASE64: true'
-----
-
-*With Base64 Encryption via Parameter*
-
-[source,bash]
-----
-curl "https://localhost:2443/api/display?base_64=true" \
-     -H 'ID: <redacted>' \
-     -H 'Content-Type: application/json'
-----
-
-Only the `ID` HTTP header is required for all of these API calls but these _optional_ headers can be supplied as well which mimics what each device includes each request:
-
-* `ACCESS_TOKEN`: Can be the API key or an empty string.
-* `BATTERY_VOLTAGE`: Must be a float (usually 0.0 to 4.1).
-* `FW_VERSION`: The firmware version (i.e. `1.2.3`).
-* `HOST`: The host (usually the IP address).
-* `REFRESH_RATE`: The refresh rate as saved on the device. Example: 100.
-* `RSSI`: The signal strength (usually -100 to 100).
-* `USER_AGENT`: The device name.
-* `WIDTH`: The device width. Example: 800.
-* `HEIGHT`: :The device height. Example: 480.
 ====
 
 .Response
 [%collapsible]
 ====
-*Without Base64 Encryption*
+The device will include the following headers in each HTTP response. All are optional except for the `ID` header. Here's the full list:
+
+* `ACCESS_TOKEN`: The API key (or an empty string if not present).
+* `BATTERY_VOLTAGE`: The remaining battery level. This is a float (usually 0.0 to 4.1).
+* `FW_VERSION`: The firmware version (i.e. `1.2.3`).
+* `HEIGHT`: :The device height. Example: 480.
+* `HOST`: The host (usually the IP address).
+* `ID`: The MAC address of the device.
+* `MODEL`: The generic device model (doesn't match {trmnl_api_gem_link} model names but can be used as a fuzzy match).
+* `REFRESH_RATE`: The current refresh rate as saved on the device. Example: 100.
+* `RSSI`: The WiFi signal strength (usually -100 to 100).
+* `USER_AGENT`: The device name (usually the ESP32 board name).
+* `WIDTH`: The device width. Example: 800.
+
 [source,json]
 ----
 {
@@ -79,23 +62,6 @@ Only the `ID` HTTP header is required for all of these API calls but these _opti
   "image_url": "https://localhost:2443/assets/screens/A1B2C3D4E5F6/demo.bmp",
   "image_url_timeout": 0,
   "refresh_rate": 130,
-  "reset_firmware": false,
-  "special_function": "sleep",
-  "update_firmware": false
-}
-----
-
-*With Base64 Encryption*
-
-[source,json]
-----
-{
-  "filename": "demo.bmp",
-  "firmware_url": "http://localhost:2443/assets/firmware/1.4.8.bin",
-  "firmware_version": "1.4.8",
-  "image_url": "data:image/bmp;base64,<truncated>",
-  "image_url_timeout": 0,
-  "refresh_rate": 200,
   "reset_firmware": false,
   "special_function": "sleep",
   "update_firmware": false
@@ -143,12 +109,12 @@ curl -X "POST" "https://localhost:2443/api/log" \
 .Response
 [%collapsible]
 ====
-Logs details and answers a HTTP 204 status with no content.
+The server will process the payload, associate all records with the appropriate device, and answer a HTTP 204 status with no content.
 ====
 
 === Setup
 
-Used for new device setup and then never used after.
+Used for new device setup (auto-provisioning) only. The device still hit this endpoint but, once auto-provisioned, is ignored by the server.
 
 .Request
 [%collapsible]
@@ -177,12 +143,12 @@ curl "https://localhost:2443/api/setup/" \
 
 == Server
 
-⚠️ *These endpoints are constantly evolving. We do our best to minimize impact but please be aware action might be required on your part when new changes are released.*
+⚠️ *These endpoints are evolving. We do our best to minimize impact but please be aware action might be required on your part when new versions are released.*
 
 These endpoints are unique to this server implementation and allow you to interact via your favorite JSON Data API client. The following features are supported:
 
 * All endpoints require authentication using JWT tokens which is explained below.
-* All error responses adhere to link:https://www.rfc-editor.org/rfc/rfc9457[RFC 9457 (Problem Details for HTTP APIs)] as implemented by the {petail_link} gem which also means you can use Petail to easily parse the error responses in your own application if desired.
+* All error responses adhere to link:https://www.rfc-editor.org/rfc/rfc9457[RFC 9457 (Problem Details for HTTP APIs)] as implemented by the {petail_link} gem which allows you to quickly parse the error responses in your own application if desired.
 
 === Authentication
 
@@ -680,7 +646,7 @@ You'll get an empty hash when there is nothing to delete.
 
 Provides model information which is the core specification for devices and screens. Models are also differentiated by `kind` which can be:
 
-* `trmnl`: Originates from our {core_link} server and is part of the synchronization process provided by the model link:/doc/background_pollers.adoc[Background Pollers].
+* `trmnl`: Originates from our {core_link} server and is part of the synchronization process provided by the model link:/doc/jobs.adoc[Job].
 * `terminus`: Originates from Terminus only.
 * `+*+`: Additional types exist for custom devices such as Kindle, BYOD, and so forth.
 
