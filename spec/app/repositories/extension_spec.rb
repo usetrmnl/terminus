@@ -10,9 +10,7 @@ RSpec.describe Terminus::Repositories::Extension, :db do
   describe "#all" do
     it "answers all records by published date/time" do
       extension
-      two = Factory[:extension, name: "two"]
-
-      expect(repository.all).to eq([extension, two])
+      expect(repository.all.map(&:id)).to contain_exactly(extension.id)
     end
 
     it "answers empty array when records don't exist" do

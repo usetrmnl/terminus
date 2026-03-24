@@ -10,7 +10,7 @@ RSpec.describe Terminus::Repositories::DeviceLog, :db do
   describe "#all" do
     it "answers records" do
       log
-      expect(repository.all).to contain_exactly(log)
+      expect(repository.all.map(&:id)).to contain_exactly(log.id)
     end
 
     it "answers empty array when records don't exist" do

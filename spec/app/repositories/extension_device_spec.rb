@@ -10,9 +10,7 @@ RSpec.describe Terminus::Repositories::ExtensionDevice, :db do
   describe "#all" do
     it "answers all records" do
       record
-      ids = repository.all.map(&:id)
-
-      expect(ids).to contain_exactly(record.id)
+      expect(repository.all.map(&:id)).to contain_exactly(record.id)
     end
 
     it "answers empty array when records don't exist" do

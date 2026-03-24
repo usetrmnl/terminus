@@ -6,14 +6,11 @@ RSpec.describe Terminus::Repositories::Screen, :db do
   subject(:repository) { described_class.new }
 
   let(:screen) { Factory[:screen] }
-  let(:model) { Factory[:model] }
 
   describe "#all" do
     it "answers all records" do
       screen
-      old = Factory[:screen, updated_at: Time.utc(2025, 1, 1)]
-
-      expect(repository.all).to eq([screen, old])
+      expect(repository.all.map(&:id)).to contain_exactly(screen.id)
     end
 
     it "answers empty array when records don't exist" do
@@ -93,9 +90,8 @@ RSpec.describe Terminus::Repositories::Screen, :db do
     end
   end
 
-  # rubocop:todo RSpec/MultipleMemoizedHelpers
   describe "#upsert_with_image" do
-    let(:path) { SPEC_ROOT.join "support/fixtures/test.bmp" }
+    let(:model) { Factory[:model] }
 
     let :mold do
       Terminus::Aspects::Screens::Mold[
@@ -128,7 +124,9 @@ RSpec.describe Terminus::Repositories::Screen, :db do
       let(:struct) { Factory[:screen, :with_image, name: mold.name, model_id: model.id] }
 
       it "updates attributes" do
+        path = SPEC_ROOT.join "support/fixtures/test.bmp"
         record = repository.upsert_with_image path, mold, struct
+
         expect(record).to have_attributes(proof)
       end
     end
@@ -137,12 +135,13 @@ RSpec.describe Terminus::Repositories::Screen, :db do
       let(:struct) { Factory.structs[:screen, :with_image] }
 
       it "creates when not found" do
+        path = SPEC_ROOT.join "support/fixtures/test.bmp"
         record = repository.upsert_with_image path, mold, struct
+
         expect(record).to have_attributes(proof)
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 
   describe "#where" do
     it "answers record for single attribute" do

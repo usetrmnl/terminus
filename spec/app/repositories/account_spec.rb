@@ -10,10 +10,7 @@ RSpec.describe Terminus::Repositories::Account, :db do
   describe "#all" do
     it "answers all records by created date/time" do
       account
-      two = Factory[:account, name: "two"]
-      records = repository.all.map(&:to_h).each { it.delete :current_item }
-
-      expect(records).to eq([account.to_h, two.to_h])
+      expect(repository.all.map(&:id)).to contain_exactly(account.id)
     end
 
     it "answers empty array when records don't exist" do

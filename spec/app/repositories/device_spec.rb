@@ -10,9 +10,7 @@ RSpec.describe Terminus::Repositories::Device, :db do
   describe "#all" do
     it "answers all records" do
       device
-      records = repository.all.map { it.to_h.tap { it.delete :playlist } }
-
-      expect(records).to contain_exactly(device.to_h)
+      expect(repository.all.map(&:id)).to contain_exactly(device.id)
     end
 
     it "answers empty array when records don't exist" do

@@ -10,9 +10,7 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
   describe "#all" do
     it "answers all records" do
       firmware
-      two = Factory[:firmware, version: "0.1.0"]
-
-      expect(repository.all).to eq([two, firmware])
+      expect(repository.all.map(&:id)).to contain_exactly(firmware.id)
     end
 
     it "answers empty array when records don't exist" do

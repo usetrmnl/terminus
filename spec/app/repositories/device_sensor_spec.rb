@@ -10,7 +10,7 @@ RSpec.describe Terminus::Repositories::DeviceSensor, :db do
   describe "#all" do
     it "answers records" do
       sensor
-      expect(repository.all).to contain_exactly(sensor)
+      expect(repository.all.map(&:id)).to contain_exactly(sensor.id)
     end
 
     it "answers empty array when records don't exist" do

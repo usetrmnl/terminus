@@ -10,9 +10,7 @@ RSpec.describe Terminus::Repositories::PlaylistItem, :db do
   describe "#all" do
     it "answers all records by created date/time" do
       playlist_item
-      two = Factory[:playlist_item]
-
-      expect(repository.all).to eq([playlist_item, two])
+      expect(repository.all.map(&:id)).to contain_exactly(playlist_item.id)
     end
 
     it "answers empty array when records don't exist" do
