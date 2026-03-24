@@ -62,7 +62,7 @@ services:
       - certificates:/etc/ssl/certs
       - web-uploads:/app/public/uploads
     depends_on:
-      web :
+      web:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "pgrep", "-f", "sidekiq"]
