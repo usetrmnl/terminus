@@ -50,6 +50,7 @@ To help you get started, let's walk through a scenario building an extension:
 . For _URLs_, enter: `https://ghibliapi.vercel.app/films`.
 . Scroll down to the Template editor, copy and paste the same Liquid Template (see below) but place it inside the `+<div class="layout layout--col">+` element.
 . Click _Save_ to save your changes.
+. Upon page reload, click the _Preview_ button to see how your screen will render.
 
 .Liquid Template
 [%collapsible]
@@ -73,8 +74,6 @@ To help you get started, let's walk through a scenario building an extension:
 ----
 ====
 
-Upon page reload, click the _Preview_ button to see how your screen will render.
-
 At this point, you can set a schedule for updating your screen as fast as a minute or as slow as a month.
 
 == Liquid Templates
@@ -85,11 +84,11 @@ All extensions use {liquid_link} templates which allows you to format and style 
 
 By default, extensions have no schedule. This allows you to experiment building out your extension before you are ready to schedule when it should automatically render new screens. Once set, look for the screen(s) that are generated from your extension and then add them to your device playlist(s).
 
-Each time you extension wakes up to render your screen, as scheduled, that screen will then be displayed on your device as dictated by your device's playlist.
+Your screen will constantly be updated, per your extension's schedule, for display on your device as dictated by your device's playlist.
 
 == Build Matrix
 
-The build matrix is a powerful extension feature which allows you to apply your responsive {framework_link} design for rendering on multiple models. Simply select all models you want your extension to build screens for and they will show up in the _Screens_ UI in which you can add to your device playlists as desired. This is also why the Liquid template scaffold is provided for you and why you see `{{model.bit_depth}}` and other attributes available to you. This is because model information is dynamically supplied to your Liquid template when rendering a screen which allows you to build for multiple models at once.
+The build matrix is a powerful extension feature which allows you to apply your responsive {framework_link} design for rendering on multiple models. To use, select all models you want your extension to build screens for and they will show up in the _Screens_ UI which you can add to your device playlists as desired. This is also why the Liquid template scaffold is provided for you and why you see `{{model.bit_depth}}` and other attributes available to you. This is because model information is dynamically supplied to your Liquid template when rendering a screen which allows you to build for multiple models at once.
 
 == Sensors
 
@@ -97,11 +96,11 @@ If you'd like to leverage sensor information, there are two ways to do this. Eac
 
 === Device
 
-You can attach sensors to your TRMNL-compatible device and Terminus will immediately capture this information for rendering in your Liquid templates.
+⚠️ Terminus supports acquiring sensors readings from sensors connected to your devices but a new {firmware_link} version is still required for full support. There is a Firmware feature branch in the works that, once folded in, will close the loop on this feature.
 
-⚠️ Support is implemented in Terminus be we need to add {firmware_link} support next. There is a feature branch in the works that, once folded in, will appear in a future version release.
+Once sensors are attached to your devices, Terminus will immediately capture this information for rendering in your Liquid templates.
 
-Behind the scenes, the way this works is your device will include the `HTTP_SENSORS` header which adheres to {rfc_2626_link} when making a `/api/display` request with content similar to the following:
+Behind the scenes, your device will automatically include the `HTTP_SENSORS` header which adheres to {rfc_2626_link} when making a `/api/display` request with content similar to the following:
 
 [source]
 ----
@@ -114,11 +113,11 @@ The above breaks down as follows:
 * *Semicolon* (`;`): Delimits each attribute within the record.
 * *Equals* (`=`): Delimits each attribute key/value pair.
 
-This allows each device to answer an empty array, a single record, or multiple records. All of this is saved in the database as sensor records for which you can access when building extensions. In the future a HTTP POST request will be used for `/api/display` since header length has limits.
+This allows each device to answer an empty array, a single record, or multiple records. All of this is saved in the database as sensor records for which you can access when building extensions. In the future, an HTTP POST request will be used for `/api/display` to prevent HTTP header length limits.
 
 === Server
 
-You can attach sensors to your Raspberry PI which allows you to access sensor records when building extensions. This is fully explained in the link:/doc/raspberry_pi.adoc[Raspberry Pi Documentation] so please follow the link for details.
+You can attach sensors to your Raspberry PI which allows you to access sensor records when building extensions. This is fully explained in the link:/doc/raspberry_pi.adoc[Raspberry Pi Documentation] for this project.
 
 == Import/Export
 
