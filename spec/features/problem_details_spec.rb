@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe "Problem Details" do
+RSpec.describe "Problem Details", :db do
   it "renders page" do
     visit routes.path(:problem_details)
     expect(page).to have_content("Problem Details")

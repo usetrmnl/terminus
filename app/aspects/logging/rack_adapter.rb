@@ -8,7 +8,7 @@ module Terminus
         module_function
 
         def with logger
-          @logger = logger
+          @logger ||= logger
           self
         end
 

@@ -12,7 +12,7 @@ Hanami.app.register_provider :mini_magick, namespace: true do
       config.errors = true
       config.warnings = true
       config.restricted_env = true
-      config.tmpdir = slice.root.join("tmp/mini_magick").make_dir
+      config.tmpdir = slice.root.join("tmp/mini_magick").make_ancestors.make_dir
       config.logger = slice[:logger]
     end
 

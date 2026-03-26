@@ -55,6 +55,7 @@ RSpec.configure do |config|
   end
 
   config.before :suite do
+    Hanami.app.start :mini_magick
     Hanami.app.start :sidekiq
 
     databases.call.each do |db|

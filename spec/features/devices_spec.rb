@@ -25,7 +25,7 @@ RSpec.describe "Devices", :db do
     expect(page).to have_content("AA:BB:CC:11:22:33")
 
     click_link "Edit"
-    fill_in "device[label]", with: ""
+    fill_in "device[label]", with: nil
     click_button "Save"
 
     expect(page).to have_content("must be filled")

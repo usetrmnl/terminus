@@ -21,7 +21,7 @@ RSpec.describe "Users", :db do
 
     user = Terminus::Repositories::User.new.find_by email: "test@test.io"
     within("li[id='#{user.id}']") { click_link "Edit" }
-    fill_in "Name", with: ""
+    fill_in "Name", with: nil
     click_button "Save"
 
     expect(page).to have_content("must be filled")

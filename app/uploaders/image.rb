@@ -5,10 +5,8 @@ module Terminus
   module Uploaders
     # Processes image uploads.
     class Image < Hanami.app[:shrine]
-      include Deps["mini_magick.image"]
-
       add_metadata :bit_depth do |io|
-        image.open(io.path).data["depth"] if io.respond_to? :path
+        MiniMagick::Image.open(io.path).data["depth"] if io.respond_to? :path
       end
 
       add_metadata(:checksum) { |io| calculate_signature io, :md5 }
