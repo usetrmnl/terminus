@@ -15,15 +15,18 @@ module Terminus
             required(:model).filled(:hash) do
               required(:name).filled :string
               required(:label).filled :string
-              optional(:description).filled :string
+              optional(:description).maybe :string
               optional(:mime_type).filled :string
               optional(:colors).filled :integer
               optional(:bit_depth).filled :integer
               optional(:rotation).filled :integer
               optional(:offset_x).filled :integer
               optional(:offset_y).filled :integer
+              optional(:scale_factor).filled :float
               required(:width).filled :integer
               required(:height).filled :integer
+              optional(:palette_names).maybe :array
+              optional(:css).maybe :hash
             end
           end
 
