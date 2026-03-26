@@ -21,7 +21,6 @@ module Terminus
               optional(:name).filled :string
               optional(:content).filled :string
               optional(:uri).filled :string
-              optional(:data).filled :string
               optional(:preprocessed).filled :bool
             end
           end

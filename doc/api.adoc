@@ -1133,9 +1133,10 @@ You'll get an empty hash when there is nothing to delete.
 
 === Screens
 
-Used for generating new device screens by supplying content for rendering, screenshotting, and grey scaling to render properly on your device. Both `.png` or `.bmp` extensions are supported for the `file_name` key. If you don't supply a `file_name`, the server will generate one for you using a UUID for the file name.
+Used for managing device screens by supplying content for rendering, screenshotting, and grey scaling to render properly on your device. You can also use these optional keys when making requests:
 
-💡 You can use the same JSON body for HTTP PATCH requests as you can for POST requests. Additionally, an optional `playlist_id` can be supplied when making POST requests in order to associate a screen with a playlist.
+* `playlist_id`: When supplied, ensures your screen is added to an existing playlist.
+* `file_name`: When supplied, ensures your desired file name is used. Otherwise, if you don't supply a `file_name`, the server will generate one for you using a UUID for the file name.
 
 .GET Request
 [%collapsible]
@@ -1236,27 +1237,6 @@ curl -X "POST" "https://localhost:2443/api/screens" \
 ----
 ====
 
-.POST Request (Base64 Encoded Data)
-[%collapsible]
-====
-
-[source,bash]
-----
-curl -X "POST" "https://localhost:2443/api/screens" \
-     -H 'Authorization: <redacted>' \
-     -H 'Content-Type: application/json' \
-     -d $'{
-  "screen": {
-    "model_id": "1",
-    "label": "Demo",
-    "name": "demo",
-    "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAAXNSR0IArs4c6QAAAAtJREFUCFtjYGAAAAADAAHc7H1IAAAAAElFTkSuQmCC",
-    "file_name": "demo.png"
-  }
-}'
-----
-====
-
 .POST Response
 [%collapsible]
 ====
@@ -1334,22 +1314,6 @@ curl -X "PATCH" "https://localhost:2443/api/screens/1" \
 ----
 ====
 
-.PATCH Request (Base64 Encoded Data)
-[%collapsible]
-====
-[source,bash]
-----
-curl -X "PATCH" "https://localhost:2443/api/screens/1" \
-     -H 'Authorization: <redacted>' \
-     -H 'Content-Type: application/json' \
-     -d $'{
-  "screen": {
-    "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAAXNSR0IArs4c6QAAAAtJREFUCFtjYGAAAAADAAHc7H1IAAAAAElFTkSuQmCC"
-  }
-}'
-----
-====
-
 .PATCH Response
 [%collapsible]
 ====
@@ -1413,7 +1377,6 @@ curl -X "DELETE" "https://localhost:2443/api/screens/13" \
 
 You'll notice the POST and PATCH requests allow you to supply different kinds of content. Here's how you can leverage each:
 
-* *HTML Content*: Allows you to render custom HTML content as an image on your device. This includes CSS, JavaScript, and HTML. At a minimum, you'll want to use the following to prevent white borders appearing around your generated screens: `* { margin: 0; }`. Due to this being so flexible, this also means you can externally link and use our link:https://trmnl.com/framework[Design Framework] when building custom screens. You can also use the Designer, within the Terminus UI, to build custom screens in real-time for faster feedback. The result of your work can be supplied to this endpoint to create a new screen for display on your device.
-* *Preprocessed URI*: Allows you to render a preprocessed image on your device. The `preprocessed` value must be `true` when supplied. This assumes the URI you want have rendered on your device is fully compatible with the device in terms of greyscale, bit depth, color depth, and so forth. We _do not process this image_ and only cache the image locally for display on your device. I you want want your image processed then see the Unprocessed URI API Request example.
+* *HTML Content*: Allows you to render custom HTML content as an image on your device. This includes CSS, JavaScript, and HTML. At a minimum, you'll want to use the following to prevent white borders appearing around your generated screens: `* { margin: 0; }`. Due to this being so flexible, this also means you can externally link and use our {trmnl_firmware_link} when building custom screens. You can also use the Designer, within the Terminus UI, to build custom screens in real-time for faster feedback. The result of your work can be supplied to this endpoint to create a new screen for display on your device.
+* *Preprocessed URI*: Allows you to render a preprocessed image on your device. The `preprocessed` value must be `true` when supplied. This also assumes the image is fully compatible with the device in terms of greyscale, bit depth, color depth, and so forth. We _do not process this image_ and only cache the image locally for display on your device. If don't want this, and want your image to be fully processed, then see the Unprocessed URI documentation below.
 * *Unprocessed URI*: Allows you to render a unprocessed image on your device. We'll automatically process the image for rendering on your device. The `dimensions` parameter is optional and defaults to `800x480` when not supplied. You can use the full {image_magick_geometry_link} syntax for this value.
-* *Base64 Encoded Data*: Allows you to render a strictly Base64 encoded image on your device. The `dimensions` parameter is optional and defaults to `800x480` when not supplied. You can use the full {image_magick_geometry_link} syntax for this value.

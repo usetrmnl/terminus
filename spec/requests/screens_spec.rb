@@ -178,33 +178,6 @@ RSpec.describe "/api/screens", :db do
     )
   end
 
-  it "creates image from Base64 encoded data" do
-    data = Base64.strict_encode64 SPEC_ROOT.join("support/fixtures/test.png").read
-
-    post routes.path(:api_screen_create),
-         {screen: {model_id: model.id, label: "Test", name: "test", data:}}.to_json,
-         "HTTP_AUTHORIZATION" => access_token,
-         "CONTENT_TYPE" => "application/json"
-
-    expect(json_payload).to match(
-      data: {
-        model_id: kind_of(Integer),
-        id: kind_of(Integer),
-        label: "Test",
-        name: "test",
-        filename: "test.png",
-        uri: %r(memory://.+.png),
-        mime_type: "image/png",
-        bit_depth: 1,
-        size: 126,
-        width: 800,
-        height: 480,
-        created_at: match_rfc_3339,
-        updated_at: match_rfc_3339
-      }
-    )
-  end
-
   context "with existing record" do
     before do
       post routes.path(:api_screen_create),

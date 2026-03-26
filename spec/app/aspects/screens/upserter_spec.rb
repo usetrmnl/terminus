@@ -79,26 +79,6 @@ RSpec.describe Terminus::Aspects::Screens::Upserter, :db do
       )
     end
 
-    it "saves encoded data as screen" do
-      data = Base64.strict_encode64 SPEC_ROOT.join("support/fixtures/test.png").read
-      result = creator.call(model_id: model.id, label: "Test", name: "test", data:)
-
-      expect(result.success).to have_attributes(
-        model_id: model.id,
-        name: "test",
-        label: "Test",
-        image_attributes: hash_including(
-          metadata: hash_including(
-            size: kind_of(Integer),
-            width: 800,
-            height: 480,
-            filename: "test.png",
-            mime_type: "image/png"
-          )
-        )
-      )
-    end
-
     it "answers failure with no model ID" do
       expect(creator.call(label: "Test", name: "test", content: "A test.")).to be_failure(
         "Unable to find model for model ID (nil) or device ID (nil)."
