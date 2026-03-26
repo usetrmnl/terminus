@@ -35,7 +35,7 @@ RSpec.describe "Models", :db do
 
     expect(page).to have_content("must be filled")
 
-    fill_in "Name", with: "test"
+    fill_in "model[name]", with: "test"
     click_button "Save"
 
     expect(page).to have_content("must be unique")
