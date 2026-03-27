@@ -1,0 +1,89 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+Bundler.require :tools
+
+require "dry/monads"
+require "hanami/prepare"
+require "refinements/hash"
+require "refinements/pathname"
+
+module Terminus
+  class Importer
+    include Deps[
+      "aspects.screens.upserter",
+      :logger,
+      item_repository: "repositories.playlist_item",
+      playlist_repostiory: "repositories.playlist"
+    ]
+    include Dry::Monads[:result]
+
+    using Refinements::Hash
+    using Refinements::Pathname
+
+    def call(root_path, playlist_id: nil, **)
+      item_repository.delete_all(playlist_id:)
+
+      Pathname(root_path).expand_path.files.each.with_index 1 do |path, index|
+        logger.info { "Processing #{path}..." }
+        upsert_screen(path, index, **).fmap { |screen| add_to_playlist playlist_id, screen, index }
+                                      .then { log it }
+      end
+    end
+
+    private
+
+    def upsert_screen(path, index, **attributes)
+      attributes.use do |label, name|
+        relabel = "#{label} #{index}"
+        rename = "#{name}_#{index}"
+
+        upserter.call(**attributes, label: relabel, name: rename, uri: path.to_s)
+      end
+    end
+
+    def add_to_playlist id, screen, position
+      item = item_repository.create(playlist_id: id, screen_id: screen.id, position:)
+
+      playlist_repostiory.update id, current_item_id: item.id if position == 1
+      screen
+    end
+
+    def log result
+      case result
+        in Success(screen) then logger.info { "Upserted screen: #{screen.label} (#{screen.id})." }
+        in Failure(message) then logger.error { message }
+        else logger.fatal { "Unable to process: #{path}." }
+      end
+    end
+  end
+end
+
+importer = Terminus::Importer.new
+
+importer.call "~/Downloads/terminus-epaper",
+              playlist_id: 23,
+              model_id: 11,
+              label: "Blue Ridge Ruby",
+              name: "blue_ridge_ruby"
+
+# importer.call "~/Downloads/terminus-swing_dance_cards",
+#               playlist_id: 25,
+#               model_id: 29,
+#               label: "Swing Dance Cards",
+#               name: "swing_dance_cards"
+
+# importer.call "~/Scratch/photos",
+#               playlist_id: 24,
+#               model_id: 32,
+#               label: "Photos",
+#               name: "photos",
+#               mode: :dither
+
+# importer.call "~/Scratch/films",
+#               playlist_id: 30,
+#               model_id: 48,
+#               label: "Films",
+#               name: "films",
+#               mode: :dither
