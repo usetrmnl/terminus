@@ -7,14 +7,12 @@ module Terminus
   module Views
     # The application custom view context.
     class Context < Hanami::View::Context
-      include Deps[:htmx]
-
-      HTMX_CONFIGURATION = {"allowScriptTags" => false, "defaultSwapStyle" => "outerHTML"}.freeze
+      include Deps[:htmx, :htmx_defaults]
 
       def htmx? = htmx.request? request.env, :request, "true"
 
-      def htmx_configuration default: HTMX_CONFIGURATION
-        content_for(:htmx_merge).then { it ? default.merge(it) : default }
+      def htmx_configuration
+        content_for(:htmx_merge).then { it ? htmx_defaults.merge(it) : htmx_defaults }
                                 .to_json
       end
     end
