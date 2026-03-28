@@ -3,5 +3,8 @@
 Hanami.app.register_provider :htmx do
   prepare { require "htmx" }
 
-  start { register :htmx, HTMX }
+  start do
+    register :htmx, HTMX
+    register :htmx_defaults, {"allowScriptTags" => false, "defaultSwapStyle" => "outerHTML"}
+  end
 end
