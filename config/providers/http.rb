@@ -13,7 +13,7 @@ Hanami.app.register_provider :http do
       HTTP.timeout(connect: 2, read: 10, write: 10)
           .use(:auto_inflate)
           .use(logging: {logger: slice[:logger]})
-          .headers("User-Agent" => "http.rb/#{HTTP::VERSION} (Terminus)")
+          .headers("User-Agent" => "http.rb/#{HTTP::VERSION} (#{Hanami.app.app_name})")
     end
 
     register :http, http
