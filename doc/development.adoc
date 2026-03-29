@@ -10,6 +10,27 @@
 
 To contribute, ensure you have completed the project setup (i.e. `bin/setup`) and the entire project builds properly by running `bin/rake`. See the sections below to learn more.
 
+== Dev Container
+
+A link:https://containers.dev[dev container] is provided as an alternative to manual setup. All dependencies are installed automatically — only link:https://www.docker.com[Docker] is required on the host.
+
+Open the project in VS Code (you'll be prompted to reopen in container) or via the link:https://github.com/devcontainers/cli[devcontainer CLI]:
+
+[source,bash]
+----
+devcontainer up --workspace-folder .
+----
+
+Then, inside the container:
+
+[source,bash]
+----
+bin/setup
+overmind start --port-step 10 --procfile Procfile.dev --can-die assets
+----
+
+The app will be available at http://localhost:2300. The database and cache services start automatically on container start.
+
 == Console
 
 To access the console with direct access to all objects, run:
