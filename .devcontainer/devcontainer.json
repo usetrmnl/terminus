@@ -1,0 +1,48 @@
+{
+  "name": "Terminus",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode"
+    },
+    "ghcr.io/rails/devcontainer/features/ruby:2": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "25"
+    },
+    "ghcr.io/rails/devcontainer/features/postgres-client:1": {
+      "version": "18"
+    },
+    "ghcr.io/rails/devcontainer/features/activestorage:1": {
+      "variantProcessor": "mini_magick"
+    },
+    "ghcr.io/rails/devcontainer/features/bundler-cache:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "moby": false
+    }
+  },
+  "containerEnv": {
+    "BUNDLE_WITHOUT": "",
+    "BUNDLE_DEPLOYMENT": "0",
+    "RACK_ENV": "development",
+    "HANAMI_ENV": "development",
+    "PATH": "/home/vscode/.local/share/mise/shims:${PATH}"
+  },
+  "postStartCommand": "docker compose -f compose.dev.yml up -d 2>/dev/null || true",
+  "forwardPorts": [2300, 2443],
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Shopify.ruby-lsp",
+        "marcoroth.herb-lsp",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  }
+}
