@@ -29,7 +29,7 @@ module Terminus
 
         def cropable? = !offset_x.zero? || !offset_y.zero?
 
-        def dither? = mode == :dither
+        def dither? = mode == "dither"
 
         def dimensions = "#{width}x#{height}"
 

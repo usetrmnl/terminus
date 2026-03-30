@@ -20,7 +20,7 @@ RSpec.describe Terminus::Aspects::Screens::Converter do
 
     it "converts to color image" do
       converter.call mold.with(
-        mode: :dither,
+        mode: "dither",
         grays: 2,
         bit_depth: 2,
         color_codes: %w[#000000 #FF0000 #FFFFFF]

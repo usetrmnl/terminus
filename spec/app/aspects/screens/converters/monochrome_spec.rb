@@ -19,7 +19,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
     end
 
     it "converts to one bit dither image" do
-      converter.call mold.with(mode: :dither)
+      converter.call mold.with(mode: "dither")
       image = MiniMagick::Image.open mold.output_path
 
       expect(image).to have_attributes(
@@ -37,7 +37,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
     end
 
     it "converts to two bit dither image" do
-      converter.call mold.with(mode: :dither, bit_depth: 2)
+      converter.call mold.with(mode: "dither", bit_depth: 2)
       image = MiniMagick::Image.open mold.output_path
 
       expect(image).to have_attributes(
@@ -55,7 +55,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
     end
 
     it "converts to four bit dither image" do
-      converter.call mold.with(mode: :dither, bit_depth: 4)
+      converter.call mold.with(mode: "dither", bit_depth: 4)
       converter.call mold
       image = MiniMagick::Image.open mold.output_path
 
@@ -74,7 +74,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
     end
 
     it "converts to eight bit dither image" do
-      converter.call mold.with(mode: :dither, bit_depth: 8)
+      converter.call mold.with(mode: "dither", bit_depth: 8)
       image = MiniMagick::Image.open mold.output_path
 
       expect(image).to have_attributes(

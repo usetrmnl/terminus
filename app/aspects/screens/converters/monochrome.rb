@@ -19,9 +19,9 @@ module Terminus
 
           def route mold
             case mold
-              in bit_depth: 1, mode: :dither then as_one_bit_dither mold
-              in bit_depth: 2..4, mode: :dither then as_two_to_four_bit_dither mold
-              in bit_depth: 8, mode: :dither then as_eight_bit_dither mold
+              in bit_depth: 1, mode: "dither" then as_one_bit_dither mold
+              in bit_depth: 2..4, mode: "dither" then as_two_to_four_bit_dither mold
+              in bit_depth: 8, mode: "dither" then as_eight_bit_dither mold
               in bit_depth: 1 then as_one_bit mold
               in bit_depth: 2..8 then as_two_to_eight_bit mold
               else Failure "Unsupported monochrome bit depth: #{mold.bit_depth}."

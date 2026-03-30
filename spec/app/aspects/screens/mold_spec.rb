@@ -25,11 +25,11 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
 
   describe "#color?" do
     it "answers true with dither mode, positive bit depth, and color codes" do
-      expect(mold.with(mode: :dither, bit_depth: 1, color_codes: ["#000000"]).color?).to be(true)
+      expect(mold.with(mode: "dither", bit_depth: 1, color_codes: ["#000000"]).color?).to be(true)
     end
 
     it "answers false with color codes are missing" do
-      expect(mold.with(mode: :dither, bit_depth: 1, color_codes: nil).color?).to be(false)
+      expect(mold.with(mode: "dither", bit_depth: 1, color_codes: nil).color?).to be(false)
     end
 
     it "answers false when missing required attributes" do
@@ -67,7 +67,7 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
 
   describe "#dither?" do
     it "answers true when mode is dither" do
-      expect(mold.with(mode: :dither).dither?).to be(true)
+      expect(mold.with(mode: "dither").dither?).to be(true)
     end
 
     it "answers false when mode isn't dither" do
