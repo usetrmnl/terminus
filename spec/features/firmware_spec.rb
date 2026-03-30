@@ -5,9 +5,10 @@ require "hanami_helper"
 RSpec.describe "Firmware", :db do
   include_context "with temporary directory"
 
+  let(:firmware) { Factory[:firmware, :with_attachment] }
   let(:path) { temp_dir.join("test.bin").tap { it.binwrite [123].pack("N") } }
 
-  it "creates, edits, and deletes firmware", :aggregate_failures, :js do
+  it "creates", :aggregate_failures, :js do
     visit routes.path(:firmware)
     click_link "New"
     click_button "Save"
@@ -22,7 +23,11 @@ RSpec.describe "Firmware", :db do
     click_button "Save"
 
     expect(page).to have_content("0.0.0")
+  end
 
+  it "edits", :aggregate_failures, :js do
+    firmware
+    visit routes.path(:firmware)
     click_link "Edit"
     fill_in "firmware[version]", with: nil
     click_button "Save"
@@ -44,5 +49,13 @@ RSpec.describe "Firmware", :db do
     accept_prompt { click_button "Delete" }
 
     expect(page).to have_no_content("0.0.1")
+  end
+
+  it "deletes", :js do
+    firmware
+    visit routes.path(:firmware)
+    accept_prompt { click_button "Delete" }
+
+    expect(page).to have_no_content(firmware.version)
   end
 end

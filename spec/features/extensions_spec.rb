@@ -3,7 +3,10 @@
 require "hanami_helper"
 
 RSpec.describe "Extensions", :db do
-  it "creates extension", :aggregate_failures, :js do
+  let(:model) { Factory[:model, name: "og_plus"] }
+  let(:extension) { Factory[:extension] }
+
+  it "creates", :aggregate_failures, :js do
     visit routes.path(:extensions)
     click_link "New"
     fill_in "extension[label]", with: "Test"
@@ -18,9 +21,9 @@ RSpec.describe "Extensions", :db do
     expect(page).to have_content("poll")
   end
 
-  it "edits, saves, builds, clones, and deletes extension", :aggregate_failures, :js do
-    Factory[:model, name: "og_plus"]
-    extension = Factory[:extension]
+  it "edits", :aggregate_failures, :js do
+    model
+    extension
 
     visit routes.path(:extension_edit, id: extension.id)
     fill_in "extension[label]", with: nil
@@ -28,17 +31,27 @@ RSpec.describe "Extensions", :db do
 
     expect(page).to have_content("must be filled")
 
-    fill_in "extension[label]", with: "Test"
+    fill_in "extension[label]", with: "Edit Test"
     click_button "Save"
 
     expect(page).to have_content("Changes saved.")
-    expect(page).to have_field(with: "Test")
+    expect(page).to have_field(with: "Edit Test")
+  end
 
+  it "builds", :js do
+    model
+    extension
+    visit routes.path(:extension_edit, id: extension.id)
     click_button "Build"
 
     expect(page).to have_content("Enqueuing...")
+  end
 
-    click_link "Cancel"
+  it "clones", :aggregate_failures, :js do
+    model
+    extension
+
+    visit routes.path(:extensions)
     click_link "Clone"
     fill_in "extension[label]", with: nil
     click_button "Save"
@@ -49,14 +62,17 @@ RSpec.describe "Extensions", :db do
     click_button "Save"
 
     expect(page).to have_content("Clone Test")
+  end
 
+  it "deletes", :js do
+    extension
     visit routes.path(:extensions)
 
-    within ".bit-card", text: "Clone Test" do
+    within ".bit-card", text: extension.label do
       accept_prompt { click_button "Delete" }
     end
 
-    expect(page).to have_no_content("Clone Test")
+    expect(page).to have_no_content(extension.label)
   end
 
   it "views gallery", :aggregate_failures do

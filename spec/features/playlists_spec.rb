@@ -5,7 +5,7 @@ require "hanami_helper"
 RSpec.describe "Playlists", :db do
   let(:playlist) { Factory[:playlist] }
 
-  it "creates, edits, saves, clones, and deletes playlist", :aggregate_failures, :js do
+  it "creates", :aggregate_failures, :js do
     visit routes.path(:playlists)
     click_link "New"
     fill_in "playlist[label]", with: "Test"
@@ -18,18 +18,25 @@ RSpec.describe "Playlists", :db do
     click_button "Save"
 
     expect(page).to have_content("Test")
+  end
 
+  it "edits", :aggregate_failures, :js do
+    playlist
+    visit routes.path(:playlists)
     click_link "Edit"
     fill_in "playlist[label]", with: nil
     click_button "Save"
 
     expect(page).to have_content("must be filled")
 
-    fill_in "playlist[label]", with: "Test II"
+    fill_in "playlist[label]", with: "Edit Playlist"
     click_button "Save"
 
-    expect(page).to have_content("Test II")
+    expect(page).to have_content("Edit Playlist")
+  end
 
+  it "clones", :aggregate_failures, :js do
+    Factory[:playlist, name: "test"]
     visit routes.path(:playlists)
     click_link "Clone"
     fill_in "playlist[name]", with: nil
@@ -37,26 +44,30 @@ RSpec.describe "Playlists", :db do
 
     expect(page).to have_content("must be filled")
 
-    fill_in "Name", with: "test"
+    fill_in "playlist[name]", with: "test"
     click_button "Save"
 
     expect(page).to have_content("must be unique")
 
-    fill_in "playlist[name]", with: "test_clone"
+    fill_in "playlist[label]", with: "Clone Test"
+    fill_in "playlist[name]", with: "clone_test"
     click_button "Save"
 
-    expect(page).to have_content("Test II Clone")
+    expect(page).to have_content("Clone Test")
+  end
 
+  it "deletes", :js do
+    playlist
     visit routes.path(:playlists)
 
-    within ".bit-card", text: "Test II Clone" do
+    within ".bit-card", text: playlist.label do
       accept_prompt { click_button "Delete" }
     end
 
-    expect(page).to have_no_content("Test II Clone")
+    expect(page).to have_no_content(playlist.label)
   end
 
-  it "plays screens", :aggregate_failures, :js do
+  it "plays screenshow", :aggregate_failures, :js do
     visit routes.path(:playlist_screens, playlist_id: playlist.id)
 
     expect(page).to have_content("No screens found.")
@@ -96,7 +107,7 @@ RSpec.describe "Playlists", :db do
     expect(page).to have_css(%(#progress[value="1"]))
   end
 
-  it "mirrors playlist to device", :aggregate_failures, :js do
+  it "mirrors to device", :aggregate_failures, :js do
     device = Factory[:device]
     playlist
 

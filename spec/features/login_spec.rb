@@ -19,7 +19,7 @@ RSpec.describe "Login", :db do
     expect(page).to have_content "You have been logged in."
   end
 
-  it "logs out but can't log in when account is not verified", :aggregate_failures do
+  it "logs out but can't log in when account is not verified" do
     repository.update user.id, status_id: 1
 
     visit "/logout"
