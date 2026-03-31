@@ -270,7 +270,8 @@ CREATE TABLE public.device (
     sleep_stop_at time without time zone,
     model_id integer NOT NULL,
     playlist_id integer,
-    battery_charge double precision DEFAULT 0 NOT NULL
+    battery_charge double precision DEFAULT 0 NOT NULL,
+    wake_reason text
 );
 
 
@@ -1540,4 +1541,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260318132059_rename_model_palette_ids_column.rb'),
 ('20260318132419_add_palette.rb'),
 ('20260330115025_add_extension_mode_column.rb'),
-('20260330145138_alter_device_battery_columns.rb');
+('20260330145138_alter_device_battery_columns.rb'),
+('20260331102522_add_device_wake_reason_column.rb');
