@@ -19,6 +19,7 @@ RSpec.describe Terminus::Aspects::Devices::Synchronizer, :db do
             battery_charge: 85,
             battery_voltage: 4.74,
             firmware_version: "1.2.3",
+            wake_reason: "Button pressed.",
             wifi: -54,
             width: 800,
             height: 480

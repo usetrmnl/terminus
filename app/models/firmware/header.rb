@@ -17,6 +17,7 @@ module Terminus
         HTTP_REFRESH_RATE: :refresh_rate,
         HTTP_RSSI: :wifi,
         HTTP_SENSORS: :sensors,
+        HTTP_UPDATE_SOURCE: :wake_reason,
         HTTP_USER_AGENT: :user_agent,
         HTTP_WIDTH: :width
       }.freeze
@@ -37,6 +38,7 @@ module Terminus
             battery_charge:,
             battery_voltage:,
             firmware_version: firmware_version.to_s,
+            wake_reason:,
             wifi:,
             width:,
             height:

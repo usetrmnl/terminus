@@ -23,6 +23,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
         HTTP_REFRESH_RATE.+
         HTTP_RSSI.+
         HTTP_SENSORS.+
+        HTTP_UPDATE_SOURCE.+
         HTTP_USER_AGENT.+
         HTTP_WIDTH.+
       /x
@@ -45,6 +46,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
           battery_charge: 85.0,
           battery_voltage: 4.74,
           firmware_version: "1.2.3",
+          wake_reason: "Button pressed.",
           wifi: -54,
           width: 800,
           height: 480,

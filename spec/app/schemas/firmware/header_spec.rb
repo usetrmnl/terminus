@@ -21,6 +21,7 @@ RSpec.describe Terminus::Schemas::Firmware::Header do
         HTTP_RSSI: -54,
         HTTP_SENSORS: "make=Sensirion;model=SCD41;kind=humidity;" \
                       "value=26;unit=percent;created_at=1735714800",
+        HTTP_UPDATE_SOURCE: "Button pressed.",
         HTTP_USER_AGENT: "ESP32HTTPClient",
         HTTP_WIDTH: 800,
         HTTP_HEIGHT: 480
