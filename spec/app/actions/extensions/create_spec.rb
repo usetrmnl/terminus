@@ -23,6 +23,7 @@ RSpec.describe Terminus::Actions::Extensions::Create, :db do
           template: nil,
           data: nil,
           interval: 1,
+          unit: "minute",
           days: [],
           last_day_of_month: false,
           start_at: "2025-01-01T00:00:00"

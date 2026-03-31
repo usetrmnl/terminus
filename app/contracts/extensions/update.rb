@@ -12,6 +12,8 @@ module Terminus
           required(:extension).filled Schemas::Extensions::Upsert
           optional(:model_ids).filled :array
         end
+
+        rule extension: :interval, &Rules::Cron
       end
     end
   end
