@@ -6,7 +6,7 @@
   </header>
 
   <p class="introduction">
-    Welcome to the problem details page where you can find information for resolving API errors.
+    Welcome to the problem details page where you can find additional information related <a href="https://www.rfc-editor.org/rfc/rfc9457">Problem Details for HTTP APIs</a> as implemented by the <a href="https://alchemists.io/projects/petail">Petails</a> gem. The following documents the different types of problems as linked to in your API response errors.
   </p>
 
   <details name="details">
@@ -106,6 +106,12 @@
   </details>
 
   <details name="details">
+    <summary id="duplicate_value" class="summary">Duplicate Value</summary>
+
+    <p>Could not create or update record due to duplicate value. This happens when there is a unique database constraint on a specific key and the value you are providing is already taken. To correct, ensure the value you are supplying is different than the value that already exists.</p>
+  </details>
+
+  <details name="details">
     <summary id="firmware_payload" class="summary">Firmware Payload</summary>
 
     <p>Could not create or update firmware. The following is the list of supported keys:</p>
@@ -124,6 +130,18 @@
     </dl>
 
     <p>When making a POST request the above are required but when making a PATCH request they are optional as long you supply at least one key.</p>
+  </details>
+
+  <details name="details">
+    <summary id="invalid_enum" class="summary">Invalid Enum</summary>
+
+    <p>Could not create or update record due to invalid enum. This happens when supplying a value that isn't in the allowed list of values. To correct, ensure you only use one of the allowed values provided.</p>
+  </details>
+
+  <details name="details">
+    <summary id="invalid_foreign_key" class="summary">Invalid Foreign Key</summary>
+
+    <p>Could not create or update record due to invalid foreign key. This happens when supplying a foreign key ID that no longer exists. To correct, use a foreign that does exist.</p>
   </details>
 
   <details name="details">
@@ -170,12 +188,6 @@
 
       <dt class="key">label</dt>
       <dd class="value">The unique label.</dd>
-
-      <dt class="key">width</dt>
-      <dd class="value">The width.</dd>
-
-      <dt class="key">height</dt>
-      <dd class="value">The height.</dd>
     </dl>
 
     <h2 class="label">Optional</h2>
@@ -190,9 +202,7 @@
     <pre>
       "model": {
         "name": "demo",
-        "label": "Demo",
-        "width": "800",
-        "height": "480"
+        "label": "Demo"
       }
     </pre>
   </details>
@@ -259,12 +269,9 @@
       <dt class="key">uri</dt>
       <dd class="value">Must be an image URI. This can be either relative path or an URL to an image.</dd>
 
-      <dt class="key">data</dt>
-      <dd class="value">Must be Base64 encoded image data. In Ruby, that'd be: <code>Base64.strict_encode64 file.read</code>.</dd>
-
       <dt class="key">preprocessed</dt>
       <dd class="value">
-        Use to render a preprocessed image directly onto your device. The value must be either <code>true</code> or <code>false</code>. When <code>true</code>, this must be used in conjuction with the <code>uri</code> key (mentioned above). This assumes the URI you want have rendered on your device is fully compatible with the device in terms of greyscale, bit depth, color depth, and so forth.
+        Use to render a preprocessed image directly onto your device. The value must be either <code>true</code> or <code>false</code>. When <code>true</code>, this must be used in conjuction with the <code>uri</code> key (mentioned above). This assumes the URI you want have rendered on your device is fully compatible with the device in terms of bit depth, color, grays, width, height, and so forth.
       </dd>
     </dl>
   </details>
