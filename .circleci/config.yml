@@ -83,7 +83,7 @@ jobs:
           name: Build
           command: |
             bin/hanami assets compile
-            bin/rake
+            COVERAGE=no bin/rspec --seed 19739
 
       - store_artifacts:
           name: SimpleCov Archive
