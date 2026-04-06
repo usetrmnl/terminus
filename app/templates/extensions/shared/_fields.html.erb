@@ -113,57 +113,27 @@
       </p>
     </div>
 
-    <%= scope(:form_field, key: :headers, errors:, alpine: {show: "kind === 'poll'"}).render do %>
-      <label class="key" for="extension_headers">
-        Headers
-        <%= render "shared/popovers/triggers/default", name: :headers %>
-      </label>
+    <div x-show="kind === 'image' || kind === 'poll'">
+      <% if request.path.end_with?("new") || request.post? %>
+        <p>💡 You'll be able to manage exchanges after this extension is created.</p>
+      <% else %>
+        <%= link_to "Exchanges",
+                    routes.path(:extension_exchanges, extension_id: extension.id),
+                    "x-show" => "kind === 'image' || kind === 'poll'" %>
 
-      <%= form.text_area :headers,
-                         field_for(:formatted_headers, fields, extension),
-                         id: :extension_headers,
-                         class: "bit-editor",
-                         autocomplete: :off,
-                         data: {language: :json} %>
-    <% end %>
-
-    <div class="bit-toggle-field" x-show="kind === 'poll'">
-      <h2 class="bit-toggle-label">Verb</h2>
-
-      <%= render "shared/radios/bar",
-                 items: [%w[GET get], %w[POST post]],
-                 name: "extension[verb]",
-                 show: "kind === 'static'",
-                 model: "verb" %>
-
-      <p class="help" x-show="verb === 'get'">Make a HTTP GET request.</p>
-      <p class="help" x-show="verb === 'post'">Make a HTTP POST request.</p>
+        <ul>
+          <% exchanges.each do |exchange| %>
+            <li><%= exchange.trimmed_request %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
-
-    <%= scope(
-          :form_field,
-          key: :uris,
-          errors:,
-          alpine: {show: "kind === 'image' || kind === 'poll'"}
-        ).render do %>
-
-      <label class="key" for="extension_uris">
-        URLs
-        <%= render "shared/popovers/triggers/default", name: :urls %>
-      </label>
-
-      <%= form.text_area :uris,
-                         field_for(:formatted_uris, fields, extension),
-                         id: :extension_uris,
-                         class: :value,
-                         autocomplete: :off %>
-    <% end %>
 
     <%= scope(
           :form_field,
           key: :body,
           errors:,
-          alpine: {show: "kind === 'poll' || kind === 'static'"}
+          alpine: {show: "kind === 'static'"}
         ).render do %>
 
       <label class="key" for="extension_body">
