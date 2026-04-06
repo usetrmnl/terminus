@@ -104,6 +104,9 @@ module Terminus
     get "/extensions/:extension_id/exchanges/:id/edit",
         to: "extensions.exchanges.edit",
         as: :extension_exchange_edit
+    put "/extensions/:extension_id/exchanges/:id",
+        to: "extensions.exchanges.update",
+        as: :extension_exchange
 
     get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
     get "/extensions/:extension_id/poll", to: "extensions.poll.show", as: :extension_poll
