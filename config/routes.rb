@@ -95,10 +95,12 @@ module Terminus
     get "/extensions/:extension_id/exchanges",
         to: "extensions.exchanges.index",
         as: :extension_exchanges
+    get "/extensions/:extension_id/exchanges/new",
+        to: "extensions.exchanges.new",
+        as: :extension_exchange_new
 
     get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
     get "/extensions/:extension_id/poll", to: "extensions.poll.show", as: :extension_poll
-
     get "/extensions/:extension_id/sensors", to: "extensions.sensors.index", as: :extension_sensors
 
     get "/firmware", to: "firmware.index", as: :firmware
