@@ -1,0 +1,42 @@
+
+<tr>
+  <td class="bit-text-left">
+    <ul>
+      <% exchange.requests(extension.data, Float::INFINITY).each do |request| %>
+        <li><%= request %></li>
+      <% end %>
+    </ul>
+  </td>
+
+  <td><%= exchange.refreshed_at %></td>
+
+  <td class="bit-actions">
+    <%= render "shared/popovers/triggers/default",
+        name: "curl-#{exchange.id}",
+        icon: :eye,
+        width: 25,
+        height: 25 %>
+
+    <%= scope(
+      :popover_default_content,
+      name: "curl-#{exchange.id}",
+      label: "Curl",
+      class: "bit-popover-content bit-text-left"
+    ).render do %>
+      <p>The following are the fully rendered <code>curl</code> requests:</p>
+      <pre><%= exchange.curl extension.data %></pre>
+    <% end %>
+
+    <%= render "shared/actions/edit",
+               path: routes.path(
+                 :extension_exchange_edit,
+                 extension_id: extension.id,
+                 id: exchange.id
+               ) %>
+
+    <%= render "shared/actions/delete",
+               path: routes.path(:extension_exchange, extension_id: extension.id, id: exchange.id),
+               subject: :exchange,
+               target: "closest tr" %>
+  </td>
+</tr>
