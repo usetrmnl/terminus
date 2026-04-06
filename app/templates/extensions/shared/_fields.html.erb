@@ -1,241 +1,154 @@
 <fieldset class="row">
-  <fieldset class="column"
-            x-data="{
-              kind: '<%= field_for :kind, fields, extension %>',
-              verb: '<%= field_for :verb, fields, extension %>'
-            }">
-
-    <legend class="legend">Settings</legend>
-
-    <%= scope(:form_field, key: :label, errors:).render do %>
-      <label class="key" for="extension_label">
-        Label
-        <%= render "shared/popovers/triggers/default", name: :label %>
-      </label>
-
-      <%= form.text_field :label,
-                          id: :extension_label,
-                          value: field_for(:label, fields, extension),
-                          class: :value,
-                          autocomplete: :off %>
-    <% end %>
-
-    <%= scope(:form_field, key: :name, errors:).render do %>
-      <label class="key" for="extension_name">
-        Name
-        <%= render "shared/popovers/triggers/default", name: :name %>
-      </label>
-
-      <%= form.text_field :name,
-                          id: :extension_name,
-                          value: field_for(:name, fields, extension),
-                          class: :value,
-                          autocomplete: :off %>
-    <% end %>
-
-    <%= scope(:form_field, key: :description, errors:).render do %>
-      <label class="key" for="extension_description">
-        Description
-        <%= render "shared/popovers/triggers/default", name: :description %>
-      </label>
-
-      <%= form.text_field :description,
-                          id: :extension_description,
-                          value: field_for(:description, fields, extension),
-                          class: :value,
-                          autocomplete: :off %>
-    <% end %>
-
-    <%= scope(
-          :form_field,
-          key: :tags,
-          errors:,
-          alpine: {data: "{tags: #{extension ? extension.alpine_tags : []}, nascence: '', index: 0}"}
-        ).render do %>
-
-      <%= form.hidden_field :tags, id: :extension_tags, "x-bind:value" => "tags.join(' ')" %>
-
-      <label class="key" for="tag">
-        Tags
-        <%= render "shared/popovers/triggers/default", name: :tags %>
-      </label>
-
-      <%= tag.input id: :tag,
-                    name: :tag,
-                    class: :value,
-                    placeholder: "Type your tag and hit enter to create.",
-                    "x-model" => "nascence",
-                    "x-on:keydown.enter.prevent" => "if (nascence.trim() !== '') { tags.push(nascence.trim()); nascence = '';}" %>
-
-      <div class="bit-pills">
-        <template x-for="(tag, index) in tags" x-bind="index">
-          <button type="button"
-                  class="bit-pill bit-pill-active"
-                  x-text="tag"
-                  x-on:click="tags.splice(index, 1)">
-          </button>
-        </template>
-      </div>
-    <% end %>
-
-    <%= scope(:form_field, key: :mode, errors:).render do %>
-      <label class="key" for="extension_unit">
-        Mode
-        <%= render "shared/popovers/triggers/default", name: :mode %>
-      </label>
-
-      <% options = [["Text", "text"], ["Art", "dither"]] %>
-      <%= form.select :mode, options, id: :extension_mode, class: :value %>
-    <% end %>
-
-    <div class="bit-toggle-field">
-      <h2 class="bit-toggle-label">Kind</h2>
-
-      <%= render "shared/radios/bar",
-                 items: [
-                   %w[Image image],
-                   %w[Poll poll],
-                   %w[Static static]
-                 ],
-                 name: "extension[kind]",
-                 model: "kind" %>
-
-      <p class="help" x-show="kind === 'image'">
-        Render remote images.
-      </p>
-
-      <p class="help" x-show="kind === 'poll'">
-        Render remote data.
-      </p>
-
-      <p class="help" x-show="kind === 'static'">
-        Render local data. Use the body field, below, to supply JSON data.
-      </p>
-    </div>
-
-    <%= scope(:form_field, key: :headers, errors:, alpine: {show: "kind === 'poll'"}).render do %>
-      <label class="key" for="extension_headers">
-        Headers
-        <%= render "shared/popovers/triggers/default", name: :headers %>
-      </label>
-
-      <%= form.text_area :headers,
-                         field_for(:formatted_headers, fields, extension),
-                         id: :extension_headers,
-                         class: "bit-editor",
-                         autocomplete: :off,
-                         data: {language: :json} %>
-    <% end %>
-
-    <div class="bit-toggle-field" x-show="kind === 'poll'">
-      <h2 class="bit-toggle-label">Verb</h2>
-
-      <%= render "shared/radios/bar",
-                 items: [%w[GET get], %w[POST post]],
-                 name: "extension[verb]",
-                 show: "kind === 'static'",
-                 model: "verb" %>
-
-      <p class="help" x-show="verb === 'get'">Make a HTTP GET request.</p>
-      <p class="help" x-show="verb === 'post'">Make a HTTP POST request.</p>
-    </div>
-
-    <%= scope(
-          :form_field,
-          key: :uris,
-          errors:,
-          alpine: {show: "kind === 'image' || kind === 'poll'"}
-        ).render do %>
-
-      <label class="key" for="extension_uris">
-        URLs
-        <%= render "shared/popovers/triggers/default", name: :urls %>
-      </label>
-
-      <%= form.text_area :uris,
-                         field_for(:formatted_uris, fields, extension),
-                         id: :extension_uris,
-                         class: :value,
-                         autocomplete: :off %>
-    <% end %>
-
-    <%= scope(
-          :form_field,
-          key: :body,
-          errors:,
-          alpine: {show: "kind === 'poll' || kind === 'static'"}
-        ).render do %>
-
-      <label class="key" for="extension_body">
-        Body
-        <%= render "shared/popovers/triggers/default", name: :body %>
-      </label>
-
-      <%= form.text_area :body,
-                         field_for(:formatted_body, fields, extension),
-                         id: :extension_body,
-                         class: "bit-editor",
-                         autocomplete: :off,
-                         data: {language: :json} %>
-    <% end %>
-  </fieldset>
-
   <fieldset class="column">
-    <fieldset class="column" x-data="{matrix: 'models'}">
-      <legend class="legend">Build Matrix</legend>
-        <div class="bit-toggle-field">
-          <%= render "shared/radios/bar",
-                     items: [%w[Models models], %w[Devices devices]],
-                     name: "matrix",
-                     show: "matrix === 'models'",
-                     model: "matrix" %>
+    <fieldset class="column"
+              x-data="{
+                kind: '<%= field_for :kind, fields, extension %>',
+                verb: '<%= field_for :verb, fields, extension %>'
+              }">
 
-          <p class="help" x-show="matrix === 'models'">
-            Select the model(s) to render to.
-          </p>
+      <legend class="legend">Settings</legend>
 
-          <p class="help" x-show="matrix === 'devices'">
-            Select the device(s) to render to.
-            Best used when sensors are connected to your device.
-            <em>Takes precedence over models.</em>
-          </p>
+      <%= scope(:form_field, key: :label, errors:).render do %>
+        <label class="key" for="extension_label">
+          Label
+          <%= render "shared/popovers/triggers/default", name: :label %>
+        </label>
+
+        <%= form.text_field :label,
+                            id: :extension_label,
+                            value: field_for(:label, fields, extension),
+                            class: :value,
+                            autocomplete: :off %>
+      <% end %>
+
+      <%= scope(:form_field, key: :name, errors:).render do %>
+        <label class="key" for="extension_name">
+          Name
+          <%= render "shared/popovers/triggers/default", name: :name %>
+        </label>
+
+        <%= form.text_field :name,
+                            id: :extension_name,
+                            value: field_for(:name, fields, extension),
+                            class: :value,
+                            autocomplete: :off %>
+      <% end %>
+
+      <%= scope(:form_field, key: :description, errors:).render do %>
+        <label class="key" for="extension_description">
+          Description
+          <%= render "shared/popovers/triggers/default", name: :description %>
+        </label>
+
+        <%= form.text_field :description,
+                            id: :extension_description,
+                            value: field_for(:description, fields, extension),
+                            class: :value,
+                            autocomplete: :off %>
+      <% end %>
+
+      <%= scope(
+            :form_field,
+            key: :tags,
+            errors:,
+            alpine: {data: "{tags: #{extension ? extension.alpine_tags : []}, nascence: '', index: 0}"}
+          ).render do %>
+
+        <%= form.hidden_field :tags, id: :extension_tags, "x-bind:value" => "tags.join(' ')" %>
+
+        <label class="key" for="tag">
+          Tags
+          <%= render "shared/popovers/triggers/default", name: :tags %>
+        </label>
+
+        <%= tag.input id: :tag,
+                      name: :tag,
+                      class: :value,
+                      placeholder: "Type your tag and hit enter to create.",
+                      "x-model" => "nascence",
+                      "x-on:keydown.enter.prevent" => "if (nascence.trim() !== '') { tags.push(nascence.trim()); nascence = '';}" %>
+
+        <div class="bit-pills">
+          <template x-for="(tag, index) in tags" x-bind="index">
+            <button type="button"
+                    class="bit-pill bit-pill-active"
+                    x-text="tag"
+                    x-on:click="tags.splice(index, 1)">
+            </button>
+          </template>
         </div>
+      <% end %>
 
-        <%= scope(:form_field, key: :models, errors:, alpine: {show: "matrix === 'models'"}).render do %>
+      <%= scope(:form_field, key: :mode, errors:).render do %>
+        <label class="key" for="extension_unit">
+          Mode
+          <%= render "shared/popovers/triggers/default", name: :mode %>
+        </label>
 
-          <label class="key" for="extension_models">
-            Models
-            <%= render "shared/popovers/triggers/default", name: :models %>
-          </label>
+        <% options = [["Text", "text"], ["Art", "dither"]] %>
+        <%= form.select :mode, options, id: :extension_mode, class: :value %>
+      <% end %>
 
-          <select name="extension[model_ids][]"
-                  id="extension_models"
-                  multiple="multiple"
-                  class="value">
-            <% selected_model_ids = extension ? extension.models.map(&:id) : [] %>
-            <% models.each do |label, id| %>
-              <%= tag.option label, value: id, selected: selected_model_ids.include?(id) %>
+      <div class="bit-toggle-field">
+        <h2 class="bit-toggle-label">Kind</h2>
+
+        <%= render "shared/radios/bar",
+                   items: [
+                     %w[Image image],
+                     %w[Poll poll],
+                     %w[Static static]
+                   ],
+                   name: "extension[kind]",
+                   model: "kind" %>
+
+        <p class="help" x-show="kind === 'image'">
+          Render remote images.
+        </p>
+
+        <p class="help" x-show="kind === 'poll'">
+          Render remote data.
+        </p>
+
+        <p class="help" x-show="kind === 'static'">
+          Render local data. Use the body field, below, to supply JSON data.
+        </p>
+      </div>
+
+      <div x-show="kind === 'image' || kind === 'poll'">
+        <% if request.path.end_with?("new") || request.post? %>
+          <p>💡 You'll be able to manage exchanges after this extension is created.</p>
+        <% else %>
+          <%= link_to "Exchanges",
+                      routes.path(:extension_exchanges, extension_id: extension.id),
+                      "x-show" => "kind === 'image' || kind === 'poll'" %>
+
+          <ul>
+            <% exchanges.each do |exchange| %>
+              <%= render :request, exchange:, extension: %>
             <% end %>
-          </select>
+          </ul>
         <% end %>
+      </div>
 
-        <%= scope(:form_field, key: :devices, errors:, alpine: {show: "matrix === 'devices'"}).render do %>
+      <%= scope(
+            :form_field,
+            key: :body,
+            errors:,
+            alpine: {show: "kind === 'static'"}
+          ).render do %>
 
-          <label class="key" for="extension_devices">
-            Devices
-            <%= render "shared/popovers/triggers/default", name: :devices %>
-          </label>
+        <label class="key" for="extension_body">
+          Body
+          <%= render "shared/popovers/triggers/default", name: :body %>
+        </label>
 
-          <select name="extension[device_ids][]"
-                  id="extension_devices"
-                  multiple="multiple"
-                  class="value">
-            <% selected_device_ids = extension ? extension.devices.map(&:id) : [] %>
-            <% devices.each do |label, id| %>
-              <%= tag.option label, value: id, selected: selected_device_ids.include?(id) %>
-            <% end %>
-          </select>
-        <% end %>
+        <%= form.text_area :body,
+                           field_for(:formatted_body, fields, extension),
+                           id: :extension_body,
+                           class: "bit-editor",
+                           autocomplete: :off,
+                           data: {language: :json} %>
+      <% end %>
     </fieldset>
 
     <%= tag.fieldset class: :column, "x-data" => "{unit: '#{field_for :unit, fields, extension}'}" do %>
@@ -312,6 +225,63 @@
         </label>
       <% end %>
     <% end %>
+  </fieldset>
+
+  <fieldset class="column" x-data="{matrix: 'models'}">
+    <legend class="legend">Build Matrix</legend>
+      <div class="bit-toggle-field">
+        <%= render "shared/radios/bar",
+                   items: [%w[Models models], %w[Devices devices]],
+                   name: "matrix",
+                   show: "matrix === 'models'",
+                   model: "matrix" %>
+
+        <p class="help" x-show="matrix === 'models'">
+          Select the model(s) to render to.
+        </p>
+
+        <p class="help" x-show="matrix === 'devices'">
+          Select the device(s) to render to.
+          Best used when sensors are connected to your device.
+          <em>Takes precedence over models.</em>
+        </p>
+      </div>
+
+      <%= scope(:form_field, key: :models, errors:, alpine: {show: "matrix === 'models'"}).render do %>
+
+        <label class="key" for="extension_models">
+          Models
+          <%= render "shared/popovers/triggers/default", name: :models %>
+        </label>
+
+        <select name="extension[model_ids][]"
+                id="extension_models"
+                multiple="multiple"
+                class="value">
+          <% selected_model_ids = extension ? extension.models.map(&:id) : [] %>
+          <% models.each do |label, id| %>
+            <%= tag.option label, value: id, selected: selected_model_ids.include?(id) %>
+          <% end %>
+        </select>
+      <% end %>
+
+      <%= scope(:form_field, key: :devices, errors:, alpine: {show: "matrix === 'devices'"}).render do %>
+
+        <label class="key" for="extension_devices">
+          Devices
+          <%= render "shared/popovers/triggers/default", name: :devices %>
+        </label>
+
+        <select name="extension[device_ids][]"
+                id="extension_devices"
+                multiple="multiple"
+                class="value">
+          <% selected_device_ids = extension ? extension.devices.map(&:id) : [] %>
+          <% devices.each do |label, id| %>
+            <%= tag.option label, value: id, selected: selected_device_ids.include?(id) %>
+          <% end %>
+        </select>
+      <% end %>
   </fieldset>
 </fieldset>
 

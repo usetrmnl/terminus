@@ -1,0 +1,10 @@
+<% exchange.requests(extension.data).each do |request| %>
+  <li>
+    <%= link_to request,
+                routes.path(
+                  :extension_exchange_edit,
+                  extension_id: extension.id,
+                  id: exchange.id
+                ) %>
+  </li>
+<% end %>
