@@ -1,0 +1,38 @@
+<%= render "shared/title", text: "New Exchange" %>
+
+<section class="bit-page">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb"><%= link_to "Extensions", routes.path(:extensions) %></li>
+      <li class="bit-breadcrumb">
+        <%= link_to extension.label, routes.path(:extension_edit, id: extension.id) %>
+      </li>
+      <li class="bit-breadcrumb">
+        <%= link_to "Exchanges", routes.path(:extension_exchanges, extension_id: extension.id) %>
+      </li>
+      <li class="bit-breadcrumb">New</li>
+    </ul>
+  </header>
+
+  <div class="bit-body">
+    <%= form_for :exchange,
+                 routes.path(:extension_exchanges, extension_id: extension.id),
+                 class: "bit-card bit-form" do |form| %>
+      <h1 class="label">New Exchange</h1>
+
+      <%= render "extensions/exchanges/shared/fields",
+                 form:,
+                 exchange:,
+                 fields: fields.value,
+                 errors: %>
+
+      <div class="form-actions">
+        <%= form.submit "Save", class: "bit-button-accept" %>
+
+        <%= link_to "Cancel",
+                    routes.path(:extension_exchanges, extension_id: extension.id),
+                    class: "bit-button-decline" %>
+      </div>
+    <% end %>
+  </div>
+</section>
