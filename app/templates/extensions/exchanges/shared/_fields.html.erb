@@ -1,0 +1,54 @@
+<%= scope(:form_field, key: :headers, errors:).render do %>
+  <label class="key" for="exchange_headers">
+    Headers
+    <%= render "shared/popovers/triggers/default", name: :headers %>
+  </label>
+
+  <%= form.text_area :headers,
+                     field_for(:formatted_headers, fields, exchange),
+                     id: :exchange_headers,
+                     class: "bit-editor",
+                     autocomplete: :off,
+                     data: {language: :json} %>
+<% end %>
+
+<div class="bit-toggle-field" x-data="{verb: '<%= field_for :verb, fields, exchange %>'}">
+  <h2 class="bit-toggle-label">Verb</h2>
+
+  <%= render "shared/radios/bar",
+             items: [%w[GET get], %w[POST post]],
+             name: "exchange[verb]",
+             model: "verb" %>
+
+  <p class="help" x-show="verb === 'get'">Make a HTTP GET exchange.</p>
+  <p class="help" x-show="verb === 'post'">Make a HTTP POST exchange.</p>
+</div>
+
+<%= scope(:form_field, key: :template, errors:).render do %>
+  <label class="key" for="exchange_template">
+    Template
+    <%= render "shared/popovers/triggers/default", name: :template %>
+  </label>
+
+  <%= form.text_area :template,
+                     field_for(:template, fields, exchange),
+                     id: :template,
+                     class: :value,
+                     autocomplete: :off %>
+<% end %>
+
+<%= scope(:form_field, key: :body, errors:).render do %>
+  <label class="key" for="exchange_body">
+    Body
+    <%= render "shared/popovers/triggers/default", name: :body %>
+  </label>
+
+  <%= form.text_area :body,
+                     field_for(:formatted_body, fields, exchange),
+                     id: :exchange_body,
+                     class: "bit-editor",
+                     autocomplete: :off,
+                     data: {language: :json} %>
+<% end %>
+
+<%= render "extensions/exchanges/shared/popovers/all" %>
