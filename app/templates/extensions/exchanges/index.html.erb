@@ -1,0 +1,39 @@
+<%= render "shared/title", text: "Extensions Exchanges" %>
+
+<section class="bit-page">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb"><%= link_to "Extensions", routes.path(:extensions) %></li>
+      <li class="bit-breadcrumb">
+        <%= link_to extension.label, routes.path(:extension_edit, id: extension.id) %>
+      </li>
+      <li class="bit-breadcrumb">Exchanges</li>
+    </ul>
+
+    <div class="bit-actions">
+      <%= render "shared/actions/new",
+                 path: routes.path(:extension_exchange_new, extension_id: extension.id) %>
+    </div>
+  </header>
+
+  <% if exchanges.any? %>
+    <table id="records">
+      <thead>
+        <tr>
+          <th scope="col">Request</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% exchanges.each do |exchange| %>
+          <%= exchange.render :exchange, extension: %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="bit-gallery">
+      <%= render "shared/empty", message: "No exchanges found." %>
+    </div>
+  <% end %>
+</section>

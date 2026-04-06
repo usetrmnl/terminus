@@ -1,0 +1,17 @@
+<tr>
+  <td class="bit-text-left"><%= exchange.trimmed_request %></td>
+
+  <td class="bit-actions">
+    <%= render "shared/actions/edit",
+               path: routes.path(
+                 :extension_exchange_edit,
+                 extension_id: extension.id,
+                 id: exchange.id
+               ) %>
+
+    <%= render "shared/actions/delete",
+               path: routes.path(:extension_exchange, extension_id: extension.id, id: exchange.id),
+               subject: :exchange,
+               target: "closest tr" %>
+  </td>
+</tr>
