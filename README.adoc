@@ -45,10 +45,6 @@ image:https://alchemists.io/images/badges/style.svg[Style, link=https://alchemis
 
 Terminus is a {ruby_link}/{hanami_link} web server that allows you to manage {trmnl_link} devices running on your own local network or hosted cloud. This is our flagship BYOS implementation that aims to be compatible with our {trmnl_link} Core server but _also different_ since this open source solution provides features not possible in our Core application.
 
-For a quick introduction on TRMNL devices, check out the following 9to5Mac overview:
-
-link:https://www.youtube.com/watch?v=BxMRP_ASa-s[image:https://img.youtube.com/vi/BxMRP_ASa-s/maxresdefault.jpg[YouTube Video,width=960,height=540]]
-
 image:https://render.com/images/deploy-to-render-button.svg[Deploy to Render,link=https://render.com/deploy]
 
 ⚠️ This is a Beta software as we haven't reached 1.0.0 status as of yet. This means -- while we strive to reduce the number of changes that require effort on your part to a minimum -- there will be times when changes can't be avoided.
