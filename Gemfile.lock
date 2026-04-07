@@ -257,7 +257,7 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       llhttp-ffi (~> 0.5.0)
-    http-cookie (1.1.2)
+    http-cookie (1.1.4)
       domain_name (~> 0.5)
     http-fake (5.1.0)
       http (~> 5.3)
@@ -361,7 +361,7 @@ GEM
     rack (3.2.6)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
-    rack-session (2.1.1)
+    rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
@@ -747,7 +747,7 @@ CHECKSUMS
   hansi (0.2.1) sha256=7e27dfd729f1692a3a7690fc0ef3af9d5e3cfc0285bb135cae7e56180e4805db
   htmx (3.1.0) sha256=96ad95f7a54727e9eca9c84c621a2f8be10dae7060cd9ef4dc1bfd1935396f21
   http (5.3.1) sha256=c50802d8e9be3926cb84ac3b36d1a31fbbac383bc4cbecdce9053cb604231d7d
-  http-cookie (1.1.2) sha256=0fd9642c201836f145ad9dcb72fe300327dd5cfe0b3e91c9de462039946fa28b
+  http-cookie (1.1.4) sha256=8dd8011dedcae5f91af2671b7ba878c4a9e89f0f6384790c1f4cdd176f5e3ada
   http-fake (5.1.0) sha256=99483183f8a41c4e9e9643c543758157b162bdcb23d3505018937922db69e5f1
   http-form_data (2.3.0) sha256=cc4eeb1361d9876821e31d7b1cf0b68f1cf874b201d27903480479d86448a5f3
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
@@ -800,7 +800,7 @@ CHECKSUMS
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rack (3.2.6) sha256=5ed78e1f73b2e25679bec7d45ee2d4483cc4146eb1be0264fc4d94cb5ef212c2
   rack-attack (6.8.0) sha256=f2499fdebf85bcc05573a22dff57d24305ac14ec2e4156cd3c28d47cafeeecf2
-  rack-session (2.1.1) sha256=0b6dc07dea7e4b583f58a48e8b806d4c9f1c6c9214ebc202ec94562cbea2e4e9
+  rack-session (2.1.2) sha256=595434f8c0c3473ae7d7ac56ecda6cc6dfd9d37c0b2b5255330aa1576967ffe8
   rack-test (2.2.0) sha256=005a36692c306ac0b4a9350355ee080fd09ddef1148a5f8b2ac636c720f5c463
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
