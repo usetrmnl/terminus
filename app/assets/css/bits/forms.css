@@ -44,6 +44,7 @@
     flex-wrap: wrap;
     margin: 0;
     gap: 0.2rem;
+    width: 100%;
 
     &:has(.checkbox) {
       align-items: center;

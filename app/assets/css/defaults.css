@@ -194,6 +194,7 @@
 
 :where(th) {
   padding: 0.5rem;
+  word-break: keep-all;
 
   &:first-child {
     border-top-left-radius: 0.5rem;
@@ -227,4 +228,5 @@
 :where(td) {
   padding: 0.5rem;
   text-align: center;
+  word-break: keep-all;
 }
