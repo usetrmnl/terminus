@@ -67,6 +67,11 @@ RSpec.describe "Extensions", :db do
 
     expect(page).to have_content("must be filled")
 
+    fill_in "extension[label]", with: extension.label
+    click_button "Save"
+
+    expect(page).to have_content("must be unique")
+
     fill_in "extension[label]", with: "Clone Test"
     click_button "Save"
 
