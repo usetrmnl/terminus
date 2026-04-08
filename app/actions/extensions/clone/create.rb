@@ -7,8 +7,8 @@ module Terminus
     module Extensions
       module Clone
         # The create action.
-        class Create < Hanami::Action
-          include Deps["aspects.jobs.schedule", repository: "repositories.extension"]
+        class Create < Action
+          include Deps["aspects.extensions.cloner", repository: "repositories.extension"]
 
           using Refinements::Hash
 
@@ -23,25 +23,22 @@ module Terminus
             if parameters.valid?
               save parameters, response
             else
-              error response, parameters
+              error parameters, parameters.errors[:extension], response
             end
           end
 
           private
 
           def save parameters, response
-            attributes = parameters[:extension]
-
-            extension = repository.create_with_models attributes, Array(attributes[:model_ids])
-            extension = repository.update_with_devices extension.id,
-                                                       {},
-                                                       Array(attributes[:device_ids])
-
-            schedule.upsert(*extension.to_schedule)
-            response.redirect_to routes.path(:extensions)
+            case cloner.call parameters[:extension_id], **parameters[:extension]
+              in Success then response.redirect_to routes.path(:extensions)
+              in Failure(errors) then error parameters, errors, response
+              # :nocov:
+              # :nocov:
+            end
           end
 
-          def error response, parameters
+          def error parameters, errors, response
             fields = parameters[:extension].transform_with!(
               start_at: -> value { value.strftime("%Y-%m-%dT%H:%M:%S") }
             )
@@ -49,7 +46,7 @@ module Terminus
             response.render view,
                             extension: repository.find(parameters[:extension_id]),
                             fields:,
-                            errors: parameters.errors[:extension]
+                            errors:
           end
         end
       end
