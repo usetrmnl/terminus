@@ -18,7 +18,7 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Static do
         },
         template: <<~BODY
           <h1>{{extension.label}}</h1>
-          {% for day in source.days %}
+          {% for day in source_1.days %}
             <p>{{day.label}}</p>
           {% endfor %}
         BODY
@@ -26,21 +26,17 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Static do
     end
 
     it "renders template" do
-      context = {"extension" => {"label" => "Days"}}
+      data = {"extension" => {"label" => "Days"}}
 
-      expect(renderer.call(extension, context:)).to be_success(
-        Terminus::Aspects::Extensions::Capsule[
-          content: <<~CONTENT.strip
-            <html><head></head><body><h1>Days</h1>
+      expect(renderer.call(extension, context: data)).to be_success(<<~CONTENT.strip)
+        <html><head></head><body><h1>Days</h1>
 
-              <p>One</p>
+          <p>One</p>
 
-              <p>Two</p>
+          <p>Two</p>
 
-            </body></html>
-          CONTENT
-        ]
-      )
+        </body></html>
+      CONTENT
     end
   end
 end
