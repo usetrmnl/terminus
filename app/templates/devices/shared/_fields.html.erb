@@ -49,13 +49,24 @@
       <%= render "shared/popovers/triggers/default", name: :mac_address %>
     </label>
 
-    <div class="input-group" x-data="{ show: false }">
+    <div class="input-group" x-data="{
+      show: false,
+      generateMAC() {
+        const hex = () => [...Array(2)].map(() => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
+        this.$refs.mac.value = [hex(), hex(), hex(), hex(), hex(), hex()].join(':');
+      }
+    }">
       <%= form.text_field :mac_address,
                           id: :device_mac_address,
                           value: field_for(:mac_address, fields, device),
                           class: "value value-cap",
                           autocomplete: :off,
+                          "x-ref" => "mac",
                           "x-bind:type" => "show ? 'text' : 'password'"%>
+
+      <button type="button" class="action" title="Generate MAC address" x-on:click="generateMAC(); show = true">
+        <%= image_tag "icons/refresh.svg", alt: "Generate", width: 25, height: 25 %>
+      </button>
 
       <%= render "shared/visibility_button" %>
     </div>
@@ -67,13 +78,24 @@
       <%= render "shared/popovers/triggers/default", name: :api_key %>
     </label>
 
-    <div class="input-group" x-data="{ show: false }">
+    <div class="input-group" x-data="{
+      show: false,
+      generateKey() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        this.$refs.apikey.value = [...Array(20)].map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+      }
+    }">
       <%= form.text_field :api_key,
                           id: :device_api_key,
                           value: field_for(:api_key, fields, device),
                           class: "value value-cap",
                           autocomplete: :off,
+                          "x-ref" => "apikey",
                           "x-bind:type" => "show ? 'text' : 'password'"%>
+
+      <button type="button" class="action" title="Generate API key" x-on:click="generateKey(); show = true">
+        <%= image_tag "icons/refresh.svg", alt: "Generate", width: 25, height: 25 %>
+      </button>
 
       <%= render "shared/visibility_button" %>
     </div>
