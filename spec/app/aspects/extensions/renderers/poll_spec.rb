@@ -3,30 +3,30 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
-  subject(:renderer) { described_class.new fetcher: }
+  subject(:renderer) { described_class.new refresher: }
 
-  let(:fetcher) { instance_double Terminus::Aspects::Extensions::MultiFetcher }
+  let(:refresher) { instance_spy Terminus::Aspects::Extensions::Exchanges::Refresher }
 
   describe "#call" do
     let :extension do
-      Factory.structs[
+      Factory[
         :extension,
         kind: "poll",
         uris: ["https://test.io/test.json"],
         template: <<~CONTENT
           <h1>{{extension.label}}</h1>
-          {% for item in source.data %}
+          {% for item in source_1 %}
             <p>{{item.label}}: {{item.description}}</p>
           {% endfor %}
         CONTENT
       ]
     end
 
-    let(:context) { {"extension" => {"label" => "Test Label"}} }
+    let(:exchange) { Factory[:extension_exchange, extension_id: extension.id, data:] }
 
     let :data do
       {
-        "data" => [
+        "source_1" => [
           {
             "label" => "Test",
             "description" => "A test."
@@ -35,59 +35,49 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
       }
     end
 
-    it "renders template without errors for single response" do
-      allow(fetcher).to receive(:call).and_return(
-        Success(Terminus::Aspects::Extensions::Capsule[content: {"source" => data}])
-      )
+    let(:context) { {"extension" => {"label" => "Test Label"}} }
 
-      expect(renderer.call(extension, context:)).to be_success(
-        Terminus::Aspects::Extensions::Capsule[
-          content: <<~CONTENT.strip
-            <html><head></head><body><h1>Test Label</h1>
+    it "calls refresher" do
+      exchange
+      renderer.call(extension, context:)
 
-              <p>Test: A test.</p>
-
-            </body></html>
-          CONTENT
-        ]
-      )
+      expect(refresher).to have_received(:call).with(kind_of(Terminus::Structs::ExtensionExchange))
     end
 
-    context "with mixed responses" do
-      before do
-        allow(fetcher).to receive(:call).and_return(
-          Failure(
-            Terminus::Aspects::Extensions::Capsule[
-              content: {"source_1" => data, "source_3" => data},
-              errors: {"https://test.io" => "Danger!"}
-            ]
-          )
-        )
+    it "renders success for single source" do
+      exchange
 
-        allow(extension).to receive(:template).and_return(<<~CONTENT)
-          <h1>{{extension.label}}</h1>
-          {% for item in source_1.data %}<p>{{item.label}}</p>{% endfor %}
-          {% for item in source_2.data %}<p>{{item.label}}</p>{% endfor %}
-          {% for item in source_3.data %}<p>{{item.label}}</p>{% endfor %}
-        CONTENT
-      end
+      expect(renderer.call(extension, context:)).to be_success(<<~CONTENT.strip)
+        <html><head></head><body><h1>Test Label</h1>
 
-      it "answers render template and captures errors" do
-        html = <<~CONTENT.strip
-          <html><head></head><body><h1>Test Label</h1>
-          <p>Test</p>
+          <p>Test: A test.</p>
 
-          <p>Test</p>
-          </body></html>
-        CONTENT
+        </body></html>
+      CONTENT
+    end
 
-        expect(renderer.call(extension, context:)).to be_failure(
-          Terminus::Aspects::Extensions::Capsule[
-            content: html,
-            errors: {"https://test.io" => "Danger!"}
-          ]
-        )
-      end
+    it "renders success for multiple sources" do
+      extension.template.replace <<~CONTENT
+        <p>{{source_1.label}}</p>
+        <p>{{source_2.label}}</p>
+      CONTENT
+
+      data.merge! "source_1" => {"label" => "One"}, "source_2" => {"label" => "Two"}
+      exchange
+
+      expect(renderer.call(extension, context:)).to be_success(<<~CONTENT.strip)
+        <html><head></head><body><p>One</p>
+        <p>Two</p>
+        </body></html>
+      CONTENT
+    end
+
+    it "renders empty content without exchanges" do
+      extension.template.clear
+
+      expect(renderer.call(extension, context:)).to be_success(
+        "<html><head></head><body></body></html>"
+      )
     end
   end
 end

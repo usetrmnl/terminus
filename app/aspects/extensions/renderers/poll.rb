@@ -2,33 +2,38 @@
 
 require "dry/core"
 require "dry/monads"
+require "initable"
 
 module Terminus
   module Aspects
     module Extensions
       module Renderers
-        # Uses Liquid template to render remote data.
+        # Uses Liquid template to render poll data.
         class Poll
-          include Deps[fetcher: "aspects.extensions.multi_fetcher", renderer: "liquid.default"]
+          include Deps[
+            "aspects.extensions.exchanges.refresher",
+            exchange_repository: "repositories.extension_exchange",
+            renderer: "liquid.default"
+          ]
           include Dry::Monads[:result]
+          include Initable[coalescer: proc { Terminus::Aspects::Extensions::Exchanges::Coalescer }]
 
-          # :reek:DuplicateMethodCall
           def call extension, context: Dry::Core::EMPTY_HASH
-            template = extension.template
-
-            fetcher.call(extension)
-                   .either -> capsule { success template, context.merge(capsule.content), capsule },
-                           -> capsule { failure template, context.merge(capsule.content), capsule }
+            refresh extension.id
+            render extension, context
           end
 
           private
 
-          def success template, context, capsule
-            Success capsule.with(content: renderer.call(template, context))
+          def refresh extension_id
+            exchange_repository.where(extension_id:).each { refresher.call it }
           end
 
-          def failure template, context, capsule
-            Failure capsule.with(content: renderer.call(template, context))
+          def render extension, context
+            exchanges = exchange_repository.where extension_id: extension.id
+            data = coalescer.call exchanges
+
+            Success renderer.call(extension.template, context.merge(data))
           end
         end
       end
