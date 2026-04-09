@@ -65,7 +65,7 @@
                           "x-bind:type" => "show ? 'text' : 'password'"%>
 
       <button type="button" class="action" title="Generate MAC address" x-on:click="generateMAC(); show = true">
-        <%= image_tag "icons/refresh.svg", alt: "Generate", width: 25, height: 25 %>
+        <%= image_tag "icons/wand.svg", alt: "Generate", width: 25, height: 25 %>
       </button>
 
       <%= render "shared/visibility_button" %>
@@ -94,7 +94,7 @@
                           "x-bind:type" => "show ? 'text' : 'password'"%>
 
       <button type="button" class="action" title="Generate API key" x-on:click="generateKey(); show = true">
-        <%= image_tag "icons/refresh.svg", alt: "Generate", width: 25, height: 25 %>
+        <%= image_tag "icons/wand.svg", alt: "Generate", width: 25, height: 25 %>
       </button>
 
       <%= render "shared/visibility_button" %>
