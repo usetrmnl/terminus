@@ -9,7 +9,7 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
 
   describe "#call" do
     let :extension do
-      Factory.structs[
+      Factory[
         :extension,
         kind: "poll",
         uris: ["https://test.io/test.json"],
@@ -35,52 +35,40 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
       }
     end
 
-    it "renders template without errors for single response" do
-      allow(fetcher).to receive(:call).and_return(
-        Success(Terminus::Aspects::Extensions::Capsule[content: {"source" => data}])
-      )
+    it "renders success for single response" do
+      allow(fetcher).to receive(:call).and_return(Success({"source" => data}))
 
       expect(renderer.call(extension, context:)).to be_success(
-        Terminus::Aspects::Extensions::Capsule[
-          content: %(<h1>Test Label</h1>\n\n  <p>Test: A test.</p>\n\n)
-        ]
+        %(<h1>Test Label</h1>\n\n  <p>Test: A test.</p>\n\n)
       )
     end
 
-    context "with mixed responses" do
-      before do
-        allow(fetcher).to receive(:call).and_return(
-          Failure(
-            Terminus::Aspects::Extensions::Capsule[
-              content: {"source_1" => data, "source_3" => data},
-              errors: {"https://test.io" => "Danger!"}
-            ]
-          )
+    it "renders success for multiple sources" do
+      extension.template.replace <<~CONTENT
+        <p>{{source_1.label}}</p>
+        <p>{{source_2.label}}</p>
+      CONTENT
+
+      allow(fetcher).to receive(:call).and_return(
+        Success(
+          {
+            "source_1" => {"label" => "One"},
+            "source_2" => {"label" => "Two"}
+          }
         )
+      )
 
-        allow(extension).to receive(:template).and_return(<<~CONTENT)
-          <h1>{{extension.label}}</h1>
-          {% for item in source_1.data %}<p>{{item.label}}</p>{% endfor %}
-          {% for item in source_2.data %}<p>{{item.label}}</p>{% endfor %}
-          {% for item in source_3.data %}<p>{{item.label}}</p>{% endfor %}
-        CONTENT
-      end
+      expect(renderer.call(extension, context:)).to be_success(<<~CONTENT)
+        <p>One</p>
+        <p>Two</p>
+      CONTENT
+    end
 
-      it "answers render template and captures errors" do
-        html = <<~CONTENT
-          <h1>Test Label</h1>
-          <p>Test</p>
+    it "renders empty content for failure" do
+      extension.template.clear
+      allow(fetcher).to receive(:call).and_return(Failure({}))
 
-          <p>Test</p>
-        CONTENT
-
-        expect(renderer.call(extension, context:)).to be_failure(
-          Terminus::Aspects::Extensions::Capsule[
-            content: html,
-            errors: {"https://test.io" => "Danger!"}
-          ]
-        )
-      end
+      expect(renderer.call(extension, context:)).to be_failure("")
     end
   end
 end

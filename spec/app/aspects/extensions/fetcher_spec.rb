@@ -2,46 +2,16 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Extensions::Fetcher do
+RSpec.describe Terminus::Aspects::Extensions::Fetcher, :db do
   subject(:fetcher) { described_class.new http: }
 
   describe "#call" do
-    let(:uri) { "https://ghibliapi.vercel.app/films" }
-    let(:extension) { Factory.structs[:extension, uris: [uri]] }
-
-    context "with specific content type header" do
-      let :extension do
-        Factory.structs[:extension, headers: {"Accept" => "application/json"}, uris: [uri]]
-      end
-
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/films" do
-            headers["Content-Type"] = "text/plain"
-            status 200
-
-            <<~BODY
-              [
-                {
-                  "title": "Castle in the Sky",
-                  "director": "Hayao Miyazaki"
-                }
-              ]
-            BODY
-          end
-        end
-      end
-
-      it "answers success due to header overriding response content type" do
-        expect(fetcher.call(uri, extension)).to be_success(
-          [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ]
-        )
-      end
+    let :exchange do
+      Factory[
+        :extension_exchange,
+        headers: {"Accept" => "application/json"},
+        uri: "https://ghibliapi.vercel.app/films"
+      ]
     end
 
     context "with JSON" do
@@ -64,13 +34,17 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success(
-          [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ]
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: [
+                {
+                  "title" => "Castle in the Sky",
+                  "director" => "Hayao Miyazaki"
+                }
+              ]
+            )
+          )
         )
       end
     end
@@ -88,7 +62,8 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success("<binary>")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "image/png"})
+        expect(fetcher.call(exchange)).to match(Success(having_attributes(data: "<binary>")))
       end
     end
 
@@ -108,13 +83,19 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success(
-          [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ]
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "text/csv"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: [
+                {
+                  "title" => "Castle in the Sky",
+                  "director" => "Hayao Miyazaki"
+                }
+              ]
+            )
+          )
         )
       end
     end
@@ -136,7 +117,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success(%w[one two three])
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "text/plain"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: %w[one two three]
+            )
+          )
+        )
       end
     end
 
@@ -156,7 +145,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success("catalog" => "Empty")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "text/xml"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: {"catalog" => "Empty"}
+            )
+          )
+        )
       end
     end
 
@@ -176,7 +173,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success("catalog" => "Empty")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "application/xml"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: {"catalog" => "Empty"}
+            )
+          )
+        )
       end
     end
 
@@ -196,7 +201,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success("catalog" => "Empty")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "application/rss+xml"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: {"catalog" => "Empty"}
+            )
+          )
+        )
       end
     end
 
@@ -216,7 +229,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers success" do
-        expect(fetcher.call(uri, extension)).to be_success("catalog" => "Empty")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "application/atom+xml"})
+
+        expect(fetcher.call(exchange)).to match(
+          Success(
+            having_attributes(
+              data: {"catalog" => "Empty"}
+            )
+          )
+        )
       end
     end
 
@@ -235,7 +256,17 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers failure" do
-        expect(fetcher.call(uri, extension)).to be_failure("Unknown MIME Type: text/html.")
+        allow(exchange).to receive(:headers).and_return({"Content-Type" => "text/html"})
+
+        expect(fetcher.call(exchange)).to match(
+          Failure(
+            having_attributes(
+              error_code: nil,
+              error_type: nil,
+              error_body: "Unknown MIME Type: text/html."
+            )
+          )
+        )
       end
     end
 
@@ -246,7 +277,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
             headers["Content-Type"] = "application/json"
             status 404
 
-            <<~BODY
+            <<~BODY.strip
               {"error": "Danger!"}
             BODY
           end
@@ -254,7 +285,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
 
       it "answers failure" do
-        expect(fetcher.call(uri, extension)).to match(Failure(kind_of(HTTP::Response)))
+        expect(fetcher.call(exchange)).to match(
+          Failure(
+            having_attributes(
+              error_code: 404,
+              error_type: "application/json",
+              error_body: {"error" => "Danger!"}.to_json(space: " ")
+            )
+          )
+        )
       end
     end
   end

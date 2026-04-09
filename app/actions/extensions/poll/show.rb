@@ -29,19 +29,15 @@ module Terminus
           private
 
           def render extension, response
-            case fetcher.call extension
-              in Success(content:, errors:)
-                response.render view, content: sanitize(extension, content), layout: false
-              in Failure(content:, errors:)
-                response.render view, content:, errors:, layout: false
-              # :nocov:
-              # :nocov:
-            end
-          end
+            result = fetcher.call extension
 
-          def sanitize extension, content
-            content.transform_values! { "Binary request..." } if extension.kind == "image"
-            json_formatter.call content
+            if result.success?
+              response.render view, content: json_formatter.call(result.success), layout: false
+            else
+              response.render view,
+                              content: "Unable to render content. Please check your exchanges.",
+                              layout: false
+            end
           end
         end
       end

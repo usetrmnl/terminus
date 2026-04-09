@@ -16,6 +16,7 @@ detectors:
   DuplicateMethodCall:
     exclude:
       - Terminus::Aspects::Devices::Provisioner#create
+      - Terminus::Aspects::Extensions::Fetcher#save_success
   ControlParameter:
     exclude:
       - Terminus::Aspects::PasswordEncryptor#call
