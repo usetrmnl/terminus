@@ -365,7 +365,7 @@
     <%= scope(:form_field, key: :response, errors:, alpine: {show: "input === 'source'"}).render do %>
       <%= tag.pre(
             **HTMX[
-              get: routes.path(:extension_poll, extension_id: extension.id),
+              get: routes.path(:extension_sources, extension_id: extension.id),
               trigger: :load,
               swap: "outerHTML"
             ]

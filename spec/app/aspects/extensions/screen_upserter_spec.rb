@@ -8,7 +8,7 @@ RSpec.describe Terminus::Aspects::Extensions::ScreenUpserter, :db do
   subject(:upserter) { described_class.new }
 
   describe "#call" do
-    let(:extension) { Factory.structs[:extension, label: "Test", name: "test"] }
+    let(:extension) { Factory[:extension, label: "Test", name: "test"] }
     let(:model) { Factory[:model] }
     let(:device) { Factory[:device, model_id: model.id] }
 

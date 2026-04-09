@@ -33,8 +33,8 @@ module Terminus
 
           def content_for extension, model_id, device_id
             case renderer.call(extension, model_id:, device_id:)
-              in Success(content:, errors:) then content
-              in Failure(content:, errors:) then errors
+              in Success(content) then content
+              in Failure(message) then message
               else "Unable to render body for extension: #{extension.id}."
             end
           end

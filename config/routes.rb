@@ -112,7 +112,7 @@ module Terminus
            as: :extension_exchange
 
     get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
-    get "/extensions/:extension_id/poll", to: "extensions.poll.show", as: :extension_poll
+    get "/extensions/:extension_id/sources", to: "extensions.sources.index", as: :extension_sources
     get "/extensions/:extension_id/sensors", to: "extensions.sensors.index", as: :extension_sensors
 
     get "/firmware", to: "firmware.index", as: :firmware
