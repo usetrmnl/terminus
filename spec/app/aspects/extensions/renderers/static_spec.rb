@@ -29,9 +29,7 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Static do
       context = {"extension" => {"label" => "Days"}}
 
       expect(renderer.call(extension, context:)).to be_success(
-        Terminus::Aspects::Extensions::Capsule[
-          content: %(<h1>Days</h1>\n\n  <p>One</p>\n\n  <p>Two</p>\n\n)
-        ]
+        %(<h1>Days</h1>\n\n  <p>One</p>\n\n  <p>Two</p>\n\n)
       )
     end
   end

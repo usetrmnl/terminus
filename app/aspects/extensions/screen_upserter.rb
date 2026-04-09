@@ -13,7 +13,7 @@ module Terminus
 
         def call extension, model_id: nil, device_id: nil
           renderer.call(extension, model_id:, device_id:)
-                  .fmap { view.call content: it.content }
+                  .fmap { view.call content: it }
                   .bind do |content|
                     upserter.call model_id:,
                                   device_id:,

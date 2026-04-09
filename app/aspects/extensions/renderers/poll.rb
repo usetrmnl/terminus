@@ -9,7 +9,7 @@ module Terminus
       module Renderers
         # Uses Liquid template to render remote data.
         class Poll
-          include Deps[fetcher: "aspects.extensions.multi_fetcher", renderer: "liquid.default"]
+          include Deps[fetcher: "aspects.extensions.fetchers.many", renderer: "liquid.default"]
           include Dry::Monads[:result]
 
           # :reek:DuplicateMethodCall
@@ -17,19 +17,15 @@ module Terminus
             template = extension.template
 
             fetcher.call(extension)
-                   .either -> capsule { success template, context.merge(capsule.content), capsule },
-                           -> capsule { failure template, context.merge(capsule.content), capsule }
+                   .either -> data { success template, context.merge(data) },
+                           -> data { failure template, context.merge(data) }
           end
 
           private
 
-          def success template, context, capsule
-            Success capsule.with(content: renderer.call(template, context))
-          end
+          def success(template, data) = Success renderer.call(template, data)
 
-          def failure template, context, capsule
-            Failure capsule.with(content: renderer.call(template, context))
-          end
+          def failure(template, data) = Failure renderer.call(template, data)
         end
       end
     end

@@ -63,7 +63,7 @@ detectors:
       - Terminus::Actions::Playlists::Update#error
       - Terminus::Actions::Users::Update#error
       - Terminus::Aspects::Extensions::Cloner#build_attributes
-      - Terminus::Aspects::Extensions::Fetcher#maybe_alter_mime_type
+      - Terminus::Aspects::Extensions::Fetchers::Sole#maybe_alter_mime_type
       - Terminus::Aspects::Extensions::Renderers::Image#render_multiple
       - Terminus::Aspects::Playlists::ScreenOptioner#call
       - Terminus::Aspects::ProblemDetail#enum
@@ -95,7 +95,7 @@ detectors:
       - Terminus::Action#handle_rodauth_redirect
       - Terminus::Actions::Extensions::Poll::Show#fetch
       - Terminus::Aspects::Croner#call
-      - Terminus::Aspects::Extensions::Fetcher#parse
+      - Terminus::Aspects::Extensions::Fetchers::Sole#parse
       - Terminus::Aspects::Extensions::Parser#from_json
       - Terminus::Aspects::Firmware::Downloader#get
       - Terminus::Aspects::Screens::Compressor#call
