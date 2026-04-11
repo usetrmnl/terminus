@@ -1,4 +1,5 @@
 .bit-toggle-field {
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -20,9 +21,7 @@
 
 .bit-toggle-button {
   cursor: pointer;
-  flex-basis: 0;
   flex-grow: 1;
-  flex-shrink: 1;
   transition: background-color 0.2s;
 }
 

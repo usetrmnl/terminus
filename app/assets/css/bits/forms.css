@@ -13,22 +13,19 @@
 
   .row {
     align-items: flex-start;
+    align-self: stretch;
     border: none;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    grid-template-columns: 1fr;
     justify-content: center;
-    width: 100%;
-
-    @media (min-width: 800px) {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 
   .column {
     border: none;
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 1rem;
     justify-content: center;
     padding: 0;
@@ -39,12 +36,12 @@
   }
 
   .form-field {
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0;
     gap: 0.2rem;
-    width: 100%;
 
     &:has(.checkbox) {
       align-items: center;
