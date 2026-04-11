@@ -5,56 +5,74 @@
     <h1 class="label">Dashboard</h1>
   </header>
 
-  <div class="widgets">
-    <fieldset class="box">
-      <legend class="label">
-        Devices
-        <%= render "shared/popovers/triggers/default", name: :devices %>
-      </legend>
+  <div class="column">
+    <div class="widgets">
+      <fieldset class="box">
+        <legend class="label">
+          IP Addresses
+          <%= render "shared/popovers/triggers/default", name: :ip_addresses %>
+        </legend>
 
-      <ul class="devices">
-        <% devices.each do |device| %>
-          <li class="device">
-            <%= link_to(device.label, routes.path(:device, id: device.id)) %>
-            <%= render "devices/measurements", device: %>
-          </li>
-        <% end %>
-      </ul>
-    </fieldset>
+        <ul class="list">
+          <% ip_addresses.each do |ip| %>
+            <%= tag.li ip.address_with_kind, class: "bit-secret" %>
+          <% end %>
 
-    <fieldset class="box">
-      <legend class="label">
-        IP Addresses
-        <%= render "shared/popovers/triggers/default", name: :ip_addresses %>
-      </legend>
+          <li class="bit-secret"><%= api_uri %> (API)</li>
+        </ul>
+      </fieldset>
 
-      <ul class="list">
-        <% ip_addresses.each do |ip| %>
-          <%= tag.li ip.address_with_kind, class: "bit-secret" %>
-        <% end %>
+      <fieldset class="box">
+        <legend class="label">
+          Firmware
+          <%= render "shared/popovers/triggers/default", name: :firmware %>
+        </legend>
 
-        <li class="bit-secret"><%= api_uri %> (API)</li>
-      </ul>
-    </fieldset>
+        <ul class="list">
+          <% if firmware %>
+            <li>
+              <%= link_to firmware.version, routes.path(:firmware_show, id: firmware.id) %>:
+              Latest (<%= size firmware.attachment_size %>).
+            </li>
+          <% end %>
 
-    <fieldset class="box">
-      <legend class="label">
-        Firmware
-        <%= render "shared/popovers/triggers/default", name: :firmware %>
-      </legend>
+          <li><a href="https://trmnl.com/flash">Flash</a>: A flashing tool.</li>
+          <li><a href="https://tailor.trmnl.com">Tailor</a>: A branding tool.</li>
+        </ul>
+      </fieldset>
+    </div>
 
-      <ul class="list">
-        <% firmwares.each do |record| %>
-          <li>
-            <%= link_to record.version, routes.path(:firmware_show, id: record.id) %>
-            (<%= size record.attachment_size %>)
-          </li>
-        <% end %>
+    <div class="widgets">
+      <fieldset class="box">
+        <legend class="label bit-text-center">Devices</legend>
+        <p class="number"><%= link_to devices, routes.path(:devices) %></p>
+      </fieldset>
 
-        <li><a href="https://trmnl.com/flash">Flash</a>: A flashing tool.</li>
-        <li><a href="https://tailor.trmnl.com">Tailor</a>: A branding tool.</li>
-      </ul>
-    </fieldset>
+      <fieldset class="box">
+        <legend class="label bit-text-center">Extensions</legend>
+        <p class="number"><%= link_to extensions, routes.path(:extensions) %></p>
+      </fieldset>
+
+      <fieldset class="box">
+        <legend class="label bit-text-center">Models</legend>
+        <p class="number"><%= link_to models, routes.path(:models) %></p>
+      </fieldset>
+
+      <fieldset class="box">
+        <legend class="label bit-text-center">Playlists</legend>
+        <p class="number"><%= link_to playlists, routes.path(:playlists) %></p>
+      </fieldset>
+
+      <fieldset class="box">
+        <legend class="label bit-text-center">Screens</legend>
+        <p class="number"><%= link_to screens, routes.path(:screens) %></p>
+      </fieldset>
+
+      <fieldset class="box">
+        <legend class="label bit-text-center">Users</legend>
+        <p class="number"><%= link_to users, routes.path(:users) %></p>
+      </fieldset>
+    </div>
   </div>
 </section>
 
