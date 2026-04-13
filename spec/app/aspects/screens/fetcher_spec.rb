@@ -6,10 +6,7 @@ RSpec.describe Terminus::Aspects::Screens::Fetcher, :db do
   subject(:fetcher) { described_class.new }
 
   describe "#call" do
-    let :device do
-      provisioner.call(model_id: Factory[:model].id, mac_address: "A1:B2:C3:D4:E5:F6").value!
-    end
-
+    let(:device) { provisioner.call(model_id: Factory[:model].id).value! }
     let(:provisioner) { Terminus::Aspects::Devices::Provisioner.new }
     let(:playlist_repository) { Terminus::Repositories::Playlist.new }
     let(:item_repository) { Terminus::Repositories::PlaylistItem.new }

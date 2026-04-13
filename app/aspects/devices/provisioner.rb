@@ -19,7 +19,7 @@ module Terminus
         include Dry::Monads[:result]
         include Pipeable
 
-        def call(mac_address:, **)
+        def call(mac_address: MACAddressBuilder.call, **)
           device = repository.find_by(mac_address:)
 
           return Success device if device
