@@ -38,6 +38,15 @@ RSpec.describe "Extensions", :db do
     expect(page).to have_field(with: "Edit Test")
   end
 
+  it "views exchanges" do
+    model
+    exchange = Factory[:extension_exchange, extension_id: extension.id]
+    visit routes.path(:extension_edit, id: extension.id)
+    click_link "Exchanges"
+
+    expect(page).to have_content(exchange.template)
+  end
+
   it "builds", :js do
     model
     extension
