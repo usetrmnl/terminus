@@ -4,10 +4,12 @@ export const reeler = {
 
     if (!document.fullscreenElement) {
       if (viewport.requestFullscreen) {
+        viewport.requestPointerLock();
         viewport.requestFullscreen();
       }
     } else {
       if (document.exitFullscreen) {
+        document.exitPointerLock();
         document.exitFullscreen();
       }
     }
