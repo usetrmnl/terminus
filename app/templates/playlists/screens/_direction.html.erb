@@ -1,0 +1,5 @@
+<%= link_to label,
+            uri,
+            class: :action,
+            data: {direction:},
+            **HTMX[get: uri, trigger: "click, keyup[key=='#{key}'] from:body", push_url: true] %>
