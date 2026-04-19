@@ -27,7 +27,16 @@
   </header>
 
   <% if playlist.screens.any? %>
-    <%= render :screen, playlist:, before:, current:, after:, index:, total:, status: %>
+    <%= render :screen,
+               playlist:,
+               current:,
+               previous_uri:,
+               next_uri:,
+               first_uri:,
+               last_uri:,
+               index:,
+               total:,
+               status: %>
   <% else %>
     <div class="playlists">
       <%= render "shared/empty", message: "No screens found." %>
