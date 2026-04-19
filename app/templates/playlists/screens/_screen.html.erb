@@ -21,15 +21,21 @@
                      max: total %>
 
     <%= tag.div id: :actions, class: :actions do %>
-      <%= link_to "Previous",
-                  routes.path(:playlist_screen, playlist_id: playlist.id, id: before.id),
-                  class: :action,
-                  data: {direction: :backward},
-                  **HTMX[
-                    get: routes.path(:playlist_screen, playlist_id: playlist.id, id: before.id),
-                    trigger: "click, keyup[key=='ArrowLeft'] from:body",
-                    push_url: true
-                  ] %>
+      <%= render :direction,
+                 label: "Previous",
+                 uri: previous_uri,
+                 direction: :backward,
+                 key: "ArrowLeft" %>
+
+      <%= tag.span status, class: "bit-text-center" %>
+
+      <%= render :direction,
+                 label: "Next",
+                 uri: next_uri,
+                 direction: :forward,
+                 key: "ArrowRight" %>
+
+      <%= render :direction, label: "First", uri: first_uri, direction: :backward, key: "[" %>
 
       <button class="fullscreen" onclick="Terminus.toggleFullscreen()">
         <%= image_tag "icons/fullscreen.svg",
@@ -40,15 +46,7 @@
                       loading: :lazy %>
       </button>
 
-      <%= link_to "Next",
-                  routes.path(:playlist_screen, playlist_id: playlist.id, id: after.id),
-                  class: :action,
-                  data: {direction: :forward},
-                  **HTMX[
-                    get: routes.path(:playlist_screen, playlist_id: playlist.id, id: after.id),
-                    trigger: "click, keyup[key=='ArrowRight'] from:body",
-                    push_url: true
-                  ] %>
+      <%= render :direction, label: "Last", uri: last_uri, direction: :forward, key: "]" %>
     <% end %>
   </div>
 <% end %>

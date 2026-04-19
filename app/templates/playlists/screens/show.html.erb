@@ -20,6 +20,8 @@
       <ul>
         <li><kbd>←</kbd>: Go to previous slide</li>
         <li><kbd>→</kbd>: Go to next slide</li>
+        <li><kbd>[</kbd>: Go to first slide</li>
+        <li><kbd>]</kbd>: Go to last slide</li>
         <li><kbd>f</kbd>: Toggle fullscreen</li>
         <li><kbd>ESC</kbd>: Exit fullscreen</li>
       </ul>
@@ -27,7 +29,16 @@
   </header>
 
   <% if playlist.screens.any? %>
-    <%= render :screen, playlist:, before:, current:, after:, index:, total:, status: %>
+    <%= render :screen,
+               playlist:,
+               current:,
+               previous_uri:,
+               next_uri:,
+               first_uri:,
+               last_uri:,
+               index:,
+               total:,
+               status: %>
   <% else %>
     <div class="playlists">
       <%= render "shared/empty", message: "No screens found." %>
