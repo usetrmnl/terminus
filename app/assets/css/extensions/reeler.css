@@ -76,11 +76,6 @@
     justify-content: center;
   }
 
-  .container {
-    gap: 1rem;
-    width: fit-content;
-  }
-
   .slide {
     border-radius: 0.5rem;
     box-shadow:
@@ -97,14 +92,21 @@
   }
 
   .actions {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
     width: 100%;
+    margin-top: 1rem;
+    gap: 0.5rem;
 
     .fullscreen {
       background: none;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+    }
+
+    [data-direction="forward"] {
+      text-align: right;
     }
   }
 }
