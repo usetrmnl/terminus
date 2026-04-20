@@ -579,7 +579,8 @@ CREATE TABLE public.model (
     kind text DEFAULT 'terminus'::text NOT NULL,
     scale_factor double precision DEFAULT 1 NOT NULL,
     palette_names text[] DEFAULT '{}'::text[] CONSTRAINT model_palette_ids_not_null NOT NULL,
-    css jsonb DEFAULT '{}'::jsonb NOT NULL
+    css jsonb DEFAULT '{}'::jsonb NOT NULL,
+    default_palette_id integer
 );
 
 
@@ -1458,6 +1459,14 @@ ALTER TABLE ONLY public.membership
 
 
 --
+-- Name: model model_default_palette_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.model
+    ADD CONSTRAINT model_default_palette_id_fkey FOREIGN KEY (default_palette_id) REFERENCES public.palette(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: playlist playlist_current_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1603,4 +1612,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260330145138_alter_device_battery_columns.rb'),
 ('20260331102522_add_device_wake_reason_column.rb'),
 ('20260401162632_alter_model_width_and_height_defaults.rb'),
-('20260406095627_add_extension_exchange.rb');
+('20260406095627_add_extension_exchange.rb'),
+('20260420112319_add_model_palette_id.rb');
