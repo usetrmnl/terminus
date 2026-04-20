@@ -11,6 +11,8 @@ module Terminus
           has_many :screens, relation: :screen
           has_many :extension_models, relation: :extension_model
           has_many :extensions, through: :extension_model, relation: :extension
+          has_many :model_palettes, relation: :model_palette
+          has_many :palettes, through: :model_palette, relation: :palette
         end
       end
     end
