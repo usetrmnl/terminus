@@ -18,7 +18,12 @@
                    class: "bit-card bit-form model" do |form| %>
         <h1 class="label">Clone Model</h1>
 
-        <%= render "models/shared/fields", form:, model:, fields: fields.value, errors: %>
+        <%= render "models/shared/fields",
+                   form:,
+                   model:,
+                   palette_options:,
+                   fields: fields.value,
+                   errors: %>
 
         <div class="form-actions">
           <%= form.submit "Save", class: "bit-button-accept" %>

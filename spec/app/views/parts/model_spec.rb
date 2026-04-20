@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Views::Parts::Model do
+RSpec.describe Terminus::Views::Parts::Model, :db do
   subject(:part) { described_class.new value: model, rendering: Terminus::View.new.rendering }
 
   let(:model) { Factory.structs[:model] }
@@ -14,19 +14,36 @@ RSpec.describe Terminus::Views::Parts::Model do
     end
   end
 
-  describe "#alpine_palettes" do
-    it "answers filled array string" do
-      allow(model).to receive(:palette_names).and_return(%w[bw gray-4 gray-16])
-      expect(part.alpine_palettes).to eq(%(['bw','gray-4','gray-16']))
+  describe "#allowd_palettes", :db do
+    let(:model) { Factory[:model] }
+    let(:palette) { Factory[:palette, name: "test"] }
+    let(:association) { Factory[:model_palette, model_id: model.id, palette_id: palette.id] }
+
+    it "answers names when associations exist" do
+      association
+      expect(part.allowed_palettes).to eq("test")
     end
 
-    it "answers empty array string when empty" do
-      allow(model).to receive(:palette_names).and_return([])
-      expect(part.alpine_palettes).to eq("[]")
+    it "answers all with no associations" do
+      expect(part.allowed_palettes).to eq("All")
+    end
+  end
+
+  describe "#default_palette_name", :db do
+    context "when default exists" do
+      let :model do
+        palette = Factory[:palette, name: "test"]
+        model = Factory[:model, default_palette_id: palette.id]
+        Terminus::Repositories::Model.new.find model.id
+      end
+
+      it "answers name" do
+        expect(part.default_palette_name).to eq("test")
+      end
     end
 
-    it "answers empty array string when nil" do
-      expect(part.alpine_palettes).to eq("[]")
+    it "answers none when default doesn't exist" do
+      expect(part.default_palette_name).to eq("None")
     end
   end
 
@@ -89,17 +106,6 @@ RSpec.describe Terminus::Views::Parts::Model do
       it "answers upcase" do
         expect(part.kind_label).to eq("TRMNL")
       end
-    end
-  end
-
-  describe "#palettes" do
-    it "answers sentence when IDs are present" do
-      allow(model).to receive(:palette_names).and_return(%w[bw gray-4 gray-16])
-      expect(part.palettes).to eq("bw, gray-4, and gray-16")
-    end
-
-    it "answers empty string when IDs are empty" do
-      expect(part.palettes).to eq("")
     end
   end
 end

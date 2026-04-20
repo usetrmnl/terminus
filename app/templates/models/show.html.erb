@@ -90,10 +90,16 @@
          <dd class="value"><%= model.height %></dd>
 
          <dt class="key">
-           Palettes
-           <%= render "shared/popovers/triggers/default", name: :palettes %>
+           Default Palette
+           <%= render "shared/popovers/triggers/default", name: :default_palette %>
          </dt>
-         <dd class="value"><%= model.palettes %></dd>
+         <dd class="value"><%= model.default_palette_name %></dd>
+
+         <dt class="key">
+           Allowed Palettes
+           <%= render "shared/popovers/triggers/default", name: :allowed_palettes %>
+         </dt>
+         <dd class="value"><%= model.allowed_palettes %></dd>
 
          <dt class="key">
            CSS

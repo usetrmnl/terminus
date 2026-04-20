@@ -147,36 +147,16 @@
                           class: :value %>
   <% end %>
 
-  <%= scope(
-        :form_field,
-        key: :palette_names,
-        errors:,
-        alpine: {data: "{palette_names: #{model ? model.alpine_palettes : []}, nascence: '', index: 0}"}
-      ).render do %>
-
-    <%= form.hidden_field :palette_names, id: :model_palette_names, "x-bind:value" => "palette_names.join(' ')" %>
-
-    <label class="key" for="palette_names">
-      Palette IDs
-      <%= render "shared/popovers/triggers/default", name: :palettes %>
+  <%= scope(:form_field, key: :default_palette_id, errors:).render do %>
+    <label class="key" for="model_default_palette_id">
+      Default Palette
+      <%= render "shared/popovers/triggers/default", name: :default_palette %>
     </label>
 
-    <%= tag.input id: :palette_names,
-                  name: :palette_names,
-                  class: :value,
-                  placeholder: "Type your ID and hit enter to create.",
-                  "x-model" => "nascence",
-                  "x-on:keydown.enter.prevent" => "if (nascence.trim() !== '') { palette_names.push(nascence.trim()); nascence = '';}" %>
-
-    <div class="bit-pills">
-      <template x-for="(id, index) in palette_names" x-bind="index">
-        <button type="button"
-                class="bit-pill bit-pill-active"
-                x-text="id"
-                x-on:click="palette_names.splice(index, 1)">
-        </button>
-      </template>
-    </div>
+    <%= form.select :default_palette_id,
+                    palette_options,
+                    id: :model_default_palette_id,
+                    class: :value %>
   <% end %>
 
   <%= scope(:form_field, key: :css, errors:).render do %>

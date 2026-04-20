@@ -9,15 +9,24 @@ module Terminus
     module Parts
       # The model presenter.
       class Model < Hanami::View::Part
+        include Deps[
+          join_repository: "repositories.model_palette",
+          palette_repository: "repositories.palette"
+        ]
         include Initable[json_formatter: Aspects::JSONFormatter]
 
         using Refinements::Array
 
-        def alpine_palettes
-          Array(palette_names).map { %('#{it}') }
-                              .join(",")
-                              .then { "[#{it}]" }
+        def allowed_palettes
+          join_repository.where(model_id: id)
+                         .map(&:palette_id)
+                         .then { |ids| palette_repository.where(id: ids) }
+                         .map(&:name)
+                         .then { it.empty? ? ["All"] : it }
+                         .to_sentence
         end
+
+        def default_palette_name = default_palette_id ? default_palette.name : "None"
 
         def dimensions = "#{width}x#{height}"
 
@@ -29,8 +38,6 @@ module Terminus
             else kind.capitalize
           end
         end
-
-        def palettes = palette_names.to_sentence
       end
     end
   end

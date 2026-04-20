@@ -13,7 +13,12 @@
       <%= form_for :model, routes.path(:models), class: "bit-card bit-form model" do |form| %>
         <h1 class="label">New Model</h1>
 
-        <%= render "models/shared/fields", form:, model:, fields: fields.value, errors: %>
+        <%= render "models/shared/fields",
+                   form:,
+                   model:,
+                   palette_options:,
+                   fields: fields.value,
+                   errors: %>
 
         <div class="form-actions">
           <%= render "shared/actions/save", form:, path: routes.path(:model_create) %>
