@@ -33,7 +33,7 @@ module Terminus
 
         def parse type, body
           case type
-            when "application/json" then parser.from_json body
+            when %r(application/([[:alnum:]][\w!#&-^$]*\+)?json) then parser.from_json body
             when %r(image/.+) then parser.from_image body
             when "text/csv" then parser.from_csv body
             when "text/plain" then parser.from_text body

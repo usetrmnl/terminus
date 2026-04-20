@@ -75,6 +75,141 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher do
       end
     end
 
+    context "with JSON-LD" do
+      let :http do
+        HTTP::Fake::Client.new do
+          get "/films" do
+            headers["Content-Type"] = "application/ld+json"
+            status 200
+
+            <<~BODY
+              {
+                "@context": "https://json-ld.org/contexts/person.jsonld",
+                "@id": "http://dbpedia.org/resource/John_Lennon",
+                "name": "John Lennon",
+                "born": "1940-10-09",
+                "spouse": [
+                  "http://dbpedia.org/resource/Yoko_Ono",
+                  "http://dbpedia.org/resource/Cynthia_Lennon"
+                ]
+              }
+            BODY
+          end
+        end
+      end
+
+      it "answers success" do
+        expect(fetcher.call(uri, extension)).to be_success(
+          {
+            "@context" => "https://json-ld.org/contexts/person.jsonld",
+            "@id" => "http://dbpedia.org/resource/John_Lennon",
+            "name" => "John Lennon",
+            "born" => "1940-10-09",
+            "spouse" => [
+              "http://dbpedia.org/resource/Yoko_Ono",
+              "http://dbpedia.org/resource/Cynthia_Lennon"
+            ]
+          }
+        )
+      end
+    end
+
+    context "with GeoJSON" do
+      let :http do
+        HTTP::Fake::Client.new do
+          get "/films" do
+            headers["Content-Type"] = "application/geo+json"
+            status 200
+
+            <<~BODY
+              {
+                "@context": [
+                  "https://geojson.org/geojson-ld/geojson-context.jsonld",
+                  {
+                    "@version": "1.1"
+                  }
+                ],
+                "type": "Feature",
+                "geometry": {},
+                "properties": {}
+              }
+            BODY
+          end
+        end
+      end
+
+      it "answers success" do
+        expect(fetcher.call(uri, extension)).to be_success(
+          {
+            "@context" => [
+              "https://geojson.org/geojson-ld/geojson-context.jsonld",
+              {
+                "@version" => "1.1"
+              }
+            ],
+            "type" => "Feature",
+            "geometry" => {},
+            "properties" => {}
+          }
+        )
+      end
+    end
+
+    context "with arbitrary JSON schema" do
+      let :http do
+        HTTP::Fake::Client.new do
+          get "/films" do
+            headers["Content-Type"] = "application/fake!#&-^$but_valid+json"
+            status 200
+
+            <<~BODY
+              [
+                {
+                  "title": "Castle in the Sky",
+                  "director": "Hayao Miyazaki"
+                }
+              ]
+            BODY
+          end
+        end
+      end
+
+      it "answers success" do
+        expect(fetcher.call(uri, extension)).to be_success(
+          [
+            {
+              "title" => "Castle in the Sky",
+              "director" => "Hayao Miyazaki"
+            }
+          ]
+        )
+      end
+    end
+
+    context "with invalid json MIME type" do
+      let :http do
+        HTTP::Fake::Client.new do
+          get "/films" do
+            headers["Content-Type"] = "application/+json"
+            status 200
+
+            <<~BODY
+              [
+                {
+                  title: "Castle in the Sky",
+                  director: "Hayao Miyazaki"
+                }
+              ]
+            BODY
+          end
+        end
+      end
+
+      it "answers failure" do
+        expect(fetcher.call(uri, extension)).to be_failure("Unknown MIME Type: application/+json.")
+      end
+    end
+
     context "with image" do
       let :http do
         HTTP::Fake::Client.new do
