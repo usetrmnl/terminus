@@ -10,10 +10,6 @@ model_synchronizer:
   class: Terminus::Jobs::Synchronizers::Model
   cron: "0 0 */1 * *"
   description: "Synchronizes TRMNL models."
-palette_synchronizer:
-  class: Terminus::Jobs::Synchronizers::Palette
-  cron: "0 0 */1 * *"
-  description: "Synchronizes TRMNL palettes."
 screen_synchronizer:
   class: Terminus::Jobs::Synchronizers::Screen
   cron: "0/5 * * * *"

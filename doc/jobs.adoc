@@ -14,8 +14,7 @@ All background jobs are handled by the Sidekiq worker service. Most are created 
 ** Delete all latest versions until you only have the version you want to downgrade to listed at the top of the list.
 ** Short click the button on the back of your device to force a refresh and wait for the firmware downgrade to complete.
 * *Fonts*: Synchronizes {trmnl_link} fonts. New fonts, as they become available, are added as public assets. By default, this checks for updates once a day.
-* *Palette*: Synchronizes {trmnl_link} palettes. New palettes, as they become available, are added to the database while existing records are updated instead. By default, this checks for updates once a day.
-* *Model*: Synchronizes {trmnl_link} models. New models, as they become available, are added to the database while existing records are updated instead. Each model will have one to many palette names as provided by the Palette synchronizer mentioned above. By default, this checks for updates once a day.
+* *Model*: Synchronizes both {trmnl_link} palettes and models. New palettes and models, as they become available, are added to the database while existing records are updated instead. Each model will have one to many palettes associated with it. By default, this checks for updates once a day.
 * *Screen*: Downloads device screens for any device you have set up to proxy via the {trmnl_link} server. You only need to toggle _proxy_ support for any/all devices you want to pull from TRMNL. This allows you to leverage any/all recipes/plugins you have configured via your remote account. By default, this checks for updates every five minutes.
 * *Sensor*: Synchronizes hosted (i.e. Raspberry Pi) sensor data for use when rendering screens on your devices. By default, this checks for updates every minute.
 
