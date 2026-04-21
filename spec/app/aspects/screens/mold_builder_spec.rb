@@ -9,14 +9,14 @@ RSpec.describe Terminus::Aspects::Screens::MoldBuilder, :db do
 
   describe "#call" do
     it "answers mold with palette color codes" do
-      Factory[
+      palette = Factory[
         :palette,
         name: "color-4bwry",
         grays: 2,
         colors: %w[#000000 #FF0000 #FFFFFF #FFFF00]
       ]
 
-      model = Factory[:model, bit_depth: 1, colors: 2, palette_names: %w[color-4bwry]]
+      model = Factory[:model, bit_depth: 1, colors: 2, default_palette_id: palette.id]
 
       expect(builder.call(model_id: model.id, name: "test", label: "Test")).to be_success(
         Terminus::Aspects::Screens::Mold[
@@ -37,33 +37,8 @@ RSpec.describe Terminus::Aspects::Screens::MoldBuilder, :db do
       )
     end
 
-    it "answers mold with last palette when multiple palettes are supported" do
-      Factory[:palette, name: "bw"]
-      Factory[:palette, name: "gray-4", grays: 4]
-
-      model = Factory[:model, bit_depth: 1, colors: 2, palette_names: %w[bw gray-4]]
-
-      expect(builder.call(model_id: model.id, name: "test", label: "Test")).to be_success(
-        Terminus::Aspects::Screens::Mold[
-          model_id: model.id,
-          name: "test",
-          label: "Test",
-          bit_depth: 1,
-          grays: 4,
-          colors: 2,
-          color_codes: [],
-          mime_type: "image/png",
-          rotation: 0,
-          offset_x: 0,
-          offset_y: 0,
-          width: 800,
-          height: 480
-        ]
-      )
-    end
-
-    it "answers mold with palette fallbacks" do
-      model = Factory[:model, bit_depth: 1, colors: 2, palette_names: ["bogus"]]
+    it "answers mold with palette fallbacks when default palette isn't found" do
+      model = Factory[:model, bit_depth: 1, colors: 2]
 
       expect(builder.call(model_id: model.id, name: "test", label: "Test")).to be_success(
         Terminus::Aspects::Screens::Mold[

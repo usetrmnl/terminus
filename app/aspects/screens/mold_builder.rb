@@ -25,7 +25,7 @@ module Terminus
         private
 
         def palette_attributes_for model
-          palette = palette_repository.find_by name: model.palette_names.last
+          palette = palette_repository.find model.default_palette_id
           attributes = palette ? palette.screen_attributes : fallbacks
 
           [model, attributes]
