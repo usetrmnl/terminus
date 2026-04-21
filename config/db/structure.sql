@@ -578,7 +578,6 @@ CREATE TABLE public.model (
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     kind text DEFAULT 'terminus'::text NOT NULL,
     scale_factor double precision DEFAULT 1 NOT NULL,
-    palette_names text[] DEFAULT '{}'::text[] CONSTRAINT model_palette_ids_not_null NOT NULL,
     css jsonb DEFAULT '{}'::jsonb NOT NULL,
     default_palette_id integer
 );
@@ -1672,4 +1671,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260401162632_alter_model_width_and_height_defaults.rb'),
 ('20260406095627_add_extension_exchange.rb'),
 ('20260420112319_add_model_palette_id.rb'),
-('20260420112332_create_model_palette.rb');
+('20260420112332_create_model_palette.rb'),
+('20260421140616_remove_model_palette_names_column.rb');
