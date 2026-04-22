@@ -415,5 +415,81 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
         )
       end
     end
+
+    context "with HTTP request error" do
+      let(:http) { class_double HTTP }
+
+      it "answers failure" do
+        allow(http).to receive(:headers).and_raise HTTP::RequestError, "Danger!"
+        expect(fetcher.call(input)).to match(
+          Failure(
+            data: {},
+            error: {
+              uri: "https://ghibliapi.vercel.app/films",
+              code: nil,
+              type: nil,
+              body: "Unable to make request"
+            }
+          )
+        )
+      end
+    end
+
+    context "with HTTP connection error" do
+      let(:http) { class_double HTTP }
+
+      it "answers failure" do
+        allow(http).to receive(:headers).and_raise HTTP::ConnectionError, "Danger!"
+        expect(fetcher.call(input)).to match(
+          Failure(
+            data: {},
+            error: {
+              uri: "https://ghibliapi.vercel.app/films",
+              code: nil,
+              type: nil,
+              body: "Unable to connect"
+            }
+          )
+        )
+      end
+    end
+
+    context "with HTTP timeout error" do
+      let(:http) { class_double HTTP }
+
+      it "answers failure" do
+        allow(http).to receive(:headers).and_raise HTTP::TimeoutError, "Danger!"
+        expect(fetcher.call(input)).to match(
+          Failure(
+            data: {},
+            error: {
+              uri: "https://ghibliapi.vercel.app/films",
+              code: nil,
+              type: nil,
+              body: "Connection timed out"
+            }
+          )
+        )
+      end
+    end
+
+    context "with SSL error" do
+      let(:http) { class_double HTTP }
+
+      it "answers failure" do
+        allow(http).to receive(:headers).and_raise OpenSSL::SSL::SSLError, "Danger!"
+        expect(fetcher.call(input)).to match(
+          Failure(
+            data: {},
+            error: {
+              uri: "https://ghibliapi.vercel.app/films",
+              code: nil,
+              type: nil,
+              body: "Unable to secure connection"
+            }
+          )
+        )
+      end
+    end
   end
 end

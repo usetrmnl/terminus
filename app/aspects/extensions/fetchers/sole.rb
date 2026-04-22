@@ -25,7 +25,11 @@ module Terminus
           def process input
             http.headers(input.headers)
                 .public_send(input.verb, input.uri)
-                .then { it.status.success? ? Success(it) : build_failure(input, it) }
+                .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
+          rescue HTTP::RequestError then build_failure input, "Unable to make request"
+          rescue HTTP::ConnectionError then build_failure input, "Unable to connect"
+          rescue HTTP::TimeoutError then build_failure input, "Connection timed out"
+          rescue OpenSSL::SSL::SSLError then build_failure input, "Unable to secure connection"
           end
 
           def maybe_alter_mime_type headers, response
@@ -50,13 +54,17 @@ module Terminus
             if result.success?
               Success data: result.success, error: Dry::Core::EMPTY_HASH
             else
-              Failure data: Dry::Core::EMPTY_HASH,
-                      error: {uri: input.uri, code: nil, type: nil, body: result.failure}
+              build_failure input, result.failure
             end
           end
 
+          def build_failure input, body
+            Failure data: Dry::Core::EMPTY_HASH,
+                    error: {uri: input.uri, code: nil, type: nil, body:}
+          end
+
           # :reek:FeatureEnvy
-          def build_failure input, error
+          def build_detailed_failure input, error
             Failure data: Dry::Core::EMPTY_HASH,
                     error: {
                       uri: input.uri,

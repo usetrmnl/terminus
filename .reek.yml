@@ -96,6 +96,7 @@ detectors:
       - Terminus::Actions::Extensions::Poll::Show#fetch
       - Terminus::Aspects::Croner#call
       - Terminus::Aspects::Extensions::Fetchers::Sole#parse
+      - Terminus::Aspects::Extensions::Fetchers::Sole#process
       - Terminus::Aspects::Extensions::Parser#from_json
       - Terminus::Aspects::Firmware::Downloader#get
       - Terminus::Aspects::Screens::Compressor#call
