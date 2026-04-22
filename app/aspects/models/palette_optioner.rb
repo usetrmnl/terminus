@@ -15,7 +15,7 @@ module Terminus
         def call model = nil, prompt: "Select..."
           load_restricted(model).then { it.empty? ? load_all : it }
                                 .reduce [[prompt, ""]] do |all, palette|
-                                  all.append [palette.name, palette.id]
+                                  all.append [palette.label, palette.id]
                                 end
         end
 

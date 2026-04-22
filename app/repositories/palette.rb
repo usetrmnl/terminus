@@ -23,13 +23,13 @@ module Terminus
 
       def search key, value
         palette.where(Sequel.ilike(key, "%#{value}%"))
-               .order { created_at.asc }
+               .order { label.asc }
                .to_a
       end
 
       def where(**)
         palette.where(**)
-               .order { created_at.asc }
+               .order { label.asc }
                .to_a
       end
     end

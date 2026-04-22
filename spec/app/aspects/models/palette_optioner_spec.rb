@@ -18,15 +18,15 @@ RSpec.describe Terminus::Aspects::Models::PaletteOptioner, :db do
     it "answers only palettes associated with model" do
       Factory[:model_palette, model_id: model.id, palette_id: palette_a.id]
 
-      expect(optioner.call(model)).to eq([["Select...", ""], [palette_a.name, palette_a.id]])
+      expect(optioner.call(model)).to eq([["Select...", ""], [palette_a.label, palette_a.id]])
     end
 
     it "answers all palettes when model isn't provided" do
       expect(optioner.call).to eq(
         [
           ["Select...", ""],
-          [palette_a.name, palette_a.id],
-          [palette_b.name, palette_b.id]
+          [palette_a.label, palette_a.id],
+          [palette_b.label, palette_b.id]
         ]
       )
     end
@@ -35,8 +35,8 @@ RSpec.describe Terminus::Aspects::Models::PaletteOptioner, :db do
       expect(optioner.call(model)).to eq(
         [
           ["Select...", ""],
-          [palette_a.name, palette_a.id],
-          [palette_b.name, palette_b.id]
+          [palette_a.label, palette_a.id],
+          [palette_b.label, palette_b.id]
         ]
       )
     end
