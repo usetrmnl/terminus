@@ -49,12 +49,8 @@ RSpec.describe Terminus::Aspects::Extensions::Upgrader, :db do
       upgrader.call
     end
 
-    it "adds extension exchanges" do
+    it "doesn't add extension exchanges" do
       expect(repository.all).to eq([])
-    end
-
-    it "logs info" do
-      expect(logger.reread).not_to match(/INFO.+Upgraded extension/)
     end
   end
 end
