@@ -4,7 +4,36 @@ require "hanami_helper"
 
 RSpec.describe Terminus::Structs::Extension do
   subject :extension do
-    Factory.structs[:extension, id: 1, name: "test", label: "Test", interval: 5, unit: "minute"]
+    Factory.structs[
+      :extension,
+      id: 1,
+      name: "test",
+      label: "Test",
+      interval: 5,
+      unit: "minute",
+      start_at: Time.utc(2025, 1, 2, 3, 4, 5)
+    ]
+  end
+
+  describe "#export_attributes" do
+    it "answers attributes" do
+      expect(extension.export_attributes).to eq(
+        name: "test",
+        label: "Test",
+        description: nil,
+        kind: "poll",
+        mode: nil,
+        body: nil,
+        fields: [],
+        data: {},
+        days: nil,
+        interval: 5,
+        last_day_of_month: nil,
+        start_at: "2025-01-02T03:04:05+00:00",
+        template: nil,
+        unit: "minute"
+      )
+    end
   end
 
   describe "#liquid_attributes" do
