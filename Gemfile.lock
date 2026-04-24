@@ -599,6 +599,7 @@ DEPENDENCIES
   capybara-validate_html5 (~> 2.1)
   cogger (~> 2.0)
   connection_pool (~> 3.0)
+  core (~> 3.2)
   csv (~> 3.3)
   cuprite (~> 0.15)
   database_cleaner-sequel (~> 2.0)
