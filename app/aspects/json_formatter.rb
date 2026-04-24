@@ -1,7 +1,7 @@
 # auto_register: false
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "functionable"
 require "json"
 
@@ -13,7 +13,7 @@ module Terminus
 
       def call data
         case data
-          in nil | Dry::Core::EMPTY_ARRAY | Dry::Core::EMPTY_HASH then Dry::Core::EMPTY_STRING
+          in nil | Core::EMPTY_ARRAY | Core::EMPTY_HASH then Core::EMPTY_STRING
           in Array | Hash then JSON data, indent: "  ", space: " ", object_nl: "\n", array_nl: "\n"
           else fail TypeError, "Unknown type to format as JSON for: #{data.inspect}."
         end

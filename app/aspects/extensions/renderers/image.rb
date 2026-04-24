@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 
 module Terminus
@@ -15,7 +15,7 @@ module Terminus
           ]
           include Dry::Monads[:result]
 
-          def call extension, context: Dry::Core::EMPTY_HASH
+          def call extension, context: Core::EMPTY_HASH
             exchanges = exchange_repository.where extension_id: extension.id
 
             if exchanges.one?

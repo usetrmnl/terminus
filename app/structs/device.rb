@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 
 module Terminus
   module Structs
@@ -23,9 +23,9 @@ module Terminus
       end
 
       def slug
-        return Dry::Core::EMPTY_STRING unless mac_address
+        return Core::EMPTY_STRING unless mac_address
 
-        mac_address.tr ":", Dry::Core::EMPTY_STRING
+        mac_address.tr ":", Core::EMPTY_STRING
       end
 
       def screen_label(prefix) = "#{prefix} #{friendly_id}"

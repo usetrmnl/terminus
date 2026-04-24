@@ -1,7 +1,7 @@
 # auto_register: false
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "initable"
 
 module Terminus
@@ -21,7 +21,7 @@ module Terminus
       end
 
       def to_h
-        return Dry::Core::EMPTY_HASH unless record
+        return Core::EMPTY_HASH unless record
 
         attributes = record.to_h.slice(*keys)
         attributes.transform_values!(&transformer)
@@ -36,7 +36,7 @@ module Terminus
       def items
         record.playlist_items.map { item_serializer.new(it).to_h }
       rescue NoMethodError, ROM::Struct::MissingAttribute
-        Dry::Core::EMPTY_ARRAY
+        Core::EMPTY_ARRAY
       end
     end
   end

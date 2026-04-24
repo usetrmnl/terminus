@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "dry/monads"
 
 module Terminus
@@ -44,7 +45,7 @@ module Terminus
 
             def model_ids
               model_repository.find_by(name: "og_plus").then do |model|
-                model ? [model.id] : Dry::Core::EMPTY_ARRAY
+                model ? [model.id] : Core::EMPTY_ARRAY
               end
             end
 

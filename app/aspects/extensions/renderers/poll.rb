@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 
@@ -18,7 +18,7 @@ module Terminus
           include Dry::Monads[:result]
           include Initable[coalescer: proc { Terminus::Aspects::Extensions::Exchanges::Coalescer }]
 
-          def call extension, context: Dry::Core::EMPTY_HASH
+          def call extension, context: Core::EMPTY_HASH
             refresh extension.id
             render extension, context
           end

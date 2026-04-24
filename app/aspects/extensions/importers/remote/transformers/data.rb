@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 
@@ -16,7 +16,7 @@ module Terminus
               include Dry::Monads[:result]
 
               def call attributes
-                data = attributes.fetch(target, Dry::Core::EMPTY_HASH)
+                data = attributes.fetch(target, Core::EMPTY_HASH)
                                  .each
                                  .with_object({}) do |item, all|
                                    key, value = item.values_at(*keys)

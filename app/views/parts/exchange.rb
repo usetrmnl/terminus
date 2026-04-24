@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "hanami/view"
 require "initable"
 require "refinements/string"
@@ -15,7 +15,7 @@ module Terminus
 
         using Refinements::String
 
-        def curl(data = Dry::Core::EMPTY_HASH) = curler.call value, data
+        def curl(data = Core::EMPTY_HASH) = curler.call value, data
 
         def formatted_body = json_formatter.call body
 
@@ -27,7 +27,7 @@ module Terminus
 
         def formatted_verb = verb.upcase
 
-        def requests data = Dry::Core::EMPTY_HASH, length = 50
+        def requests data = Core::EMPTY_HASH, length = 50
           uri_builder.call(template, data).map { it.trim_end length }
         end
 

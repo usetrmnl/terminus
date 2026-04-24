@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Views
     module Users
@@ -7,8 +9,8 @@ module Terminus
       class New < View
         expose :user
         expose :statuses
-        expose :fields, default: Dry::Core::EMPTY_HASH
-        expose :errors, default: Dry::Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 
 module Terminus
   module Actions
@@ -40,7 +40,7 @@ module Terminus
           private
 
           def save attributes
-            items = attributes.fetch :items, Dry::Core::EMPTY_ARRAY
+            items = attributes.fetch :items, Core::EMPTY_ARRAY
             playlist = repository.create_with_items attributes, items
             repository.with_items.by_pk(playlist.id).one
           end

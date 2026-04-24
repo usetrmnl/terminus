@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 require "refinements/hash"
@@ -27,7 +27,7 @@ module Terminus
 
               return split_lines content, headers if content.include? pair_delimiter
 
-              Success headers.merge!(key => Dry::Core::EMPTY_ARRAY)
+              Success headers.merge!(key => Core::EMPTY_ARRAY)
             end
 
             private

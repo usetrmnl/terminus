@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "initable"
 
 module Terminus
@@ -11,7 +11,7 @@ module Terminus
         include Deps["aspects.extensions.uri_builder"]
         include Initable[json_formatter: proc { Terminus::Aspects::JSONFormatter }]
 
-        def call exchange, data = Dry::Core::EMPTY_HASH
+        def call exchange, data = Core::EMPTY_HASH
           uri_builder.call(exchange.template, data)
                      .map { |uri| render uri, exchange }
                      .join "\n"
