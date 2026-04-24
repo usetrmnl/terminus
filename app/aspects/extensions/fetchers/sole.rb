@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 
@@ -53,20 +53,19 @@ module Terminus
           # :reek:FeatureEnvy
           def build_success input, result
             if result.success?
-              Success data: result.success, error: Dry::Core::EMPTY_HASH
+              Success data: result.success, error: Core::EMPTY_HASH
             else
               build_failure input, result.failure
             end
           end
 
           def build_failure input, body
-            Failure data: Dry::Core::EMPTY_HASH,
-                    error: {uri: input.uri, code: nil, type: nil, body:}
+            Failure data: Core::EMPTY_HASH, error: {uri: input.uri, code: nil, type: nil, body:}
           end
 
           # :reek:FeatureEnvy
           def build_detailed_failure input, error
-            Failure data: Dry::Core::EMPTY_HASH,
+            Failure data: Core::EMPTY_HASH,
                     error: {
                       uri: input.uri,
                       code: error.code,

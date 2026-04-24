@@ -1,8 +1,8 @@
 # auto_register: false
 # frozen_string_literal: true
 
+require "core"
 require "csv"
-require "dry/core"
 require "dry/monads"
 require "functionable"
 require "json"
@@ -25,7 +25,7 @@ module Terminus
         def from_image(body) = Success body
 
         def from_json body
-          content = String(body).empty? ? Dry::Core::EMPTY_ARRAY : JSON(body)
+          content = String(body).empty? ? Core::EMPTY_ARRAY : JSON(body)
           Success content
         rescue ::JSON::ParserError => error
           Failure "#{error.message.capitalize}."
@@ -39,7 +39,7 @@ module Terminus
 
         def from_xml body, nori: Nori.new(parser: :rexml)
           content = nori.parse String(body)
-          Success content.empty? ? Dry::Core::EMPTY_ARRAY : content
+          Success content.empty? ? Core::EMPTY_ARRAY : content
         rescue REXML::ParseException => error
           Failure error.message
         end

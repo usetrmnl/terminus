@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 
 module Terminus
@@ -12,7 +12,7 @@ module Terminus
           include Deps[renderer: "liquid.sanitize"]
           include Dry::Monads[:result]
 
-          def call extension, context: Dry::Core::EMPTY_HASH
+          def call extension, context: Core::EMPTY_HASH
             Success renderer.call(extension.template, context.merge("source_1" => extension.body))
           end
         end

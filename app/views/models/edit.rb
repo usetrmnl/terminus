@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Views
     module Models
@@ -9,8 +11,8 @@ module Terminus
 
         expose :model
         expose(:palette_options) { |model:| palette_optioner.call model }
-        expose :fields, default: Dry::Core::EMPTY_HASH
-        expose :errors, default: Dry::Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

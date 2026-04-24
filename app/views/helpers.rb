@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "htmx"
 require "refinements/hash"
 require "refinements/string"
@@ -71,7 +71,7 @@ module Terminus
       end
 
       def select_options_for records, label: :label, id: :id
-        records.reduce [["Select...", Dry::Core::EMPTY_STRING]] do |options, record|
+        records.reduce [["Select...", Core::EMPTY_STRING]] do |options, record|
           options.append [record.public_send(label), record.public_send(id)]
         end
       end

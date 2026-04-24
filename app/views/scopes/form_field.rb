@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "refinements/array"
 
 module Terminus
@@ -20,12 +20,12 @@ module Terminus
         end
 
         def toggle_error kind = "form-field"
-          errors.fetch(key, Dry::Core::EMPTY_ARRAY).any? ? [kind, "error"].compact.join(" ") : kind
+          errors.fetch(key, Core::EMPTY_ARRAY).any? ? [kind, "error"].compact.join(" ") : kind
         end
 
         def error_message
-          return Dry::Core::EMPTY_STRING unless locals.key? :errors
-          return Dry::Core::EMPTY_STRING unless errors.key? key
+          return Core::EMPTY_STRING unless locals.key? :errors
+          return Core::EMPTY_STRING unless errors.key? key
 
           errors[key].to_sentence
         end

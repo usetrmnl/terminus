@@ -1,7 +1,7 @@
 # auto_register: false
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "functionable"
 
 module Terminus
@@ -17,7 +17,7 @@ module Terminus
           when "day" then for_day interval, time
           when "week" then for_week interval, time
           when "month" then for_month interval, time
-          when "none" then Dry::Core::EMPTY_STRING
+          when "none" then Core::EMPTY_STRING
           else fail ArgumentError, "Unknown unit: #{unit.inspect}."
         end
       end

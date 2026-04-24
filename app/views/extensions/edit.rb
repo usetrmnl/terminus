@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Views
     module Extensions
@@ -16,8 +18,8 @@ module Terminus
         expose(:devices) { device_repository.all.map { [it.label, it.id] } }
         expose(:exchanges) { |extension:| exchange_repository.where extension_id: extension.id }
         expose :extension
-        expose :fields, default: Dry::Core::EMPTY_HASH
-        expose :errors, default: Dry::Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

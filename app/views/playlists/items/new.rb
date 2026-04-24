@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Views
     module Playlists
@@ -9,8 +11,8 @@ module Terminus
           expose :playlist
           expose :screen_options, decorate: false
           expose :item
-          expose :fields, default: Dry::Core::EMPTY_HASH
-          expose :errors, default: Dry::Core::EMPTY_HASH
+          expose :fields, default: Core::EMPTY_HASH
+          expose :errors, default: Core::EMPTY_HASH
         end
       end
     end

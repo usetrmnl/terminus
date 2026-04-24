@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 
 module Terminus
   module Aspects
@@ -22,7 +22,7 @@ module Terminus
         private
 
         def load_restricted model
-          return Dry::Core::EMPTY_ARRAY unless model
+          return Core::EMPTY_ARRAY unless model
 
           join_repository.where(model_id: model.id)
                          .map(&:palette_id)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "initable"
 require "refinements/hash"
 
@@ -14,7 +14,7 @@ module Terminus
         using Refinements::Hash
 
         def call payload
-          payload.fetch(:logs, Dry::Core::EMPTY_HASH).map do |item|
+          payload.fetch(:logs, Core::EMPTY_HASH).map do |item|
             item.transform_keys!(key_map).transform_value!(:created_at) { Time.at it }
           end
         end

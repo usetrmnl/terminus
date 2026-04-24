@@ -1,7 +1,7 @@
 # auto_register: false
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "refinements/hash"
 
 module Terminus
@@ -10,7 +10,7 @@ module Terminus
     module Coercers
       using Refinements::Hash
 
-      DefaultToArray = lambda do |key, result, default = Dry::Core::EMPTY_ARRAY|
+      DefaultToArray = lambda do |key, result, default = Core::EMPTY_ARRAY|
         attributes = Hash result.to_h
         attributes[key] = default unless result.key? key
 

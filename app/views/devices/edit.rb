@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Views
     module Devices
@@ -8,8 +10,8 @@ module Terminus
         expose :models
         expose :playlists
         expose :device
-        expose :fields, default: Dry::Core::EMPTY_HASH
-        expose :errors, default: Dry::Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

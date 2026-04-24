@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 require "rack"
@@ -48,13 +48,13 @@ module Terminus
         attr_reader :struct, :pattern, :rack
 
         def pathname_from file_name, url
-          Pathname "#{file_name.gsub pattern, Dry::Core::EMPTY_STRING}.#{type_for url}"
+          Pathname "#{file_name.gsub pattern, Core::EMPTY_STRING}.#{type_for url}"
         end
 
         def type_for uri
           rack.parse_query(uri)
-              .fetch("response-content-type", Dry::Core::EMPTY_STRING)
-              .sub("image/", Dry::Core::EMPTY_STRING)
+              .fetch("response-content-type", Core::EMPTY_STRING)
+              .sub("image/", Core::EMPTY_STRING)
         end
 
         def find_screen pathname
@@ -90,7 +90,7 @@ module Terminus
         end
 
         def find_model struct
-          metadata = struct.image_attributes.fetch :metadata, Dry::Core::EMPTY_HASH
+          metadata = struct.image_attributes.fetch :metadata, Core::EMPTY_HASH
           model_repository.find_by kind: "trmnl", **metadata.slice(:bit_depth, :width, :height)
         end
 

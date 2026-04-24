@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/core"
+require "core"
 require "dry/monads"
 require "initable"
 require "refinements/array"
@@ -34,7 +34,7 @@ module Terminus
             return JSON path.read if path.exist?
 
             logger.debug { "Sensors path not found: #{path}. Skipped." }
-            Dry::Core::EMPTY_HASH
+            Core::EMPTY_HASH
           end
 
           def process_devices data
@@ -44,7 +44,7 @@ module Terminus
           end
 
           def process_sensors device_id, data
-            data.fetch("data", Dry::Core::EMPTY_ARRAY).map do |entry|
+            data.fetch("data", Core::EMPTY_ARRAY).map do |entry|
               result = schema.call entry
 
               if result.success?
