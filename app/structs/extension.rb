@@ -1,11 +1,35 @@
 # frozen_string_literal: true
 
 require "dry/core"
+require "refinements/time"
 
 module Terminus
   module Structs
     # The extension struct.
     class Extension < DB::Struct
+      using Refinements::Time
+
+      # rubocop:disable Metrics/MethodLength
+      def export_attributes
+        {
+          name:,
+          label:,
+          description:,
+          mode:,
+          kind:,
+          body:,
+          fields:,
+          template:,
+          data:,
+          interval:,
+          unit:,
+          days:,
+          last_day_of_month:,
+          start_at: start_at.rfc_3339
+        }
+      end
+      # rubocop:enable Metrics/MethodLength
+
       def liquid_attributes
         all_fields = Array fields
 
