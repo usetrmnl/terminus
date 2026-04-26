@@ -76,6 +76,13 @@
     justify-content: center;
   }
 
+  .viewport:fullscreen {
+    .slide {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
   .slide {
     border-radius: 0.5rem;
     box-shadow:
