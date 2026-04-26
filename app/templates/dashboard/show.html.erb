@@ -45,32 +45,37 @@
     <div class="widgets">
       <fieldset class="box">
         <legend class="label bit-text-center">Devices</legend>
-        <p class="number"><%= link_to devices, routes.path(:devices) %></p>
+        <p class="number"><%= link_to device_count, routes.path(:devices) %></p>
       </fieldset>
 
       <fieldset class="box">
         <legend class="label bit-text-center">Extensions</legend>
-        <p class="number"><%= link_to extensions, routes.path(:extensions) %></p>
+        <p class="number"><%= link_to extension_count, routes.path(:extensions) %></p>
+      </fieldset>
+
+      <fieldset class="box">
+        <legend class="label bit-text-center">Firmware</legend>
+        <p class="number"><%= link_to firmware_count, routes.path(:firmware) %></p>
       </fieldset>
 
       <fieldset class="box">
         <legend class="label bit-text-center">Models</legend>
-        <p class="number"><%= link_to models, routes.path(:models) %></p>
+        <p class="number"><%= link_to model_count, routes.path(:models) %></p>
       </fieldset>
 
       <fieldset class="box">
         <legend class="label bit-text-center">Playlists</legend>
-        <p class="number"><%= link_to playlists, routes.path(:playlists) %></p>
+        <p class="number"><%= link_to playlist_count, routes.path(:playlists) %></p>
       </fieldset>
 
       <fieldset class="box">
         <legend class="label bit-text-center">Screens</legend>
-        <p class="number"><%= link_to screens, routes.path(:screens) %></p>
+        <p class="number"><%= link_to screen_count, routes.path(:screens) %></p>
       </fieldset>
 
       <fieldset class="box">
         <legend class="label bit-text-center">Users</legend>
-        <p class="number"><%= link_to users, routes.path(:users) %></p>
+        <p class="number"><%= link_to user_count, routes.path(:users) %></p>
       </fieldset>
     </div>
   </div>
