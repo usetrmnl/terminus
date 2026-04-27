@@ -11,10 +11,10 @@ module Terminus
 
         values = all_fields.each.with_object({}) do |item, all|
           key, value = item.values_at "keyname", "default"
-          all[key] = value
+          all[key] = Hash(data).dig("values", key) || value
         end
 
-        {"label" => label, "data" => data, "fields" => all_fields, "values" => values}
+        {"label" => label, "fields" => all_fields, "values" => values, "data" => data}
       end
 
       def screen_label = "Extension #{label}"

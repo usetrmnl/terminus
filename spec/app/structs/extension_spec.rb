@@ -11,27 +11,26 @@ RSpec.describe Terminus::Structs::Extension do
     it "answers defaults when empty" do
       expect(extension.liquid_attributes).to eq(
         "label" => "Test",
-        "data" => {},
         "fields" => [],
-        "values" => {}
+        "values" => {},
+        "data" => {}
       )
     end
 
-    it "answers filled attributes when filled" do
+    it "answers all attributes when filled" do
       extension = Factory.structs[
         :extension,
         label: "Test",
-        data: {"id" => 123},
         fields: [
           {"keyname" => "one", "default" => 1},
           {"keyname" => "two"},
           {"keyname" => "three", "default" => 3}
-        ]
+        ],
+        data: {"id" => 123}
       ]
 
       expect(extension.liquid_attributes).to eq(
         "label" => "Test",
-        "data" => {"id" => 123},
         "fields" => [
           {"keyname" => "one", "default" => 1},
           {"keyname" => "two"},
@@ -41,7 +40,24 @@ RSpec.describe Terminus::Structs::Extension do
           "one" => 1,
           "two" => nil,
           "three" => 3
-        }
+        },
+        "data" => {"id" => 123}
+      )
+    end
+
+    it "answers values with data overrides" do
+      extension = Factory.structs[
+        :extension,
+        label: "Test",
+        fields: [{"keyname" => "test", "default" => "test"}],
+        data: {"values" => {"test" => "override"}}
+      ]
+
+      expect(extension.liquid_attributes).to eq(
+        "label" => "Test",
+        "fields" => [{"keyname" => "test", "default" => "test"}],
+        "values" => {"test" => "override"},
+        "data" => {"values" => {"test" => "override"}}
       )
     end
   end
