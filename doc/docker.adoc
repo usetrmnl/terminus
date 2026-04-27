@@ -2,9 +2,12 @@
 :toclevels: 5
 :figure-caption!:
 
+:caddy_link: link:https://caddyserver.com[Caddy]
 :docker_compose_link: link:https://docs.docker.com/compose[Docker Compose]
 :docker_link: link:https://www.docker.com[Docker]
+:precompiled_images_link: link:https://ghcr.io/usetrmnl/terminus[Precompiled Images]
 :ruby_link: link:https://www.ruby-lang.org[Ruby]
+:unraid_link: link:https://unraid.net[Unraid]
 
 = Docker
 
@@ -16,8 +19,8 @@ toc::[]
 
 == Requirements
 
-- Docker 28.5.2 or higher.
-- Docker Compose 2.40.0 or higher.
+- Docker 29.4.2 or higher.
+- Docker Compose 5.1.2 or higher.
 
 Anything less than these versions means you'll have issues with building and running your Docker images/containers.
 
@@ -42,7 +45,7 @@ cd terminus
 bin/upgrade docker
 ----
 
-Watch for any changes that need to be addressed in the output. Otherwise, if no changes are detected, you are all set.
+Watch for any changes in the output. Otherwise, if no changes are detected, you are set.
 
 == Configuration
 
@@ -84,6 +87,48 @@ image: ghcr.io/usetrmnl/terminus:latest
 
 Further details can be found in the `compose.yml` or `compose.dev.yml` files at the root of this project.
 
+== Single Stack
+
+If you want to run the entire software stack within a single container, using Docker instead of Docker Compose, this can be done since this is helpful for self-hosting on operating systems like {unraid_link}, for example.
+
+To start, you might want to build a local image first especially if wanting to quickly experiment. Otherwise, you can skip the following and use one of the official {precompiled_images_link}.
+
+[source,bash]
+----
+docker buildx build --tag terminus .
+----
+
+Next, you can spin up the entire stack within a single Docker image via the following:
+
+[source,bash]
+----
+docker run \
+       --init \
+       --rm \
+       --env-file .env \
+       --env API_URI=http://192.168.0.192:2300 \
+       --env DATABASE_URL="postgres://$USER:@host.docker.internal:5432/terminus_development" \
+       --env KEYVALUE_URL="redis://host.docker.internal:6379" \
+       --volume "/Users/demo/terminus/public":"/app/public" \
+       --publish 2300:2300 \
+       terminus \
+       sh -c "bundle exec puma --config ./config/puma.rb & bundle exec sidekiq -r ./config/sidekiq.rb & wait"
+----
+
+Here's the breakdown of what the above is doing:
+
+- `docker run`: Runs the full stack within a single container.
+- `--init`: Ensures program signals are forwarded and processes are reaped (cleaned) after termination. Otherwise, you could run out of memory from too many zombie processes.
+- `--rm`: Ensures the container is automatically removed once `docker run` is terminated. Delete this option if wanting to preserve your container. You could also swap this with `--detach` if wanting to run the entire stack as a background process.
+- `--env-file`: Loads all environment variables from your `.env` file that was created during setup. Of critical importance is the `APP_SECRET` environment variable which ensures the same encryption key is used for application sessions. This ensures your session is preserved between restarts.
+- `--env API_URI`: Necessary for API and device connections. Swap with your own IP address/port or full host name if using a reverse proxy like {caddy_link}.
+- `--env DATABASE_URL`: Ensures you connect to your PostgreSQL database running on your local network by using the special `host.docker.internal` host which allows Docker to punch through the container and access your local network. Swap with your custom server URL if not running locally.
+- `--env KEYVALUE_URL`: Ensures you connect to your Valkey database using the same technique as used for PostgreSQL.
+- `--volume`: Maps local public assets to the path within the container as configured via the `Dockerfile`. This is done by mapping the local project root to the container root as configured via the `Dockerfile`. If needing separate volumes as used in `comppose.yml`, you'd need to add a volume for each `public` sub directory instead.
+- `--publish`: Ensures the internal port mapped to the external port for connection (both are identical in this case). Feel free to customize as needed.
+- `terminus`: The local image as built above. Otherwise, swap with one of the {precompiled_images_link} if you don't want a manually built image.
+- `sh -c`: Launches both the web and worker services. The `wait` command ensures all services launch without issue. Otherwise, the first one to fail brings all of them down.
+
 == Development
 
 To launch the development stack, run:
@@ -106,7 +151,7 @@ docker-compose up
 
 When using the _Quick Start_ or _Setup_ scripts, they will create a `.env` file which is picked up by Docker Compose. The two critical environment variables to pay attention to are:
 
-* If you seee `'PG::Connection::Pollable#polling_loop': connection to server at "172.28.0.2", port 5432 failed: FATAL:  password authentication failed for user "terminus" (PG::ConnectionBad)` in the logs when using the Quick Script or Docker Compose, this means the credentials in your `+.env*+` files have changed after PostgreSQL was first setup. To fix, you'll need to either rebuild your associated Docker volumes or manually update PostgreSQL to use your new credentials.
+* If you see `'PG::Connection::Pollable#polling_loop': connection to server at "172.28.0.2", port 5432 failed: FATAL:  password authentication failed for user "terminus" (PG::ConnectionBad)` in the logs when using the Quick Script or Docker Compose, this means the credentials in your `+.env*+` files have changed after PostgreSQL was first setup. To fix, you'll need to either rebuild your associated Docker volumes or manually update PostgreSQL to use your new credentials.
 * `API_URI`: This needs to be updated if your server IP address has changed or when the setup script failed to automatically detect your IP address. Your device also needs this URI in order to connect to your server. So both your server and device must be using the same URI.
 * `DATABASE_PASSWORD` or `KEYVALUE_PASSWORD`: These are automatically generated for you during setup but if you regenerate the `.env` file or change these values, you'll lose access to your database. When access is lost, there are two ways to fix:
 ** Use PostgreSQL admin access or Valkey to update to the password used in your `+.env*+` files.
