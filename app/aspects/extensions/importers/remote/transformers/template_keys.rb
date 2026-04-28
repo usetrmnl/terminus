@@ -14,40 +14,60 @@ module Terminus
               include Initable[
                 key_map: {
                   "rss." => "source_1.rss.",
-                  "source_1.data" => "source_1",
                   "trmnl.plugin_settings.instance_name" => "extension.label",
                   "trmnl.plugin_settings.custom_fields_values" => "extension.values",
-                  "trmnl.plugin_settings.custom_fields[0]" => "extension.fields[0]"
+                  "trmnl.plugin_settings.custom_fields[0]" => "extension.fields[0]",
+                  /(?<prefix>\{\{\s*)(?<key>[a-z0-9_]+)(?<suffix>.*?\}\})/i => "source_1."
                 },
+                key_skip: "source_",
                 index_pattern: /
                   (?<prefix>IDX)  # Prefix
                   _               # Delimiter
                   (?<index>\d+)   # Index
-                /mx
+                /mx,
+                parser: Regexp
               ]
 
               include Dry::Monads[:result]
 
               def call content
-                mutation = content.dup
+                duplicate = content.dup
 
-                format_sources mutation
-                format_fields mutation
+                # Order matters.
+                reindex duplicate
+                rekey duplicate
 
-                Success mutation
+                Success duplicate
               end
 
               private
 
-              def format_sources content, offset: 1
+              def reindex content, offset: 1
                 content.gsub! index_pattern do
-                  captures = Regexp.last_match.named_captures
+                  captures = parser.last_match.named_captures
                   "source_#{captures["index"].to_i + offset}"
                 end
               end
 
-              def format_fields content
-                key_map.each { |original, modification| content.gsub! original, modification }
+              def rekey content
+                key_map.each do |pattern, modification|
+                  if pattern.is_a? String
+                    content.gsub! pattern, modification
+                  else
+                    rekey_with_regular_expression content, pattern, modification
+                  end
+                end
+              end
+
+              def rekey_with_regular_expression content, pattern, modification
+                content.gsub! pattern do
+                  last_match = parser.last_match
+                  prefix, key, suffix = last_match.values_at :prefix, :key, :suffix
+
+                  next last_match[0] if key.start_with?(key_skip) || suffix.include?(".")
+
+                  "#{prefix}#{modification}#{key}#{suffix}"
+                end
               end
             end
           end
