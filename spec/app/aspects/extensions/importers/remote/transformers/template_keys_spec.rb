@@ -9,17 +9,17 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformers::T
     context "with source indexes" do
       let :content do
         <<~CONTENT
-          <p>{{IDX_0}}</p>
-          <p>{{IDX_1}}</p>
-          <p>{{IDX_2}}</p>
+          {{IDX_0}}
+          {{IDX_1}}
+          {{IDX_2}}
         CONTENT
       end
 
       let :proof do
         <<~CONTENT
-          <p>{{source_1}}</p>
-          <p>{{source_2}}</p>
-          <p>{{source_3}}</p>
+          {{source_1}}
+          {{source_2}}
+          {{source_3}}
         CONTENT
       end
 
@@ -31,27 +31,61 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformers::T
     context "with special keys" do
       let :content do
         <<~CONTENT
-          <p>{{ rss.channel.item[0] }}</p>
-          <p>{{ source_1.data }}</p>
-          <p>{{ trmnl.plugin_settings.instance_name }}</p>
-          <p>{{ trmnl.plugin_settings.custom_fields_values.test }}</p>
-          <p>{{ trmnl.plugin_settings.custom_fields[0].name }}</p>
+          {{ data }}
+          {{ rss.channel.item[0] }}
+          {{ trmnl.plugin_settings.instance_name }}
+          {{ trmnl.plugin_settings.custom_fields_values.test }}
+          {{ trmnl.plugin_settings.custom_fields[0].name }}
         CONTENT
       end
 
       let :proof do
         <<~CONTENT
-          <p>{{ source_1.rss.channel.item[0] }}</p>
-          <p>{{ source_1 }}</p>
-          <p>{{ extension.label }}</p>
-          <p>{{ extension.values.test }}</p>
-          <p>{{ extension.fields[0].name }}</p>
+          {{ source_1.data }}
+          {{ source_1.rss.channel.item[0] }}
+          {{ extension.label }}
+          {{ extension.values.test }}
+          {{ extension.fields[0].name }}
         CONTENT
       end
 
       it "answers success indexed sources" do
         expect(transformer.call(content)).to be_success(proof)
       end
+    end
+
+    it "prefixes bare key" do
+      expect(transformer.call("{{ name }}")).to be_success("{{ source_1.name }}")
+    end
+
+    it "prefixes bare key with filter" do
+      expect(transformer.call("{{ name | capitalize }}")).to be_success(
+        "{{ source_1.name | capitalize }}"
+      )
+    end
+
+    it "prefixes bare RSS key" do
+      expect(transformer.call("{{ rss.channel.item[0] }}")).to be_success(
+        "{{ source_1.rss.channel.item[0] }}"
+      )
+    end
+
+    it "renames plugin instance name" do
+      expect(transformer.call("{{ trmnl.plugin_settings.instance_name }}")).to be_success(
+        "{{ extension.label }}"
+      )
+    end
+
+    it "renames plugin values" do
+      content = "{{ trmnl.plugin_settings.custom_fields_values.test }}"
+
+      expect(transformer.call(content)).to be_success("{{ extension.values.test }}")
+    end
+
+    it "renames plugin field name" do
+      content = "{{ trmnl.plugin_settings.custom_fields[0].name }}"
+
+      expect(transformer.call(content)).to be_success("{{ extension.fields[0].name }}")
     end
   end
 end
