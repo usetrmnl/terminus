@@ -36,7 +36,6 @@ module Terminus
 
               attr_reader :kinds, :keys
 
-              # :reek:FeatureEnvy
               def process strategy, attributes
                 kind = kinds[strategy]
                 static_data = attributes.delete :static_data

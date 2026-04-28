@@ -6,6 +6,10 @@ detectors:
   Attribute:
     exclude:
       - Terminus::Views::Parts::User#password
+  ControlParameter:
+    exclude:
+      - Terminus::Aspects::PasswordEncryptor#call
+      - Terminus::Aspects::Playlists::SlideWindow#screens
   DataClump:
     exclude:
       - Terminus::Actions::API::Base
@@ -16,10 +20,6 @@ detectors:
   DuplicateMethodCall:
     exclude:
       - Terminus::Aspects::Devices::Provisioner#create
-  ControlParameter:
-    exclude:
-      - Terminus::Aspects::PasswordEncryptor#call
-      - Terminus::Aspects::Playlists::SlideWindow#screens
   FeatureEnvy:
     exclude:
       - Terminus::Action#authorize
@@ -50,6 +50,8 @@ detectors:
       - Terminus::Actions::Devices::Update#edit
       - Terminus::Actions::Extensions::Clone::Create#error
       - Terminus::Actions::Extensions::Create#error
+      - Terminus::Actions::Extensions::Gallery::Create#render_error
+      - Terminus::Actions::Extensions::Gallery::Create#render_schema_error
       - Terminus::Actions::Extensions::Gallery::Index#render_error
       - Terminus::Actions::Extensions::Update#error
       - Terminus::Actions::Firmware::Create#error
@@ -65,6 +67,7 @@ detectors:
       - Terminus::Aspects::Extensions::Cloner#build_attributes
       - Terminus::Aspects::Extensions::Fetchers::Sole#maybe_alter_mime_type
       - Terminus::Aspects::Extensions::Importers::Remote::Extractor#build
+      - Terminus::Aspects::Extensions::Importers::Remote::Transformers::Kind#process
       - Terminus::Aspects::Extensions::Renderers::Image#render_multiple
       - Terminus::Aspects::Playlists::ScreenOptioner#call
       - Terminus::Aspects::ProblemDetail#enum

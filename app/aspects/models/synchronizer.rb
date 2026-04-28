@@ -23,7 +23,7 @@ module Terminus
           case result
             in Success(*payload)
               delete payload.map(&:name)
-              process payload
+              payload.each { |item| process item, palette_repository.all }
             else result
           end
         end
@@ -37,18 +37,13 @@ module Terminus
           model_repository.delete_all kind: kinds, name: local_names - remote_names
         end
 
-        # :reek:TooManyStatements
-        def process payload
-          palettes = palette_repository.all
+        def process item, palettes
+          attributes = item.to_h
+          names = attributes[:palette_names]
+          model = upsert item, attributes
 
-          payload.each do |item|
-            attributes = item.to_h
-            names = attributes[:palette_names]
-            model = upsert item, attributes
-
-            add_missing_palettes names, palettes, model
-            set_default_palette model, names
-          end
+          add_missing_palettes names, palettes, model
+          set_default_palette model, names
         end
 
         def upsert item, attributes

@@ -16,7 +16,6 @@ module Terminus
 
           response.render view,
                           model: repository.find(parameters[:id]),
-                          firmware: repository.find(parameters[:id]),
                           layout: htmx_layout.call(request)
         end
       end

@@ -40,7 +40,6 @@ module Terminus
                     .bind { |parameters| creator.call parameters[:id] }
           end
 
-          # :reek:FeatureEnvy
           def render_schema_errors result, response
             result.errors
                   .to_h
@@ -51,7 +50,6 @@ module Terminus
             response.redirect_to routes.path(:extensions_gallery)
           end
 
-          # :reek:FeatureEnvy
           def render_error message, response
             response.flash[:alert] = message
             response.redirect_to routes.path(:extensions_gallery)

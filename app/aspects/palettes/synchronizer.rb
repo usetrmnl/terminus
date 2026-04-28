@@ -20,7 +20,7 @@ module Terminus
           case result
             in Success(*payload)
               delete payload.map(&:name)
-              upsert payload
+              process payload
             else result
           end
         end
@@ -34,20 +34,20 @@ module Terminus
           repository.delete_all kind: default_kind, name: local_names - remote_names
         end
 
-        # :reek:TooManyStatements
-        def upsert payload
-          payload.each do |item|
-            attributes = transform item
-            record = repository.find_by name: item.name
-
-            if record
-              repository.update(record.id, **attributes)
-            else
-              repository.create(**attributes)
-            end
-          end
-
+        def process payload
+          payload.each { |item| upsert item }
           Success()
+        end
+
+        def upsert item
+          attributes = transform item
+          record = repository.find_by name: item.name
+
+          if record
+            repository.update(record.id, **attributes)
+          else
+            repository.create(**attributes)
+          end
         end
 
         def transform(item) = item.to_h.then { {**it, kind: default_kind} }
