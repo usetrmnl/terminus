@@ -41,7 +41,6 @@ module Terminus
 
         case [interval, time]
           in Integer, Time then "#{minute} #{hour} */#{interval} * * #{zone}"
-          in Array, Time then %(#{minute} #{hour} * * #{interval.join ","} #{zone})
           else "#{minute} #{hour} * * * #{zone}"
         end
       end
@@ -51,6 +50,7 @@ module Terminus
 
         case interval
           in Integer then "#{minute} #{hour} * * #{interval} #{zone}"
+          in Array then %(#{minute} #{hour} * * #{interval.join ","} #{zone})
           else "#{minute} #{hour} * * 0 #{zone}"
         end
       end
@@ -60,6 +60,9 @@ module Terminus
 
         case [interval, time]
           in Integer, Time then "#{minute} #{hour} * */#{interval} * #{zone}"
+          in String, Time
+            part, directive = interval.scan(/\d+|\D+/)
+            %(#{minute} #{hour} #{directive} */#{part} * #{zone})
           in Array, Time then %(#{minute} 0 #{interval.join ","} * * #{zone})
           else "#{minute} #{hour} 1 * * #{zone}"
         end

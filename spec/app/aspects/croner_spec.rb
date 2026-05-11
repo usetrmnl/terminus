@@ -36,14 +36,6 @@ RSpec.describe Terminus::Aspects::Croner do
       expect(croner.call(5, "day", time:)).to eq("30 5 */5 * * UTC")
     end
 
-    it "answers cron for specific days of the week" do
-      expect(croner.call([1, 3, 5], "day")).to eq("0 0 * * 1,3,5 UTC")
-    end
-
-    it "answers cron for specific days, hour, and minute of the week" do
-      expect(croner.call([1, 3, 5], "day", time:)).to eq("30 5 * * 1,3,5 UTC")
-    end
-
     it "answers cron for every day" do
       expect(croner.call(nil, "day")).to eq("0 0 * * * UTC")
     end
@@ -52,12 +44,24 @@ RSpec.describe Terminus::Aspects::Croner do
       expect(croner.call(4, "week")).to eq("0 0 * * 4 UTC")
     end
 
+    it "answers cron for specific days of the week" do
+      expect(croner.call([1, 3, 5], "week")).to eq("0 0 * * 1,3,5 UTC")
+    end
+
+    it "answers cron for specific days, hour, and minute of the week" do
+      expect(croner.call([2, 4], "week", time:)).to eq("30 5 * * 2,4 UTC")
+    end
+
     it "answers cron for every week" do
       expect(croner.call(nil, "week")).to eq("0 0 * * 0 UTC")
     end
 
     it "answers cron for every specific month" do
       expect(croner.call(5, "month")).to eq("0 0 * */5 * UTC")
+    end
+
+    it "answers cron for last day of month" do
+      expect(croner.call("5L", "month")).to eq("0 0 L */5 * UTC")
     end
 
     it "answers cron for specific month, hour, and month" do
