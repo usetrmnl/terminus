@@ -91,6 +91,16 @@ RSpec.describe Terminus::Structs::Extension do
       expect(extension.to_cron).to eq("*/5 * * * * UTC")
     end
 
+    it "answers schedule for multiple days in week" do
+      extension = Factory.structs[:extension, unit: "week", days: %w[monday friday]]
+      expect(extension.to_cron).to eq("0 0 * * 1,5 UTC")
+    end
+
+    it "answers schedule with last day of month" do
+      extension = Factory.structs[:extension, interval: 5, unit: "month", last_day_of_month: true]
+      expect(extension.to_cron).to eq("0 0 L */5 * UTC")
+    end
+
     it "answers empty string when there is no schedule" do
       expect(Factory.structs[:extension].to_cron).to eq("")
     end
@@ -103,12 +113,17 @@ RSpec.describe Terminus::Structs::Extension do
           "extension-test",
           {
             cron: "*/5 * * * * UTC",
-            class: Terminus::Jobs::Batches::Extension,
+            class: "Terminus::Jobs::Batches::Extension",
             args: [1],
             description: "The Test extension update schedule."
           }
         ]
       )
+    end
+
+    it "answers nil when unit is none" do
+      extension = Factory.structs[:extension, unit: "none"]
+      expect(extension.to_schedule).to eq([extension.screen_name, {}])
     end
   end
 end
