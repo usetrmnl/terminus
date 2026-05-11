@@ -5,7 +5,10 @@ require "hanami_helper"
 RSpec.describe Terminus::Aspects::Jobs::Schedule do
   subject(:schedule) { described_class.new }
 
-  let(:extension) { Factory.structs[:extension, id: 1, label: "Test", name: "test"] }
+  let :extension do
+    Factory.structs[:extension, id: 1, label: "Test", name: "test", unit: "minute"]
+  end
+
   let(:sidekiq) { Hanami.app[:sidekiq] }
 
   describe "#upsert" do
@@ -14,7 +17,7 @@ RSpec.describe Terminus::Aspects::Jobs::Schedule do
 
       expect(sidekiq.get_all_schedules).to eq(
         "extension-test" => {
-          "cron" => "",
+          "cron" => "* * * * * UTC",
           "class" => "Terminus::Jobs::Batches::Extension",
           "args" => [1],
           "description" => "The Test extension update schedule."
@@ -22,7 +25,7 @@ RSpec.describe Terminus::Aspects::Jobs::Schedule do
       )
     end
 
-    it "updates schedule" do
+    it "updates existing schedule" do
       schedule.upsert(*extension.to_schedule)
 
       schedule.upsert(
@@ -43,6 +46,13 @@ RSpec.describe Terminus::Aspects::Jobs::Schedule do
           "description" => "The Test extension update schedule."
         }
       )
+    end
+
+    it "doesn't update when existing schedule is identical" do
+      schedule.upsert(*extension.to_schedule)
+      schedule.upsert(*extension.to_schedule)
+
+      expect(sidekiq.get_all_schedules.keys).to contain_exactly("extension-test")
     end
 
     it "updates schedule name and removes old schedule" do
@@ -67,6 +77,13 @@ RSpec.describe Terminus::Aspects::Jobs::Schedule do
           "description" => "The Test extension update schedule."
         }
       )
+    end
+
+    it "removes schedule when configuration is empty" do
+      schedule.upsert(*extension.to_schedule)
+      schedule.upsert(extension.screen_name, {})
+
+      expect(sidekiq.get_all_schedules).to eq({})
     end
   end
 
