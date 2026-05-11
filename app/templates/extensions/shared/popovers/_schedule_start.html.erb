@@ -1,3 +1,83 @@
 <%= scope(:popover_default_content, name: :schedule_start, label: "Schedule Start").render do %>
-  <p>Use to set the specific month, day, hour, minute, and/or second offset you'd like to use when scheduling your extension. The year is ignored because <code>cron</code> -- what this translates to internally -- doesn't use years but this allows you to specify the offsets as a single date/time value. Once set, your extension will be scheduled to repeat based off of this value.</p>
+  <p>Provides fine grained control over the hour and/or minute offset when scheduling your extension. The date is ignored because <code>cron</code> -- what this translates to -- doesn't use dates, only times, so this allows you to specify the offsets as a single date/time value. Once set, your extension will be scheduled to repeat based off of this value.</p>
+
+  <p>To illustrate, let's start with the default start date/time when first creating an extension (assuming current date is <code>2026-05-01</code>): <code>2026-05-01 12:00 AM</code>. Remember, the date doesn't matter and defaults to when you created your extension. Example:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Interval</th>
+        <th>Unit</th>
+        <th>Cron</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Minute</td>
+        <td><%= link_to "*/1 * * * *", "https://crontab.guru/#*/1_*_*_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Hour</td>
+        <td><%= link_to "0 */1 * * *", "https://crontab.guru/#0_*/1_*_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Day</td>
+        <td><%= link_to "0 0 */1 * *", "https://crontab.guru/#0_0_*/1_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Week</td>
+        <td><%= link_to "0 0 * * 1", "https://crontab.guru/#0_0_*_*_1" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Month</td>
+        <td><%= link_to "0 0 * */1 *", "https://crontab.guru/#0_0_*_*/1_*" %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Here's what the above looks like when you don't use the default midnight start time but apply hour and minute offsets where the hour is 5 and minute is 3 (i.e. <code>2026-05-01 5:03 AM</code>). Example:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Interval</th>
+        <th>Unit</th>
+        <th>Cron</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Minute</td>
+        <td><%= link_to "*/1 * * * *", "https://crontab.guru/#*/1_*_*_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Hour</td>
+        <td><%= link_to "3 */1 * * *", "https://crontab.guru/#3_*/1_*_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Day</td>
+        <td><%= link_to "3 5 */1 * *", "https://crontab.guru/#3_5_*/1_*_*" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Week</td>
+        <td><%= link_to "3 5 * * 1", "https://crontab.guru/#3_5_*_*_1" %></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Month</td>
+        <td><%= link_to "3 5 * */1 *", "https://crontab.guru/#3_5_*_*/1_*" %></td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
