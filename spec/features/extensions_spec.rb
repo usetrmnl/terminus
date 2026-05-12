@@ -78,6 +78,15 @@ RSpec.describe "Extensions", :db do
     expect(page).to have_text("Clone Test")
   end
 
+  it "downloads", :aggregate_failures do
+    extension
+
+    visit routes.path(:extensions)
+    click_link "Download"
+
+    expect(page.source).to include("name: #{extension.name}")
+  end
+
   it "deletes", :js do
     extension
     visit routes.path(:extensions)

@@ -112,6 +112,7 @@ module Terminus
            to: "extensions.exchanges.delete",
            as: :extension_exchange
 
+    get "/extensions/:extension_id/export", to: "extensions.export.show", as: :extension_export
     get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
     get "/extensions/:extension_id/sources", to: "extensions.sources.index", as: :extension_sources
     get "/extensions/:extension_id/sensors", to: "extensions.sensors.index", as: :extension_sensors

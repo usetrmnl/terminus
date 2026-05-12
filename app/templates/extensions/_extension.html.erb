@@ -11,6 +11,12 @@
     <%= render "shared/actions/clone",
                path: routes.path(:extension_clone_new, extension_id: extension.id) %>
 
+    <%= link_to routes.path(:extension_export, extension_id: extension.id),
+                download: "extension-#{extension.name}.yml",
+                class: :action do %>
+      <%= image_tag "icons/download.svg", alt: "Download", class: :icon, width: 25, height: 25 %>
+    <% end %>
+
     <%= render "shared/actions/delete",
                path: routes.path(:extension_delete, id: extension.id),
                subject: :extension %>
