@@ -1,9 +1,0 @@
-#! /usr/bin/env ruby
-# frozen_string_literal: true
-
-require "bundler/setup"
-Bundler.require :tools
-
-require "hanami/prepare"
-
-Hanami.app["aspects.extensions.upgrader"].call

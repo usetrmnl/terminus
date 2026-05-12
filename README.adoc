@@ -141,8 +141,6 @@ bin/setup
 
 == Upgrade
 
-‼️ If upgrading to Terminus 0.55.0 or higher, please make sure to run the `bin/exchangize` script to upgrade your extensions to use exchanges so you can manage multiple HTTP requests/responses. _You only need to do this once_. ‼️
-
 To upgrade this project for local development, run:
 
 [source,bash]
