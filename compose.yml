@@ -77,7 +77,7 @@ services:
           cpus: "1.0"
 
   database:
-    image: postgres:18.3-alpine
+    image: postgres:18.4-alpine
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_DB: ${DATABASE_NAME}
