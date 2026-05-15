@@ -59,7 +59,7 @@ To help you get started, let's walk through a scenario building an extension:
 ====
 [source,html]
 ----
-{% for film in source limit:5 %}
+{% for film in source_1 limit:5 %}
   <div class="item">
     <div class="meta">
       <span class="index">{{ forloop.index }}</span>
