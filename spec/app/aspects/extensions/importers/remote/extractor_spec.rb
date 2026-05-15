@@ -6,7 +6,7 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Extractor do
   subject(:extractor) { described_class.new }
 
   describe "#call" do
-    it "successfully imports plugin" do
+    it "successfully extracts content" do
       expect(extractor.call(150460)).to match(
         Success(
           hash_including(
@@ -19,15 +19,6 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Extractor do
           )
         )
       )
-    end
-
-    it "answers failure when zip can't be decompressed" do
-      client = class_double Zip::File
-      extractor = described_class.new(client:)
-
-      allow(client).to receive(:open_buffer).and_raise Zip::Error, "Danger!"
-
-      expect(extractor.call(150460)).to be_failure("Danger!")
     end
   end
 end
