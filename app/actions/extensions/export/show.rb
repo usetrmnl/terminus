@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
-require "refinements/hash"
-
 module Terminus
   module Actions
     module Extensions
       module Export
         # The show action.
         class Show < Action
-          config.formats.accept :yml
+          config.formats.accept :zip
 
           include Deps["aspects.extensions.exporter", repository: "repositories.extension"]
 
-          using Refinements::Hash
           using Refines::Actions::Response
 
           params { required(:extension_id).filled :integer }
@@ -25,8 +22,8 @@ module Terminus
             extension = repository.find parameters[:extension_id]
 
             case exporter.call extension
-              in Success(body) then response.with body: body.deep_stringify_keys!.to_yaml
-              in Failure(message) then response.with body: {"error" => message}.to_yaml
+              in Success(body) then response.with body: body.read
+              in Failure(message) then response.with body: message, status: 500
               # :nocov:
               # :nocov:
             end

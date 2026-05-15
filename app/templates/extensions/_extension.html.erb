@@ -12,9 +12,9 @@
                path: routes.path(:extension_clone_new, extension_id: extension.id) %>
 
     <%= link_to routes.path(:extension_export, extension_id: extension.id),
-                download: "extension-#{extension.name}.yml",
+                download: "extension-#{extension.name}.zip",
                 class: :action do %>
-      <%= image_tag "icons/download.svg", alt: "Download", class: :icon, width: 25, height: 25 %>
+      <%= image_tag "icons/download.svg", alt: "Export", class: :icon, width: 25, height: 25 %>
     <% end %>
 
     <%= render "shared/actions/delete",

@@ -10,36 +10,20 @@ RSpec.describe Terminus::Actions::Extensions::Export::Show, :db do
 
   describe "#call" do
     let(:extension) { Factory[:extension] }
+    let(:unzipper) { Terminus::Aspects::Unzipper.new }
 
-    it "renders YAML when success" do
+    it "renders zip when success" do
       response = action.call Rack::MockRequest.env_for(
         "",
         "router.params" => {extension_id: extension.id}
       )
 
-      expect(response.body.first).to eq(<<~CONTENT)
-        ---
-        version: 1.2.3
-        name: #{extension.name}
-        label: #{extension.label}
-        description:
-        mode: text
-        kind: poll
-        tags: []
-        static_body: {}
-        fields: []
-        template:
-        data: {}
-        interval: 1
-        unit: none
-        days: []
-        last_day_of_month: false
-        start_at: '2025-01-01T00:00:00+00:00'
-        exchanges: []
-      CONTENT
+      keys = unzipper.call(response.body.first).value!.keys
+
+      expect(keys).to eq(%w[configuration.yml template.html.liquid])
     end
 
-    it "renders YAML with error when failure" do
+    it "renders error when failure" do
       exporter = instance_double Terminus::Aspects::Extensions::Exporter, call: Failure("Danger!")
       action = described_class.new(exporter:)
 
@@ -48,10 +32,7 @@ RSpec.describe Terminus::Actions::Extensions::Export::Show, :db do
         "router.params" => {extension_id: extension.id}
       )
 
-      expect(response.body.first).to eq(<<~CONTENT)
-        ---
-        error: Danger!
-      CONTENT
+      expect(response.body.first).to eq("Danger!")
     end
 
     it "answers unprocessable entity with invalid parameters" do
