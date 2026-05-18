@@ -62,7 +62,7 @@ module Terminus
                 class: :link
       end
 
-      def human_at(value) = (value.strftime "%B %d %Y at %H:%M %Z" if value)
+      def human_at(value) = (value.strftime "%B %d %Y at %I:%M %p" if value)
 
       def human_time(value) = (value.strftime "%I:%M %p" if value)
 
