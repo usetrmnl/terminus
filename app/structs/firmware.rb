@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/hash"
 
 module Terminus
@@ -18,7 +19,9 @@ module Terminus
         @attacher = attachment_attacher
       end
 
-      def attachment_attributes = attributes[:attachment_data].deep_symbolize_keys
+      def attachment_attributes
+        attributes.fetch_value(:attachment_data, Core::EMPTY_HASH).deep_symbolize_keys
+      end
 
       def attachment_destroy
         store.delete attachment_id if attachment_id

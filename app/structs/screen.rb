@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/hash"
 
 module Terminus
@@ -23,7 +24,9 @@ module Terminus
 
       def height = image_attributes.dig :metadata, :height
 
-      def image_attributes = attributes[:image_data].deep_symbolize_keys
+      def image_attributes
+        attributes.fetch_value(:image_data, Core::EMPTY_HASH).deep_symbolize_keys
+      end
 
       def image_destroy
         store.delete image_id if image_id
