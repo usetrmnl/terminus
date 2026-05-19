@@ -45,11 +45,11 @@ RSpec.describe Terminus::Views::Parts::Extension do
     end
 
     it "answers empty array string when empty" do
-      allow(extension).to receive(:days).and_return([])
       expect(part.formatted_days).to eq("")
     end
 
     it "answers empty array string when nil" do
+      allow(extension).to receive(:days).and_return(nil)
       expect(part.formatted_days).to eq("")
     end
   end

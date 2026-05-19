@@ -22,14 +22,14 @@ RSpec.describe Terminus::Structs::Extension do
         label: "Test",
         description: nil,
         kind: "poll",
-        mode: nil,
-        tags: nil,
+        mode: "text",
+        tags: [],
         static_body: nil,
         fields: [],
         data: {},
-        days: nil,
+        days: [],
         interval: 5,
-        last_day_of_month: nil,
+        last_day_of_month: false,
         start_at: "2025-01-02T03:04:05+00:00",
         unit: "minute"
       )

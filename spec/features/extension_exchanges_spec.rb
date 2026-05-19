@@ -35,7 +35,7 @@ RSpec.describe "Extension Exchanges", :db do
     exchange
     visit routes.path(:extension_exchanges, extension_id: extension.id)
 
-    within "td.bit-actions", text: extension.template do
+    within "td.bit-actions" do
       accept_prompt { click_button "Delete" }
     end
 
