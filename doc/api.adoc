@@ -268,9 +268,9 @@ curl "https://localhost:2443/api/devices/1" \
       "firmware_update": true,
       "sleep_start_at": "18:00:00",
       "sleep_stop_at": "06:00:00",
-      "created_at": "2026-03-14T14:57:27+0000",
-      "updated_at": "2026-03-30T21:36:54+0000",
-      "synced_at": "2026-03-30T21:36:54+0000"
+      "created_at": "2026-03-14T14:57:27+00:00",
+      "updated_at": "2026-03-30T21:36:54+00:00",
+      "synced_at": "2026-03-30T21:36:54+00:00"
     }
   ]
 }
@@ -297,9 +297,9 @@ curl "https://localhost:2443/api/devices/1" \
     "firmware_update": true,
     "sleep_start_at": "18:00:00",
     "sleep_stop_at": "06:00:00",
-    "created_at": "2026-03-14T14:57:27+0000",
-    "updated_at": "2026-03-30T21:36:54+0000",
-    "synced_at": "2026-03-30T21:36:54+0000"
+    "created_at": "2026-03-14T14:57:27+00:00",
+    "updated_at": "2026-03-30T21:36:54+00:00",
+    "synced_at": "2026-03-30T21:36:54+00:00"
   }
 }
 ----
@@ -385,9 +385,9 @@ curl -X "POST" "https://localhost:2443/api/devices" \
     "firmware_update": true,
     "sleep_start_at": null,
     "sleep_stop_at": null,
-    "created_at": "2026-03-14T14:57:27+0000",
-    "updated_at": "2026-03-30T21:36:54+0000",
-    "synced_at": "2026-03-30T21:36:54+0000"
+    "created_at": "2026-03-14T14:57:27+00:00",
+    "updated_at": "2026-03-30T21:36:54+00:00",
+    "synced_at": "2026-03-30T21:36:54+00:00"
   }
 }
 ----
@@ -439,9 +439,9 @@ You can change a single attribute or multiple attributes at once. All attributes
     "firmware_update": true,
     "sleep_start_at": "18:00:00",
     "sleep_stop_at": "06:00:00"
-    "created_at": "2026-03-14T14:57:27+0000",
-    "updated_at": "2026-03-30T21:36:54+0000",
-    "synced_at": "2026-03-30T21:36:54+0000"
+    "created_at": "2026-03-14T14:57:27+00:00",
+    "updated_at": "2026-03-30T21:36:54+00:00",
+    "synced_at": "2026-03-30T21:36:54+00:00"
   }
 }
 ----
@@ -485,9 +485,9 @@ curl -X "DELETE" "https://localhost:2443/api/devices/1" \
     "firmware_update": true,
     "sleep_start_at": "18:00:00",
     "sleep_stop_at": "06:00:00",
-    "created_at": "2026-03-14T14:57:27+0000",
-    "updated_at": "2026-03-30T21:36:54+0000",
-    "synced_at": "2026-03-30T21:36:54+0000"
+    "created_at": "2026-03-14T14:57:27+00:00",
+    "updated_at": "2026-03-30T21:36:54+00:00",
+    "synced_at": "2026-03-30T21:36:54+00:00"
   }
 }
 ----
@@ -532,8 +532,8 @@ curl "https://localhost:2443/api/firmware/1" \
       "mime_type": "application/octet-stream",
       "size": 1306608,
       "uri": "/uploads/60a5253edd0ab53cc31619a836c6cdb8.bin",
-      "created_at": "2026-01-08T21:26:34+0000",
-      "updated_at": "2026-01-08T21:26:34+0000"
+      "created_at": "2026-01-08T21:26:34+00:00",
+      "updated_at": "2026-01-08T21:26:34+00:00"
     }
   ]
 }
@@ -548,8 +548,8 @@ curl "https://localhost:2443/api/firmware/1" \
     "mime_type": "application/octet-stream",
     "size": 1306608,
     "uri": "/uploads/60a5253edd0ab53cc31619a836c6cdb8.bin",
-    "created_at": "2026-01-08T21:26:34+0000",
-    "updated_at": "2026-01-08T21:26:34+0000"
+    "created_at": "2026-01-08T21:26:34+00:00",
+    "updated_at": "2026-01-08T21:26:34+00:00"
   }
 }
 ----
@@ -589,8 +589,8 @@ curl -X "POST" "https://localhost:2443/api/firmware" \
     "mime_type": "application/octet-stream",
     "size": 1225536,
     "uri": "/uploads/0c2f5a1acb23d20e9f72828254c4f258.bin",
-    "created_at": "2026-01-12T22:32:08+0000",
-    "updated_at": "2026-01-12T22:32:09+0000"
+    "created_at": "2026-01-12T22:32:08+00:00",
+    "updated_at": "2026-01-12T22:32:09+00:00"
   }
 }
 ----
@@ -628,8 +628,8 @@ You can change a single attribute or multiple attributes at once.
     "mime_type": "application/octet-stream",
     "size": 1225536,
     "uri": "/uploads/31c6151dfa9362053022a9bfcab5b2b5.bin",
-    "created_at": "2026-01-12T22:32:08+0000",
-    "updated_at": "2026-01-12T22:32:42+0000"
+    "created_at": "2026-01-12T22:32:08+00:00",
+    "updated_at": "2026-01-12T22:32:42+00:00"
   }
 }
 ----
@@ -661,8 +661,8 @@ curl -X "DELETE" "https://localhost:2443/api/firmware/10" \
     "mime_type": "application/octet-stream",
     "size": 1225536,
     "uri": "/uploads/31c6151dfa9362053022a9bfcab5b2b5.bin",
-    "created_at": "2026-01-12T22:32:08+0000",
-    "updated_at": "2026-01-12T22:32:42+0000"
+    "created_at": "2026-01-12T22:32:08+00:00",
+    "updated_at": "2026-01-12T22:32:42+00:00"
   }
 }
 ----
@@ -754,8 +754,8 @@ curl "https://localhost:2443/api/models/1" \
       },
       "width": 1872,
       "height": 1404,
-      "created_at": "2026-02-12T15:57:28+0000",
-      "updated_at": "2026-04-01T20:09:35+0000"
+      "created_at": "2026-02-12T15:57:28+00:00",
+      "updated_at": "2026-04-01T20:09:35+00:00"
     }
   ]
 }
@@ -810,8 +810,8 @@ curl "https://localhost:2443/api/models/1" \
   },
   "width": 1872,
   "height": 1404,
-  "created_at": "2026-02-12T15:57:28+0000",
-  "updated_at": "2026-04-01T20:09:35+0000"
+  "created_at": "2026-02-12T15:57:28+00:00",
+  "updated_at": "2026-04-01T20:09:35+00:00"
 }
 ----
 
@@ -876,8 +876,8 @@ The `default_palette_id` key is optional. You can also use `nil` for the value t
     },
     "width": 800,
     "height": 480,
-    "created_at": "2026-04-01T23:55:12+0000",
-    "updated_at": "2026-04-01T23:55:12+0000"
+    "created_at": "2026-04-01T23:55:12+00:00",
+    "updated_at": "2026-04-01T23:55:12+00:00"
   }
 }
 ----
@@ -928,8 +928,8 @@ You can change a single attribute or multiple attributes at once. All attributes
     },
     "width": 800,
     "height": 480,
-    "created_at": "2026-04-01T23:55:12+0000",
-    "updated_at": "2026-04-01T23:55:12+0000"
+    "created_at": "2026-04-01T23:55:12+00:00",
+    "updated_at": "2026-04-01T23:55:12+00:00"
   }
 }
 ----
@@ -974,8 +974,8 @@ curl -X "DELETE" "https://localhost:2443/api/models/2" \
     },
     "width": 800,
     "height": 480,
-    "created_at": "2026-04-01T23:55:12+0000",
-    "updated_at": "2026-04-01T23:55:12+0000"
+    "created_at": "2026-04-01T23:55:12+00:00",
+    "updated_at": "2026-04-01T23:55:12+00:00"
   }
 }
 ----
@@ -1018,22 +1018,22 @@ curl "https://localhost:2443/api/playlists/1" \
       "label": "Demo",
       "current_item_id": 39,
       "mode": "automatic",
-      "created_at": "2026-03-05T00:14:56+0000",
-      "updated_at": "2026-03-05T00:14:56+0000",
+      "created_at": "2026-03-05T00:14:56+00:00",
+      "updated_at": "2026-03-05T00:14:56+00:00",
       "items": [
         {
           "id": 39,
           "screen_id": 15,
           "position": 1,
-          "created_at": "2026-03-05T00:14:56+0000",
-          "updated_at": "2026-03-05T00:14:56+0000"
+          "created_at": "2026-03-05T00:14:56+00:00",
+          "updated_at": "2026-03-05T00:14:56+00:00"
         },
         {
           "id": 40,
           "screen_id": 16,
           "position": 2,
-          "created_at": "2026-03-05T00:14:56+0000",
-          "updated_at": "2026-03-05T00:14:56+0000"
+          "created_at": "2026-03-05T00:14:56+00:00",
+          "updated_at": "2026-03-05T00:14:56+00:00"
         }
       ]
     }
@@ -1048,22 +1048,22 @@ curl "https://localhost:2443/api/playlists/1" \
     "label": "Demo",
     "current_item_id": 39,
     "mode": "automatic",
-    "created_at": "2026-03-05T00:14:56+0000",
-    "updated_at": "2026-03-05T00:14:56+0000",
+    "created_at": "2026-03-05T00:14:56+00:00",
+    "updated_at": "2026-03-05T00:14:56+00:00",
     "items": [
       {
         "id": 39,
         "screen_id": 15,
         "position": 1,
-        "created_at": "2026-03-05T00:14:56+0000",
-        "updated_at": "2026-03-05T00:14:56+0000"
+        "created_at": "2026-03-05T00:14:56+00:00",
+        "updated_at": "2026-03-05T00:14:56+00:00"
       },
       {
         "id": 40,
         "screen_id": 16,
         "position": 2,
-        "created_at": "2026-03-05T00:14:56+0000",
-        "updated_at": "2026-03-05T00:14:56+0000"
+        "created_at": "2026-03-05T00:14:56+00:00",
+        "updated_at": "2026-03-05T00:14:56+00:00"
       }
     ]
   }
@@ -1110,22 +1110,22 @@ curl -X "POST" "https://localhost:2443/api/playlists" \
     "label": "Demo",
     "current_item_id": 39,
     "mode": "automatic",
-    "created_at": "2026-03-05T00:14:56+0000",
-    "updated_at": "2026-03-05T00:14:56+0000",
+    "created_at": "2026-03-05T00:14:56+00:00",
+    "updated_at": "2026-03-05T00:14:56+00:00",
     "items": [
       {
         "id": 39,
         "screen_id": 15,
         "position": 1,
-        "created_at": "2026-03-05T00:14:56+0000",
-        "updated_at": "2026-03-05T00:14:56+0000"
+        "created_at": "2026-03-05T00:14:56+00:00",
+        "updated_at": "2026-03-05T00:14:56+00:00"
       },
       {
         "id": 40,
         "screen_id": 16,
         "position": 2,
-        "created_at": "2026-03-05T00:14:56+0000",
-        "updated_at": "2026-03-05T00:14:56+0000"
+        "created_at": "2026-03-05T00:14:56+00:00",
+        "updated_at": "2026-03-05T00:14:56+00:00"
       }
     ]
   }
@@ -1173,22 +1173,22 @@ You can change a single attribute or multiple attributes at once. Use an empty i
     "label": "Update",
     "current_item_id": null,
     "mode": "manual",
-    "created_at": "2026-03-05T00:14:56+0000",
-    "updated_at": "2026-03-05T00:26:44+0000",
+    "created_at": "2026-03-05T00:14:56+00:00",
+    "updated_at": "2026-03-05T00:26:44+00:00",
     "items": [
       {
         "id": 51,
         "screen_id": 16,
         "position": 1,
-        "created_at": "2026-03-05T00:26:44+0000",
-        "updated_at": "2026-03-05T00:26:44+0000"
+        "created_at": "2026-03-05T00:26:44+00:00",
+        "updated_at": "2026-03-05T00:26:44+00:00"
       },
       {
         "id": 52,
         "screen_id": 15,
         "position": 2,
-        "created_at": "2026-03-05T00:26:44+0000",
-        "updated_at": "2026-03-05T00:26:44+0000"
+        "created_at": "2026-03-05T00:26:44+00:00",
+        "updated_at": "2026-03-05T00:26:44+00:00"
       }
     ]
   }
@@ -1220,22 +1220,22 @@ curl -X "DELETE" "https://localhost:2443/api/playlists/2" \
     "label": "Update",
     "current_item_id": null,
     "mode": "manual",
-    "created_at": "2026-03-05T00:14:56+0000",
-    "updated_at": "2026-03-05T00:26:44+0000",
+    "created_at": "2026-03-05T00:14:56+00:00",
+    "updated_at": "2026-03-05T00:26:44+00:00",
     "items": [
       {
         "id": 51,
         "screen_id": 16,
         "position": 1,
-        "created_at": "2026-03-05T00:26:44+0000",
-        "updated_at": "2026-03-05T00:26:44+0000"
+        "created_at": "2026-03-05T00:26:44+00:00",
+        "updated_at": "2026-03-05T00:26:44+00:00"
       },
       {
         "id": 52,
         "screen_id": 15,
         "position": 2,
-        "created_at": "2026-03-05T00:26:44+0000",
-        "updated_at": "2026-03-05T00:26:44+0000"
+        "created_at": "2026-03-05T00:26:44+00:00",
+        "updated_at": "2026-03-05T00:26:44+00:00"
       }
     ]
   }
@@ -1277,8 +1277,8 @@ curl "https://localhost:2443/api/screens" \
       "model_id": 1,
       "label": "Moon",
       "name": "plugin-6e6740",
-      "created_at": "2025-07-29T16:29:02+0000",
-      "updated_at": "2025-07-29T16:29:02+0000",
+      "created_at": "2025-07-29T16:29:02+00:00",
+      "updated_at": "2025-07-29T16:29:02+00:00",
       "filename": "plugin-6e6740.bmp",
       "mime_type": "image/bmp",
       "bit_depth": 1,
@@ -1364,8 +1364,8 @@ curl -X "POST" "https://localhost:2443/api/screens" \
     "model_id": 1,
     "label": "Demo",
     "name": "demo",
-    "created_at": "2025-07-29T19:06:04+0000",
-    "updated_at": "2025-07-29T19:06:04+0000",
+    "created_at": "2025-07-29T19:06:04+00:00",
+    "updated_at": "2025-07-29T19:06:04+00:00",
     "filename": "demo.png",
     "mime_type": "image/png",
     "bit_depth": 1,
@@ -1441,8 +1441,8 @@ curl -X "PATCH" "https://localhost:2443/api/screens/1" \
     "model_id": 1,
     "label": "Demo",
     "name": "demo",
-    "created_at": "2025-08-12T19:23:17+0000",
-    "updated_at": "2025-08-12T19:23:17+0000",
+    "created_at": "2025-08-12T19:23:17+00:00",
+    "updated_at": "2025-08-12T19:23:17+00:00",
     "filename": "demo.png",
     "mime_type": "image/png",
     "bit_depth": 1,
@@ -1477,8 +1477,8 @@ curl -X "DELETE" "https://localhost:2443/api/screens/13" \
     "model_id": 1,
     "label": "Demo",
     "name": "demo",
-    "created_at": "2025-07-29T19:11:04+0000",
-    "updated_at": "2025-07-29T19:11:04+0000",
+    "created_at": "2025-07-29T19:11:04+00:00",
+    "updated_at": "2025-07-29T19:11:04+00:00",
     "filename": "demo.png",
     "mime_type": "image/png",
     "bit_depth": 1,

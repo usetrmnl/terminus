@@ -8,7 +8,7 @@ module Terminus
       Time = lambda do |value|
         case value
           when Sequel::SQLTime then value.to_s
-          when ::Time then value.strftime "%Y-%m-%dT%H:%M:%S%z"
+          when ::Time then value.strftime "%Y-%m-%dT%H:%M:%S%:z"
           else value
         end
       end

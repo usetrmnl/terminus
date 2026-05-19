@@ -14,15 +14,18 @@ RSpec.describe Terminus::Serializers::Screen, :db do
       model_id: model.id,
       label: "Test",
       name: "test",
-      created_at: "2025-01-01T00:00:00+0000",
-      updated_at: "2025-02-02T00:00:00+0000"
+      created_at: Time.new(2025, 1, 1, 0, 0, 0),
+      updated_at: Time.new(2025, 1, 1, 0, 0, 0)
     }
   end
 
   describe "#to_h" do
     it "answers hash with image attributes" do
-      expect(serializer.to_h).to eq(
+      expect(serializer.to_h).to match(
+        id: 1,
         model_id: model.id,
+        label: "Test",
+        name: "test",
         uri: "memory://abc123.png",
         filename: "test.png",
         bit_depth: 1,
@@ -30,13 +33,22 @@ RSpec.describe Terminus::Serializers::Screen, :db do
         width: 1,
         height: 1,
         size: 1,
-        **attributes
+        created_at: match_rfc_3339,
+        updated_at: match_rfc_3339
       )
     end
 
     it "answers hash without image attributes" do
       serializer = described_class.new Factory[:screen, **attributes]
-      expect(serializer.to_h).to eq(model_id: model.id, **attributes)
+
+      expect(serializer.to_h).to match(
+        id: 1,
+        model_id: model.id,
+        label: "Test",
+        name: "test",
+        created_at: match_rfc_3339,
+        updated_at: match_rfc_3339
+      )
     end
   end
 end

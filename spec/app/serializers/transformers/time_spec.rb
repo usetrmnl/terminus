@@ -11,7 +11,7 @@ RSpec.describe Terminus::Serializers::Transformers::Time do
     end
 
     it "answers string when Time" do
-      expect(transformer.call(Time.utc(2025, 1, 1, 10, 10, 10))).to eq("2025-01-01T10:10:10+0000")
+      expect(transformer.call(Time.utc(2025, 1, 1, 10, 10, 10))).to eq("2025-01-01T10:10:10+00:00")
     end
 
     it "answers original value when not a SQLTime instance" do

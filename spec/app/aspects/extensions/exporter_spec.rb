@@ -4,6 +4,8 @@ require "hanami_helper"
 require "zip"
 
 RSpec.describe Terminus::Aspects::Extensions::Exporter, :db do
+  using Refinements::Time
+
   subject(:exporter) { described_class.new }
 
   include_context "with application dependencies"
@@ -50,7 +52,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exporter, :db do
         unit: none
         days: []
         last_day_of_month: false
-        start_at: '2025-01-01T00:00:00+00:00'
+        start_at: '#{extension.start_at.rfc_3339}'
         exchanges:
         - headers:
             content_type: application/json
