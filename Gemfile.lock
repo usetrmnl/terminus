@@ -5,7 +5,7 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     amazing_print (2.0.0)
     ast (2.4.3)
-    bake (0.24.1)
+    bake (0.25.0)
       bigdecimal
       samovar (~> 2.1)
     base64 (0.3.0)
@@ -537,8 +537,8 @@ GEM
       refinements (~> 14.0)
       zeitwerk (~> 2.7)
     transproc (1.1.1)
-    trmnl-api (0.16.0)
-      cogger (~> 2.0)
+    trmnl-api (0.17.0)
+      cogger (~> 2.3)
       containable (~> 2.3)
       core (~> 3.2)
       dry-monads (~> 1.9)
@@ -652,7 +652,7 @@ DEPENDENCIES
   sidekiq (~> 8.0)
   sidekiq-scheduler (~> 6.0)
   simplecov (~> 0.22)
-  trmnl-api (~> 0.16)
+  trmnl-api (~> 0.17)
   trmnl-liquid (~> 0.6)
   versionaire (~> 15.3)
   warning (~> 1.5)
@@ -662,7 +662,7 @@ CHECKSUMS
   addressable (2.9.0) sha256=7fdf6ac3660f7f4e867a0838be3f6cf722ace541dd97767fa42bc6cfa980c7af
   amazing_print (2.0.0) sha256=2e36aba46ac78d37ed27ca0e2056afe3583183bb5c64f157c246b267355e5d6a
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
-  bake (0.24.1) sha256=8bfac7e61514b17720e3b13cf6a5e122243f43123c6802707b150904bec5f4c7
+  bake (0.25.0) sha256=a47bdc6a26addc048827debc36fe27bb4d5d71ac2958ad910b5386e9baf49869
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bcrypt (3.1.22) sha256=1f0072e88c2d705d94aff7f2c5cb02eb3f1ec4b8368671e19112527489f29032
   better_errors (2.10.1) sha256=f798f1bac93f3e775925b7fcb24cffbcf0bb62ee2210f5350f161a6b75fc0a73
@@ -851,7 +851,7 @@ CHECKSUMS
   tilt (2.7.0) sha256=0d5b9ba69f6a36490c64b0eee9f6e9aad517e20dcc848800a06eb116f08c6ab3
   tone (3.2.0) sha256=ecd5edccfcf346134d80fc258395a9f5ce11cba6cb2603e5369cb51c6ea89205
   transproc (1.1.1) sha256=b2f9a85ecaf7064f0b3893ffac929de9fd713b13f5aaf822b0bd091fd6f5c8c2
-  trmnl-api (0.16.0) sha256=194b20a4be9906cfb1104c8833d7da9c343161395a754fca9e9804da0247f861
+  trmnl-api (0.17.0) sha256=596efaef9e0c4735506f028ddb53a08379a916a81952b741748350fc8ac1aa9e
   trmnl-liquid (0.7.0) sha256=25e399c694f58888e45eca730e595d08338c5d977358611c2655375cf9e5090a
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
