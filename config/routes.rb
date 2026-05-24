@@ -60,6 +60,8 @@ module Terminus
       delete "/firmware", to: "bulk.firmware.delete", as: :firmware_delete
     end
 
+    get "/versions", to: "versions.index", as: :versions
+
     get "/devices", to: "devices.index", as: :devices
     get "/devices/:id", to: "devices.show", as: :device
     get "/devices/new", to: "devices.new", as: :device_new
