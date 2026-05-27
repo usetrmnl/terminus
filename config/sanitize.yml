@@ -1,3 +1,11 @@
+css:
+  properties:
+    - "--screen-w"
+    - "--screen-h"
+    - "--pixel-ratio"
+    - "--dither-pixel-ratio"
+    - "--ui-scale"
+    - "--gap-scale"
 elements:
   - canvas
   - circle

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/array"
+require "refinements/hash"
 require "sanitize"
 
 module Terminus
@@ -8,6 +10,7 @@ module Terminus
     # A custom HTML sanitizer.
     class Sanitizer
       using Refinements::Array
+      using Refinements::Hash
 
       def initialize configuration_path: Hanami.app.root.join("config/sanitize.yml"),
                      defaults: Sanitize::Config::RELAXED,
@@ -17,20 +20,39 @@ module Terminus
         @client = client
       end
 
-      def call(content) = client.document content, configuration
+      def call content
+        YAML.load_file(configuration_path)
+            .then { build_settings_for it }
+            .then { defaults.deep_merge it }
+            .then { client::Config.merge it }
+            .then { client.document content, it }
+      end
 
       private
 
       attr_reader :configuration_path, :defaults, :client
 
-      def configuration = client::Config.merge(defaults, elements:, attributes:)
-
-      def elements
-        defaults[:elements].including YAML.load_file(configuration_path).fetch("elements")
+      def build_settings_for configuration
+        {
+          css: {
+            properties: merge_properties(configuration)
+          },
+          elements: merge_elements(configuration),
+          attributes: merge_attributes(configuration)
+        }
       end
 
-      def attributes
-        defaults[:attributes].merge YAML.load_file(configuration_path).fetch("attributes")
+      def merge_properties configuration
+        defaults.dig(:css, :properties).including configuration.fetch("css", Core::EMPTY_HASH)
+                                                               .fetch("properties", Core::EMPTY_HASH)
+      end
+
+      def merge_elements configuration
+        defaults[:elements].including configuration.fetch("elements")
+      end
+
+      def merge_attributes configuration
+        defaults[:attributes].merge configuration.fetch("attributes")
       end
     end
   end
