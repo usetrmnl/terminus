@@ -20,6 +20,7 @@ module Terminus
 
           def call extension, context: Core::EMPTY_HASH
             refresh extension.id
+            return Failure("Exchange error, skipping render.") if exchange_error? extension
             render extension, context
           end
 
@@ -27,6 +28,12 @@ module Terminus
 
           def refresh extension_id
             exchange_repository.where(extension_id:).each { refresher.call it }
+          end
+
+          def exchange_error? extension
+            return false unless extension.on_exchange_error == "skip"
+
+            exchange_repository.where(extension_id: extension.id).any? { |e| e.errors.any? }
           end
 
           def render extension, context
