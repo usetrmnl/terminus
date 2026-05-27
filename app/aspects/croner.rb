@@ -12,7 +12,7 @@ module Terminus
 
       def call interval = nil, unit = "minute", time: Time.utc(2025, 1, 1, 0, 0, 0)
         case unit
-          when "minute" then for_minute interval
+          when "minute" then for_minute interval, time
           when "hour" then for_hour interval, time
           when "day" then for_day interval, time
           when "week" then for_week interval, time
@@ -22,8 +22,11 @@ module Terminus
         end
       end
 
-      def for_minute interval
-        interval ? "*/#{interval} * * * *" : "* * * * *"
+      def for_minute interval, time
+        return "* * * * *" unless interval
+
+        offset = time.min % interval
+        "#{offset.step(59, interval).to_a.join(",")} * * * *"
       end
 
       def for_hour interval, time

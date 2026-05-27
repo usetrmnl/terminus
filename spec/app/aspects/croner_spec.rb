@@ -9,7 +9,11 @@ RSpec.describe Terminus::Aspects::Croner do
     let(:time) { Time.utc 2025, 1, 1, 5, 30, 0 }
 
     it "answers cron for every specific minute" do
-      expect(croner.call(5, "minute")).to eq("*/5 * * * *")
+      expect(croner.call(5, "minute")).to eq("0,5,10,15,20,25,30,35,40,45,50,55 * * * *")
+    end
+
+    it "answers cron for every specific minute from start time" do
+      expect(croner.call(20, "minute", time:)).to eq("10,30,50 * * * *")
     end
 
     it "answers cron for every minute" do
