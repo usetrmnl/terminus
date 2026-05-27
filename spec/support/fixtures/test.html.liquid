@@ -1,0 +1,69 @@
+<div class="layout layout--col layout--top ">
+    <!-- Level cue strip -->
+    <div class="grid grid--cols-1 gap--small pt--8">
+      <div class="label label--underline">
+      <span class="value value--xxsmall">Level {{ level }} • {{ list | capitalize }}</span>
+      </div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="columns pt--8 ">
+
+      {% if mode == "single" %}
+
+        <!-- SINGLE MODE -->
+        <div class="column">
+            <span class="value lg:value--xxxlarge" data-value-fit="true">
+              {{ word }}
+            </span>
+            {% if alternates and alternates.size > 0 %}
+                <span class="value value--small">Also: {{ alternates | join: ", " }}</span>
+            {% endif %}
+            {% if annotations and annotations.size > 0 %}
+              {% assign a = annotations[0] %}
+                <span class="label lg:label--large">{{ a.partOfSpeech }} — {{ a.text }}</span>
+                <span class="description lg:description--large">{{ a.sentence }}</span>
+            {% endif %}
+        </div>
+
+      {% else %}
+
+        <!-- DAILY PAIR MODE -->
+        {% assign left = words[0] %}
+        {% assign right = words[1] %}
+
+          <!-- LEFT COLUMN -->
+          <div class="column">
+            <span class="value lg:value--xxxlarge">{{ left.word }}</span>
+            {% if left.alternates and left.alternates.size > 0 %}
+              <span class="value value--xsmall lg:value--large">Also: {{ left.alternates | join: ", " }}</span>
+            {% endif %}
+            {% if left.annotations and left.annotations.size > 0 %}
+              {% assign a = left.annotations[0] %}
+              <span class="label lg:label--large">{{ a.partOfSpeech }} — {{ a.text }}</span>
+              <span class="description lg:description--large">{{ a.sentence }}</span>
+            {% endif %}
+        
+
+          <!-- RIGHT COLUMN -->
+        
+            <span class="value pt--8 lg:value--xxxlarge">{{ right.word }}</span>
+            {% if right.alternates and right.alternates.size > 0 %}
+              <span class="value value--xsmall lg:value--large">Also: {{ right.alternates | join: ", " }}</span>
+            {% endif %}
+            {% if right.annotations and right.annotations.size > 0 %}
+              {% assign a = right.annotations[0] %}
+              <span class="label lg:label--large">{{ a.partOfSpeech }} — {{ a.text }}</span>
+              <span class="description lg:description--large">{{ a.sentence }}</span>
+            {% endif %}
+          </div>
+
+      {% endif %}
+
+    </div>
+</div>
+
+<div class="title_bar">
+  <span class="title flex--stretch">Spelling Bee</span>
+  <span class="instance">{{ progress }}</span>
+</div>
