@@ -2,6 +2,7 @@
 /bin
 !/bin/console
 !/bin/pollers
+!/bin/upgrade
 
 # Bundler
 /.bundle
