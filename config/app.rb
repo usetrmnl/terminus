@@ -27,6 +27,9 @@ module Terminus
     config.actions.content_security_policy.then do |csp|
       csp[:connect_src] += " https://trmnl.com"
       csp[:font_src] += " https://trmnl.com"
+      # Allow gallery/static plugin images hosted on HTTPS (e.g. raw.githubusercontent.com),
+      # while Home Assistant artwork remains proxied via Terminus.
+      csp[:img_src] += " http: https: data:"
       csp[:manifest_src] = "'self'"
       csp[:script_src] += " 'unsafe-eval' 'unsafe-inline' https://trmnl.com"
     end

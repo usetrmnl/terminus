@@ -1,6 +1,12 @@
 <fieldset class="row">
   <fieldset class="column">
-    <fieldset class="column" x-data="{kind: '<%= field_for :kind, fields, extension %>'}">
+    <fieldset class="column"
+              x-data="{
+                kind: '<%= field_for :kind, fields, extension %>',
+                homeAssistantSourceMode: '<%= field_for :home_assistant_source_mode, fields, extension %>',
+                verb: '<%= field_for :verb, fields, extension %>'
+              }">
+
       <legend class="legend">Settings</legend>
 
       <%= scope(:form_field, key: :label, errors:).render do %>
@@ -89,12 +95,17 @@
 
         <%= render "shared/radios/bar",
                    items: [
+                     ['Home Assistant', 'home_assistant'],
                      %w[Image image],
                      %w[Poll poll],
                      %w[Static static]
                    ],
                    name: "extension[kind]",
                    model: "kind" %>
+
+        <p class="help" x-show="kind === 'home_assistant'">
+          Render Home Assistant REST API data.
+        </p>
 
         <p class="help" x-show="kind === 'image'">
           Render remote images.
@@ -105,7 +116,7 @@
         </p>
 
         <p class="help" x-show="kind === 'static'">
-          Render local data. Use the static body field, below, to supply JSON data.
+          Render local data. Use the body field, below, to supply JSON data.
         </p>
       </div>
 
@@ -125,21 +136,319 @@
         <% end %>
       </div>
 
+      <div x-show="kind === 'home_assistant'"
+           x-data="{
+             openEntityPicker: false,
+             entityQuery: '',
+             entityResults: [],
+             selectedEntityDetails: [],
+             entityError: '',
+             entityLoading: false,
+             entityDetailsLoading: false,
+             entityDetailsError: '',
+             entityIds() {
+               const textarea = this.$refs.homeAssistantEntityIds;
+               if (!textarea) return [];
+               return textarea.value.split('\n').map((line) => line.trim()).filter((line) => line.length > 0);
+             },
+             setEntityIds(ids) {
+               const textarea = this.$refs.homeAssistantEntityIds;
+               if (!textarea) return;
+               textarea.value = ids.join('\n');
+               textarea.dispatchEvent(new Event('input', { bubbles: true }));
+             },
+             parseAttributeMap() {
+               const textarea = this.$refs.homeAssistantAttributeMap;
+               if (!textarea) return {};
+               const value = textarea.value.trim();
+               if (!value) return {};
+               try {
+                 const parsed = JSON.parse(value);
+                 return parsed && typeof parsed === 'object' ? parsed : {};
+               } catch (_error) {
+                 return {};
+               }
+             },
+             writeAttributeMap(map) {
+               const textarea = this.$refs.homeAssistantAttributeMap;
+               if (!textarea) return;
+               textarea.value = JSON.stringify(map, null, 2);
+               textarea.dispatchEvent(new Event('input', { bubbles: true }));
+             },
+             aliasMap() {
+               const map = this.parseAttributeMap();
+               const aliases = map.aliases;
+               return aliases && typeof aliases === 'object' ? aliases : {};
+             },
+             normalizeAlias(value) {
+               return String(value || '')
+                 .toLowerCase()
+                 .replace(/[^a-z0-9_]+/g, '_')
+                 .replace(/^_+|_+$/g, '') || 'entity';
+             },
+             recommendedAlias(entityId) {
+               const raw = String(entityId || '').split('.')[1] || String(entityId || '');
+               const base = this.normalizeAlias(raw);
+               const aliases = this.aliasMap();
+               const used = new Set(Object.keys(aliases));
+               if (!used.has(base)) return base;
+               let idx = 2;
+               while (used.has(base + '_' + idx)) idx += 1;
+               return base + '_' + idx;
+             },
+             setAlias(entityId, aliasName) {
+               const map = this.parseAttributeMap();
+               const aliases = map.aliases && typeof map.aliases === 'object' ? map.aliases : {};
+               aliases[aliasName] = entityId;
+               map.aliases = aliases;
+               this.writeAttributeMap(map);
+             },
+             aliasFor(entityId) {
+               const aliases = this.aliasMap();
+               return Object.keys(aliases).find((name) => aliases[name] === entityId) || this.recommendedAlias(entityId);
+             },
+             addEntity(entity) {
+               const current = this.entityIds();
+               if (!current.includes(entity.entity_id)) current.push(entity.entity_id);
+               this.setEntityIds(current);
+               this.setAlias(entity.entity_id, this.aliasFor(entity.entity_id));
+               this.loadSelectedEntityDetails();
+             },
+             searchEntities() {
+               this.entityLoading = true;
+               this.entityError = '';
+               const query = encodeURIComponent(this.entityQuery || '');
+               fetch('/home-assistant/entities?query=' + query, { headers: { 'Accept': 'application/json' } })
+                 .then((response) => response.json().then((body) => ({ ok: response.ok, body })))
+                 .then(({ ok, body }) => {
+                   if (!ok) {
+                     this.entityResults = [];
+                     this.entityError = body.error || 'Unable to load Home Assistant entities.';
+                     return;
+                   }
+                   this.entityResults = body.data || [];
+                 })
+                 .catch(() => {
+                   this.entityResults = [];
+                   this.entityError = 'Unable to load Home Assistant entities.';
+                 })
+                 .finally(() => { this.entityLoading = false; });
+             },
+             loadSelectedEntityDetails() {
+               const ids = this.entityIds();
+               if (!ids.length) {
+                 this.selectedEntityDetails = [];
+                 this.entityDetailsError = '';
+                 return;
+               }
+               this.entityDetailsLoading = true;
+               this.entityDetailsError = '';
+               const query = encodeURIComponent(ids.join(','));
+               fetch('/home-assistant/entities?entity_ids=' + query, { headers: { 'Accept': 'application/json' } })
+                 .then((response) => response.json().then((body) => ({ ok: response.ok, body })))
+                 .then(({ ok, body }) => {
+                   if (!ok) {
+                     this.selectedEntityDetails = [];
+                     this.entityDetailsError = body.error || 'Unable to load selected entity details.';
+                     return;
+                   }
+                   this.selectedEntityDetails = body.data || [];
+                 })
+                 .catch(() => {
+                   this.selectedEntityDetails = [];
+                   this.entityDetailsError = 'Unable to load selected entity details.';
+                 })
+                 .finally(() => { this.entityDetailsLoading = false; });
+             }
+           }"
+           x-init="loadSelectedEntityDetails()">
+        <p>
+          Configure your host connection via
+          <%= link_to "Home Assistant Settings", routes.path(:settings_home_assistant), class: :link %>.
+        </p>
+
+        <%= scope(:form_field, key: :home_assistant_source_mode, errors:).render do %>
+          <label class="key" for="extension_home_assistant_source_mode">Source Mode</label>
+          <%= form.select :home_assistant_source_mode,
+                          [["Entity", "entity"], ["Endpoint", "endpoint"]],
+                          id: :extension_home_assistant_source_mode,
+                          class: :value,
+                          "x-model" => "homeAssistantSourceMode" %>
+        <% end %>
+
+        <%= scope(
+              :form_field,
+              key: :home_assistant_entity_ids,
+              errors:,
+              alpine: {show: "homeAssistantSourceMode === 'entity'"}
+            ).render do %>
+          <% raw_entity_ids = field_for(:home_assistant_entity_ids, fields, extension) %>
+          <% entity_ids_value = raw_entity_ids.is_a?(Array) ? raw_entity_ids.join("\n") : raw_entity_ids %>
+          <label class="key" for="extension_home_assistant_entity_ids">Entity IDs</label>
+          <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+            <button type="button"
+                    class="bit-button-accept"
+                    x-on:click="openEntityPicker = true; searchEntities()">
+              Browse Entities
+            </button>
+          </div>
+          <%= form.text_area :home_assistant_entity_ids,
+                             entity_ids_value,
+                             id: :extension_home_assistant_entity_ids,
+                             class: :value,
+                             autocomplete: :off,
+                              placeholder: "media_player.sonos_roam\nweather.home",
+                             "x-ref" => "homeAssistantEntityIds",
+                             "x-on:input.debounce.250ms" => "loadSelectedEntityDetails()" %>
+          <p class="help">One entity ID per line. Use Browse Entities for search and quick add.</p>
+        <% end %>
+
+        <%= scope(
+              :form_field,
+              key: :home_assistant_endpoint_path,
+              errors:,
+              alpine: {show: "homeAssistantSourceMode === 'endpoint'"}
+            ).render do %>
+          <label class="key" for="extension_home_assistant_endpoint_path">Endpoint Path</label>
+          <%= form.text_field :home_assistant_endpoint_path,
+                              id: :extension_home_assistant_endpoint_path,
+                              value: field_for(:home_assistant_endpoint_path, fields, extension),
+                              class: :value,
+                              autocomplete: :off %>
+        <% end %>
+
+        <%= scope(:form_field, key: :home_assistant_normalize_urls, errors:).render do %>
+          <%= form.check_box :home_assistant_normalize_urls,
+                             id: :extension_home_assistant_normalize_urls,
+                             checked: field_for(:home_assistant_normalize_urls, fields, extension),
+                             switch: true,
+                             class: :checkbox %>
+          <label class="key" for="extension_home_assistant_normalize_urls">Normalize URLs</label>
+        <% end %>
+
+        <%= scope(:form_field, key: :home_assistant_attribute_map, errors:).render do %>
+          <label class="key" for="extension_home_assistant_attribute_map">Attribute Map JSON</label>
+          <%= form.text_area :home_assistant_attribute_map,
+                             field_for(:home_assistant_attribute_map, fields, extension),
+                             id: :extension_home_assistant_attribute_map,
+                             class: "bit-editor",
+                             autocomplete: :off,
+                             "x-ref" => "homeAssistantAttributeMap",
+                             data: {language: :json} %>
+          <p class="help">
+            Optional aliases for cleaner Liquid. Example:
+            <code>{"aliases":{"roam":"media_player.sonos_roam","office":"media_player.office"}}</code>
+          </p>
+          <p class="help">
+            Then use <code>{{ ha.roam.attributes.media_title }}</code> or
+            <code>{{ home_assistant.aliases.roam.state }}</code>.
+          </p>
+        <% end %>
+
+        <div class="bit-toggle-field">
+          <h2 class="bit-toggle-label">Template Variable Reference</h2>
+          <p class="help">Generated from selected entity IDs and aliases. Shows live current values for faster Liquid authoring.</p>
+          <p class="help" x-show="entityDetailsLoading">Loading selected entity details...</p>
+          <p class="help" x-show="entityDetailsError" x-text="entityDetailsError"></p>
+          <p class="help" x-show="!entityDetailsLoading && selectedEntityDetails.length === 0">No selected entities yet.</p>
+
+          <template x-for="entity in selectedEntityDetails" :key="entity.entity_id">
+            <details style="margin: 8px 0; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+              <summary>
+                <code x-text="aliasFor(entity.entity_id)"></code>
+                <span> => </span>
+                <code x-text="entity.entity_id"></code>
+              </summary>
+              <p class="help">
+                Liquid: <code x-text="'{{ ha.' + aliasFor(entity.entity_id) + '.state }}'"></code>
+              </p>
+              <p class="help">
+                Liquid: <code x-text="'{{ ha.' + aliasFor(entity.entity_id) + '.attributes.friendly_name }}'"></code>
+              </p>
+              <p class="help">Current state: <code x-text="entity.state"></code></p>
+
+              <div style="max-height: 160px; overflow: auto; border: 1px solid #eee; border-radius: 6px; padding: 6px;">
+                <template x-for="(value, key) in entity.attributes" :key="key">
+                  <p class="help" style="margin: 4px 0;">
+                    <code x-text="'ha.' + aliasFor(entity.entity_id) + '.attributes.' + key"></code>
+                    <span> = </span>
+                    <code x-text="typeof value === 'object' ? JSON.stringify(value) : String(value)"></code>
+                  </p>
+                </template>
+              </div>
+            </details>
+          </template>
+        </div>
+
+        <div x-show="openEntityPicker"
+             x-on:keydown.escape.window="openEntityPicker = false"
+             style="position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:60;">
+          <div style="background:#fff; width:min(1320px, 98vw); max-height:86vh; overflow:hidden; border-radius:10px; padding:16px; box-sizing:border-box;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h3 style="margin:0; font-size:22px;">Home Assistant Entities</h3>
+              <button type="button" class="bit-button-decline" x-on:click="openEntityPicker = false">Close</button>
+            </div>
+
+            <div style="display:flex; gap:10px; margin-bottom:12px;">
+              <input type="text"
+                     class="value"
+                     style="flex:1 1 auto;"
+                     placeholder="Filter by entity id, name, or state"
+                     x-model="entityQuery"
+                     x-on:input.debounce.300ms="searchEntities()"
+                     x-on:keydown.enter.prevent>
+            </div>
+
+            <p x-show="entityLoading" class="help">Loading entities...</p>
+            <p x-show="entityError" class="help" x-text="entityError"></p>
+
+            <div style="max-height:62vh; overflow:auto; border:1px solid #ddd; border-radius:8px;">
+              <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr style="position:sticky; top:0; background:#fafafa;">
+                    <th style="text-align:left; padding:6px; font-size:13px;">Entity</th>
+                    <th style="text-align:left; padding:6px; font-size:13px;">Name</th>
+                    <th style="text-align:left; padding:6px; font-size:13px;">State</th>
+                    <th style="text-align:left; padding:6px; font-size:13px;">Domain</th>
+                    <th style="text-align:right; padding:6px; font-size:13px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="entity in entityResults" :key="entity.entity_id">
+                    <tr>
+                      <td style="padding:6px; border-top:1px solid #eee; font-size:13px;">
+                        <code style="font-size:11px; line-height:1.2;" x-text="entity.entity_id"></code>
+                      </td>
+                      <td style="padding:6px; border-top:1px solid #eee; font-size:13px;" x-text="entity.friendly_name || '-'"></td>
+                      <td style="padding:6px; border-top:1px solid #eee; font-size:13px;" x-text="entity.state"></td>
+                      <td style="padding:6px; border-top:1px solid #eee; font-size:13px;" x-text="entity.domain"></td>
+                      <td style="padding:6px; border-top:1px solid #eee; text-align:right;">
+                        <button type="button" class="bit-button-accept" x-on:click="addEntity(entity); openEntityPicker = false">Add</button>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <%= scope(
             :form_field,
-            key: :static_body,
+            key: :body,
             errors:,
             alpine: {show: "kind === 'static'"}
           ).render do %>
 
-        <label class="key" for="extension_static_body">
-          Static Body
-          <%= render "shared/popovers/triggers/default", name: :static_body %>
+        <label class="key" for="extension_body">
+          Body
+          <%= render "shared/popovers/triggers/default", name: :body %>
         </label>
 
-        <%= form.text_area :static_body,
-                           field_for(:formatted_static_body, fields, extension),
-                           id: :extension_static_body,
+        <%= form.text_area :body,
+                           field_for(:formatted_body, fields, extension),
+                           id: :extension_body,
                            class: "bit-editor",
                            autocomplete: :off,
                            data: {language: :json} %>
@@ -310,9 +619,11 @@
     <details open x-show="input === 'source'">
       <summary>Usage</summary>
 
-      <p>Provides read-only data sourced from your exchanges. This allows you to see all keys and values for use within your Liquid template.</p>
+      <p>Provides read-only data sourced from your exchanges or Home Assistant source. This allows you to see all keys and values for use within your Liquid template.</p>
 
       <p>When supplying a single exchange, your Liquid template key will be <code>{{source_1}}</code>. Each subsequent exhange will be the next number in the sequence. Example: <code>{{source_1}}</code>, <code>{{source_2}}</code>, and so forth. Each key is numbered in the same order as your exchanges.</p>
+
+      <p>For Home Assistant, use <code>{{source}}</code> for a single entity or endpoint response, <code>{{entities}}</code> for multiple entities, and <code>{{ha.alias_name}}</code> when aliases are configured.</p>
 
       <p>💡 In situations in where you have numeric keys, use brackets to reference the value. Example: <code>{"source_1": {"1": {"label": "Test"}}}</code>. This means you'd use <code>{{source_1["1"].label]}}</code> in your Liquid template to get the value.</p>
     </details>
@@ -411,4 +722,3 @@
 </fieldset>
 
 <%= render "extensions/shared/popovers/all" %>
-

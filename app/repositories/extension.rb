@@ -4,6 +4,8 @@ module Terminus
   module Repositories
     # The extension repository.
     class Extension < DB::Repository[:extension]
+      include Deps[ha_config_repository: "repositories.extension_home_assistant_config"]
+
       commands :create, delete: :by_pk
 
       commands update: :by_pk,
@@ -29,6 +31,15 @@ module Terminus
           record = create attributes
 
           create_associations :extension_model, record, :model_id, model_ids
+          record
+        end
+      end
+
+      def create_with_home_assistant attributes, home_assistant_attributes
+        transaction do
+          record = create attributes
+          ha_config_repository.upsert_by_extension_id extension_id: record.id,
+                                                      **home_assistant_attributes
           record
         end
       end
@@ -61,6 +72,14 @@ module Terminus
         end
       end
 
+      def update_with_home_assistant id, attributes, home_assistant_attributes
+        transaction do
+          record = update id, attributes
+          ha_config_repository.upsert_by_extension_id extension_id: id, **home_assistant_attributes
+          record
+        end
+      end
+
       def where(**)
         extension.where(**)
                  .order { created_at.asc }
@@ -69,7 +88,7 @@ module Terminus
 
       private
 
-      def with_associations = extension.combine :devices, :models
+      def with_associations = extension.combine :devices, :models, :extension_home_assistant_config
 
       # rubocop:todo Metrics/ParameterLists
       def create_associations name, record, foreign_key, values

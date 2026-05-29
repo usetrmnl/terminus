@@ -10,6 +10,7 @@ module Terminus
       class Renderer
         include Deps[
           "aspects.extensions.contextualizer",
+          "aspects.extensions.renderers.home_assistant",
           "aspects.extensions.renderers.image",
           "aspects.extensions.renderers.poll",
           "aspects.extensions.renderers.static"
@@ -28,6 +29,7 @@ module Terminus
           kind = extension.kind
 
           case kind
+            when "home_assistant" then home_assistant.call extension, context:
             when "image" then image.call extension, context:
             when "poll" then poll.call extension, context:
             when "static" then static.call extension, context:

@@ -118,6 +118,18 @@ module Terminus
     get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
     get "/extensions/:extension_id/sources", to: "extensions.sources.index", as: :extension_sources
     get "/extensions/:extension_id/sensors", to: "extensions.sensors.index", as: :extension_sensors
+    get "/home-assistant/entities",
+        to: "home_assistant.entities.index",
+        as: :home_assistant_entities
+    get "/home-assistant/media", to: "home_assistant.media.show", as: :home_assistant_media
+    get "/settings/home-assistant", to: "settings.home_assistant.show", as: :settings_home_assistant
+    put "/settings/home-assistant",
+        to: "settings.home_assistant.update",
+        as: :settings_home_assistant_update
+    post "/settings/home-assistant/test",
+         to: "settings.home_assistant.test",
+         as: :settings_home_assistant_test
+    put "/settings/home-assistant/test", to: "settings.home_assistant.test"
 
     get "/firmware", to: "firmware.index", as: :firmware
     get "/firmware/:id", to: "firmware.show", as: :firmware_show

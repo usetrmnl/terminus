@@ -27,6 +27,8 @@ module Terminus
 
       def add_filters
         cogger.add_filters :api_key,
+                           :access_token,
+                           :authorization,
                            :csrf,
                            :HTTP_ACCESS_TOKEN,
                            :HTTP_ID,

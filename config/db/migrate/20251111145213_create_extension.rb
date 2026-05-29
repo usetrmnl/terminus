@@ -2,7 +2,7 @@
 
 ROM::SQL.migration do
   change do
-    create_enum :extension_kind_enum, %w[image poll secure static webhook]
+    create_enum :extension_kind_enum, %w[home_assistant image poll secure static webhook]
     create_enum :extension_verb_enum, %w[get post]
     create_enum :extension_unit_enum, %w[none minute hour day week month]
 

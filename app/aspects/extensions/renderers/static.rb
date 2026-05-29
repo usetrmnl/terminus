@@ -13,10 +13,10 @@ module Terminus
           include Dry::Monads[:result]
 
           def call extension, context: Core::EMPTY_HASH
-            Success renderer.call(
-              extension.template,
-              context.merge("source_1" => extension.static_body)
-            )
+            body_context = extension.body.is_a?(Hash) ? extension.body : Core::EMPTY_HASH
+            template_context = body_context.merge(context).merge("source_1" => body_context)
+
+            Success renderer.call(extension.template, template_context)
           end
         end
       end

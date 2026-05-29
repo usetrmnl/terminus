@@ -35,8 +35,8 @@ The following provides a visual roadmap of current development and work that is 
 | Public                   | 🟢
 | Third Party              | ⚪️
 | Recipes                  | 🟢
-| Import (Core)            | 🟢
-| Import/Export (Terminus) | 🟢
+| Import/Export (Core)     | ⚪️
+| Import/Export (Terminus) | ⚪️
 |===
 
 == Walkthrough
@@ -44,22 +44,20 @@ The following provides a visual roadmap of current development and work that is 
 To help you get started, let's walk through a scenario building an extension:
 
 . Visit the _Extensions_ page and click the plus icon to create a new extension.
-. Fill in _Ghibli_ for the _Label_ and _ghibli_ for the _Name_.
-. For _Kind_, select _Poll_.
+. Fill in _Label_ and _Name_ information.
 . Select _TRMNL OG (2-bit)_ as your model (via the Build Matrix).
-. Scroll down to the Template editor, copy and paste the same Liquid Template (see below) but place it inside the `+<div class="layout layout--col">+` element. You can also select the pasted block of code and use COMMAND + `]` to indent.
-. Click _Save_ to save these changes.
-. Once saved, edit the newly created extension and scroll to the exchanges section.
-. Click on _Exchanges_ and then click the plus button in the upper right hand corner of the page.
-. Fill in `https://ghibliapi.vercel.app/films` for your template then click _Save_. You might want to refresh the page a couple times to double check that the _Data_ tab is populated. If there are errors, they'll show up via the _Errors_ tab.
-. Navigate back to your extension and click the _Preview_ button to see how your screen will render.
+. For _Kind_, select _Poll_.
+. For _URLs_, enter: `https://ghibliapi.vercel.app/films`.
+. Scroll down to the Template editor, copy and paste the same Liquid Template (see below) but place it inside the `+<div class="layout layout--col">+` element.
+. Click _Save_ to save your changes.
+. Upon page reload, click the _Preview_ button to see how your screen will render.
 
 .Liquid Template
 [%collapsible]
 ====
 [source,html]
 ----
-{% for film in source_1 limit:5 %}
+{% for film in source limit:5 %}
   <div class="item">
     <div class="meta">
       <span class="index">{{ forloop.index }}</span>
@@ -76,7 +74,7 @@ To help you get started, let's walk through a scenario building an extension:
 ----
 ====
 
-At this point you can schedule when your extension will automatically rebuilt or you can click the _Build_ button to force an immediate build. All output will show up via the _Screens_ page.
+At this point, you can set a schedule for updating your screen as fast as a minute or as slow as a month.
 
 == Liquid Templates
 
@@ -120,3 +118,87 @@ This allows each device to answer an empty array, a single record, or multiple r
 === Server
 
 You can attach sensors to your Raspberry PI which allows you to access sensor records when building extensions. This is fully explained in the link:/doc/raspberry_pi.adoc[Raspberry Pi Documentation] for this project.
+
+== Import/Export
+
+The ability to import and export extensions is the next major feature to tackle. The goal is to allow you to import and export Terminus extensions along with the import and export of {core_link} plugins. The translation of Core plugins will be handled for you automatically. In the meantime, you can use the above _Walkthrough_ to do this manually.
+
+== Home Assistant
+
+Terminus supports Home Assistant as a host-configured data source for Extensions.
+
+=== Create Long-Lived Access Token
+
+. Open Home Assistant.
+. Go to your profile page.
+. Create a _Long-Lived Access Token_.
+. Copy and store the token securely.
+
+=== Configure Connection
+
+. Open `Settings -> Home Assistant` in Terminus.
+. Enable Home Assistant.
+. Set your base URL. Example: `http://HOME_ASSISTANT_IP:8123`.
+. Paste your access token.
+. Save and click _Test Connection_.
+
+Example curl checks:
+
+[source,bash]
+----
+curl -H "Authorization: Bearer TOKEN" http://HOME_ASSISTANT_IP:8123/api/
+curl -H "Authorization: Bearer TOKEN" http://HOME_ASSISTANT_IP:8123/api/states/media_player.sonos_roam
+----
+
+=== Extension Modes
+
+When creating an Extension, set kind to `Home Assistant`.
+
+* `entity`: Add one entity ID per line, such as `media_player.sonos_roam`.
+* `endpoint`: Add a relative Home Assistant API path, such as `/api/states`.
+
+For `entity` mode:
+
+* Single entity exposes `{{source}}`.
+* Multiple entities expose `{{entities}}` and `{{entity_map}}`.
+
+For `endpoint` mode:
+
+* Response exposes `{{source}}`.
+
+=== Sonos Now Playing Template Example
+
+[source,liquid]
+----
+<div class="{{extension.css_classes}}">
+  <div class="view view--full">
+    <div class="layout layout--col">
+      <span class="title">{{ source.attributes.media_title }}</span>
+      <span>{{ source.attributes.media_artist }}</span>
+      <span>{{ source.attributes.media_album_name }}</span>
+      <span>{{ source.attributes.media_channel }}</span>
+      <span>{{ source.attributes.friendly_name }}</span>
+      <span>{{ source.last_updated }}</span>
+      <img src="{{ source.attributes.entity_picture_url }}" width="200" height="200" />
+    </div>
+  </div>
+</div>
+----
+
+=== URL Normalization
+
+When `Normalize URLs` is enabled, relative values like `/api/...` and `/local/...` get additional `*_url` keys.
+For example:
+
+* `source.attributes.entity_picture` remains unchanged.
+* `source.attributes.entity_picture_url` is added with your Home Assistant base URL prefix.
+
+=== Docker Networking Note
+
+When running Terminus in Docker, `homeassistant.local` may not resolve inside the container.
+Use the Home Assistant IP address or a hostname reachable from the Terminus container.
+
+=== Future
+
+A future version may add Home Assistant WebSocket subscriptions for near real-time updates.
+Current support is intentionally REST polling only.

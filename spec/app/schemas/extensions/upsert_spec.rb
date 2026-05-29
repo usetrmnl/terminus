@@ -12,6 +12,10 @@ RSpec.describe Terminus::Schemas::Extensions::Upsert do
         label: "Test",
         description: "A test.",
         kind: "pull",
+        home_assistant_source_mode: "entity",
+        home_assistant_entity_ids: "media_player.sonos_roam\nweather.home",
+        home_assistant_endpoint_path: "/api/states",
+        home_assistant_attribute_map: %({"title":"media_title"}),
         tags: "one two three",
         static_body: %({"test": "example"}),
         template: "A full test.",
@@ -48,6 +52,23 @@ RSpec.describe Terminus::Schemas::Extensions::Upsert do
 
     it "answers data hash" do
       expect(contract.call(attributes).to_h).to include(data: {"label" => "Test"})
+    end
+
+    it "coerces home assistant entity IDs lines to array" do
+      expect(contract.call(attributes).to_h).to include(
+        home_assistant_entity_ids: %w[media_player.sonos_roam weather.home]
+      )
+    end
+
+    it "coerces home assistant attribute map JSON to hash" do
+      expect(contract.call(attributes).to_h).to include(
+        home_assistant_attribute_map: {"title" => "media_title"}
+      )
+    end
+
+    it "defaults normalize URLs to true when key is missing" do
+      attributes.delete :home_assistant_normalize_urls
+      expect(contract.call(attributes).to_h).to include(home_assistant_normalize_urls: true)
     end
 
     it "answers true when last day of month is truthy" do

@@ -38,6 +38,19 @@ RSpec.describe Terminus::Aspects::Extensions::Renderer, :db do
       end
     end
 
+    context "with home assistant kind" do
+      subject(:renderer) { described_class.new home_assistant: }
+
+      let(:home_assistant) { instance_spy Terminus::Aspects::Extensions::Renderers::HomeAssistant }
+
+      it "delegates to home assistant renderer" do
+        allow(extension).to receive(:kind).and_return("home_assistant")
+        renderer.call extension, model_id: model.id
+
+        expect(home_assistant).to have_received(:call).with(extension, context:)
+      end
+    end
+
     context "with poll kind" do
       subject(:renderer) { described_class.new poll: }
 

@@ -35,9 +35,15 @@ module Terminus
           response.redirect_to routes.path(:extension_edit, id: extension.id)
         end
 
+        # rubocop:disable Metrics/AbcSize
         def update extension, attributes
+          attributes = attributes.dup
           id = extension.id
           model_ids, device_ids = attributes.values_at :model_ids, :device_ids
+          ha_attributes = extract_home_assistant_attributes attributes
+
+          attributes[:kind] == "home_assistant" &&
+            repository.update_with_home_assistant(id, attributes, ha_attributes)
 
           repository.update_with_devices id, attributes, Array(device_ids)
 
@@ -45,6 +51,23 @@ module Terminus
 
           schedule.upsert(*extension.to_schedule, old_name: extension.screen_name)
         end
+        # rubocop:enable Metrics/AbcSize
+
+        # rubocop:disable Metrics/MethodLength
+        def extract_home_assistant_attributes attributes
+          {
+            source_mode: attributes.delete(:home_assistant_source_mode) || "entity",
+            entity_ids: attributes.delete(:home_assistant_entity_ids) || [],
+            endpoint_path: attributes.delete(:home_assistant_endpoint_path),
+            attribute_map: attributes.delete(:home_assistant_attribute_map) || {},
+            normalize_urls: if attributes.key? :home_assistant_normalize_urls
+                              attributes.delete :home_assistant_normalize_urls
+                            else
+                              true
+                            end
+          }
+        end
+        # rubocop:enable Metrics/MethodLength
 
         def error extension, parameters, response
           fields = parameters[:extension].transform_with!(
