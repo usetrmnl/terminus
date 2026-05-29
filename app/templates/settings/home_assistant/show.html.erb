@@ -1,0 +1,71 @@
+<%= render "shared/title", text: "Home Assistant Settings" %>
+
+<section class="bit-page page-extensions">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb"><%= link_to "Extensions", routes.path(:extensions), class: :link %></li>
+      <li class="bit-breadcrumb">Home Assistant</li>
+    </ul>
+  </header>
+
+  <div class="bit-body">
+    <div class="extensions">
+      <%= form_for :home_assistant_connection,
+                   routes.path(:settings_home_assistant_update),
+                   method: :put,
+                   class: "bit-card bit-form extension" do |form| %>
+        <h1 class="label">Home Assistant</h1>
+        <% values = Hash(ha_fields || {}) %>
+
+        <%= scope(:form_field, key: :enabled, errors:).render do %>
+          <% enabled_value = values.key?(:enabled) ? values[:enabled] : connection&.enabled %>
+          <%= form.check_box :enabled,
+                             id: :home_assistant_connection_enabled,
+                             checked: enabled_value,
+                             switch: true,
+                             class: :checkbox %>
+          <label class="key" for="home_assistant_connection_enabled">Enabled</label>
+        <% end %>
+
+        <%= scope(:form_field, key: :base_url, errors:).render do %>
+          <% base_url_value = values.key?(:base_url) ? values[:base_url] : connection&.base_url %>
+          <label class="key" for="home_assistant_connection_base_url">Base URL</label>
+          <%= form.text_field :base_url,
+                              id: :home_assistant_connection_base_url,
+                              value: base_url_value,
+                              class: :value,
+                              autocomplete: :off %>
+        <% end %>
+
+        <%= scope(:form_field, key: :access_token, errors:).render do %>
+          <label class="key" for="home_assistant_connection_access_token">Access Token</label>
+          <% token_placeholder = connection&.masked_access_token ? "Saved token: #{connection.masked_access_token}" : "" %>
+          <%= form.password_field :access_token,
+                                  id: :home_assistant_connection_access_token,
+                                  class: :value,
+                                  autocomplete: :off,
+                                  placeholder: token_placeholder,
+                                  value: "" %>
+
+          <% if connection && connection.masked_access_token %>
+            <%= form.check_box :clear_access_token,
+                               id: :home_assistant_connection_clear_access_token,
+                               checked: false,
+                               switch: true,
+                               class: :checkbox %>
+            <label class="key" for="home_assistant_connection_clear_access_token">Clear saved token</label>
+            <p class="help">Leave Access Token blank to keep current token. Enter a new token to replace it.</p>
+          <% end %>
+        <% end %>
+
+        <div class="form-actions">
+          <%= form.submit "Save", class: "bit-button-accept" %>
+          <%= tag.button "Test Connection",
+                         type: :submit,
+                         class: "bit-button-accept",
+                         formaction: routes.path(:settings_home_assistant_test) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

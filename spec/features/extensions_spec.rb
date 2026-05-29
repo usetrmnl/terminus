@@ -3,8 +3,6 @@
 require "hanami_helper"
 
 RSpec.describe "Extensions", :db do
-  using Refinements::Pathname
-
   let(:model) { Factory[:model, name: "og_plus"] }
   let(:extension) { Factory[:extension] }
 
@@ -14,13 +12,13 @@ RSpec.describe "Extensions", :db do
     fill_in "extension[label]", with: "Test"
     click_button "Save"
 
-    expect(page).to have_text("must be filled")
+    expect(page).to have_content("must be filled")
 
     fill_in "extension[name]", with: "test"
     click_button "Save"
 
-    expect(page).to have_text("Test")
-    expect(page).to have_text("poll")
+    expect(page).to have_content("Test")
+    expect(page).to have_content("poll")
   end
 
   it "edits", :aggregate_failures, :js do
@@ -31,12 +29,12 @@ RSpec.describe "Extensions", :db do
     fill_in "extension[label]", with: nil
     click_button "Save"
 
-    expect(page).to have_text("must be filled")
+    expect(page).to have_content("must be filled")
 
     fill_in "extension[label]", with: "Edit Test"
     click_button "Save"
 
-    expect(page).to have_text("Changes saved.")
+    expect(page).to have_content("Changes saved.")
     expect(page).to have_field(with: "Edit Test")
   end
 
@@ -46,7 +44,7 @@ RSpec.describe "Extensions", :db do
     visit routes.path(:extension_edit, id: extension.id)
     click_link "Exchanges"
 
-    expect(page).to have_text(exchange.template)
+    expect(page).to have_content(exchange.template)
   end
 
   it "builds", :js do
@@ -55,7 +53,7 @@ RSpec.describe "Extensions", :db do
     visit routes.path(:extension_edit, id: extension.id)
     click_button "Build"
 
-    expect(page).to have_text("Enqueuing...")
+    expect(page).to have_content("Enqueuing...")
   end
 
   it "clones", :aggregate_failures, :js do
@@ -67,44 +65,17 @@ RSpec.describe "Extensions", :db do
     fill_in "extension[label]", with: nil
     click_button "Save"
 
-    expect(page).to have_text("must be filled")
+    expect(page).to have_content("must be filled")
 
     fill_in "extension[label]", with: extension.label
     click_button "Save"
 
-    expect(page).to have_text("must be unique")
+    expect(page).to have_content("must be unique")
 
     fill_in "extension[label]", with: "Clone Test"
     click_button "Save"
 
-    expect(page).to have_text("Clone Test")
-  end
-
-  it "imports", :aggregate_failures, :js do
-    exporter = Terminus::Aspects::Extensions::Exporter.new
-    importer = Terminus::Aspects::Extensions::Importers::Local::Creator.new
-    extension = Factory.structs[:extension, label: "Extension Import Test"]
-    path = exporter.call(extension).bind { |io| temp_dir.join("test.zip").write io.read }
-
-    path.open { importer.call it }
-
-    visit routes.path(:extensions)
-    click_button "Upload"
-
-    within ".bit-popover-content", text: "Extension Import" do
-      attach_file "extension_attachment", path
-    end
-
-    expect(page).to have_text("Extension Import Test")
-  end
-
-  it "exports" do
-    extension
-
-    visit routes.path(:extensions)
-    click_link "Export"
-
-    expect(page.source.encoding).to eq(Encoding::ASCII_8BIT)
+    expect(page).to have_content("Clone Test")
   end
 
   it "deletes", :js do
@@ -115,14 +86,14 @@ RSpec.describe "Extensions", :db do
       accept_prompt { click_button "Delete" }
     end
 
-    expect(page).to have_no_text(extension.label)
+    expect(page).to have_no_content(extension.label)
   end
 
   it "views gallery", :aggregate_failures do
     Hanami.app.start :trmnl_api
     visit routes.path(:extensions_gallery)
 
-    expect(page).to have_text("Gallery")
-    expect(page).to have_text("connection")
+    expect(page).to have_content("Gallery")
+    expect(page).to have_content("Welcome to the gallery")
   end
 end

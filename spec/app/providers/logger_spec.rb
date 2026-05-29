@@ -31,7 +31,9 @@ RSpec.describe Terminus::Providers::Logger do
       )
 
       provider.start
-      expect(cogger).to have_received(:add_filters).with(any_args)
+      expect(cogger).to have_received(:add_filters) do |*filters|
+        expect(filters).to include(:access_token, :authorization)
+      end
     end
 
     context "with test environment" do
