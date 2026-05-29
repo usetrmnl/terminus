@@ -1,0 +1,27 @@
+services:
+  init-certificates:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: terminus-local:dev
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: terminus-local:dev
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: terminus-local:dev
+
+  devcheck:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: terminus-local:devcheck
+    profiles:
+      - tools

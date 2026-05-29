@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+DEV_IMAGE="terminus-local:devcheck"
+NETWORK="terminus_default"
+CHANGED_FILE_LIST="/tmp/terminus_changed_files.txt"
+MODE="changed"
+
+if ! command -v docker >/dev/null 2>&1; then
+  echo "docker is required"
+  exit 1
+fi
+
+if [[ ! -f .env ]]; then
+  echo ".env is required"
+  exit 1
+fi
+
+if [[ "${1:-}" == "--full" ]]; then
+  MODE="full"
+  shift
+fi
+
+BASE_REF="${1:-}"
+if [[ -z "$BASE_REF" ]]; then
+  if git show-ref --verify --quiet refs/remotes/origin/main; then
+    BASE_REF="$(git merge-base HEAD origin/main)"
+  else
+    BASE_REF="$(git merge-base HEAD main)"
+  fi
+fi
+
+if [[ -n "$BASE_REF" ]]; then
+  {
+    git diff --name-only "$BASE_REF"...HEAD
+    git ls-files -o --exclude-standard
+  } | sort -u > "$CHANGED_FILE_LIST"
+else
+  git ls-files -o --exclude-standard > "$CHANGED_FILE_LIST"
+fi
+
+RUBY_FILES="$(rg '\.(rb|rake)$|^Rakefile$' "$CHANGED_FILE_LIST" | tr '\n' ' ' || true)"
+SPEC_FILES="$(rg '^spec/.+_spec\.rb$' "$CHANGED_FILE_LIST" | tr '\n' ' ' || true)"
+
+if [[ "$MODE" == "changed" ]]; then
+  echo "Using base ref: $BASE_REF"
+
+  if [[ -z "$RUBY_FILES" && -z "$SPEC_FILES" ]]; then
+    echo "No changed Ruby or spec files detected."
+    exit 0
+  fi
+else
+  echo "Running full checks"
+fi
+
+echo "Building dev-check image..."
+docker build --target development -t "$DEV_IMAGE" .
+
+set -a
+source .env
+set +a
+
+TEST_DATABASE_URL="postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@database:${DATABASE_PORT}/${DATABASE_NAME}_test"
+KEYVALUE_URL="redis://:${KEYVALUE_PASSWORD}@keyvalue:${KEYVALUE_PORT}/${KEYVALUE_DATABASE}"
+
+run_in_image() {
+  local command="$1"
+
+  docker run --rm --network "$NETWORK" \
+    -e HANAMI_ENV=test -e RACK_ENV=test \
+    -e COVERAGE=no \
+    -e APP_SECRET="${APP_SECRET}" \
+    -e API_URI="${API_URI}" \
+    -e DATABASE_URL="$TEST_DATABASE_URL" \
+    -e KEYVALUE_URL="$KEYVALUE_URL" \
+    "$DEV_IMAGE" \
+    bash -lc "mkdir -p log tmp && $command"
+}
+
+run_in_image_mounted() {
+  local command="$1"
+
+  docker run --rm --network "$NETWORK" \
+    -v "$PWD:/app" -w /app \
+    -v /app/node_modules \
+    -e HANAMI_ENV=test -e RACK_ENV=test \
+    -e COVERAGE=no \
+    -e APP_SECRET="${APP_SECRET}" \
+    -e API_URI="${API_URI}" \
+    -e DATABASE_URL="$TEST_DATABASE_URL" \
+    -e KEYVALUE_URL="$KEYVALUE_URL" \
+    "$DEV_IMAGE" \
+    bash -lc "mkdir -p log tmp && $command"
+}
+
+echo "Preparing test database..."
+run_in_image_mounted "bundle exec hanami db prepare"
+
+if [[ "$MODE" == "full" ]]; then
+  echo "Compiling assets for full-suite action/view specs..."
+  run_in_image_mounted "bundle exec hanami assets compile"
+
+  echo "Running Git lint..."
+  run_in_image_mounted "bundle exec rake git_lint"
+
+  echo "Running RuboCop on changed files..."
+  if [[ -n "${RUBY_FILES:-}" ]]; then
+    run_in_image_mounted "bundle exec rubocop --force-exclusion $RUBY_FILES"
+    echo "Running Reek on changed files..."
+    run_in_image_mounted "bundle exec reek $RUBY_FILES"
+  else
+    echo "Skipping changed-file lint: no changed Ruby files detected."
+  fi
+
+  echo "Running RSpec (full)..."
+  run_in_image_mounted "bundle exec rspec"
+else
+  if [[ -n "$RUBY_FILES" ]]; then
+    echo "Running RuboCop on changed files..."
+    run_in_image_mounted "bundle exec rubocop --force-exclusion $RUBY_FILES"
+
+    echo "Running Reek on changed files..."
+    run_in_image_mounted "bundle exec reek $RUBY_FILES"
+  fi
+
+  if [[ -n "$SPEC_FILES" ]]; then
+    echo "Running changed specs..."
+    run_in_image_mounted "bundle exec rspec $SPEC_FILES"
+  fi
+fi
+
+echo "Precommit checks passed."
