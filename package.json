@@ -19,7 +19,7 @@
     "hanami-assets": "^2.3.0",
     "htmx-ext-sse": "^2.2.4",
     "htmx-remove": "^3.2.0",
-    "htmx-slide": "^0.0.0",
+    "htmx-slide": "^0.2.0",
     "htmx.org": "^2.0.8"
   }
 }
