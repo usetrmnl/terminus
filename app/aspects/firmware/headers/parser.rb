@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "pipeable"
-require "refinements/hash"
 
 module Terminus
   module Aspects
@@ -15,8 +14,6 @@ module Terminus
             sensors_transformer: "aspects.firmware.headers.transformers.sensors"
           ]
           include Pipeable
-
-          using Refinements::Hash
 
           def initialize(schema: Schemas::Firmware::Header, model: Model, **)
             @schema = schema
@@ -38,7 +35,10 @@ module Terminus
 
           attr_reader :schema, :model
 
-          def tags(headers) = [headers.slice(*schema.key_map.map(&:name)).symbolize_keys]
+          def tags headers
+            headers.select { |key, _| key.start_with? "HTTP_" }
+                   .then { [it] }
+          end
         end
       end
     end

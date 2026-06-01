@@ -30,7 +30,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
     end
 
     it "logs header information as debug message" do
-      parser.call firmware_headers
+      parser.call firmware_headers.merge!("BOGUS" => "ignored")
       expect(logger.reread).to match(debug_message_pattern)
     end
 
