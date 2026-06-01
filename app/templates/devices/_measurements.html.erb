@@ -1,13 +1,19 @@
 <div class="measurements">
   <label class="measurement">
-    <%= tag.meter min: 0,
-                  low: 25,
-                  high: 75,
-                  optimum: 95,
-                  max: 100,
-                  value: device.battery_percentage,
-                  class: :battery %>
-    <%= format_number device.battery_percentage, precision: 0 %>% Battery
+    <% if device.charging %>
+      <%= tag.meter min: 0, max: 100, value: 100, class: :battery %>
+      Charging
+    <% else %>
+      <%= tag.meter min: 0,
+                    low: 25,
+                    high: 75,
+                    optimum: 95,
+                    max: 100,
+                    value: device.battery_percentage,
+                    class: :battery %>
+      <%= format_number device.battery_percentage, precision: 0 %>% Battery
+    <% end %>
+
   </label>
 
   <label class="measurement">
