@@ -51,14 +51,14 @@ module Terminus
           case battery_voltage
             when 0 then 0
             when ..0.45 then 10
-            when 0.46..0.9 then 20
-            when 1.0..1.35 then 30
-            when 1.36..1.8 then 40
-            when 1.81..2.25 then 50
-            when 2.26..2.7 then 60
-            when 2.71..3.15 then 70
-            when 3.16..3.6 then 80
-            when 3.61..4.05 then 90
+            when ..0.9 then 20
+            when ..1.35 then 30
+            when ..1.8 then 40
+            when ..2.25 then 50
+            when ..2.7 then 60
+            when ..3.15 then 70
+            when ..3.6 then 80
+            when ..4.05 then 90
             else 100
           end
         end

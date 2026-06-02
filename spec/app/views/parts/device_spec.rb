@@ -62,9 +62,19 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
       expect(part.battery_percentage).to eq(10)
     end
 
+    it "answers twenty percent when voltage is just above the ten percent band" do
+      allow(device).to receive(:battery_voltage).and_return(0.455)
+      expect(part.battery_percentage).to eq(20)
+    end
+
     it "answers twenty percent when voltage is in range" do
       allow(device).to receive(:battery_voltage).and_return(0.75)
       expect(part.battery_percentage).to eq(20)
+    end
+
+    it "answers thirty percent when voltage is just above the twenty percent band" do
+      allow(device).to receive(:battery_voltage).and_return(0.95)
+      expect(part.battery_percentage).to eq(30)
     end
 
     it "answers thirty percent when voltage is in range" do
@@ -95,6 +105,11 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     it "answers eighty percent when voltage is in range" do
       allow(device).to receive(:battery_voltage).and_return(3.3)
       expect(part.battery_percentage).to eq(80)
+    end
+
+    it "answers ninety percent when voltage is just above the eighty percent band" do
+      allow(device).to receive(:battery_voltage).and_return(3.605)
+      expect(part.battery_percentage).to eq(90)
     end
 
     it "answers ninety percent when voltage is in range" do
