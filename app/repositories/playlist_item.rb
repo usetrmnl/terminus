@@ -15,10 +15,12 @@ module Terminus
                          .to_a
       end
 
-      def create_with_position(offset: 1, **)
+      def create_with_position(playlist_id:, offset: 1, **)
         playlist_item.transaction do
+          position = playlist_item.where(playlist_id:).max(:position).to_i + offset
+
           playlist_item.command(:create)
-                       .call(position: playlist_item.count + offset, **)
+                       .call(playlist_id:, position:, **)
                        .then { find it.id }
         end
       end

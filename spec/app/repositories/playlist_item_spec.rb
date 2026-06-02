@@ -34,6 +34,23 @@ RSpec.describe Terminus::Repositories::PlaylistItem, :db do
         screen: kind_of(Terminus::Structs::Screen)
       )
     end
+
+    it "answers position scoped to playlist" do
+      other = Factory[:playlist]
+      repository.create_with_position playlist_id: other.id, screen_id: screen.id
+      item = repository.create_with_position playlist_id: playlist.id, screen_id: screen.id
+
+      expect(item.position).to eq(1)
+    end
+
+    it "answers next position after an item is deleted" do
+      first = repository.create_with_position playlist_id: playlist.id, screen_id: screen.id
+      repository.create_with_position playlist_id: playlist.id, screen_id: screen.id
+      repository.delete first.id
+      item = repository.create_with_position playlist_id: playlist.id, screen_id: screen.id
+
+      expect(item.position).to eq(3)
+    end
   end
 
   describe "#delete_all" do
