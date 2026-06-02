@@ -113,6 +113,18 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     end
   end
 
+  describe "#formatted_display_profile" do
+    it "answers capitalized label" do
+      expect(part.formatted_display_profile).to eq("Default")
+    end
+  end
+
+  describe "#formatted_touch_bar" do
+    it "answers capitalized label" do
+      expect(part.formatted_touch_bar).to eq("Tap")
+    end
+  end
+
   describe "#wake_description" do
     it "answers unknown when blank" do
       expect(part.wake_description).to eq("Unknown.")
