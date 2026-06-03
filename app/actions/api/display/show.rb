@@ -54,7 +54,7 @@ module Terminus
           end
 
           def build_payload device, attributes
-            model[**fetch_firmware(device), **attributes, **device.as_api_display]
+            model[**fetch_firmware(device), **attributes, **device.display_attributes]
           end
 
           def fetch_firmware device
@@ -77,7 +77,7 @@ module Terminus
               filename: screen.image_name,
               image_url: screen.image_uri(host: settings.api_uri),
               **fetch_firmware(device),
-              **device.as_api_display
+              **device.display_attributes
             ]
 
             response.body = payload.to_json

@@ -7,16 +7,6 @@ RSpec.describe Terminus::Structs::Device, :db do
     Factory.structs[:device, image_timeout: 10, mac_address: "AA:BB:CC:11:22:33", refresh_rate: 20]
   end
 
-  describe "#as_api_display" do
-    it "answers display specific attributes" do
-      expect(device.as_api_display).to eq(
-        image_url_timeout: 10,
-        refresh_rate: 20,
-        update_firmware: true
-      )
-    end
-  end
-
   describe "#asleep?" do
     subject :device do
       Factory[
@@ -54,6 +44,19 @@ RSpec.describe Terminus::Structs::Device, :db do
 
     it "answers false when start and end are nil" do
       expect(Factory.structs[:device].asleep?).to be(false)
+    end
+  end
+
+  describe "#display_attributes" do
+    it "answers display specific attributes" do
+      expect(device.display_attributes).to eq(
+        image_url_timeout: 10,
+        maximum_compatibility: false,
+        refresh_rate: 20,
+        temperature_profile: "default",
+        touchbar_mode: "tap",
+        update_firmware: true
+      )
     end
   end
 

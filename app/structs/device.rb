@@ -6,10 +6,6 @@ module Terminus
   module Structs
     # The device struct.
     class Device < DB::Struct
-      def as_api_display
-        {image_url_timeout: image_timeout, refresh_rate:, update_firmware: firmware_update}
-      end
-
       def asleep? at = Time.now, type: Sequel::SQLTime
         return false unless sleep_start_at && sleep_stop_at
 
@@ -20,6 +16,17 @@ module Terminus
         else
           (sleep_start_at..sleep_stop_at).cover? now
         end
+      end
+
+      def display_attributes
+        {
+          image_url_timeout: image_timeout,
+          maximum_compatibility: display_compatibility,
+          refresh_rate:,
+          temperature_profile: display_profile,
+          touchbar_mode: touch_bar,
+          update_firmware: firmware_update
+        }
       end
 
       def slug
