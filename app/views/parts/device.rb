@@ -23,7 +23,7 @@ module Terminus
         def wake_description = String(wake_reason).empty? ? "Unknown." : wake_reason
 
         def wifi_percentage
-          case wifi
+          case wifi_signal
             when 0 then 0
             when ..-91 then 10
             when -90..-81 then 20

@@ -20,7 +20,7 @@ module Terminus
         optional(:firmware_version).filled Types::Version
         optional(:battery_charge).filled :float, gteq?: 0
         optional(:battery_voltage).filled :float, gteq?: 0
-        optional(:wifi).filled :integer
+        optional(:wifi_signal).filled :integer
         optional(:width).filled :integer
         optional(:height).filled :integer
         optional(:touch_bar).filled :string

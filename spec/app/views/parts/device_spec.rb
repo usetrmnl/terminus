@@ -153,62 +153,62 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
 
   describe "#wifi_percentage" do
     it "answers zero when zero" do
-      allow(device).to receive(:wifi).and_return(0)
+      allow(device).to receive(:wifi_signal).and_return(0)
       expect(part.wifi_percentage).to eq(0)
     end
 
     it "answers ten percent when extremely low" do
-      allow(device).to receive(:wifi).and_return(-100)
+      allow(device).to receive(:wifi_signal).and_return(-100)
       expect(part.wifi_percentage).to eq(10)
     end
 
     it "answers ten percent when in range" do
-      allow(device).to receive(:wifi).and_return(-95)
+      allow(device).to receive(:wifi_signal).and_return(-95)
       expect(part.wifi_percentage).to eq(10)
     end
 
     it "answers twenty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-85)
+      allow(device).to receive(:wifi_signal).and_return(-85)
       expect(part.wifi_percentage).to eq(20)
     end
 
     it "answers thirty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-75)
+      allow(device).to receive(:wifi_signal).and_return(-75)
       expect(part.wifi_percentage).to eq(30)
     end
 
     it "answers fourty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-69)
+      allow(device).to receive(:wifi_signal).and_return(-69)
       expect(part.wifi_percentage).to eq(40)
     end
 
     it "answers fifty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-65)
+      allow(device).to receive(:wifi_signal).and_return(-65)
       expect(part.wifi_percentage).to eq(50)
     end
 
     it "answers sixty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-59)
+      allow(device).to receive(:wifi_signal).and_return(-59)
       expect(part.wifi_percentage).to eq(60)
     end
 
     it "answers seventy percent when in range" do
-      allow(device).to receive(:wifi).and_return(-54)
+      allow(device).to receive(:wifi_signal).and_return(-54)
       expect(part.wifi_percentage).to eq(70)
     end
 
     it "answers eighty percent when in range" do
-      allow(device).to receive(:wifi).and_return(-49)
+      allow(device).to receive(:wifi_signal).and_return(-49)
       expect(part.wifi_percentage).to eq(80)
     end
 
     it "answers ninety percent when in range" do
-      allow(device).to receive(:wifi).and_return(-45)
+      allow(device).to receive(:wifi_signal).and_return(-45)
       expect(part.wifi_percentage).to eq(90)
     end
 
     it "answers one hundred percent when in range" do
-      allow(device).to receive(:wifi).and_return(-25)
+      allow(device).to receive(:wifi_signal).and_return(-25)
       expect(part.wifi_percentage).to eq(100)
     end
   end

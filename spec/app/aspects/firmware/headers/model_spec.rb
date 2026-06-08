@@ -26,7 +26,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
       wake_duration: 20,
       wake_reason: "Button pressed.",
       width: 800,
-      wifi: -40
+      wifi_signal: -40
     ]
   end
 
@@ -56,7 +56,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
           wake_duration: 20,
           wake_reason: "Button pressed.",
           width: "800",
-          wifi: "-54"
+          wifi_signal: "-54"
         ]
       )
     end
@@ -81,7 +81,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
         wake_duration: 20,
         wake_reason: "Button pressed.",
         width: 800,
-        wifi: -40
+        wifi_signal: -40
       )
     end
 

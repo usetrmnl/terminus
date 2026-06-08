@@ -17,7 +17,7 @@ module Terminus
           HTTP_MODEL: :model_name,
           HTTP_PERCENT_CHARGED: :battery_charge,
           HTTP_REFRESH_RATE: :refresh_rate,
-          HTTP_RSSI: :wifi,
+          HTTP_RSSI: :wifi_signal,
           HTTP_SENSORS: :sensors,
           HTTP_TEMPERATURE_PROFILE: :firmware_profile,
           HTTP_UPDATE_SOURCE: :wake_reason,
@@ -52,7 +52,7 @@ module Terminus
               wake_duration:,
               wake_reason:,
               width:,
-              wifi:
+              wifi_signal:
             }.compress
           end
         end
