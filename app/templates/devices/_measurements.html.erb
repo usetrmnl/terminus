@@ -2,7 +2,6 @@
   <label class="measurement">
     <% if device.charging %>
       <%= tag.meter min: 0, max: 100, value: 100, class: :battery %>
-      Charging
     <% else %>
       <%= tag.meter min: 0,
                     low: 25,
@@ -11,9 +10,9 @@
                     max: 100,
                     value: device.battery_percentage,
                     class: :battery %>
-      <%= format_number device.battery_percentage, precision: 0 %>% Battery
     <% end %>
 
+    <%= device.battery_measurement_label %>
   </label>
 
   <label class="measurement">
@@ -24,6 +23,6 @@
                   max: 100,
                   value: device.wifi_percentage,
                   class: :signal %>
-    <%= device.wifi_band %> GHz (<%= device.wifi_percentage %>%)
+    <%= device.wifi_measurement_label %>
   </label>
 </div>
