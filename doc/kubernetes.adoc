@@ -28,7 +28,7 @@ The Kubernetes deployment consists of these components:
 |In-memory store for Sidekiq job queue
 
 |PersistentVolumeClaim
-|Storage for uploaded images and generated content
+|Storage for uploaded images, generated content, and Valkey data persistence
 
 |Deployment
 |Main Terminus app + worker (sidekiq) as sidecar container
@@ -49,6 +49,18 @@ Terminus uses link:https://valkey.io[Valkey] (redis-compatible in-memory storage
 
 [source,yaml]
 ----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: terminus-valkey-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -68,6 +80,9 @@ spec:
         image: valkey/valkey:8-alpine
         ports:
         - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: valkey-data
         resources:
           requests:
             cpu: 100m
@@ -75,6 +90,10 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
+      volumes:
+      - name: valkey-data
+        persistentVolumeClaim:
+          claimName: terminus-valkey-data
 ---
 apiVersion: v1
 kind: Service
@@ -87,6 +106,8 @@ spec:
   - port: 6379
     targetPort: 6379
 ----
+
+💡 Replace `storageClassName` to match your cluster (e.g., `local-path`, `gp2`, `standard`). Mounting `/data` persists Valkey RDB snapshots across pod restarts.
 
 == Secrets
 
@@ -413,6 +434,19 @@ data:
   RACK_ATTACK_ALLOWED_SUBNETS: "10.42.0.0/16"
   TZ: "America/New_York"
 ---
+# Valkey persistent storage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: terminus-valkey-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 1Gi
+---
 # Valkey for Sidekiq job queue
 apiVersion: apps/v1
 kind: Deployment
@@ -433,6 +467,9 @@ spec:
         image: valkey/valkey:8-alpine
         ports:
         - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: valkey-data
         resources:
           requests:
             cpu: 100m
@@ -440,6 +477,10 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
+      volumes:
+      - name: valkey-data
+        persistentVolumeClaim:
+          claimName: terminus-valkey-data
 ---
 apiVersion: v1
 kind: Service
@@ -622,7 +663,7 @@ spec:
 
 * **Secret**: Replace `DATABASE_URL` with your PostgreSQL connection string and generate `APP_SECRET` with `openssl rand -hex 32`
 * **ConfigMap**: Set `RACK_ATTACK_ALLOWED_SUBNETS` to your cluster's pod CIDR (use commands in ConfigMap section to find it). Update `TZ` to your timezone if needed.
-* **Storage**: Update `storageClassName` to match your cluster (e.g., `local-path`, `gp2`, `standard`)
+* **Storage**: Update `storageClassName` on both `terminus-uploads` and `terminus-valkey-data` to match your cluster (e.g., `local-path`, `gp2`, `standard`)
 * **API_URI**: Set to your actual domain in both `terminus` and `sidekiq` containers
 * **Gateway**: Replace `eg` with your Envoy Gateway instance name and update the hostname
 
