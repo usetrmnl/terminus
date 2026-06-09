@@ -135,6 +135,20 @@ CREATE TYPE public.playlist_mode_enum AS ENUM (
 
 
 --
+-- Name: screen_kind_enum; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.screen_kind_enum AS ENUM (
+    'error',
+    'general',
+    'notification',
+    'sleep',
+    'wake',
+    'welcome'
+);
+
+
+--
 -- Name: special_function_enum; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -744,7 +758,9 @@ CREATE TABLE public.screen (
     name text NOT NULL,
     image_data jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    device_id integer,
+    kind public.screen_kind_enum DEFAULT 'general'::public.screen_kind_enum NOT NULL
 );
 
 
@@ -1382,6 +1398,13 @@ CREATE INDEX playlist_mode_index ON public.playlist USING btree (mode);
 
 
 --
+-- Name: screen_device_id_kind_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX screen_device_id_kind_index ON public.screen USING btree (device_id, kind) WHERE (device_id IS NOT NULL);
+
+
+--
 -- Name: screen_image_data_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1553,6 +1576,14 @@ ALTER TABLE ONLY public.playlist_item
 
 
 --
+-- Name: screen screen_device_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.screen
+    ADD CONSTRAINT screen_device_id_fkey FOREIGN KEY (device_id) REFERENCES public.device(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: screen screen_model_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1684,4 +1715,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260512110409_rename_extension_body_column.rb'),
 ('20260601143521_add_device_columns.rb'),
 ('20260602112926_add_device_profile_and_compatibility_columns.rb'),
-('20260608161124_add_device_wifi_band_column.rb');
+('20260608161124_add_device_wifi_band_column.rb'),
+('20260609142235_add_screen_device_id_and_kind_columns.rb');
