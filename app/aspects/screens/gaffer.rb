@@ -8,8 +8,7 @@ module Terminus
         include Deps["aspects.screens.upserter", view: "views.screens.gaffe.new"]
 
         def call device, message
-          upserter.call model_id: device.model_id,
-                        content: String.new(view.call(body: message)),
+          upserter.call content: String.new(view.call(body: message)),
                         **device.screen_attributes("error")
         end
       end
