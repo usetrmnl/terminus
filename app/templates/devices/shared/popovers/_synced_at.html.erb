@@ -1,3 +1,5 @@
 <%= scope(:popover_default_content, name: :synced_at, label: "Synchronized").render do %>
-  <p>Captures the date and time when the device was last synchronized via the Display API or empty when never synchronized. This cannot be modified via the UI or Screens API as this only gets updated when the device wakes up and uses the Display API. This also means, when synchronized, the updated timestamp will be updated too.</p>
+  <p>Captures the date and time when the device was last synchronized via the Display API or empty when never synchronized. This only gets updated when the device wakes up and uses the Display API. This also means, when synchronized, the updated timestamp will be updated too.</p>
+
+  <p><em>Cannot be edited</em>.</p>
 <% end %>
