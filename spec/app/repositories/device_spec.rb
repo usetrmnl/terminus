@@ -75,6 +75,23 @@ RSpec.describe Terminus::Repositories::Device, :db do
       result = repository.mirror_playlist [], playlist.id
       expect(result).to eq(0)
     end
+
+    it "doesn't detach devices belonging to other playlists" do
+      other_playlist = Factory[:playlist]
+      other_device = Factory[:device, playlist_id: other_playlist.id]
+
+      repository.mirror_playlist [device.id], playlist.id
+
+      expect(repository.find(other_device.id).playlist_id).to eq(other_playlist.id)
+    end
+
+    it "detaches deselected devices that belong to this playlist" do
+      device = Factory[:device, playlist_id: playlist.id]
+
+      repository.mirror_playlist [], playlist.id
+
+      expect(repository.find(device.id).playlist_id).to be(nil)
+    end
   end
 
   describe "#search" do
