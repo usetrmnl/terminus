@@ -1,6 +1,7 @@
 <p class="form-field">
-  <%= form.check_box :device_ids,
+  <%= form.check_box "mirror.device_ids",
                      id: "mirror-device-#{device.id}",
+                     name: "mirror[device_ids][]",
                      value: device.id,
                      checked: (device.playlist_id == playlist_id),
                      switch: true,
