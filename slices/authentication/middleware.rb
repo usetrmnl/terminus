@@ -104,6 +104,10 @@ module Authentication
       jwt_refresh_route "api/jwt"
 
       # Feature: jwt_refresh
+      # Allows refresh after access token expiry so headless API clients can
+      # recover without re-sending credentials. Refresh tokens remain HMAC
+      # verified, single use, and deadline limited.
+      allow_refresh_with_expired_jwt_access_token? true
       jwt_access_token_period Hanami.app[:settings].api_access_token_period
       jwt_refresh_token_account_id_column :user_id
       jwt_refresh_token_table :user_jwt_refresh_key

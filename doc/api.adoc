@@ -200,7 +200,7 @@ Your login (email) and password must be identical to what you supplied during th
 
 ==== Refresh Tokens
 
-To refresh your `access_token` before it has expired (default: 30 minutes), you'll need to make an API request to the following endpoint:
+To refresh your `access_token` (valid for 30 minutes by default), make an API request to the following endpoint. This works before or after the access token has expired, as long as the refresh token is within its own deadline:
 
 [source,bash]
 ----
