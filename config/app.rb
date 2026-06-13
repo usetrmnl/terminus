@@ -28,6 +28,7 @@ module Terminus
       csp[:connect_src] += " https://trmnl.com"
       csp[:font_src] += " https://trmnl.com"
       csp[:manifest_src] = "'self'"
+      csp[:img_src] = "'self' data: http:"
       csp[:script_src] += " 'unsafe-eval' 'unsafe-inline' https://trmnl.com"
     end
 
