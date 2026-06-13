@@ -92,6 +92,9 @@ detectors:
       - Terminus::Repositories::Screen#update_with_image
   LongParameterList:
     enabled: false
+  RepeatedConditional:
+    exclude:
+      - Authentication::Middleware
   TooManyInstanceVariables:
     exclude:
       - Terminus::Aspects::Screens::Placeholder

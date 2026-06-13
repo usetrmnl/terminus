@@ -8,6 +8,7 @@ require_relative "feature"
 
 module Authentication
   # Specialized Roda middleware for authentication.
+  # :nocov:
   class Middleware < Roda
     UNVERIFIED_ID = 1
     VERIFIED_ID = 2
@@ -26,8 +27,9 @@ module Authentication
              :login,
              :logout,
              :remember,
-             :recovery_codes,
-             :session_expiration
+             :recovery_codes
+
+      enable :session_expiration if Hanami.app[:settings].session_expiration_enabled
 
       db Authentication::Slice["db.gateway"].connection
 
@@ -104,7 +106,13 @@ module Authentication
       jwt_refresh_route "api/jwt"
 
       # Feature: jwt_refresh
-      jwt_access_token_period Hanami.app[:settings].api_access_token_period
+      period = if Hanami.app[:settings].session_expiration_enabled
+                 Hanami.app[:settings].api_access_token_period
+               else
+                 3_155_760_000 # 100 years in seconds.
+               end
+
+      jwt_access_token_period period
       jwt_refresh_token_account_id_column :user_id
       jwt_refresh_token_table :user_jwt_refresh_key
 
@@ -128,14 +136,19 @@ module Authentication
       recovery_codes_table :user_recovery_code
 
       # Feature: session_expiration
-      session_inactivity_timeout Hanami.app[:settings].session_inactivity_limit
-      max_session_lifetime Hanami.app[:settings].session_lifetime_limit
+      if Hanami.app[:settings].session_expiration_enabled
+        session_inactivity_timeout Hanami.app[:settings].session_inactivity_limit
+        max_session_lifetime Hanami.app[:settings].session_lifetime_limit
+      else
+        Hanami.app[:logger].warn { "Rodauth session expiration is disabled." }
+      end
     end
 
     route do |request|
-      rodauth.check_session_expiration
+      rodauth.check_session_expiration if Hanami.app[:settings].session_expiration_enabled
       env["rodauth"] = rodauth
       request.rodauth
     end
   end
+  # :nocov:
 end
