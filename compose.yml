@@ -61,6 +61,8 @@ services:
     volumes:
       - certificates:/etc/ssl/certs
       - web-uploads:/app/public/uploads
+      - fonts:/usr/share/fonts/terminus
+      - fonts:/app/public/fonts
     depends_on:
       web:
         condition: service_healthy
@@ -129,3 +131,4 @@ volumes:
   keyvalue-data:
   web-uploads:
   certificates:
+  fonts:
