@@ -27,6 +27,7 @@ module Terminus
     config.actions.content_security_policy.then do |csp|
       csp[:connect_src] += " https://trmnl.com"
       csp[:font_src] += " https://trmnl.com"
+      csp[:img_src] = "'self' data:"
       csp[:manifest_src] = "'self'"
       csp[:script_src] += " 'unsafe-eval' 'unsafe-inline' https://trmnl.com"
     end
