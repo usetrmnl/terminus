@@ -140,7 +140,7 @@ Used for new device setup (auto-provisioning) only. The device still hit this en
 ====
 [source,bash]
 ----
-curl "https://localhost:2443/api/setup/" \
+curl "https://localhost:2443/api/setup" \
      -H 'ID: <redacted>' \
      -H 'Content-Type: application/json'
 ----
