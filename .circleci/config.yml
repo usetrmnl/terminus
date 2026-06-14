@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/project
     docker:
-      - image: ruby:latest
+      - image: bkuhlmann/debian-ruby:latest
         environment:
           APP_SECRET: 89637534f5ef577003a625c4f415b374c0164c8ecaf8f6299c84e83f6e54523e
           HANAMI_ENV: test
@@ -11,55 +11,15 @@ jobs:
           API_URI: http://localhost:2300
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
           KEYVALUE_URL: redis://localhost:6379/1
-          LANG: C.UTF-8
-          BUNDLE_SILENCE_ROOT_WARNING: 1
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          RUBYOPT: "-W:deprecated -W:performance -W:strict_unused_block --yjit --debug-frozen-string-literal"
-          EDITOR: vim
-          TERM: xterm
       - image: postgres:latest
         environment:
           POSTGRES_PASSWORD: postgres
       - image: valkey/valkey:latest
     steps:
       - run:
-          name: System Dependencies Install
-          command: |
-            apt-get update
-            apt-get install -y \
-              gnupg \
-              vim \
-              postgresql-client \
-              libpq-dev \
-              libsqlite3-dev \
-              tzdata \
-              libyaml-dev \
-              libffi-dev \
-              libxml2-dev \
-              libxslt1-dev \
-              libjemalloc2 \
-              libgmp-dev \
-              imagemagick \
-              chromium \
-              nodejs \
-              npm
-
-      - run:
-          name: Configure jemalloc
-          command: echo 'export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' >> $BASH_ENV
-
-      - run:
-          name: Git Configuration
-          command: |
-            git config --global init.defaultBranch main
-            git config --global user.name "Test User"
-            git config --global user.email "test@example.com"
-
-      - run:
           name: Haskell Dockerfile Linter Install
           command: |
-            wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+            curl --location --output /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
             chmod +x /usr/local/bin/hadolint
 
       - run:
@@ -79,7 +39,7 @@ jobs:
       - restore_cache:
           name: Gems Restore
           keys:
-            - gem-cache-1-{{.Branch}}-{{checksum "Gemfile.lock"}}
+            - gem-cache-3-{{.Branch}}-{{checksum "Gemfile.lock"}}
             - gem-cache-
 
       - run:
@@ -91,14 +51,14 @@ jobs:
 
       - save_cache:
           name: Gems Store
-          key: gem-cache-1-{{.Branch}}-{{checksum "Gemfile.lock"}}
+          key: gem-cache-3-{{.Branch}}-{{checksum "Gemfile.lock"}}
           paths:
             - vendor/bundle
 
       - restore_cache:
           name: Packages Restore
           keys:
-            - package-cache-1-{{.Branch}}-{{checksum "package.json"}}
+            - package-cache-3-{{.Branch}}-{{checksum "package.json"}}
             - package-cache-
 
       - run:
@@ -107,7 +67,7 @@ jobs:
 
       - save_cache:
           name: Packages Store
-          key: package-cache-1-{{.Branch}}-{{checksum "package.json"}}
+          key: package-cache-3-{{.Branch}}-{{checksum "package.json"}}
           paths:
             - node_modules
 
