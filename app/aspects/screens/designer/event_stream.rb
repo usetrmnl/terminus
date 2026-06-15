@@ -9,7 +9,11 @@ module Terminus
       module Designer
         # Renders device preview image event streams.
         class EventStream
-          include Deps[:assets, :logger, repository: "repositories.screen"]
+          include Deps[
+            :logger,
+            repository: "repositories.screen",
+            view: "views.designer.event_stream"
+          ]
           include Initable[%i[req name], kernel: Kernel]
 
           def call stream
@@ -26,7 +30,7 @@ module Terminus
             kernel.loop do
               stream.write <<~CONTENT
                 event: preview
-                data: #{load_screen}
+                #{render_data}
 
               CONTENT
 
@@ -34,28 +38,16 @@ module Terminus
             end
           end
 
-          def load_screen
+          def render_data
             repository.find_by(name:).then do |screen|
-              screen ? render_preview(screen) : render_loader
+              view.call(screen:, layout: false)
+                  .to_s
+                  .strip
+                  .each_line(chomp: true)
+                  .map { "data: #{it.strip}" }
+                  .join("\n")
             end
           end
-
-          def render_preview screen
-            width, height = screen.image_attributes[:metadata].values_at :width, :height
-            path = screen.image_uri
-
-            debug path
-            %(<img src="#{path}" alt="Preview" class="image" width="#{width}" height="#{height}"/>)
-          end
-
-          def render_loader
-            path = assets["loader.svg"].path
-
-            debug path
-            %(<img src="#{path}" alt="Loader" class="image" width="800" height="480"/>)
-          end
-
-          def debug(path) = logger.debug { "Streaming: #{path}." }
         end
       end
     end

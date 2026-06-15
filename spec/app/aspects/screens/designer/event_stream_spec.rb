@@ -20,7 +20,7 @@ RSpec.describe Terminus::Aspects::Screens::Designer::EventStream, :db do
 
       expect(stream).to have_received(:write).with(<<~CONTENT)
         event: preview
-        data: <img src="memory://abc123.png" alt="Preview" class="image" width="1" height="1"/>
+        data: <img class="image" src="memory://abc123.png" alt="Preview" width="1" height="1">
 
       CONTENT
     end
@@ -35,11 +35,6 @@ RSpec.describe Terminus::Aspects::Screens::Designer::EventStream, :db do
       expect(stream).to have_received(:close)
     end
 
-    it "logs debug message when screen is found" do
-      event_stream.call stream
-      expect(logger.reread).to match(%r(DEBUG.+Streaming.+/abc123.png\.))
-    end
-
     it "answers loader image when screen doesn't exist" do
       event_stream = described_class.new("bogus", kernel:)
 
@@ -47,7 +42,7 @@ RSpec.describe Terminus::Aspects::Screens::Designer::EventStream, :db do
 
       expect(stream).to have_received(:write).with(<<~CONTENT)
         event: preview
-        data: <img src="#{Hanami.app[:assets]["loader.svg"]}" alt="Loader" class="image" width="800" height="480"/>
+        data: <img src="#{Hanami.app[:assets]["loader.svg"]}" alt="Loader" class="image" width="800" height="480">
 
       CONTENT
     end
@@ -57,13 +52,6 @@ RSpec.describe Terminus::Aspects::Screens::Designer::EventStream, :db do
       event_stream.call stream
 
       expect(logger.reread).to match(%r(DEBUG.+stream disconnected\.))
-    end
-
-    it "logs debug message when screen doesn't exist" do
-      event_stream = described_class.new("bogus", kernel:)
-      event_stream.call stream
-
-      expect(logger.reread).to match(%r(DEBUG.+/assets/loader.*\.svg\.))
     end
   end
 end
