@@ -1,0 +1,33 @@
+<%= scope(:form_field, key: :label, errors:).render do %>
+  <label class="key" for="template_label">
+    Label
+    <%= render "shared/popovers/triggers/default", name: :label %>
+  </label>
+
+  <%= form.text_field :label,
+                      id: :template_label,
+                      value: field_for(:label, fields, template),
+                      class: :value,
+                      autocomplete: :off %>
+<% end %>
+
+<%= scope(:form_field, key: :name, errors:).render do %>
+  <label class="key" for="template_name">
+    Name
+    <%= render "shared/popovers/triggers/default", name: :name %>
+  </label>
+
+  <%= form.text_field :name,
+                      id: :template_name,
+                      value: field_for(:name, fields, template),
+                      class: :value,
+                      autocomplete: :off %>
+<% end %>
+
+<%= form.text_area :content,
+                   field_for(:content, fields, template),
+                   class: "bit-editor",
+                   autocomplete: :off,
+                   data: {language: :liquid} %>
+
+<%= render "designs/shared/popovers/all" %>
