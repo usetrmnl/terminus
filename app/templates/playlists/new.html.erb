@@ -22,7 +22,7 @@
         <%= render "playlists/shared/fields", form:, playlist:, fields: fields.value, errors: %>
 
         <div class="form-actions">
-          <%= render "shared/actions/save", form:, path: routes.path(:playlist_create) %>
+          <%= render "shared/actions/save", form:, path: routes.path(:playlists) %>
           <%= link_to "Cancel", routes.path(:playlists), class: "bit-button-decline" %>
         </div>
       <% end %>

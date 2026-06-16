@@ -5,7 +5,7 @@
   <span><%= size firmware.attachment_size %></span>
 
   <div class="actions">
-    <%= render "shared/actions/show", path: routes.path(:firmware_show, id: firmware.id) %>
+    <%= render "shared/actions/show", path: routes.path(:firmware, id: firmware.id) %>
     <%= render "shared/actions/edit", path: routes.path(:firmware_edit, id: firmware.id) %>
 
     <%= render "shared/actions/download",
@@ -13,7 +13,7 @@
                name: firmware.attachment_name %>
 
     <%= render "shared/actions/delete",
-               path: routes.path(:firmware_delete, id: firmware.id),
+               path: routes.path(:firmware, id: firmware.id),
                subject: :firmware %>
   </div>
 </li>

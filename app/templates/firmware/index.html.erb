@@ -8,11 +8,11 @@
     </h1>
 
     <div class="bit-actions">
-      <%= render "shared/actions/search", path: routes.path(:firmware), query: %>
+      <%= render "shared/actions/search", path: routes.path(:firmwares), query: %>
       <%= render "shared/actions/new", path: routes.path(:firmware_new) %>
 
       <%= render "shared/actions/delete",
-                 path: routes.path(:bulk_firmware_delete),
+                 path: routes.path(:bulk_firmware),
                  label: "Delete All",
                  class: "bit-button-delete",
                  confirm: "Are you sure you want to delete all firmware?",

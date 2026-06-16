@@ -164,7 +164,7 @@ RSpec.describe "/api/models", :db do
   end
 
   it "patches model when valid" do
-    patch routes.path(:api_model_patch, id: model.id),
+    patch routes.path(:api_model, id: model.id),
           {model: attributes}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -194,7 +194,7 @@ RSpec.describe "/api/models", :db do
   end
 
   it "answers error when patch fails" do
-    patch routes.path(:api_model_patch, id: model.id),
+    patch routes.path(:api_model, id: model.id),
           {model: {}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -215,7 +215,7 @@ RSpec.describe "/api/models", :db do
   end
 
   it "deletes existing record" do
-    delete routes.path(:api_model_delete, id: model.id),
+    delete routes.path(:api_model, id: model.id),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -245,7 +245,7 @@ RSpec.describe "/api/models", :db do
   end
 
   it "answers empty payload with invalid ID" do
-    delete routes.path(:api_model_delete, id: 666),
+    delete routes.path(:api_model, id: 666),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"

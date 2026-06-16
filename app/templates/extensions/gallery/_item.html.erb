@@ -18,7 +18,7 @@
   </div>
 
   <div class="actions">
-    <%= form_for routes.path(:extensions_gallery_create) do |form| %>
+    <%= form_for routes.path(:extensions_gallery) do |form| %>
       <%= form.hidden_field :id, value: item.id %>
 
       <%= form.submit class: "action bit-button" do %>

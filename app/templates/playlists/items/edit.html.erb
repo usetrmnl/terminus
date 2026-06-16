@@ -1,21 +1,20 @@
-<% show_uri = routes.path(:playlist_item, playlist_id: item.playlist_id, id: item.id) %>
-<% update_uri = routes.path(:playlist_item_update, playlist_id: item.playlist_id, id: item.id) %>
+<% uri = routes.path(:playlist_item, playlist_id: item.playlist_id, id: item.id) %>
 
-<%= form_for :playlist_item, update_uri, method: :put, class: "bit-form" do |form| %>
+<%= form_for :playlist_item, uri, method: :put, class: "bit-form" do |form| %>
   <%= render :fields, form:, screen_options:, item:, fields: fields.value, errors: %>
 
   <div class="form-actions">
     <%= form.submit "Save",
                     class: "bit-button-accept",
                     **HTMX[
-                      put: update_uri,
+                      put: uri,
                       target: "closest .bit-form",
                       disabled_elt: "this"
                     ] %>
 
     <%= link_to "Cancel",
-                show_uri,
+                uri,
                 class: "bit-link-cancel",
-                  **HTMX[get: show_uri, target: "closest .bit-form"] %>
+                **HTMX[get: uri, target: "closest .bit-form"] %>
   </div>
 <% end %>

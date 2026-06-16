@@ -24,7 +24,7 @@ module Terminus
         def load(query) = query ? repository.search(:version, query) : repository.all
 
         def add_htmx_headers response, query
-          htmx.response! response.headers, push_url: routes.path(:firmware, query:)
+          htmx.response! response.headers, push_url: routes.path(:firmwares, query:)
         end
       end
     end

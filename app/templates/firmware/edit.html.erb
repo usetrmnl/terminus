@@ -4,11 +4,11 @@
   <header class="bit-header">
     <ul class="bit-breadcrumbs">
       <li class="bit-breadcrumb">
-        <%= link_to "Firmware", routes.path(:firmware), class: :link %>
+        <%= link_to "Firmware", routes.path(:firmwares), class: :link %>
       </li>
 
       <li class="bit-breadcrumb">
-        <%= link_to firmware.version, routes.path(:firmware_show, id: firmware.id), class: :link %>
+        <%= link_to firmware.version, routes.path(:firmware, id: firmware.id), class: :link %>
       </li>
 
       <li class="bit-breadcrumb">Edit</li>
@@ -18,7 +18,7 @@
   <div class="bit-body">
     <div class="firmwares">
       <%= form_for :firmware,
-                   routes.path(:firmware_update, id: firmware.id),
+                   routes.path(:firmware, id: firmware.id),
                    method: :put,
                    enctype: "multipart/form-data",
                    accept: "application/octet-stream",
@@ -29,7 +29,7 @@
 
         <div class="form-actions">
           <%= form.submit "Save", class: "bit-button-accept" %>
-          <%= link_to "Cancel", routes.path(:firmware), class: "bit-button-decline" %>
+          <%= link_to "Cancel", routes.path(:firmwares), class: "bit-button-decline" %>
         </div>
       <% end %>
     </div>

@@ -4,7 +4,7 @@
   <header class="bit-header">
     <ul class="bit-breadcrumbs">
       <li class="bit-breadcrumb">
-        <%= link_to "Firmware", routes.path(:firmware_create), class: :link %>
+        <%= link_to "Firmware", routes.path(:firmwares), class: :link %>
       </li>
 
       <li class="bit-breadcrumb">New</li>
@@ -14,7 +14,7 @@
   <div class="bit-body">
     <div class="firmware">
       <%= form_for :firmware,
-                   routes.path(:firmware_create),
+                   routes.path(:firmwares),
                    enctype: "multipart/form-data",
                    accept: "application/octet-stream",
                    class: "bit-card bit-form" do |form| %>
@@ -24,7 +24,7 @@
 
         <div class="form-actions">
           <%= form.submit "Save", class: "bit-button-accept" %>
-          <%= link_to "Cancel", routes.path(:firmware), class: "bit-button-decline" %>
+          <%= link_to "Cancel", routes.path(:firmwares), class: "bit-button-decline" %>
         </div>
       <% end %>
     </div>

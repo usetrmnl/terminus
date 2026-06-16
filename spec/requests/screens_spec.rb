@@ -52,7 +52,7 @@ RSpec.describe "/api/screens", :db do
   it "creates with playlist ID and mode" do
     playlist = Factory[:playlist]
 
-    post routes.path(:api_screen_create),
+    post routes.path(:api_screens),
          {
            screen: {
              playlist_id: playlist.id,
@@ -86,7 +86,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "creates image from HTML" do
-    post routes.path(:api_screen_create),
+    post routes.path(:api_screens),
          {screen: {model_id: model.id, label: "Test", name: "test", content: "<p>n/a</p>"}}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -121,7 +121,7 @@ RSpec.describe "/api/screens", :db do
       }
     }
 
-    post routes.path(:api_screen_create),
+    post routes.path(:api_screens),
          payload.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -155,7 +155,7 @@ RSpec.describe "/api/screens", :db do
       }
     }
 
-    post routes.path(:api_screen_create),
+    post routes.path(:api_screens),
          payload.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -181,7 +181,7 @@ RSpec.describe "/api/screens", :db do
 
   context "with existing record" do
     before do
-      post routes.path(:api_screen_create),
+      post routes.path(:api_screens),
            {
              screen: {
                model_id: model.id,
@@ -209,7 +209,7 @@ RSpec.describe "/api/screens", :db do
 
   context "with unknown model" do
     before do
-      post routes.path(:api_screen_create),
+      post routes.path(:api_screens),
            {screen: {model_id: 666, label: "Test", name: "test", content: "<p>Test.</p>"}}.to_json,
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -237,7 +237,7 @@ RSpec.describe "/api/screens", :db do
 
   context "without body" do
     before do
-      post routes.path(:api_screen_create),
+      post routes.path(:api_screens),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -264,7 +264,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "patches screen content" do
-    patch routes.path(:api_screen_patch, id: screen.id),
+    patch routes.path(:api_screen, id: screen.id),
           {screen: {content: "<p>Test</p>"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -289,7 +289,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "patches screen content with model ID and mode" do
-    patch routes.path(:api_screen_patch, id: screen.id),
+    patch routes.path(:api_screen, id: screen.id),
           {screen: {model_id: model.id, mode: "dither", content: "<p>Test</p>"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -314,7 +314,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "answers problem details for invalid ID" do
-    patch routes.path(:api_screen_patch, id: 13),
+    patch routes.path(:api_screen, id: 13),
           {screen: {content: "<h1>Test</h2>"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -331,7 +331,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "answers problem details for invalid model ID" do
-    patch routes.path(:api_screen_patch, id: screen.id),
+    patch routes.path(:api_screen, id: screen.id),
           {screen: {model_id: 666, content: "<h1>Test</h2>"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -348,7 +348,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "answers problem details when payload has no content" do
-    patch routes.path(:api_screen_patch, id: screen.id),
+    patch routes.path(:api_screen, id: screen.id),
           {screen: {}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -370,7 +370,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "answers deleted screen" do
-    delete routes.path(:api_screen_delete, id: screen.id),
+    delete routes.path(:api_screen, id: screen.id),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -395,7 +395,7 @@ RSpec.describe "/api/screens", :db do
   end
 
   it "answers not found problem details when deleting non-existing screen" do
-    delete routes.path(:api_screen_delete, id: 666),
+    delete routes.path(:api_screen, id: 666),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"

@@ -14,7 +14,7 @@
   <div class="bit-body">
     <div class="extensions">
       <%= form_for :extension,
-                   routes.path(:extension_clone_create, extension_id: extension.id),
+                   routes.path(:extension_clone, extension_id: extension.id),
                    class: "bit-card bit-form extension" do |form| %>
 
         <h1 class="label">Clone Extension</h1>

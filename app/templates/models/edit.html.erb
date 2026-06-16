@@ -16,7 +16,7 @@
   <div class="bit-body">
     <div class="models">
       <%= form_for :model,
-                   routes.path(:model_update, id: model.id),
+                   routes.path(:model, id: model.id),
                    method: :put,
                    class: "bit-card bit-form model" do |form| %>
         <h1 class="label">Edit Model</h1>
@@ -32,7 +32,7 @@
           <%= render "shared/actions/save",
                      form:,
                      verb: :put,
-                     path: routes.path(:model_update, id: model.id) %>
+                     path: routes.path(:model, id: model.id) %>
 
           <a href="<%= routes.path :model, id: model.id %>"
              class="bit-button-decline"

@@ -14,7 +14,7 @@
   <div class="bit-body">
     <div class="playlists">
       <%= form_for :playlist,
-                   routes.path(:playlist_clone_create, playlist_id: playlist.id),
+                   routes.path(:playlist_clone, playlist_id: playlist.id),
                    class: "bit-card bit-form playlist" do |form| %>
         <h1 class="label">Clone Playlist</h1>
 

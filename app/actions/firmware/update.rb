@@ -40,7 +40,7 @@ module Terminus
 
           repository.update id, **attributes
           attach record, attachment
-          response.redirect_to routes.path(:firmware_show, id:)
+          response.redirect_to routes.path(:firmware, id:)
         end
 
         # :reek:FeatureEnvy

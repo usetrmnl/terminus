@@ -97,7 +97,7 @@ RSpec.describe "/api/playlists", :db do
     screen = Factory[:screen]
     attributes[:items] = [{screen_id: screen.id}]
 
-    post routes.path(:api_playlist_create),
+    post routes.path(:api_playlists),
          {playlist: attributes}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -125,7 +125,7 @@ RSpec.describe "/api/playlists", :db do
   end
 
   it "creates playlist without items" do
-    post routes.path(:api_playlist_create),
+    post routes.path(:api_playlists),
          {playlist: attributes}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -173,7 +173,7 @@ RSpec.describe "/api/playlists", :db do
     screen = Factory[:screen]
     attributes[:items] = [{screen_id: screen.id}]
 
-    patch routes.path(:api_playlist_patch, id: playlist.id),
+    patch routes.path(:api_playlist, id: playlist.id),
           {playlist: attributes}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -203,7 +203,7 @@ RSpec.describe "/api/playlists", :db do
   it "patches current item ID" do
     attributes[:current_item_id] = item.id
 
-    patch routes.path(:api_playlist_patch, id: playlist.id),
+    patch routes.path(:api_playlist, id: playlist.id),
           {playlist: attributes}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -231,7 +231,7 @@ RSpec.describe "/api/playlists", :db do
   end
 
   it "answers error when patch fails" do
-    patch routes.path(:api_playlist_patch, id: playlist.id),
+    patch routes.path(:api_playlist, id: playlist.id),
           {playlist: {}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -252,7 +252,7 @@ RSpec.describe "/api/playlists", :db do
   end
 
   it "deletes existing record" do
-    delete routes.path(:api_playlist_delete, id: playlist.id),
+    delete routes.path(:api_playlist, id: playlist.id),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -280,7 +280,7 @@ RSpec.describe "/api/playlists", :db do
   end
 
   it "answers empty payload with invalid ID" do
-    delete routes.path(:api_playlist_delete, id: 666),
+    delete routes.path(:api_playlist, id: 666),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"

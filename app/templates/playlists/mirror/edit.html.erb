@@ -18,7 +18,7 @@
   <div class="bit-body">
     <div class="playlists">
       <%= form_for :mirror,
-                   routes.path(:playlist_mirror_update, playlist_id: playlist.id),
+                   routes.path(:playlist_mirror, playlist_id: playlist.id),
                    method: :put,
                    class: "bit-card bit-form playlist" do |form| %>
         <%= tag.input name: :_csrf_token, type: :hidden, value: csrf_token %>
@@ -39,7 +39,7 @@
           <%= render "shared/actions/save",
                      form:,
                      verb: :put,
-                     path: routes.path(:playlist_mirror_update, playlist_id: playlist.id) %>
+                     path: routes.path(:playlist_mirror, playlist_id: playlist.id) %>
 
           <%= link_to "Cancel",
                       routes.path(:playlist, id: playlist.id),

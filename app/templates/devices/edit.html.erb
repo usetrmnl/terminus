@@ -39,7 +39,7 @@
           <%= render "shared/actions/save",
                      form:,
                      verb: :put,
-                     path: routes.path(:device_update, id: device.id) %>
+                     path: routes.path(:device, id: device.id) %>
 
           <a href="<%= routes.path :device, id: device.id %>"
              class="bit-button-decline"

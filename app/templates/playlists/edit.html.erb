@@ -18,7 +18,7 @@
   <div class="bit-body">
     <div class="bit-card playlist">
       <%= form_for :playlist,
-                   routes.path(:playlist_update, id: playlist.id),
+                   routes.path(:playlist, id: playlist.id),
                    method: :put,
                    class: "bit-form" do |form| %>
         <h1 class="label">Edit Playlist</h1>
@@ -29,7 +29,7 @@
           <%= render "shared/actions/save",
                      form:,
                      verb: :put,
-                     path: routes.path(:playlist_update, id: playlist.id) %>
+                     path: routes.path(:playlist, id: playlist.id) %>
 
           <a href="<%= routes.path :playlist, id: playlist.id %>"
              class="bit-button-decline"

@@ -20,7 +20,7 @@ RSpec.describe "/api/firmware", :db do
   it "answers firmwares" do
     firmware
 
-    get routes.path(:api_firmware),
+    get routes.path(:api_firmwares),
         {},
         "HTTP_AUTHORIZATION" => access_token,
         "CONTENT_TYPE" => "application/json"
@@ -43,7 +43,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers empty array when no records exist" do
-    get routes.path(:api_firmware),
+    get routes.path(:api_firmwares),
         {},
         "HTTP_AUTHORIZATION" => access_token,
         "CONTENT_TYPE" => "application/json"
@@ -52,7 +52,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers existing firmware" do
-    get routes.path(:api_firmware_show, id: firmware.id),
+    get routes.path(:api_firmware, id: firmware.id),
         {},
         "HTTP_AUTHORIZATION" => access_token,
         "CONTENT_TYPE" => "application/json"
@@ -73,7 +73,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers not found error with invalid ID" do
-    get routes.path(:api_firmware_show, id: 13),
+    get routes.path(:api_firmware, id: 13),
         {},
         "HTTP_AUTHORIZATION" => access_token,
         "CONTENT_TYPE" => "application/json"
@@ -82,7 +82,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "creates firmware when valid" do
-    post routes.path(:api_firmware),
+    post routes.path(:api_firmwares),
          {firmware: {uri:, **attributes}}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -103,7 +103,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers error with invalid URI for POST" do
-    post routes.path(:api_firmware),
+    post routes.path(:api_firmwares),
          {firmware: {uri: "bogus", **attributes}}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -119,7 +119,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers error with missing URI" do
-    post routes.path(:api_firmware),
+    post routes.path(:api_firmwares),
          {firmware: attributes}.to_json,
          "HTTP_AUTHORIZATION" => access_token,
          "CONTENT_TYPE" => "application/json"
@@ -142,7 +142,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "patches firmware when valid with attachment" do
-    patch routes.path(:api_firmware_patch, id: firmware.id),
+    patch routes.path(:api_firmware, id: firmware.id),
           {firmware: {uri:, **attributes}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -163,7 +163,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "patches firmware when valid without attachment" do
-    patch routes.path(:api_firmware_patch, id: firmware.id),
+    patch routes.path(:api_firmware, id: firmware.id),
           {firmware: attributes}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -184,7 +184,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers error with invalid URI for PATCH" do
-    patch routes.path(:api_firmware_patch, id: firmware.id),
+    patch routes.path(:api_firmware, id: firmware.id),
           {firmware: {uri: "bogus"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -200,7 +200,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers error with missing attributes" do
-    patch routes.path(:api_firmware_patch, id: firmware.id),
+    patch routes.path(:api_firmware, id: firmware.id),
           {firmware: {}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -221,7 +221,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "deletes existing record" do
-    delete routes.path(:api_firmware_delete, id: firmware.id),
+    delete routes.path(:api_firmware, id: firmware.id),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -242,7 +242,7 @@ RSpec.describe "/api/firmware", :db do
   end
 
   it "answers error with invalid ID" do
-    delete routes.path(:api_firmware_delete, id: 666),
+    delete routes.path(:api_firmware, id: 666),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"

@@ -13,7 +13,7 @@
                target: "closest .item" %>
 
     <%= render "shared/actions/delete",
-               path: routes.path(:playlist_item_delete, playlist_id: item.playlist_id, id: item.id),
+               path: routes.path(:playlist_item, playlist_id: item.playlist_id, id: item.id),
                subject: :item,
                target: "closest .item" %>
   </div>

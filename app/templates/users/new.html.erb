@@ -16,7 +16,7 @@
         <%= render "users/shared/fields", form:, user:, statuses:, fields: fields.value, errors: %>
 
         <div class="form-actions">
-          <%= render "shared/actions/save", form:, path: routes.path(:user_create) %>
+          <%= render "shared/actions/save", form:, path: routes.path(:users) %>
           <%= link_to "Cancel", routes.path(:users), class: "bit-button-decline" %>
         </div>
       <% end %>

@@ -272,7 +272,7 @@ RSpec.describe "/api/devices", :db do
   end
 
   it "patches device when valid" do
-    patch routes.path(:api_device_patch, id: device.id),
+    patch routes.path(:api_device, id: device.id),
           {device: {label: "Test Patch"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -281,7 +281,7 @@ RSpec.describe "/api/devices", :db do
   end
 
   it "answers problem details with empty attributes" do
-    patch routes.path(:api_device_patch, id: device.id),
+    patch routes.path(:api_device, id: device.id),
           {device: {}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -302,7 +302,7 @@ RSpec.describe "/api/devices", :db do
   end
 
   it "answers error when patch fails" do
-    patch routes.path(:api_device_patch, id: device.id),
+    patch routes.path(:api_device, id: device.id),
           {device: {sleep_stop_at: "10:10:10"}}.to_json,
           "HTTP_AUTHORIZATION" => access_token,
           "CONTENT_TYPE" => "application/json"
@@ -326,7 +326,7 @@ RSpec.describe "/api/devices", :db do
   end
 
   it "deletes existing record" do
-    delete routes.path(:api_device_delete, id: device.id),
+    delete routes.path(:api_device, id: device.id),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
@@ -366,7 +366,7 @@ RSpec.describe "/api/devices", :db do
   end
 
   it "answers empty payload with invalid ID" do
-    delete routes.path(:api_device_delete, id: 666),
+    delete routes.path(:api_device, id: 666),
            {},
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"

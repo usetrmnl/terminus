@@ -16,7 +16,7 @@
   <div class="bit-body">
     <div class="users">
       <%= form_for :user,
-                   routes.path(:user_update, id: user.id),
+                   routes.path(:user, id: user.id),
                    method: :put,
                    class: "bit-card bit-form user" do |form| %>
         <h1 class="label">Edit User</h1>
@@ -27,7 +27,7 @@
           <%= render "shared/actions/save",
                      form:,
                      verb: :put,
-                     path: routes.path(:user_update, id: user.id) %>
+                     path: routes.path(:user, id: user.id) %>
 
           <%= link_to "Cancel",
                       routes.path(:user, id: user.id),

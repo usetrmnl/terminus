@@ -11,7 +11,7 @@
   <div class="bit-body">
     <div class="extensions">
       <%= form_for :extension,
-                   routes.path(:extension_create),
+                   routes.path(:extensions),
                    class: "bit-card bit-form extension" do |form| %>
 
         <h1 class="label">New Extension</h1>
@@ -25,7 +25,7 @@
                    errors: %>
 
         <div class="form-actions">
-         <%= render "shared/actions/save", form:, path: routes.path(:extension_create) %>
+         <%= render "shared/actions/save", form:, path: routes.path(:extensions) %>
          <%= link_to "Cancel", routes.path(:extensions), class: "bit-button-decline" %>
         </div>
       <% end %>

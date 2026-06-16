@@ -19,7 +19,7 @@
     <%= render "shared/actions/download", path: screen.image_uri, name: screen.image_name %>
 
     <%= render "shared/actions/delete",
-               path: routes.path(:screen_delete, id: screen.id),
+               path: routes.path(:screen, id: screen.id),
                subject: :screen %>
   </div>
 </li>

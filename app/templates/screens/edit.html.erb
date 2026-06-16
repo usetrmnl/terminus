@@ -16,7 +16,7 @@
   <div class="bit-body">
     <div class="screens">
       <%= form_for :screen,
-                   routes.path(:screen_update, id: screen.id),
+                   routes.path(:screen, id: screen.id),
                    method: :put,
                    enctype: "multipart/form-data",
                    accept: "application/octet-stream",

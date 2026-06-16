@@ -31,7 +31,7 @@
         <ul class="list">
           <% if firmware %>
             <li>
-              <%= link_to firmware.version, routes.path(:firmware_show, id: firmware.id) %>:
+              <%= link_to firmware.version, routes.path(:firmware, id: firmware.id) %>:
               Latest (<%= size firmware.attachment_size %>).
             </li>
           <% end %>
@@ -55,7 +55,7 @@
 
       <fieldset class="box">
         <legend class="label bit-text-center">Firmware</legend>
-        <p class="number"><%= link_to firmware_count, routes.path(:firmware) %></p>
+        <p class="number"><%= link_to firmware_count, routes.path(:firmwares) %></p>
       </fieldset>
 
       <fieldset class="box">

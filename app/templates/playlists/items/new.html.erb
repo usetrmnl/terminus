@@ -8,7 +8,7 @@
     <%= form.submit "Save",
                     class: "bit-button-accept",
                     **HTMX[
-                      post: routes.path(:playlist_item_create, playlist_id: playlist.id),
+                      post: routes.path(:playlist_items, playlist_id: playlist.id),
                       target: "closest .bit-form",
                       disabled_elt: "this"
                     ] %>

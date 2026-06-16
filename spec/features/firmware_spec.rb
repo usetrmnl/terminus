@@ -9,7 +9,7 @@ RSpec.describe "Firmware", :db do
   let(:path) { temp_dir.join("test.bin").tap { it.binwrite [123].pack("N") } }
 
   it "creates", :aggregate_failures, :js do
-    visit routes.path(:firmware)
+    visit routes.path(:firmwares)
     click_link "New"
     click_button "Save"
 
@@ -27,7 +27,7 @@ RSpec.describe "Firmware", :db do
 
   it "edits", :aggregate_failures, :js do
     firmware
-    visit routes.path(:firmware)
+    visit routes.path(:firmwares)
     click_link "Edit"
     fill_in "firmware[version]", with: nil
     click_button "Save"
@@ -45,7 +45,7 @@ RSpec.describe "Firmware", :db do
 
     expect(page).to have_text("0.0.1")
 
-    visit routes.path(:firmware)
+    visit routes.path(:firmwares)
     accept_prompt { click_button "Delete" }
 
     expect(page).to have_no_text("0.0.1")
@@ -53,7 +53,7 @@ RSpec.describe "Firmware", :db do
 
   it "deletes", :js do
     firmware
-    visit routes.path(:firmware)
+    visit routes.path(:firmwares)
     accept_prompt { click_button "Delete" }
 
     expect(page).to have_no_text(firmware.version)
