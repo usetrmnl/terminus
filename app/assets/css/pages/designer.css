@@ -1,16 +1,4 @@
 .page-designer {
-  .designer {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: between;
-
-    @media only screen and (min-width: 825px) {
-      flex-direction: row;
-    }
-  }
-
   .device {
     border-color: var(--site-black);
     border-style: solid;
@@ -23,30 +11,5 @@
       7.3px 7.3px 7.3px rgba(0, 0, 0, 0.048),
       20px 20px 20px rgba(0, 0, 0, 0.07);
     margin: 0;
-    display: flex;
-  }
-
-  .form {
-    width: 100%;
-
-    @media only screen and (min-width: 825px) {
-      width: 80%;
-    }
-  }
-
-  .source {
-    height: 40vh;
-    padding: 1rem;
-    width: 100%;
-    font-size: 1rem;
-    font-family: monospace;
-    border-radius: 0.7rem;
-    border: 0.1rem solid oklch(from var(--site-lightgrey) l c h / 0.5);
-    outline: none;
-    min-height: 34rem;
-
-    &:focus {
-      border: 0.1rem solid oklch(from var(--site-orange) l c h / 0.5);
-    }
   }
 }
