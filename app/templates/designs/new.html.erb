@@ -1,0 +1,41 @@
+<%= render "shared/title", text: "New Design" %>
+
+<section class="bit-page">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb">
+        <%= link_to "Designs", routes.path(:designs), class: :link %>
+      </li>
+
+      <li class="bit-breadcrumb">New</li>
+    </ul>
+  </header>
+
+  <div class="bit-body">
+    <%= form_for :template, routes.path(:designs), class: "bit-card bit-form" do |form| %>
+      <h1 class="label">New Design</h1>
+
+      <%= scope(:form_field, key: :model_id, errors:).render do %>
+        <label class="key" for="model_id">
+          Model
+          <%= render "shared/popovers/triggers/default", name: :model %>
+        </label>
+
+        <%= tag.select id: :model_id, name: :model_id, class: :value do %>
+          <%= tag.option "Select...", value: nil %>
+
+          <% models.each do |model| %>
+            <%= tag.option model.label, value: model.id %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= render "shared/fields", form:, screens:, template:, fields:, errors: %>
+
+      <div class="form-actions">
+        <%= form.submit "Save", class: "bit-button-accept" %>
+        <%= link_to "Cancel", routes.path(:designs), class: "bit-button-decline" %>
+      </div>
+    <% end %>
+  </div>
+</section>
