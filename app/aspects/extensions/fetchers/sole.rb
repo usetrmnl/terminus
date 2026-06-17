@@ -23,14 +23,18 @@ module Terminus
           private
 
           def process input
-            http.headers(input.headers)
-                .follow
-                .public_send(input.verb, input.uri)
-                .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
+            process_request input
           rescue HTTP::RequestError then build_failure input, "Unable to make request"
           rescue HTTP::ConnectionError then build_failure input, "Unable to connect"
           rescue HTTP::TimeoutError then build_failure input, "Connection timed out"
           rescue OpenSSL::SSL::SSLError then build_failure input, "Unable to secure connection"
+          end
+
+          def process_request input
+            http.headers(input.headers)
+                .follow
+                .public_send(input.verb, input.uri, **input.http_options)
+                .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
           end
 
           def maybe_alter_mime_type headers, response

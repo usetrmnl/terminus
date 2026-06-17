@@ -340,6 +340,63 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
     end
 
+    context "with POST body" do
+      let :input do
+        Terminus::Aspects::Extensions::Fetchers::Input[
+          headers: {content_type: "application/json"},
+          verb: :post,
+          uri: "https://test.io",
+          body: {query: :test}
+        ]
+      end
+
+      before do
+        response = HTTP::Response.new headers: {content_type: "application/json"},
+                                      body: {name: :test}.to_json,
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:post).and_return response
+      end
+
+      it "processes request" do
+        fetcher.call input
+        expect(http).to have_received(:post).with(input.uri, json: {query: :test})
+      end
+
+      it "answers success" do
+        expect(fetcher.call(input)).to be_success(data: {"name" => "test"}, error: {})
+      end
+    end
+
+    context "with POST but without body" do
+      let :input do
+        Terminus::Aspects::Extensions::Fetchers::Input[
+          headers: {content_type: "application/json"},
+          verb: :post,
+          uri: "https://test.io"
+        ]
+      end
+
+      before do
+        response = HTTP::Response.new headers: {content_type: "application/json"},
+                                      body: {},
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:post).and_return response
+      end
+
+      it "processes request" do
+        fetcher.call input
+        expect(http).to have_received(:post).with(input.uri)
+      end
+
+      it "answers success" do
+        expect(fetcher.call(input)).to be_success(data: "{}", error: {})
+      end
+    end
+
     context "with unknown MIME type" do
       before do
         response = HTTP::Response.new headers: {content_type: "text/html"},
