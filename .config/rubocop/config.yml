@@ -39,6 +39,7 @@ Metrics/MethodLength:
     - app/views/helpers.rb
 Metrics/ParameterLists:
   Exclude:
+    - app/aspects/extensions/fetchers/input.rb
     - app/aspects/screens/placeholder.rb
 Naming/VariableNumber:
   AllowedPatterns:

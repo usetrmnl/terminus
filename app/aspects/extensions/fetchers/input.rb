@@ -11,6 +11,10 @@ module Terminus
           def initialize uri:, headers: Core::EMPTY_HASH, verb: "get", body: Core::EMPTY_HASH
             super
           end
+
+          def http_options
+            Hash(body).empty? ? Core::EMPTY_HASH : {json: body}
+          end
         end
       end
     end
