@@ -340,6 +340,59 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
     end
 
+    context "with POST and body" do
+      let :input do
+        Terminus::Aspects::Extensions::Fetchers::Input[
+          headers: {"Content-Type" => "application/json"},
+          verb: "post",
+          uri: "https://example.com/api",
+          body: {"query" => "test"}
+        ]
+      end
+
+      before do
+        response = HTTP::Response.new headers: {content_type: "application/json"},
+                                      body: {"ok" => true}.to_json,
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:post).and_return response
+      end
+
+      it "forwards the body as JSON" do
+        fetcher.call input
+        expect(http).to have_received(:post).with(input.uri, json: {"query" => "test"})
+      end
+
+      it "answers success" do
+        expect(fetcher.call(input)).to be_success(data: {"ok" => true}, error: {})
+      end
+    end
+
+    context "with POST and no body" do
+      let :input do
+        Terminus::Aspects::Extensions::Fetchers::Input[
+          headers: {"Content-Type" => "application/json"},
+          verb: "post",
+          uri: "https://example.com/api"
+        ]
+      end
+
+      before do
+        response = HTTP::Response.new headers: {content_type: "application/json"},
+                                      body: {"ok" => true}.to_json,
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:post).and_return response
+      end
+
+      it "sends no body" do
+        fetcher.call input
+        expect(http).to have_received(:post).with(input.uri)
+      end
+    end
+
     context "with unknown MIME type" do
       before do
         response = HTTP::Response.new headers: {content_type: "text/html"},

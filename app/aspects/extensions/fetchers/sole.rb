@@ -23,15 +23,24 @@ module Terminus
           private
 
           def process input
-            http.headers(input.headers)
-                .follow
-                .public_send(input.verb, input.uri)
-                .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
+            request(input)
+              .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
           rescue HTTP::RequestError then build_failure input, "Unable to make request"
           rescue HTTP::ConnectionError then build_failure input, "Unable to connect"
           rescue HTTP::TimeoutError then build_failure input, "Connection timed out"
           rescue OpenSSL::SSL::SSLError then build_failure input, "Unable to secure connection"
           end
+
+          # Forwards the body as JSON for verbs that carry one (e.g. POST). Without
+          # this, the body configured on an exchange is silently dropped.
+          # :reek:FeatureEnvy
+          def request input
+            http.headers(input.headers)
+                .follow
+                .public_send input.verb, input.uri, **options_for(input.body)
+          end
+
+          def options_for(body) = Hash(body).empty? ? Core::EMPTY_HASH : {json: body}
 
           def maybe_alter_mime_type headers, response
             type = headers && headers[special_header]
