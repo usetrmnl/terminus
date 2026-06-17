@@ -1,5 +1,3 @@
-<% content_for :htmx_merge, "defaultSwapStyle" => "innerHTML" %>
-
 <%= render "shared/title", text: "Designs" %>
 
 <section class="bit-page page-designer">
@@ -8,39 +6,28 @@
       Designs
       <%= render "shared/popovers/triggers/default", name: :overview, width: 20, height: 20 %>
     </h1>
+
+    <div class="bit-actions">
+      <%= render "shared/actions/search", path: routes.path(:designs), query: %>
+      <%= render "shared/actions/new", path: routes.path(:design_new) %>
+    </div>
   </header>
 
   <%= scope(:popover_default_content, name: :overview, label: "Overview").render do %>
-    <p>Use the text area to design custom screens for your device using pure HTML/CSS. Changes are applied automatically as you make edits and saved as a screen which you can view via the <%= link_to "Screens", routes.path(:screens) %> page.</p>
+    <p>Use to manage templates for building screens. Each template can have multiple screens associated with it.</p>
+
+    <p>Each screen associated with your template can be found via the <%= link_to "Screens", routes.path(:screens) %> page. By default, each screen will use the same label and name as your template but you can rename associated screens once created.</p>
   <% end %>
 
-  <div class="bit-body">
-    <figure class="device" hx-ext="sse" sse-connect="/preview/<%= name %>" sse-swap="preview">
-      <%= render :loader %>
-    </figure>
-
-    <div class="bit-card">
-      <%= form_for :template, routes.path(:designs), class: "bit-form" do |form| %>
-        <%= form.hidden_field :name, value: name %>
-        <%= form.hidden_field :label, value: label %>
-
-        <%= form.text_area :content,
-                           render(:welcome),
-                           class: "source bit-editor",
-                           autocomplete: :off,
-                           data: {language: :liquid} %>
-
-        <div class="form-actions">
-          <%= form.submit "Save",
-                          class: "bit-button-accept",
-                          **HTMX[
-                            post: routes.path(:designs),
-                            trigger: "load, click, keyup[ctrlKey&&key=='s'] from:body",
-                            swap: :none,
-                            disabled_elt: "this"
-                          ] %>
-        </div>
+  <% if templates.any? %>
+    <ul class="bit-gallery">
+      <% templates.each do |template| %>
+        <%= render :template, template: %>
       <% end %>
+    </ul>
+  <% else %>
+    <div class="bit-gallery">
+      <%= render "shared/empty", message: "No templates found." %>
     </div>
-  </div>
+  <% end %>
 </section>

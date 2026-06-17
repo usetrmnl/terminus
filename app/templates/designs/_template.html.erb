@@ -1,0 +1,14 @@
+<li id="<%= template.id %>" class="bit-card">
+  <h2 class="label"><%= template.label %></h2>
+
+  <div class="actions">
+    <%= render "shared/actions/edit", path: routes.path(:design_edit, id: template.id) %>
+
+    <%= render "shared/actions/delete",
+               path: routes.path(:design, id: template.id),
+               subject: :design,
+               target: ".bit-page" %>
+  </div>
+</li>
+
+

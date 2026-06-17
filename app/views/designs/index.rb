@@ -5,8 +5,8 @@ module Terminus
     module Designs
       # The index view.
       class Index < View
-        expose :name, default: :terminus_designer
-        expose :label, default: "Designer"
+        expose :templates
+        expose :query
       end
     end
   end
