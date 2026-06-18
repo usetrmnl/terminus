@@ -58,6 +58,34 @@ RSpec.describe Terminus::Aspects::Sanitizer do
       expect(sanitizer.call(source)).to eq(source)
     end
 
+    it "allows data attributes on non-div elements" do
+      source = <<~HTML.squeeze(" ").delete("\n").strip
+        <html><head></head>
+          <body>
+            <span data-value-fit="true"></span> <p data-clamp="3"></p> <table data-table-limit="true"></table>
+        </body></html>
+      HTML
+
+      expect(sanitizer.call(source)).to eq(source)
+    end
+
+    it "keeps default global attributes alongside data attributes" do
+      source = <<~HTML.squeeze(" ").delete("\n").strip
+        <html><head></head>
+          <body>
+            <span class="value" data-value-fit="true"></span>
+        </body></html>
+      HTML
+
+      expect(sanitizer.call(source)).to eq(source)
+    end
+
+    it "removes event handler attributes" do
+      source = %(<span data-x="1" onclick="alert(1)">test</span>)
+
+      expect(sanitizer.call(source)).not_to include("onclick")
+    end
+
     it "allows ellipse element with attributes" do
       source = <<~HTML.squeeze(" ").delete("\n").strip
         <html><head></head>

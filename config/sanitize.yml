@@ -26,6 +26,9 @@ elements:
   - text
   - tspan
 attributes:
+  # Allow data-* attributes so the framework runtime hooks survive
+  :all:
+    - :data
   canvas:
     - id
     - width
@@ -43,8 +46,6 @@ attributes:
     - fill-opacity
     - shape-rendering
     - transform
-  div:
-    - :data
   ellipse:
     - cx
     - cv

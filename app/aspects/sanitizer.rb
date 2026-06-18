@@ -52,7 +52,9 @@ module Terminus
       end
 
       def merge_attributes configuration
-        defaults[:attributes].merge configuration.fetch("attributes")
+        defaults[:attributes].merge configuration.fetch("attributes") do |_element, default_attributes, custom_attributes|
+          default_attributes.to_a.including(*custom_attributes)
+        end
       end
     end
   end
