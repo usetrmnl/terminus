@@ -42,7 +42,21 @@ module Terminus
           Pathname.mktmpdir do |work_dir|
             page.content = work_dir.join("content.html").write(content).read
             page.set_viewport(**viewport)
-            page.network.wait_for_idle duration: 5
+
+            # Continuously check until `TRMNL_PLUGINS_READY` has been set to true.
+            # The framework's plugin.js does that once it's done with its work
+            # (like handling overflow etc.)
+            wait = <<~EOT
+              const resolve = arguments[0];
+              const interval = setInterval(() => {
+                if (window.TRMNL_PLUGINS_READY) {
+                  clearInterval(interval);
+                  resolve();
+                }
+              }, 100);
+            EOT
+
+            page.evaluate_async(wait, 10)
             page.screenshot path: output_path.to_s
           end
 
