@@ -6,6 +6,14 @@ RSpec.describe Terminus::Aspects::Sanitizer do
   subject(:sanitizer) { described_class.new }
 
   describe "#call" do
+    it "allows specific attributes for all elements" do
+      source = <<~HTML.squeeze(" ").delete("\n").strip
+        <html><head></head> <body> <div data-role="primary" class="test" dir="ltr" hidden="" id="en" style="color: red;" tabindex="0" title="Test" translate="yes">test</div></body></html>
+      HTML
+
+      expect(sanitizer.call(source)).to eq(source)
+    end
+
     it "allows custom CSS properties" do
       source = <<~HTML.squeeze(" ").delete("\n").strip
         <html><head> <style type="text/css"> .screen { --screen-w: 1040px; --screen-h: 780px; --pixel-ratio: 1.8; --dither-pixel-ratio: 2.0; --ui-scale: 1.0; --gap-scale: 1.0; } </style> </head> <body></body></html>

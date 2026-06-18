@@ -26,6 +26,17 @@ elements:
   - text
   - tspan
 attributes:
+  :all:
+    - :data
+    - class
+    - dir
+    - hidden
+    - id
+    - lang
+    - style
+    - tabindex
+    - title
+    - translate
   canvas:
     - id
     - width
@@ -43,8 +54,6 @@ attributes:
     - fill-opacity
     - shape-rendering
     - transform
-  div:
-    - :data
   ellipse:
     - cx
     - cv
