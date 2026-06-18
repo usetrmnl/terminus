@@ -758,7 +758,8 @@ CREATE TABLE public.screen (
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     device_id integer,
-    kind public.screen_kind_enum DEFAULT 'general'::public.screen_kind_enum NOT NULL
+    kind public.screen_kind_enum DEFAULT 'general'::public.screen_kind_enum NOT NULL,
+    template_id integer
 );
 
 
@@ -1649,6 +1650,14 @@ ALTER TABLE ONLY public.screen
 
 
 --
+-- Name: screen screen_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.screen
+    ADD CONSTRAINT screen_template_id_fkey FOREIGN KEY (template_id) REFERENCES public.screen_template(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: user_active_session_key user_active_session_key_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1775,4 +1784,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260608161124_add_device_wifi_band_column.rb'),
 ('20260609142235_add_screen_device_id_and_kind_columns.rb'),
 ('20260610103052_remove_device_api_key_and_friendly_id_columns.rb'),
-('20260615094348_create_screen_template.rb');
+('20260615094348_create_screen_template.rb'),
+('20260618094125_add_screen_template_id_column.rb');
