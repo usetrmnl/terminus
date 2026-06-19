@@ -3,10 +3,14 @@
 <section class="bit-page">
   <header class="bit-header">
     <ul class="bit-breadcrumbs">
-      <li class="bit-breadcrumb"><%= link_to "Extensions", routes.path(:extensions) %></li>
       <li class="bit-breadcrumb">
-        <%= link_to extension.label, routes.path(:extension_edit, id: extension.id) %>
+        <%= link_to "Extensions", routes.path(:extensions), class: :link %>
       </li>
+
+      <li class="bit-breadcrumb">
+        <%= link_to extension.label, routes.path(:extension_edit, id: extension.id), class: :link %>
+      </li>
+
       <li class="bit-breadcrumb">Exchanges</li>
     </ul>
 

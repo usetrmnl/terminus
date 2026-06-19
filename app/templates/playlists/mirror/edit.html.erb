@@ -3,12 +3,12 @@
 <section class="bit-page page-playlists">
   <header class="bit-header">
     <ul class="bit-breadcrumbs">
-      <li class="bit-breadcrumb"><a href="/playlists" class="link">Playlists</a></li>
+      <li class="bit-breadcrumb">
+        <%= link_to "Playlists", routes.path(:playlists), class: :link %>
+      </li>
 
       <li class="bit-breadcrumb">
-        <a href="<%= routes.path :playlist, id: playlist.id %>" class="link">
-          <%= playlist.label %>
-        </a>
+        <%= link_to playlist.label, routes.path(:playlist, id: playlist.id), class: :link %>
       </li>
 
       <li class="bit-breadcrumb">Mirror</li>

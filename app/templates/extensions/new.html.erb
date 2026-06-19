@@ -3,7 +3,10 @@
 <section class="bit-page page-extensions">
   <header class="bit-header">
     <ul class="bit-breadcrumbs">
-      <li class="bit-breadcrumb"><a href="/extensions" class="link">Extensions</a></li>
+      <li class="bit-breadcrumb">
+        <%= link_to "Extensions", routes.path(:extensions), class: :link %>
+      </li>
+
       <li class="bit-breadcrumb">New</li>
     </ul>
   </header>
