@@ -12,6 +12,7 @@ min_threads = ENV.fetch "HANAMI_MIN_THREADS", max_threads
 concurrency = Integer ENV.fetch("HANAMI_WEB_CONCURRENCY", 0)
 
 threads min_threads, max_threads
+max_io_threads 5
 port ENV.fetch("HANAMI_PORT")
 environment ENV.fetch("HANAMI_ENV", "development")
 workers concurrency
