@@ -31,14 +31,15 @@
                      verb: :put,
                      path: routes.path(:playlist, id: playlist.id) %>
 
-          <a href="<%= routes.path :playlist, id: playlist.id %>"
-             class="bit-button-decline"
-             hx-get="<%= routes.path :playlist, id: playlist.id %>"
-             hx-trigger="click"
-             hx-target="closest .bit-page"
-             hx-push-url="true">
-             Cancel
-          </a>
+          <%= link_to "Cancel",
+                      routes.path(:playlist, id: playlist.id),
+                      class: "bit-button-decline",
+                      **HTMX[
+                        get: routes.path(:playlist, id: playlist.id),
+                        trigger: :click,
+                        target: "closest .bit-page",
+                        push_url: true
+                      ] %>
         </div>
       <% end %>
 

@@ -34,14 +34,15 @@
                      verb: :put,
                      path: routes.path(:model, id: model.id) %>
 
-          <a href="<%= routes.path :model, id: model.id %>"
-             class="bit-button-decline"
-             hx-get="<%= routes.path :model, id: model.id %>"
-             hx-trigger="click"
-             hx-target="closest .bit-page"
-             hx-push-url="true">
-             Cancel
-          </a>
+          <%= link_to "Cancel",
+                      routes.path(:model, id: model.id),
+                      class: "bit-button-decline",
+                      **HTMX[
+                        get: routes.path(:model, id: model.id),
+                        trigger: :click,
+                        target: "closest .bit-page",
+                        push_url: true
+                      ] %>
         </div>
       <% end %>
     </div>

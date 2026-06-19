@@ -7,12 +7,13 @@
     <% end %>
   <% end %>
 
-  <a href="<%= routes.path :playlist_item_new, playlist_id: playlist_id %>"
-     class="bit-button-accept"
-     hx-get="<%= routes.path :playlist_item_new, playlist_id: playlist_id %>"
-     hx-trigger="click, keyup[ctrlKey&&key=='n'] from:body"
-     hx-target="this"
-     hx-swap="beforebegin">
-    Add Item
-  </a>
+  <%= link_to "Add Item",
+              routes.path(:playlist_item_new, playlist_id: playlist_id),
+              class: "bit-button-accept",
+              **HTMX[
+                get: routes.path(:playlist_item_new, playlist_id: playlist_id),
+                trigger: "click, keyup[ctrlKey&&key=='n'] from:body",
+                target: :this,
+                swap: :beforebegin
+              ] %>
 </div>
