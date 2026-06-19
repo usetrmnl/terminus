@@ -8,8 +8,8 @@ module Terminus
   module Aspects
     module Extensions
       module Fetchers
-        # Processes a single request.
-        class Sole
+        # A client for processing HTTP requests.
+        class Client
           include Deps[:http]
           include Initable[parser: Extensions::Parser, special_header: "Accept"]
           include Dry::Monads[:result]

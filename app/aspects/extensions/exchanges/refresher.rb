@@ -12,7 +12,7 @@ module Terminus
         class Refresher
           include Deps[
             "aspects.extensions.uri_builder",
-            fetcher: "aspects.extensions.fetchers.sole",
+            "aspects.extensions.fetchers.client",
             extension_repository: "repositories.extension",
             exchange_repository: "repositories.extension_exchange"
           ]
@@ -50,7 +50,7 @@ module Terminus
             inputs.each.with_index 1 do |input, index|
               key = "source_#{index}"
 
-              case fetcher.call input
+              case client.call input
                 in Success(payload) then data.merge! key => payload[:data]
                 in Failure(payload) then errors.merge! key => payload[:error]
                 else errors.merge! key => "Unable to fetch, invalid result."

@@ -3,8 +3,8 @@
 require "hanami_helper"
 require "http"
 
-RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
-  subject(:fetcher) { described_class.new http: }
+RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
+  subject(:client) { described_class.new http: }
 
   let(:http) { class_double HTTP }
 
@@ -34,7 +34,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        expect(fetcher.call(input)).to be_success(
+        expect(client.call(input)).to be_success(
           data: [
             {
               "title" => "Castle in the Sky",
@@ -66,7 +66,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "application/ld+json"})
+        result = client.call input.with(headers: {content_type: "application/ld+json"})
 
         expect(result).to be_success(
           data: {
@@ -105,7 +105,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "application/geo+json"})
+        result = client.call input.with(headers: {content_type: "application/geo+json"})
 
         expect(result).to be_success(
           data: {
@@ -140,7 +140,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(
+        result = client.call input.with(
           headers: {content_type: "application/fake!#&-^$but_valid+json"}
         )
 
@@ -172,7 +172,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers failure" do
-        result = fetcher.call input.with(headers: {content_type: "application/+json"})
+        result = client.call input.with(headers: {content_type: "application/+json"})
 
         expect(result).to match(
           Failure(
@@ -199,7 +199,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "image/png"})
+        result = client.call input.with(headers: {content_type: "image/png"})
         expect(result).to be_success(data: "{}", error: {})
       end
     end
@@ -220,7 +220,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "text/csv"})
+        result = client.call input.with(headers: {content_type: "text/csv"})
 
         expect(result).to be_success(
           data: [
@@ -251,7 +251,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "text/plain"})
+        result = client.call input.with(headers: {content_type: "text/plain"})
         expect(result).to be_success(data: %w[one two three], error: {})
       end
     end
@@ -272,7 +272,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "text/xml"})
+        result = client.call input.with(headers: {content_type: "text/xml"})
         expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
       end
     end
@@ -293,7 +293,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "application/xml"})
+        result = client.call input.with(headers: {content_type: "application/xml"})
         expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
       end
     end
@@ -314,7 +314,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "application/rss+xml"})
+        result = client.call input.with(headers: {content_type: "application/rss+xml"})
         expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
       end
     end
@@ -335,7 +335,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers success" do
-        result = fetcher.call input.with(headers: {content_type: "application/atom+xml"})
+        result = client.call input.with(headers: {content_type: "application/atom+xml"})
         expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
       end
     end
@@ -360,12 +360,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "processes request" do
-        fetcher.call input
+        client.call input
         expect(http).to have_received(:post).with(input.uri, json: {query: :test})
       end
 
       it "answers success" do
-        expect(fetcher.call(input)).to be_success(data: {"name" => "test"}, error: {})
+        expect(client.call(input)).to be_success(data: {"name" => "test"}, error: {})
       end
     end
 
@@ -388,12 +388,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "processes request" do
-        fetcher.call input
+        client.call input
         expect(http).to have_received(:post).with(input.uri)
       end
 
       it "answers success" do
-        expect(fetcher.call(input)).to be_success(data: "{}", error: {})
+        expect(client.call(input)).to be_success(data: "{}", error: {})
       end
     end
 
@@ -408,7 +408,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers failure" do
-        result = fetcher.call input.with(headers: {content_type: "text/html"})
+        result = client.call input.with(headers: {content_type: "text/html"})
         expect(result).to match(
           Failure(
             data: {},
@@ -434,7 +434,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
       end
 
       it "answers failure" do
-        expect(fetcher.call(input)).to match(
+        expect(client.call(input)).to match(
           Failure(
             data: {},
             error: {
@@ -453,7 +453,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::RequestError, "Danger!"
-        expect(fetcher.call(input)).to match(
+        expect(client.call(input)).to match(
           Failure(
             data: {},
             error: {
@@ -472,7 +472,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::ConnectionError, "Danger!"
-        expect(fetcher.call(input)).to match(
+        expect(client.call(input)).to match(
           Failure(
             data: {},
             error: {
@@ -491,7 +491,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::TimeoutError, "Danger!"
-        expect(fetcher.call(input)).to match(
+        expect(client.call(input)).to match(
           Failure(
             data: {},
             error: {
@@ -510,7 +510,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Sole do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise OpenSSL::SSL::SSLError, "Danger!"
-        expect(fetcher.call(input)).to match(
+        expect(client.call(input)).to match(
           Failure(
             data: {},
             error: {

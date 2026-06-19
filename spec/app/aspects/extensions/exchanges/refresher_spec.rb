@@ -3,15 +3,15 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
-  subject(:refresher) { described_class.new fetcher: }
+  subject(:refresher) { described_class.new client: }
 
-  let(:fetcher) { instance_double Terminus::Aspects::Extensions::Fetchers::Sole }
+  let(:client) { instance_double Terminus::Aspects::Extensions::Fetchers::Client }
 
   describe "#call" do
     let(:exchange) { Factory[:extension_exchange] }
 
     it "answers success with data and no errors" do
-      allow(fetcher).to receive(:call).and_return(Success(data: "test"))
+      allow(client).to receive(:call).and_return(Success(data: "test"))
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -24,7 +24,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     end
 
     it "answers success with errors only" do
-      allow(fetcher).to receive(:call).and_return(Failure(error: "Danger!"))
+      allow(client).to receive(:call).and_return(Failure(error: "Danger!"))
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -39,7 +39,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     it "answers success with mixed data and errors" do
       exchange = Factory[:extension_exchange, template: "https://one.io\nhttps://two.io"]
 
-      allow(fetcher).to receive(:call).and_return(Failure(error: "Danger!"), Success(data: "pass"))
+      allow(client).to receive(:call).and_return(Failure(error: "Danger!"), Success(data: "pass"))
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -52,7 +52,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     end
 
     it "answers success with fetech error" do
-      allow(fetcher).to receive(:call).and_return(:bogus)
+      allow(client).to receive(:call).and_return(:bogus)
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -65,7 +65,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     end
 
     it "answers an exchange" do
-      allow(fetcher).to receive(:call).and_return(Success(data: "test"))
+      allow(client).to receive(:call).and_return(Success(data: "test"))
 
       expect(refresher.call(exchange)).to match(
         Success(kind_of(Terminus::Structs::ExtensionExchange))
