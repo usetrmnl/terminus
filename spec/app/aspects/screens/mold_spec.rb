@@ -7,8 +7,9 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
 
   subject :mold do
     described_class[
-      model_id: 1,
-      device_id: 2,
+      template_id: 1,
+      model_id: 2,
+      device_id: 3,
       label: "Test",
       name: "test",
       content: "test",
@@ -115,8 +116,9 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
   describe "#image_attributes" do
     it "answers image attributes for screen attachments" do
       expect(mold.image_attributes).to eq(
-        model_id: 1,
-        device_id: 2,
+        template_id: 1,
+        model_id: 2,
+        device_id: 3,
         label: "Test",
         name: "test",
         kind: "general"
@@ -131,7 +133,7 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
         color_codes: nil,
         colors: nil,
         content: "<redacted>",
-        device_id: 2,
+        device_id: 3,
         grays: nil,
         height: 480,
         input_path: nil,
@@ -139,12 +141,13 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
         label: "Test",
         mime_type: "image/png",
         mode: nil,
-        model_id: 1,
+        model_id: 2,
         name: "test",
         offset_x: 0,
         offset_y: 0,
         output_path: nil,
         rotation: 0,
+        template_id: 1,
         width: 800
       )
     end

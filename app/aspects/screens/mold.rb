@@ -5,6 +5,7 @@ module Terminus
     module Screens
       # Defines the blueprint in which to create a screen.
       Mold = Struct.new(
+        :template_id,
         :device_id,
         :model_id,
         :name,
@@ -46,7 +47,7 @@ module Terminus
 
         def image? = mime_type.start_with? "image"
 
-        def image_attributes = {model_id:, device_id:, label:, name:, kind:}
+        def image_attributes = {template_id:, model_id:, device_id:, label:, name:, kind:}
 
         def log_attributes = to_h.merge content: "<redacted>"
 
