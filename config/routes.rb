@@ -12,6 +12,10 @@ module Terminus
   class Routes < Hanami::Routes
     slice(:authentication, at: "/") { use Authentication::Middleware }
 
+    use Aspects::Screens::Designer::Middleware, pattern: %r(/preview/(?<id>.+))
+    use Rack::Deflater
+    use Rack::Static, root: "public", urls: ["/.well-known/security.txt", "/fonts", "/uploads"]
+
     mount Sidekiq::Web, at: "/sidekiq"
 
     get "/", to: "dashboard.show", as: :root
@@ -182,9 +186,6 @@ module Terminus
     put "/users/:id", to: "users.update", as: :user
 
     slice(:health, at: "/up") { root to: "show" }
-
-    use Rack::Static, root: "public", urls: ["/.well-known/security.txt", "/fonts", "/uploads"]
-    use Aspects::Screens::Designer::Middleware, pattern: %r(/preview/(?<id>.+))
   end
   # rubocop:enable Metrics/ClassLength
 end

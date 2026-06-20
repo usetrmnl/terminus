@@ -43,7 +43,6 @@ module Terminus
     # rubocop:enable Layout/FirstArrayElementLineBreak
 
     config.middleware.use Rack::Attack
-    config.middleware.use Rack::Deflater
     config.middleware.use :body_parser, :json
   end
 end
