@@ -12,6 +12,7 @@
 
       :where(html) {
         font-family: Verdana;
+        font-size: clamp(0.9rem, 0.8rem + 1vw, 2rem);
       }
 
       :where(body) {
@@ -20,9 +21,10 @@
         flex-direction: column;
         justify-content: center;
         height: 100vh;
+        font-size: 1.5rem;
       }
 
-      .page {
+      :where(main) {
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -30,18 +32,14 @@
         justify-content: center;
         padding: 1.5rem;
       }
-
-      .description {
-        font-size: 1.5rem;
-      }
     </style>
   </head>
 
   <body>
-    <main class="page">
-      <h1>Welcome to the Terminus designer!</h1>
+    <main>
+      <h1>Getting Started</h1>
 
-      <p class="description">Edit the source code to rapidly tinker with different designs. This preview screen will dynamically update as you make changes. Enjoy!</p>
+      <p>Edit the source code to iterate with different designs. This preview screen will update as you save changes. Enjoy!</p>
     </main>
   </body>
 </html>
