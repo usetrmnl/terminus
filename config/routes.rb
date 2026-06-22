@@ -4,7 +4,7 @@ require "sidekiq/web"
 
 require "sidekiq-scheduler/web"
 
-require_relative "../app/aspects/screens/designer/middleware"
+require_relative "../app/aspects/designs/middleware"
 
 module Terminus
   # The application base routes.
@@ -12,7 +12,7 @@ module Terminus
   class Routes < Hanami::Routes
     slice(:authentication, at: "/") { use Authentication::Middleware }
 
-    use Aspects::Screens::Designer::Middleware, pattern: %r(/preview/(?<id>.+))
+    use Aspects::Designs::Middleware, pattern: %r(/preview/(?<id>.+))
     use Rack::Deflater
     use Rack::Static, root: "public", urls: ["/.well-known/security.txt", "/fonts", "/uploads"]
 
