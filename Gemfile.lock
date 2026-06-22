@@ -257,7 +257,7 @@ GEM
       llhttp (~> 0.6.1)
     http-cookie (1.1.6)
       domain_name (~> 0.5)
-    i18n (1.15.1)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     infusible (5.2.0)
@@ -336,7 +336,7 @@ GEM
       marameters (~> 5.0)
       refinements (~> 14.0)
       zeitwerk (~> 2.8)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
@@ -738,7 +738,7 @@ CHECKSUMS
   htmx (3.2.0) sha256=515b398420dc8576f146d35722095b61a1f218aaa20a58f22a2462ec0206c9bf
   http (6.0.3) sha256=0206e79131089ca9aae557c6791afd6bf9339af319d78a616af1477ae79614fa
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
-  i18n (1.15.1) sha256=505ec5de1f4e6c8a2cb028ef9700ca495f117911643455721dee5abdca797255
+  i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   ice_nine (0.11.2) sha256=5d506a7d2723d5592dc121b9928e4931742730131f22a1a37649df1c1e2e63db
   infusible (5.2.0) sha256=f57ef73319367ee9c7c09d29a83c29124ef0d7f8cd6c2c519c75b021b0499c0a
   initable (1.2.0) sha256=719c69857a2dfafa4b5958c36d85928387372a2f3c158d9ff584be3f1a5bcd39
@@ -778,7 +778,7 @@ CHECKSUMS
   petail (1.2.0) sha256=b6c85aa9e0dbd199911fdf7c0fe713f2a62c16152c922e3d14733910a27f85f7
   pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
   pipeable (2.3.0) sha256=47ae7b83fd2fc360715a6a86bc59bc87b04ef15cda17c17d9dc3e918560a72ff
-  pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
+  pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   psych (5.4.0) sha256=14f72d69a611af663d7d70e4a7b67d9eb1f3ae9f8d916b478961d5a0075ba5b7
