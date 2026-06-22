@@ -9,7 +9,7 @@ require "rspec/core/rake_task"
 require "rubocop/rake_task"
 
 Git::Lint::Rake::Register.call
-Reek::Rake::Task.new
+Reek::Rake::Task.new { |task| task.source_files = "{app,config,lib,slices}/**/*.rb" }
 RSpec::Core::RakeTask.new { |task| task.verbose = false }
 RuboCop::RakeTask.new
 
