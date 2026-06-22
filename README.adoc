@@ -195,6 +195,10 @@ In accordance with the {unbrickable_pledge_link}, the latest version of Terminus
 * *Firmware 1.6.9* (and lower): Supported by Terminus link:https://github.com/usetrmnl/terminus/releases/tag/0.41.0[0.41.0] and lower.
 * *Firmware 1.6.10* (and higher): Supported by Terminus link:https://github.com/usetrmnl/terminus/releases/tag/0.42.0[0.42.0] and higher.
 
+In case it's of interest, unofficial firmware specific Waveshare (device and display) can be found here:
+
+* link:https://github.com/la-lo-go/trmnl-waveshare-esp32-s3-rlcd-4.2/tree/master[Waveshare ESP32 S3 RLCD 4.2]
+
 === Extensions
 
 See {doc_extensions_link} documentation for details.
