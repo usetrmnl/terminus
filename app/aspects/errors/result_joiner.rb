@@ -11,6 +11,8 @@ module Terminus
       using Refinements::Hash
 
       ResultJoiner = lambda do |subject, result|
+        return result if result.is_a? String
+
         messages = result.errors.to_h.each.with_object [] do |(key, value), all|
           if value.is_a? Hash
             value.flatten_keys!(delimiter: ".").each do |sub_key, sub_value|

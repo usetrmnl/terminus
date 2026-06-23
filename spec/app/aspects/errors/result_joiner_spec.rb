@@ -9,6 +9,10 @@ RSpec.describe Terminus::Aspects::Errors::ResultJoiner do
     let(:result) { instance_double Dry::Schema::Result, errors: }
     let(:errors) { {one: ["is missing"]} }
 
+    it "answers string if a string" do
+      expect(joiner.call("Test", "Danger!")).to eq("Danger!")
+    end
+
     it "answers single error" do
       expect(joiner.call("Test", result)).to eq("Test one is missing.")
     end
