@@ -5,6 +5,8 @@ require "hanami_helper"
 RSpec.describe Terminus::Aspects::Unzipper do
   subject(:unzipper) { described_class.new }
 
+  before { Hanami.app.start :zip }
+
   describe "#call" do
     let :io do
       stream = Zip::OutputStream.write_buffer do |buffer|
@@ -26,10 +28,10 @@ RSpec.describe Terminus::Aspects::Unzipper do
     end
 
     it "answers failure when zip can't be decompressed" do
-      client = class_double Zip::File
-      unzipper = described_class.new(client:)
+      file = class_double Zip::File
+      unzipper = described_class.new(file:)
 
-      allow(client).to receive(:open_buffer).and_raise Zip::Error, "Danger!"
+      allow(file).to receive(:open_buffer).and_raise Zip::Error, "Danger!"
 
       expect(unzipper.call(666)).to be_failure("Danger!")
     end

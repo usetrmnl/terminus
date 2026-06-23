@@ -29,10 +29,10 @@ RSpec.describe Terminus::Aspects::Zipper do
     end
 
     it "answers failure with zip error" do
-      io = class_double Zip::OutputStream
-      zipper = described_class.new(io:)
+      stream = class_double Zip::OutputStream
+      zipper = described_class.new output_stream: stream
 
-      allow(io).to receive(:write_buffer).and_raise(Zip::Error, "Danger!")
+      allow(stream).to receive(:write_buffer).and_raise(Zip::Error, "Danger!")
 
       expect(zipper.call({test: "test"})).to be_failure("Danger!")
     end

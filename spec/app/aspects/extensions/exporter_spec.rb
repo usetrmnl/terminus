@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "hanami_helper"
-require "zip"
 
 RSpec.describe Terminus::Aspects::Extensions::Exporter, :db do
   using Refinements::Time

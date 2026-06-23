@@ -3,7 +3,6 @@
 require "dry/monads"
 require "initable"
 require "refinements/pathname"
-require "zip"
 
 module Terminus
   module Aspects
