@@ -2,10 +2,10 @@
   <%= form_for :extension,
                routes.path(:extension_import),
                enctype: "multipart/form-data",
-               accept: "application/octet-stream",
                class: "bit-form",
                **HTMX[
                  post: routes.path(:extension_import),
+                 encoding: "multipart/form-data",
                  trigger: :change,
                  target: ".site-body",
                  select: ".site-body"
@@ -16,6 +16,7 @@
     <%= form.file_field :attachment,
                         id: :extension_attachment,
                         value: nil,
-                        class: :value %>
+                        class: :value,
+                        accept: "application/zip" %>
   <% end %>
 <% end %>
