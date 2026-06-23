@@ -23,6 +23,7 @@ RSpec.describe "Dashboard", :db do
   it "shows linked resource counts", :aggregate_failures do
     visit routes.path(:root)
 
+    expect(page).to have_link("0", href: routes.path(:designs))
     expect(page).to have_link("0", href: routes.path(:devices))
     expect(page).to have_link("0", href: routes.path(:extensions))
     expect(page).to have_link("0", href: routes.path(:models))

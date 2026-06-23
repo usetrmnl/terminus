@@ -6,6 +6,7 @@ module Terminus
       # The show view.
       class Show < View
         include Deps[
+          design_relation: "relations.screen_template",
           device_relation: "relations.device",
           extension_relation: "relations.extension",
           firmware_relation: "relations.firmware",
@@ -18,6 +19,7 @@ module Terminus
         expose :api_uri
         expose :ip_addresses
         expose :firmware
+        expose(:design_count) { design_relation.count }
         expose(:device_count) { device_relation.count }
         expose(:extension_count) { extension_relation.count }
         expose(:firmware_count) { firmware_relation.count }

@@ -48,6 +48,11 @@
 
     <div class="widgets">
       <fieldset class="box">
+        <legend class="label bit-text-center">Designs</legend>
+        <p class="number"><%= link_to design_count, routes.path(:designs) %></p>
+      </fieldset>
+
+      <fieldset class="box">
         <legend class="label bit-text-center">Devices</legend>
         <p class="number"><%= link_to device_count, routes.path(:devices) %></p>
       </fieldset>
