@@ -16,9 +16,7 @@
   .widgets {
     display: grid;
     gap: 2rem;
-    grid-template: 1fr / 1fr;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    grid-template: 1fr / repeat(auto-fit, minmax(250px, 1fr));
 
     @media only screen and (min-width: 825px) {
       grid-template: 1fr / repeat(auto-fit, minmax(0, 1fr));
@@ -40,6 +38,7 @@
     .label {
       display: flex;
       font-weight: 500;
+      word-break: normal;
     }
 
     .number {
