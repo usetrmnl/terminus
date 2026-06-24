@@ -2,6 +2,7 @@
 
 require "dry/monads"
 require "ferrum"
+require "initable"
 require "refinements/pathname"
 require "refinements/string"
 
@@ -11,22 +12,32 @@ module Terminus
       # Saves web page as screenshot.
       class Shoter
         include Deps[:settings, :logger]
+        include Initable[
+          options_map: {
+            ferrum_default_timeout: :timeout,
+            ferrum_process_timeout: :process_timeout,
+            ferrum_javascript_errors: :js_errors
+          },
+          browser_options: {
+            "disable-dev-shm-usage" => nil,
+            "disable-gpu" => nil,
+            "hide-scrollbar" => nil,
+            "no-sandbox" => nil
+          }
+        ]
         include Dry::Monads[:result]
 
         using Refinements::Pathname
         using Refinements::String
+        using Refinements::Hash
 
-        BROWSER_OPTIONS = {
-          "disable-dev-shm-usage" => nil,
-          "disable-gpu" => nil,
-          "hide-scrollbar" => nil,
-          "no-sandbox" => nil
-        }.freeze
-
-        def initialize(browser: Ferrum::Browser, browser_options: BROWSER_OPTIONS, **)
+        def initialize(browser: Ferrum::Browser, **)
           super(**)
           @browser = browser
-          @options = settings.browser.merge! browser_options:
+          @options = settings.to_h
+                             .slice(*options_map.keys)
+                             .transform_keys!(options_map)
+                             .merge!(browser_options:)
         end
 
         def call(content, output_path, **viewport) = save content, viewport, output_path

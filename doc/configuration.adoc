@@ -6,6 +6,7 @@
 :doc_extensions_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extensions]
 :doc_jobs_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc[Jobs]
 :doc_raspberry_pi_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/raspberry_pi.adoc[Raspberry PI]
+:ferrum_link: link:https://ferrum.rubycdp.com[Ferrum]
 :http_link: link:https://github.com/httprb/http[HTTP]
 :postgres_link: link:https://www.postgresql.org[PostgreSQL]
 :puma_link: link:https://puma.io[Puma]
@@ -32,6 +33,9 @@ There are several environment variables you can use to customize behavior by upd
 * `DATABASE_URL`: Defines the full URL based on the `+DATABASE_*+` settings. This is automatically configured for you during setup. See your `+.env*+` files for details.
 * `DATABASE_URL`: Necessary to connect to your {postgres_link} database. Can be customized by changing the value in the `.env.development` or `.env.test` file created when you ran `bin/setup`.
 * `DATABASE_USER`: Defines your database user. Used by {doc_docker_link} only. Default: `terminus`.
+* `FERRUM_DEFAULT_TIMEOUT`: Used for configuring {ferrum_link} headless browser default time allowed for the browser to respond to a request. Default: `30`.
+* `FERRUM_PROCESS_TIMEOUT`: Used for configuring {ferrum_link} headless browser time allowed for the browser to start. Default: `15`.
+* `FERRUM_JAVASCRIPT_ERRORS`: Used for configuring {ferrum_link} headless browser JavaScript errors. Default: `true`.
 * `FIRMWARE_SYNCHRONIZER`: Enables/disables firmware synchronization. See {doc_jobs_link} for details. Defaults to enabled.
 * `FONTS_PATH`: The path to where {trmnl_framework_link} fonts are stored since the Framework stylesheets require a relative path to all fonts to load properly. This is necessary when rendering screens for {doc_extensions_link}. Default: `public/fonts`.
 * `HANAMI_MAX_THREADS`: The maximum number of threads allowed for {puma_link}. Default: `5`.

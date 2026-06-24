@@ -115,7 +115,7 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
         allow(instance).to receive(:create_page).and_raise(Ferrum::TimeoutError)
 
         expect(shoter.call(content, path)).to be_failure(
-          "Unable to capture screenshot due to timming out after 0 seconds. " \
+          "Unable to capture screenshot due to timming out after 30 seconds. " \
           "This might have happened due to the page taking a long time to load."
         )
       end
@@ -146,7 +146,7 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
     end
 
     context "with processing timeout error" do
-      before { allow(settings).to receive(:browser).and_return({process_timeout: 0.01}) }
+      before { allow(settings).to receive(:to_h).and_return(ferrum_process_timeout: 0.01) }
 
       it "logs debug message" do
         shoter.call content, path
