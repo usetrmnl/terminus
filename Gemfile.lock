@@ -274,7 +274,7 @@ GEM
     irb-kit (2.2.0)
       irb (~> 1.16)
       zeitwerk (~> 2.7)
-    json (2.19.9)
+    json (2.20.0)
     jwt (3.2.0)
       base64
     language_server-protocol (3.17.0.5)
@@ -564,7 +564,7 @@ GEM
       refinements (~> 14.0)
     warning (1.6.0)
     webrick (1.9.2)
-    websocket-driver (0.8.1)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -746,7 +746,7 @@ CHECKSUMS
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   irb-kit (2.2.0) sha256=aa81c2f2442c39c435c0818b68aa163d3e99a05bda51fac20188e486ba737032
-  json (2.19.9) sha256=9b9025b7cdddafa38d316eca0b2358488e42d417045c1b90d216a9fefe46b79a
+  json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
   jwt (3.2.0) sha256=5419b1fe37b1da0982bd07051f573a8b8789ab724c2aa7e785e4784a3ed217d7
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
@@ -859,7 +859,7 @@ CHECKSUMS
   versionaire (15.3.0) sha256=00bc2f5f588163fbb71b0c451266f432c8e37383b377b41ca903e9f52f108699
   warning (1.6.0) sha256=a49cdfae19fb77d19afff2efbe45f8ab759e9cd25b4e4ce2c79dbaf46bdb6c9e
   webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
-  websocket-driver (0.8.1) sha256=5ab238238ce230e5d4b262d2be39624c867914eab99171dc4952b58b577c2d96
+  websocket-driver (0.8.2) sha256=97c556b019bf3410b4961002ac501621e9322d3f8a7bc02161a09301cc4c4146
   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
   wholeable (2.2.0) sha256=3771cd074fe482c379e8a2564b01e0877d7c62461926c3b614ceff4707689ba0
   xdg (10.2.0) sha256=fe756543e29548fb05a5b0395ffd49f54ae07182a906598ef9694d68c56af028
@@ -870,4 +870,4 @@ RUBY VERSION
   ruby 4.0.5
 
 BUNDLED WITH
-  4.0.14
+  4.0.15
