@@ -10,7 +10,6 @@ module Terminus
             constructor: Types::Params::String.constrained(filled: true, min_size: 64),
             default: SecureRandom.hex(40)
     setting :api_uri, constructor: Types::Params::String.constrained(filled: true)
-    setting :browser, constructor: Terminus::Types::Browser, default: "{}"
     setting :ferrum_default_timeout, constructor: Types::Params::Integer, default: 30
     setting :ferrum_process_timeout, constructor: Types::Params::Integer, default: 15
     setting :ferrum_javascript_errors, constructor: Types::Params::Bool, default: true

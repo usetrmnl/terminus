@@ -3,40 +3,6 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Types do
-  describe "Browser" do
-    subject(:type) { described_class::Browser }
-
-    let(:settings) { {js_errors: true, process_timeout: 1.0, timeout: 2.0} }
-
-    it "answers primitive" do
-      expect(type.primitive).to eq(Hash)
-    end
-
-    it "answers valid settings" do
-      expect(type.call(settings.to_json)).to eq(settings)
-    end
-
-    it "answers defaults when empty" do
-      expect(type.call("{}")).to eq(js_errors: true, process_timeout: 10, timeout: 10)
-    end
-
-    it "ignores unknown settings" do
-      expect(type.call({bogus: true}.to_json)).to eq(
-        js_errors: true, process_timeout: 10, timeout: 10
-      )
-    end
-
-    it "fails when unable to parse" do
-      expectation = proc { type.call "" }
-      expect(&expectation).to raise_error(JSON::ParserError, /unexpected end of input/)
-    end
-
-    it "fails with invalid type" do
-      expectation = proc { type.call %({"timeout": "danger!"}) }
-      expect(&expectation).to raise_error(Dry::Types::SchemaError, /invalid type/)
-    end
-  end
-
   describe "File" do
     subject(:type) { described_class::File }
 

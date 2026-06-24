@@ -12,7 +12,6 @@ RSpec.shared_context "with application dependencies" do
   before do
     allow(settings).to receive_messages(
       api_uri: "https://localhost",
-      browser: {},
       fonts_root: temp_dir,
       git_tag: "1.2.3",
       git_latest_sha: "abcdefghijkl"
