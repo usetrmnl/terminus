@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "refinements/hash"
+
 module Terminus
   module Actions
     module Designs
@@ -8,10 +10,12 @@ module Terminus
       class Update < Action
         include Deps[
           :htmx_layout,
-          "aspects.screens.upserter",
           template_repository: "repositories.screen_template",
           screen_repository: "repositories.screen"
         ]
+        include Initable[job: Jobs::Screens::Upsert]
+
+        using Refinements::Hash
 
         params do
           required(:id).filled :integer
@@ -41,8 +45,7 @@ module Terminus
           template = template_repository.update parameters[:id], **attributes
           screen = screen_repository.find parameters[:screen_id]
 
-          upserter.call(model_id: screen.model_id, **template.screen_attributes)
-
+          job.perform_async screen.model_id, template.screen_attributes.stringify_keys!
           response.render view, template: template, layout: htmx_layout.call(request)
         end
 
