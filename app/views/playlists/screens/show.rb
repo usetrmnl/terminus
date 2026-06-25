@@ -6,8 +6,6 @@ module Terminus
       module Screens
         # The show view.
         class Show < View
-          include Deps[:routes]
-
           expose :playlist
           expose :current
           expose(:index, decorate: false) { |screens, current:| screens.index current }
@@ -35,10 +33,13 @@ module Terminus
             routes.path :playlist_screen, playlist_id: playlist.id, id: last.id if last
           end
 
-          private_expose :routes
           private_expose :before, decorate: false
           private_expose :after, decorate: false
           private_expose(:screens, decorate: false) { |playlist:| playlist.screens }
+
+          private
+
+          def routes = rendering.context.routes
         end
       end
     end
