@@ -22,9 +22,28 @@ RSpec.describe Terminus::Actions::Designs::Update, :db do
       }
     end
 
+    it "enqueues job" do
+      Sidekiq::Testing.fake! do
+        Rack::MockRequest.new(action).put "", params: parameters
+
+        expect(Terminus::Jobs::Screens::Upsert.jobs).to contain_exactly(
+          hash_including(
+            "args" => [
+              model.id,
+              {
+                "template_id" => template.id,
+                "name" => "test_update",
+                "label" => "Test Update",
+                "content" => "<h1>Update</h1>"
+              }
+            ]
+          )
+        )
+      end
+    end
+
     it "answers updated content" do
       response = Rack::MockRequest.new(action).put "", params: parameters
-
       expect(response.body).to include("Test Update")
     end
 
