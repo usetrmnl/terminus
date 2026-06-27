@@ -7,9 +7,10 @@ set -o errexit
 set -o pipefail
 IFS=$'\n\t'
 
-CERT_DIR="/usr/local/share/ca-certificates"
+DEFAULT_ROOT="/etc/ssl/certs"
+CUSTOM_ROOT="/usr/local/share/ca-certificates"
 
-if [ -z "${CERTIFICATE_URLS:-}" ]; then
+if [[ -z "${CERTIFICATE_URLS:-}" ]]; then
   printf "%s: Skipped, CERTIFICATE_URLS is empty.\n" "${0}"
   exit 0
 fi
@@ -28,18 +29,24 @@ for url in "${urls[@]}"; do
 
   printf "%s\n" "Downloading certificate: ${url}."
 
-  filename=$(basename "${url}")
+  base_name=$(basename "${url}")
+  file_name="${base_name%.*}.crt"
+  install_path="${CUSTOM_ROOT}/${file_name}"
 
-  # Change extension to .crt (required by update-ca-certificates).
-  cert_name="${filename%.*}.crt"
-
-  if curl --fail --silent --show-error --location "${url}" --output "${CERT_DIR}/${cert_name}"; then
-    printf "%s\n" "Downloaded ${url} to ${CERT_DIR}/${cert_name}."
+  if curl --fail --silent --show-error --location "${url}" --output "$install_path"; then
+    printf "%s\n" "Downloaded ${url} to $install_path."
   else
     printf "%s\n" "ERROR: Failed to download from ${url}."
+    exit 1
   fi
 done
 
 printf "%s\n" "Updating CA certificates..."
 update-ca-certificates
+
+if [[ -d "$DEFAULT_ROOT" && -z "$(ls -A "$DEFAULT_ROOT")" ]]; then
+  printf "%s\n" "ERROR: No certificates exist!"
+  exit 1
+fi
+
 printf "%s\n" "Custom SSL certificates installed successfully."
