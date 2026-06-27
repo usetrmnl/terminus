@@ -10,7 +10,7 @@ services:
       - certificates:/etc/ssl/certs
     entrypoint: ["/bin/bash", "-c"]
     command: scripts/docker/install-certificates
-    restart: no
+    restart: on-failure:3
 
   web:
     init: true
