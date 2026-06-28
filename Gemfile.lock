@@ -41,7 +41,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     chunky_png (1.4.0)
-    cogger (2.3.0)
+    cogger (2.4.0)
       core (~> 3.0)
       logger (~> 1.7)
       refinements (~> 14.0)
@@ -285,7 +285,7 @@ GEM
     liquid (5.12.0)
       bigdecimal
       strscan (>= 3.1.1)
-    llhttp (0.6.1)
+    llhttp (0.6.2)
     localhost (1.8.0)
       bake
     logger (1.7.0)
@@ -480,7 +480,7 @@ GEM
       rubocop (~> 1.72, >= 1.72.1)
       rubocop-ast (>= 1.44.0, < 2.0)
     ruby-progressbar (1.13.0)
-    rubyzip (3.4.0)
+    rubyzip (3.4.1)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
     runcom (13.2.0)
@@ -589,7 +589,7 @@ DEPENDENCIES
   caliber (~> 0.93)
   capybara (~> 3.40)
   capybara-validate_html5 (~> 2.1)
-  cogger (~> 2.3)
+  cogger (~> 2.4)
   connection_pool (~> 3.0)
   core (~> 3.2)
   csv (~> 3.3)
@@ -669,7 +669,7 @@ CHECKSUMS
   capybara-validate_html5 (2.1.0) sha256=9c5bcac8058f05c8468c0856ccfbf91478e24c7ff07c79b8ac7c64ba9291cf5a
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   chunky_png (1.4.0) sha256=89d5b31b55c0cf4da3cf89a2b4ebc3178d8abe8cbaf116a1dba95668502fdcfe
-  cogger (2.3.0) sha256=4119fc1e7c517ada19fe221f47a18df3245c80152b080f0f7eaee17114543e18
+  cogger (2.4.0) sha256=7da4baf53530ad4fb92b37dd0f8c5bcf24f45ddb460f110dafecfcfbe17cafec
   concurrent-ruby (1.3.7) sha256=4412caec3a5ea2e5fdc52076724c071a81f2c0593d83b2ac8cbb8ca63b3151b0
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   console (1.36.0) sha256=45599ea906cf80a73d8941f03abf873fe66a6a954e0bac5bc1c01e2cdc406f07
@@ -747,7 +747,7 @@ CHECKSUMS
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   liquid (5.12.0) sha256=5a3c2c2430cd925d21c53e4ed9abea52cd0a9da53b541422f81dee79aca2a673
-  llhttp (0.6.1) sha256=9da187ecf6407265465919cc0d691210ef79e38fa6e86e5e45593bdf25b50146
+  llhttp (0.6.2) sha256=3c3c59aafb1e1594ab2f45293478f697458f5a91eb0f0db4b27f61a064024982
   localhost (1.8.0) sha256=df7ea825b4f64949c588c17efac86bc47ddc4460d723778abe933b71759b2701
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   marameters (5.2.0) sha256=debccb7cec86d47347ae8aa7014a279c90217af7803ee96c5b5429057091c980
@@ -824,7 +824,7 @@ CHECKSUMS
   rubocop-sequel (0.4.1) sha256=f325dc470c1e3191a616b41a4bf8cfbb2c3c2f4fbc2eee6286de019ca1f7c113
   rubocop-thread_safety (0.7.3) sha256=067cdd52fbf5deffc18995437e45b5194236eaff4f71de3375a1f6052e48f431
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
-  rubyzip (3.4.0) sha256=6de39bc9eba302b635a476d16c9e16b0872ad24517c2f98f2b3a7ea23caff57b
+  rubyzip (3.4.1) sha256=0a79e745b5c25872ebd148457df5665da8530ed8626c993b01457128f173ca02
   rufus-scheduler (3.9.2) sha256=55fa9e4db0ff69d7f38c804f17baba0c9bce5cba39984ae3c5cf6c039d1323b9
   runcom (13.2.0) sha256=5eb2f8440580e42bf0ffbe3207f54a00b6aba53ca9a2ddc50fd215f9d32d8e69
   samovar (2.5.1) sha256=8a9fc41eb8868084f0321eb41678c485cfbc7d282fb306c0be67c3284b1d2394
