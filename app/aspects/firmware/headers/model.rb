@@ -41,6 +41,8 @@ module Terminus
             freeze
           end
 
+          def computed_mac_address = mac_address || api_key
+
           def device_attributes
             {
               battery_charge:,
