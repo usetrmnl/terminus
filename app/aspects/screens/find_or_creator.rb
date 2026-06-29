@@ -16,8 +16,8 @@ module Terminus
         include Initable[struct: proc { Terminus::Structs::Screen.new }]
         include Dry::Monads[:result]
 
-        def call(**parameters)
-          mold_builder.call(**parameters).bind do |mold|
+        def call(**attributes)
+          mold_builder.call(**attributes).bind do |mold|
             record = find mold
             record ? Success(record) : create(mold)
           end

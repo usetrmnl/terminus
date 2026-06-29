@@ -85,13 +85,13 @@ RSpec.describe Terminus::Aspects::Screens::Upserter, :db do
       )
     end
 
-    it "answers failure with no parameters" do
-      expect(upserter.call).to be_failure("Invalid parameters: {}.")
+    it "answers failure with no attributes" do
+      expect(upserter.call).to be_failure("Invalid attributes: {}.")
     end
 
-    it "answers failure with invalid parameters" do
+    it "answers failure with invalid attributes" do
       expect(upserter.call(model_id: model.id, bogus: :danger)).to be_failure(
-        "Invalid parameters: {model_id: #{model.id}, bogus: :danger}."
+        "Invalid attributes: {model_id: #{model.id}, bogus: :danger}."
       )
     end
   end

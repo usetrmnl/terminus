@@ -15,13 +15,13 @@ module Terminus
         ]
         include Dry::Monads[:result]
 
-        def call **parameters
-          case parameters
-            in label:, name:, content: then handle_html label:, name:, content:, **parameters
+        def call **attributes
+          case attributes
+            in label:, name:, content: then handle_html label:, name:, content:, **attributes
             in label:, name:, uri:, preprocessed: true
-              handle_preprocessed label:, name:, content: uri, **parameters
-            in label:, name:, uri: then handle_unprocessed label:, name:, content: uri, **parameters
-            else Failure "Invalid parameters: #{parameters.inspect}."
+              handle_preprocessed label:, name:, content: uri, **attributes
+            in label:, name:, uri: then handle_unprocessed label:, name:, content: uri, **attributes
+            else Failure "Invalid attributes: #{attributes.inspect}."
           end
         end
 
