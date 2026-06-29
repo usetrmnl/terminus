@@ -22,7 +22,7 @@ module Terminus
           end
 
           def call headers
-            logger.debug(tags: tags(headers)) { "Processing device request headers." }
+            logger.debug { {tags: tags(headers), message: "Processing device request headers."} }
 
             pipe headers,
                  validate(schema, as: :to_h),

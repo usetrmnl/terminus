@@ -57,7 +57,7 @@ module Terminus
 
           def deduplicate device_id, attributes
             if find_with device_id, attributes
-              logger.debug(tags: [attributes]) { "Duplicate sensor detected. Skipped." }
+              logger.debug { {tags: [attributes], message: "Duplicate sensor detected. Skipped."} }
             else
               sensor_repository.create device_id:, source: "server", **attributes
             end

@@ -42,7 +42,9 @@ module Terminus
               end
 
               def log extension
-                logger.debug(tags: [{extension_id: extension.id}]) { "Imported extension." }
+                logger.debug do
+                  {tags: [{extension_id: extension.id}], message: "Imported extension."}
+                end
               end
             end
           end
