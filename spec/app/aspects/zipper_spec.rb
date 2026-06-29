@@ -5,6 +5,8 @@ require "hanami_helper"
 RSpec.describe Terminus::Aspects::Zipper do
   subject(:zipper) { described_class.new }
 
+  before { Hanami.app.start :zip }
+
   describe "#call" do
     let(:manifest) { {"one.txt" => "One", "two.txt" => "Two"} }
 
