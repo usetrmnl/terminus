@@ -23,7 +23,7 @@ The following endpoints are used to communicate with your device's {trmnl_firmwa
 
 Used for displaying new content on your device via a HTTP GET request. These requests happen on a scheduled interval as determined by the `refresh_rate` (see the response example below).
 
-In truth, the design of this API request should have been a POST request but the {trmnl_firmware_link} only uses GET requests at the moment. The reason is because each request includes header information which provides updates to device activity (such as WiFi signal strength, battery voltage, etc) that the server stores with the associated device. This means each request is an update from the device to the server while each response is a potential settings change from the server to the device.
+In truth, the design of this API request should have been a POST request but the {trmnl_firmware_link} only uses GET requests. The reason is because each request includes header information which provides device updates (such as WiFi signal strength, battery voltage, etc) that the server stores with the associated device. This means each request is an update from the device to the server while each response is a potential settings change from the server to the device.
 
 .Request
 [%collapsible]
@@ -35,8 +35,18 @@ curl "https://localhost:2443/api/display" \
      -H 'Content-Type: application/json'
 ----
 
+You can also use `ACCESS_TOKEN` but `ID` is recommended. Example:
+
+[source,bash]
+----
+curl "https://localhost:2443/api/display" \
+     -H 'ACCESS_TOKEN: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+
 The {trmnl_firmware_link} will include the following headers in each HTTP request. All are optional except for the `ID` header. Here's the full list:
 
+* `ACCESS_TOKEN`: The device MAC address. Used by firmware and simulators that don't respect the `ID` header. Prefer using the `ID` header because this is only meant to be an alias for the `ID` header.
 * `BATTERY_CAPACITY`: Ratio of current and max battery capacity. Example: `11300/11420`.
 * `BATTERY_CHARGING`: Boolean for if the battery is charging or not. Example: `0` or `1`.
 * `BATTERY_COUNT`: The number batteries avaiable. Example: `2`.
@@ -47,7 +57,7 @@ The {trmnl_firmware_link} will include the following headers in each HTTP reques
 * `FW_VERSION`: The firmware version (i.e. `1.2.3`).
 * `HEIGHT`: The device height. Example: 480.
 * `HOST`: The host (usually the IP address).
-* `ID`: The MAC address of the device.
+* `ID`: The device MAC address. Example: `FE:68:44:CE:CA:C3`.
 * `IMAGE_CACHED`: Boolean for if the image is cached on the device or not.
 * `MODEL`: The generic device model (doesn't match {trmnl_api_gem_link} model names but can be used as a fuzzy match).
 * `PERCENT_CHARGED`: The remaining charge of the device battery. When present, prefer this value over `BATTERY_VOLTAGE` because this will give you the exact percent of battery charge left.
@@ -142,6 +152,15 @@ Used for new device setup (auto-provisioning) only. The device still hit this en
 ----
 curl "https://localhost:2443/api/setup" \
      -H 'ID: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+
+You can also use `ACCESS_TOKEN` but `ID` is recommended. Example:
+
+[source,bash]
+----
+curl "https://localhost:2443/api/setup" \
+     -H 'ACCESS_TOKEN: <redacted>' \
      -H 'Content-Type: application/json'
 ----
 ====
