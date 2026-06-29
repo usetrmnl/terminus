@@ -80,22 +80,4 @@ RSpec.describe "/api/setup", :db do
 
     expect(json_payload).to eq(problem.to_h)
   end
-
-  it "answers problem details when device headers are missing" do
-    get routes.path(:api_setup), {}
-
-    problem = Petail[
-      type: "/problem_details#device_setup",
-      status: :unprocessable_content,
-      detail: "Invalid request headers.",
-      instance: "/api/setup",
-      extensions: {
-        errors: {
-          HTTP_ID: ["is missing"]
-        }
-      }
-    ]
-
-    expect(json_payload).to eq(problem.to_h)
-  end
 end

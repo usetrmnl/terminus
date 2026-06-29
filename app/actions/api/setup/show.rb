@@ -31,13 +31,16 @@ module Terminus
           private
 
           def create model, response
-            firmware_version, mac_address, model_name = model.to_h.values_at :firmware_version,
-                                                                             :mac_address,
-                                                                             :model_name
+            provision_device(model).either proc { response.with body: payload.welcome.to_json },
+                                           -> error { not_found error, response }
+          end
 
-            provisioner.call(model_id: find_model_id(model_name), mac_address:, firmware_version:)
-                       .either proc { response.with body: payload.welcome.to_json },
-                               -> error { not_found error, response }
+          def provision_device model
+            firmware_version, model_name = model.to_h.values_at :firmware_version, :model_name
+
+            provisioner.call model_id: find_model_id(model_name),
+                             mac_address: model.computed_mac_address,
+                             firmware_version:
           end
 
           def find_model_id(name) = model_repository.find_by(name:).then { it.id if it }
