@@ -46,6 +46,11 @@ RSpec.describe Terminus::Jobs::Synchronizers::Model do
     context "when disabled" do
       before { allow(settings).to receive(:model_synchronizer).and_return false }
 
+      it "doesn't call palette synchronizer" do
+        job.perform
+        expect(palette).not_to have_received(:call)
+      end
+
       it "doesn't call model synchronizer" do
         job.perform
         expect(model).not_to have_received(:call)
