@@ -36,6 +36,7 @@ There are several environment variables you can use to customize behavior by upd
 * `FERRUM_PROCESS_TIMEOUT`: Used for configuring {ferrum_link} headless browser time allowed for the browser to start. Default: `15`.
 * `FERRUM_JAVASCRIPT_ERRORS`: Used for configuring {ferrum_link} headless browser JavaScript errors. Default: `true`.
 * `FIRMWARE_SYNCHRONIZER`: Enables/disables firmware synchronization. See {doc_jobs_link} for details. Defaults to enabled.
+* `FONT_SYNCHRONIZER`: Enables/disables firmware synchronization. See {doc_jobs_link} for details. Defaults to enabled.
 * `FONTS_PATH`: The path to where {trmnl_framework_link} fonts are stored since the Framework stylesheets require a relative path to all fonts to load properly. This is necessary when rendering screens for {doc_extensions_link}. Default: `public/fonts`.
 * `HANAMI_MAX_THREADS`: The maximum number of threads allowed for {puma_link}. Default: `5`.
 * `HANAMI_MIN_THREADS`: The minimum number of threads allowed for {puma_link}. Default: `HANAMI_MAX_THREADS`.

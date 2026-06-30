@@ -23,6 +23,7 @@ module Terminus
             constructor: Types::Params::String,
             default: `git tag --list --sort=taggerdate | tail -n 1`.strip
     setting :firmware_synchronizer, constructor: Types::Params::Bool, default: true
+    setting :font_synchronizer, constructor: Types::Params::Bool, default: true
     setting :http_timeout_connect,
             constructor: Types::Params::Integer.constrained(gt: 0),
             default: 2
