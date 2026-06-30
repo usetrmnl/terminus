@@ -11,7 +11,9 @@ module Terminus
           module Transformers
             # Transforms (mutates) the full Liquid template for initialization.
             class Template
-              include Deps[keyer: "aspects.extensions.importers.remote.transformers.template_keys"]
+              include Deps[
+                reliquefier: "aspects.extensions.importers.remote.transforms.reliquefier"
+              ]
               include Initable[
                 layout: <<~BODY
                   <div class="{{ extension.css_classes }}">
@@ -25,7 +27,7 @@ module Terminus
               using Refinements::Hash
 
               def call attributes, archive
-                merge_content(archive).then { keyer.call it }
+                merge_content(archive).then { reliquefier.call it }
                                       .fmap { attributes.merge! template: it }
               end
 

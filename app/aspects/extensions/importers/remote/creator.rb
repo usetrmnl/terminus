@@ -13,7 +13,7 @@ module Terminus
             include Deps[
               :logger,
               "aspects.extensions.importers.remote.transformer",
-              keyer: "aspects.extensions.importers.remote.transformers.template_keys",
+              reliquefier: "aspects.extensions.importers.remote.transforms.reliquefier",
               repository: "repositories.extension",
               model_repository: "repositories.model",
               exchange_repository: "repositories.extension_exchange"
@@ -65,7 +65,7 @@ module Terminus
             end
 
             def transform_exchange_template content
-              case keyer.call content
+              case reliquefier.call content
                 in Success(content) then content
                 in Failure(message)
                   logger.debug { message }
