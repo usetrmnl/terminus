@@ -7,6 +7,7 @@
   --site-lightgrey: oklch(83% 0% 264deg);
   --site-orange: oklch(0.69 0.1855 32.11);
   --site-red: oklch(53% 54% 29deg);
+  --site-crimson: oklch(0.38 0.15 31.3);
   --site-white: oklch(100% 0% 90deg);
   --site-yellow: hsl(44.875, 100%, 75%);
 }

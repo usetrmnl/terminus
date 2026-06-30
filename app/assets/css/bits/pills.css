@@ -26,6 +26,21 @@
   background-color: var(--site-yellow);
 }
 
+.bit-pill-danger {
+  color: var(--site-white);
+  background-color: var(--site-crimson);
+}
+
+.bit-pill-dark {
+  color: var(--site-white);
+  background-color: var(--site-black);
+}
+
+.bit-pill-hint {
+  color: var(--site-black);
+  background-color: var(--site-lightgrey);
+}
+
 .bit-pill-inactive {
   color: var(--site-white);
   background-color: var(--site-darkgrey);
