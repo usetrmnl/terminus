@@ -18,7 +18,7 @@ RSpec.describe Terminus::Jobs::Synchronizers::Firmware do
     context "when disabled" do
       before { allow(settings).to receive(:firmware_synchronizer).and_return false }
 
-      it "doesn't call synchronizer when disabled" do
+      it "doesn't call synchronizer" do
         job.perform
         expect(synchronizer).not_to have_received(:call)
       end
