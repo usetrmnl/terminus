@@ -11,7 +11,7 @@ module Terminus
         # A client for processing HTTP requests.
         class Client
           include Deps[:http]
-          include Initable[parser: Extensions::Parser, special_header: "Accept"]
+          include Initable[source: Extensions::Source, special_header: "Accept"]
           include Dry::Monads[:result]
 
           def call input
@@ -44,12 +44,12 @@ module Terminus
 
           def parse type, body
             case type
-              when %r(application/([[:alnum:]][\w!#&\-^$]*\+)?json) then parser.from_json body
-              when %r(image/.+) then parser.from_image body
-              when "text/csv" then parser.from_csv body
-              when "text/plain" then parser.from_text body
+              when %r(application/([[:alnum:]][\w!#&\-^$]*\+)?json) then source.from_json body
+              when %r(image/.+) then source.from_image body
+              when "text/csv" then source.from_csv body
+              when "text/plain" then source.from_text body
               when "text/xml", "application/xml", "application/rss+xml", "application/atom+xml"
-                parser.from_xml body
+                source.from_xml body
               else Failure "Unknown MIME Type: #{type}."
             end
           end

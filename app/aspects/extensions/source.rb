@@ -11,8 +11,8 @@ require "nori"
 module Terminus
   module Aspects
     module Extensions
-      # Parses supported data types into a hash for further processing.
-      module Parser
+      # Sources supported data types into a hash for further processing.
+      module Source
         extend Dry::Monads[:result]
         extend Functionable
 
