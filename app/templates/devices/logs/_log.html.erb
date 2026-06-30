@@ -1,9 +1,10 @@
 <tr class="log">
-  <%= tag.td log.created_at.strftime "%Y-%m-%d %I:%M:%S %p" %>
   <td><%= link_to log.id, routes.path(:device_log, device_id: device.id, id: log.id) %></td>
+  <td><%= tag.span log.level, class: "bit-pill #{log.level_class}" %></td>
   <%= tag.td log.message, class: "bit-text-left" %>
   <%= tag.td log.refresh_rate %>
   <%= tag.td log.retry %>
+  <%= tag.td log.created_at.strftime "%Y-%m-%d %I:%M:%S %p" %>
 
   <td class="bit-actions">
     <%= render "shared/actions/delete",

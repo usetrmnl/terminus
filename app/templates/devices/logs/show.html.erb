@@ -24,6 +24,9 @@
     <dt class="key">External ID</dt>
     <dd class="value"><%= log.external_id %></dd>
 
+    <dt class="key">Level</dt>
+    <dd class="value"><%= tag.span log.level, class: "bit-pill #{log.level_class}" %></dd>
+
     <dt class="key">Message</dt>
     <dd class="value"><%= log.message %></dd>
 
