@@ -31,6 +31,43 @@ RSpec.describe Terminus::Types do
     end
   end
 
+  describe "LogLevel" do
+    subject(:type) { described_class::LogLevel }
+
+    it "answers primitive" do
+      expect(type.primitive).to eq(String)
+    end
+
+    it "answers valid debug level" do
+      expect(type.call("debug")).to eq("debug")
+    end
+
+    it "answers valid info level" do
+      expect(type.call("info")).to eq("info")
+    end
+
+    it "answers valid warn level" do
+      expect(type.call("warn")).to eq("warn")
+    end
+
+    it "answers valid error level" do
+      expect(type.call("error")).to eq("error")
+    end
+
+    it "answers valid fatal level" do
+      expect(type.call("fatal")).to eq("fatal")
+    end
+
+    it "answers valid any level" do
+      expect(type.call("any")).to eq("any")
+    end
+
+    it "answers invalid level" do
+      expectation = proc { type.call "bogus" }
+      expect(&expectation).to raise_error(Dry::Types::ConstraintError, /violates constraints/)
+    end
+  end
+
   describe "Pathname" do
     subject(:type) { described_class::Pathname }
 

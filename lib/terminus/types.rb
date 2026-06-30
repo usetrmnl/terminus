@@ -11,6 +11,8 @@ module Terminus
 
     File = Instance(IO) | Instance(Tempfile) | Instance(StringIO)
 
+    LogLevel = String.constrained(format: /\A(debug|info|warn|error|fatal|any)\Z/)
+
     Pathname = Constructor ::Pathname
 
     MACAddress = String.constrained(
