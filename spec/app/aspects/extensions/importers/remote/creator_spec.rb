@@ -63,11 +63,11 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Creator, :db do
     end
 
     context "when exchange template can't be transformned" do
-      subject(:creator) { described_class.new(transformer:, keyer:) }
+      subject(:creator) { described_class.new(transformer:, reliquefier:) }
 
-      let :keyer do
+      let :reliquefier do
         instance_double(
-          Terminus::Aspects::Extensions::Importers::Remote::Transformers::TemplateKeys,
+          Terminus::Aspects::Extensions::Importers::Remote::Transforms::Reliquefier,
           call: Failure("Danger!")
         )
       end
@@ -87,7 +87,7 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Creator, :db do
       end
 
       it "logs error with unknown result" do
-        allow(keyer).to receive(:call).and_return "Danger!"
+        allow(reliquefier).to receive(:call).and_return "Danger!"
         creator.call 1
 
         expect(logger.reread).to match(/ERROR.+Unable to transform/)
