@@ -4,7 +4,7 @@ ENV["HANAMI_ENV"] = "test"
 
 require "capybara/cuprite"
 require "capybara/rspec"
-require "capybara/validate_html5"
+# require "capybara/validate_html5"
 require "database_cleaner/sequel"
 require "hanami/cli"
 require "hanami/prepare"

@@ -191,7 +191,7 @@ GEM
       dry-monads (~> 1.9)
       refinements (~> 14.0)
       zeitwerk (~> 2.8)
-    hanami (2.3.2)
+    hanami (3.0.0)
       bundler (>= 2.0)
       dry-configurable (~> 1.0, >= 1.2.0, < 2)
       dry-core (~> 1.0, < 2)
@@ -200,11 +200,17 @@ GEM
       dry-monitor (~> 1.0, >= 1.0.1, < 2)
       dry-system (~> 1.1)
       hanami-cli (>= 2.3.1)
-      hanami-utils (>= 2.3.0)
+      hanami-utils (~> 3.0.0)
       json (>= 2.7.2)
       rack-session
       zeitwerk (~> 2.6)
-    hanami-assets (2.3.0)
+    hanami-action (3.0.0)
+      dry-configurable (~> 1.4)
+      dry-core (~> 1.0)
+      hanami-utils (~> 3.0.0.rc)
+      rack (>= 2.2.16)
+      zeitwerk (~> 2.6)
+    hanami-assets (3.0.0)
       zeitwerk (~> 2.6)
     hanami-cli (3.0.0)
       bundler (>= 2.1)
@@ -215,30 +221,21 @@ GEM
       rackup
       rake (~> 13.0)
       zeitwerk (~> 2.6)
-    hanami-controller (2.3.2)
-      dry-configurable (~> 1.0, < 2)
-      dry-core (~> 1.0)
-      hanami-utils (~> 2.3.0)
-      rack (>= 2.2.16)
-      zeitwerk (~> 2.6)
-    hanami-db (2.3.0)
+    hanami-db (3.0.0)
       rom (~> 5.4, >= 5.4.1)
       rom-sql (~> 3.7)
       zeitwerk (~> 2.6)
-    hanami-router (2.3.1)
+    hanami-router (3.0.0)
       csv (~> 3.3)
-      mustermann (~> 3.0)
-      mustermann-contrib (~> 3.0)
+      mustermann (~> 3.1)
       rack (>= 2.2.16)
-    hanami-utils (2.3.0)
+    hanami-utils (3.0.0)
       bigdecimal (~> 3.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.0, < 2)
       dry-transformer (~> 1.0, < 2)
-    hanami-validations (2.3.0)
-      dry-validation (>= 1.10, < 2)
-    hanami-view (2.3.1)
-      dry-configurable (~> 1.0)
+    hanami-view (3.0.0)
+      dry-configurable (~> 1.4)
       dry-core (~> 1.0)
       dry-inflector (~> 1.0, < 2)
       temple (~> 0.10.0, >= 0.10.2)
@@ -247,7 +244,6 @@ GEM
     hanami-webconsole (2.3.1)
       better_errors (~> 2.10, >= 2.10.1)
       binding_of_caller (~> 1.0)
-    hansi (0.2.1)
     htmx (3.2.0)
       refinements (~> 14.0)
       zeitwerk (~> 2.7)
@@ -298,9 +294,6 @@ GEM
       logger
     mini_mime (1.1.5)
     mustermann (3.1.1)
-    mustermann-contrib (3.1.1)
-      hansi (~> 0.2.0)
-      mustermann (= 3.1.1)
     nio4r (2.7.5)
     nokogiri (1.19.4-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -604,13 +597,12 @@ DEPENDENCIES
   ferrum (~> 0.15)
   functionable (~> 1.0)
   git-lint (~> 11.0)
-  hanami (~> 2.3)
-  hanami-assets (~> 2.3)
-  hanami-controller (~> 2.3)
-  hanami-db (~> 2.3)
-  hanami-router (~> 2.3)
-  hanami-validations (~> 2.3)
-  hanami-view (~> 2.3)
+  hanami (~> 3.0)
+  hanami-action (~> 3.0)
+  hanami-assets (~> 3.0)
+  hanami-db (~> 3.0)
+  hanami-router (~> 3.0)
+  hanami-view (~> 3.0)
   hanami-webconsole (~> 2.3)
   htmx (~> 3.0)
   http (~> 6.0)
@@ -719,17 +711,15 @@ CHECKSUMS
   functionable (1.2.0) sha256=76e9ddd98994b61dfef6cf3d9366eb4202101abed562363f6c30500fd62668da
   git-lint (11.1.0) sha256=b7a8e8d7b6b2808e69f626fd505145f609d77abc9ad689bf4f49be62d981c257
   gitt (5.4.0) sha256=1aaa2fd73d52bcf00a87bd715df2c746529722e1eefe40aee7945cd3fb692df5
-  hanami (2.3.2) sha256=2f1e7e10d760bd0c3929bcb55a42f38281bd5da507e40b98e62282f52f452e3b
-  hanami-assets (2.3.0) sha256=c396bb735833458d0ceda013f498154eccafcae50c36db7f27cdd50f0560223d
+  hanami (3.0.0) sha256=f7531a8d73e3a5e32882b44c88f04b169f65fc2649c954e24894276735a2c7fe
+  hanami-action (3.0.0) sha256=7f816bcaf8f364a111a046a8b236c1492286705604c01a4a2c9b1806a663d493
+  hanami-assets (3.0.0) sha256=b9ce246ca12ffa8e79f71194e312a484ffbb0d8fd28582b22869706c0afbd3da
   hanami-cli (3.0.0) sha256=9d51bb7b0f0b4eaf67ea1dc8b27774428ee831647b107d2e9f6ad3317b1598ec
-  hanami-controller (2.3.2) sha256=2821a3284ac394324f23e31012d2d9f679730c105b9bc593dc5e2b7b1c68b1cc
-  hanami-db (2.3.0) sha256=d6baa6c16a9321e5132799b8b26c3e6a2e19b8c5515c8785fb1ab94720d94711
-  hanami-router (2.3.1) sha256=81b3665cb851de5703bd2fea3f375eccb2af871288cf130ab0fbc42b3b8ae31f
-  hanami-utils (2.3.0) sha256=aa00f6c377ab4ad2cbe57d989781bace348c9f234201bc60715058dc6e220999
-  hanami-validations (2.3.0) sha256=ccc7cd9a829473934c01971024940ccef2b69aefd6abbf542740363acbda64aa
-  hanami-view (2.3.1) sha256=7047571e44218bdb255ba50549f105cb4eb35ace39a7aff2765370840f494603
+  hanami-db (3.0.0) sha256=01d25fd514896b355c9677730e2a45bc3a0b847e2d569a67cb50954c17b1d499
+  hanami-router (3.0.0) sha256=2438db070c7ed7d3f28f1777fc32bdc86e7a9b744a29ab51098f4fa41408210b
+  hanami-utils (3.0.0) sha256=b1f33675dcfe90b96c15ede503046b6a36bf446cbe61671b76f266b10ae723a2
+  hanami-view (3.0.0) sha256=54db94e3484155f69d2b91ebe303f7e32e32927418a0686197a1ad5d272adc8b
   hanami-webconsole (2.3.1) sha256=0fec8e5b4395ab3c93b976a4cb8a7b9d61ed85d19c67534aa74c99385f2c768f
-  hansi (0.2.1) sha256=7e27dfd729f1692a3a7690fc0ef3af9d5e3cfc0285bb135cae7e56180e4805db
   htmx (3.2.0) sha256=515b398420dc8576f146d35722095b61a1f218aaa20a58f22a2462ec0206c9bf
   http (6.0.3) sha256=0206e79131089ca9aae557c6791afd6bf9339af319d78a616af1477ae79614fa
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
@@ -756,7 +746,6 @@ CHECKSUMS
   mini_magick (5.3.1) sha256=29395dfd76badcabb6403ee5aff6f681e867074f8f28ce08d78661e9e4a351c4
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mustermann (3.1.1) sha256=4c6170c7234d5499c345562ba7c7dfe73e1754286dcc1abb053064d66a127198
-  mustermann-contrib (3.1.1) sha256=c3ecf24f71668222e7554721fa6957d9dfe504997fd8c12a8557d8c39a82a81d
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
   nokogiri (1.19.4-aarch64-linux-gnu) sha256=1269fb644a6de405057a53dd5c762b1209b43ca7424f839454d3dbc677c31a8f
   nokogiri (1.19.4-aarch64-linux-musl) sha256=35c65b9ce72b3bb03207bdbe7067915019dc18c1b9b59139684bd6690fdd01af

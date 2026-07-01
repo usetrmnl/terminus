@@ -16,10 +16,14 @@ module Terminus
         expose(:default_model) { model_repository.find_by name: "og_plus" }
         expose(:models) { model_repository.all.map { [it.label, it.id] } }
         expose(:devices) { device_repository.all.map { [it.label, it.id] } }
-        expose(:exchanges) { |extension:| exchange_repository.where extension_id: extension.id }
-        expose :extension
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+
+        expose :exchanges, decorate: true do |extension:|
+          exchange_repository.where extension_id: extension.id
+        end
+
+        expose :extension, decorate: true
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

@@ -7,10 +7,10 @@ module Terminus
     module Users
       # The edit view.
       class Edit < View
-        expose :user
+        expose :user, decorate: true
         expose :statuses
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

@@ -8,34 +8,34 @@ module Terminus
         class Show < View
           expose :playlist
           expose :current
-          expose(:index, decorate: false) { |screens, current:| screens.index current }
-          expose(:total, decorate: false) { |screens| screens.size - 1 }
+          expose(:index) { |screens, current:| screens.index current }
+          expose(:total) { |screens| screens.size - 1 }
 
-          expose :status, decorate: false do |index, total|
+          expose :status do |index, total|
             "#{index + 1} of #{total + 1}" if index && total
           end
 
-          expose :previous_uri, decorate: false do |playlist:, before:|
+          expose :previous_uri do |playlist:, before:|
             routes.path :playlist_screen, playlist_id: playlist.id, id: before.id if before
           end
 
-          expose :next_uri, decorate: false do |playlist:, after:|
+          expose :next_uri do |playlist:, after:|
             routes.path :playlist_screen, playlist_id: playlist.id, id: after.id if after
           end
 
-          expose :first_uri, decorate: false do |screens, playlist:|
+          expose :first_uri do |screens, playlist:|
             first = screens.first
             routes.path :playlist_screen, playlist_id: playlist.id, id: first.id if first
           end
 
-          expose :last_uri, decorate: false do |screens, playlist:|
+          expose :last_uri do |screens, playlist:|
             last = screens.last
             routes.path :playlist_screen, playlist_id: playlist.id, id: last.id if last
           end
 
-          private_expose :before, decorate: false
-          private_expose :after, decorate: false
-          private_expose(:screens, decorate: false) { |playlist:| playlist.screens }
+          private_expose :before
+          private_expose :after
+          private_expose(:screens) { |playlist:| playlist.screens }
 
           private
 

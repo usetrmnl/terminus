@@ -7,7 +7,7 @@ module Terminus
         # The index view.
         class Index < View
           expose :device
-          expose :logs, as: Parts::DeviceLog
+          expose :logs, as: Parts::DeviceLog, decorate: true
           expose :query
         end
       end

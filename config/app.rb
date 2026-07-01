@@ -4,8 +4,7 @@ require "hanami"
 require "petail"
 
 require_relative "initializers/rack_attack"
-require_relative "initializers/rack_logger_patch"
-require_relative "initializers/sql_logger_patch"
+require_relative "initializers/universal_logger_patch"
 
 module Terminus
   # The application base configuration.
@@ -15,12 +14,6 @@ module Terminus
     # :nocov:
     Dry::Schema.load_extensions :monads
     Dry::Validation.load_extensions :monads
-
-    prepare_container do |container|
-      container.config.component_dirs.dir "app" do |dir|
-        dir.memoize = -> component { component.key.start_with? "repositories." }
-      end
-    end
 
     config.inflections { it.acronym "DEFAULTS", "HTML", "IP", "MAC", "URI" }
 
@@ -43,6 +36,5 @@ module Terminus
     # rubocop:enable Layout/FirstArrayElementLineBreak
 
     config.middleware.use Rack::Attack
-    config.middleware.use :body_parser, :json
   end
 end

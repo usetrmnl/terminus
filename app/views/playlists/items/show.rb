@@ -6,7 +6,7 @@ module Terminus
       module Items
         # The show view.
         class Show < View
-          expose :item
+          expose :item, decorate: true
         end
       end
     end

@@ -7,7 +7,7 @@ module Terminus
         # The index view.
         class Index < View
           expose :extension
-          expose :exchanges
+          expose :exchanges, decorate: true
         end
       end
     end

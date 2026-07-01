@@ -14,9 +14,9 @@ module Terminus
 
         expose(:models) { model_repository.all.map { [it.label, it.id] } }
         expose(:devices) { device_repository.all.map { [it.label, it.id] } }
-        expose :extension
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+        expose :extension, decorate: true
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

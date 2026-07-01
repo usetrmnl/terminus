@@ -9,9 +9,9 @@ module Terminus
         # The edit view.
         class Edit < View
           expose :extension
-          expose :exchange
-          expose :fields, decorate: false, default: Core::EMPTY_HASH
-          expose :errors, decorate: false, default: Core::EMPTY_HASH
+          expose :exchange, decorate: true
+          expose :fields, default: Core::EMPTY_HASH
+          expose :errors, default: Core::EMPTY_HASH
         end
       end
     end

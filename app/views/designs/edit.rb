@@ -12,8 +12,8 @@ module Terminus
         expose :template
         expose(:screens) { |template:| screen_repository.where template_id: template.id }
         expose(:current_screen_id) { |screens| screens.any? ? screens.first.id : 0 }
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

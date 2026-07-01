@@ -20,6 +20,7 @@ detectors:
   DuplicateMethodCall:
     exclude:
       - Terminus::Aspects::Devices::Provisioner#create
+      - UniversalLoggerPatch#_log_structured
   FeatureEnvy:
     exclude:
       - Terminus::Action#authorize
@@ -100,7 +101,6 @@ detectors:
       - Terminus::Aspects::Screens::Placeholder
   TooManyStatements:
     exclude:
-      - RackLoggerPatch#prepare_app_providers
       - Terminus::Action#handle_rodauth_redirect
       - Terminus::Actions::Extensions::Poll::Show#fetch
       - Terminus::Aspects::Croner#call
@@ -118,9 +118,9 @@ detectors:
       - Terminus::Views::Parts::Device#battery_voltage_to_percent
       - Terminus::Views::Parts::Device#wifi_percentage
       - Terminus::Views::Parts::DeviceLog#level_class
+      - UniversalLoggerPatch#_log_structured
   UtilityFunction:
     exclude:
-      - SQLLoggerPatch#log_query
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Errors::Problem#duplicate
       - Terminus::Aspects::Errors::Problem#foreign_key

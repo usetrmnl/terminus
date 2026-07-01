@@ -8,7 +8,7 @@ module Terminus
         class New < View
           config.layout = "interrupt"
 
-          expose :message, decorate: false
+          expose :message
         end
       end
     end

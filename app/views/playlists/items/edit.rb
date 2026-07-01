@@ -8,10 +8,10 @@ module Terminus
       module Items
         # The edit view.
         class Edit < View
-          expose :screen_options, decorate: false
+          expose :screen_options
           expose :item
-          expose :fields, decorate: false, default: Core::EMPTY_HASH
-          expose :errors, decorate: false, default: Core::EMPTY_HASH
+          expose :fields, default: Core::EMPTY_HASH
+          expose :errors, default: Core::EMPTY_HASH
         end
       end
     end

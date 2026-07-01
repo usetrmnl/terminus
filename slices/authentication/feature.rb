@@ -7,7 +7,8 @@ Rodauth::Feature.define :hanami do
   auth_value_method :hanami_view, nil
 
   def view(name, *)
-    layout_path = view_base.class.layout_path view_base.config.layout
+    configuration = view_base.config
+    layout_path = Pathname(configuration.layouts_dir).join configuration.layout
     scope = view_rendering.scope rodauth: self
 
     view_rendering.template(layout_path, scope) { render name }

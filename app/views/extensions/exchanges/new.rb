@@ -10,8 +10,8 @@ module Terminus
         class New < View
           expose :extension
           expose :exchange
-          expose :fields, decorate: false, default: Core::EMPTY_HASH
-          expose :errors, decorate: false, default: Core::EMPTY_HASH
+          expose :fields, default: Core::EMPTY_HASH
+          expose :errors, default: Core::EMPTY_HASH
         end
       end
     end

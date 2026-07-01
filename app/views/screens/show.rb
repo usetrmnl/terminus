@@ -5,7 +5,7 @@ module Terminus
     module Screens
       # The show view.
       class Show < View
-        expose :screen
+        expose :screen, decorate: true
       end
     end
   end

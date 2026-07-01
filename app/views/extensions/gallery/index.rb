@@ -7,8 +7,8 @@ module Terminus
         # The index view.
         class Index < Hanami::View
           expose :recipe
-          expose :query, decorate: false
-          expose :page, decorate: false
+          expose :query
+          expose :page
         end
       end
     end

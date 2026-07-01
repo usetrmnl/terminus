@@ -9,8 +9,8 @@ module Terminus
       class Edit < View
         expose :playlist
         expose :items, default: Core::EMPTY_ARRAY
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end

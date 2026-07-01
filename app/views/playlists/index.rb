@@ -5,7 +5,7 @@ module Terminus
     module Playlists
       # The index view.
       class Index < View
-        expose :playlists
+        expose :playlists, decorate: true
         expose :query
       end
     end

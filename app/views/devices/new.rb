@@ -9,9 +9,9 @@ module Terminus
       class New < View
         expose :models
         expose :playlists
-        expose :device
-        expose :fields, decorate: false, default: Core::EMPTY_HASH
-        expose :errors, decorate: false, default: Core::EMPTY_HASH
+        expose :device, decorate: true
+        expose :fields, default: Core::EMPTY_HASH
+        expose :errors, default: Core::EMPTY_HASH
       end
     end
   end
