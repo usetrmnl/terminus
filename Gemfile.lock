@@ -492,7 +492,7 @@ GEM
     sanitize (7.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
-    sequel (5.105.0)
+    sequel (5.106.0)
       bigdecimal
     shrine (3.8.0)
       content_disposition (~> 1.0)
@@ -829,7 +829,7 @@ CHECKSUMS
   runcom (13.2.0) sha256=5eb2f8440580e42bf0ffbe3207f54a00b6aba53ca9a2ddc50fd215f9d32d8e69
   samovar (2.5.1) sha256=8a9fc41eb8868084f0321eb41678c485cfbc7d282fb306c0be67c3284b1d2394
   sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
-  sequel (5.105.0) sha256=4191d5e5d011b7229ff8a3401ca6beac047c4d35b1ec6703376513b4b25b2e67
+  sequel (5.106.0) sha256=0e6677f230e724ecbc9b4d5fc95ef9a69997cfb24c60fff84268185e0bb254cd
   shrine (3.8.0) sha256=658cc1fe1c5ec836a6c10bace7f214313e7d878acea09b6b658fe15fa19ea109
   sidekiq (8.1.6) sha256=be20cd051124b1a16cf97ea9157137abbd30a515c16a5ae9312d2eadd045e40f
   sidekiq-scheduler (6.0.2) sha256=1065f1a989e750849de1d23d1f34338c104ed6ec5a6dc22a2620c5af54a2d6fc
