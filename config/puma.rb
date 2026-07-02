@@ -20,5 +20,4 @@ worker_timeout 3600 if development
 ssl_bind "localhost", 2443 if development
 pidfile ENV.fetch("PIDFILE", "tmp/server.pid")
 plugin :tmp_restart
-
-preload_app! && before_fork { Hanami.shutdown } if concurrency > 1
+before_fork { Hanami.shutdown } if concurrency > 1
