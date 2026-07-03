@@ -5,7 +5,7 @@ ruby file: ".ruby-version"
 source "https://rubygems.org"
 
 gem "bcrypt", "~> 3.1"
-gem "cogger", "~> 2.4"
+gem "cogger", "~> 2.5"
 gem "connection_pool", "~> 3.0"
 gem "core", "~> 3.2"
 gem "csv", "~> 3.3"
