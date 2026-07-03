@@ -37,6 +37,7 @@ Metrics/MethodLength:
     - app/aspects/screens/converters/monochrome.rb
     - app/aspects/screens/shoter.rb
     - app/views/helpers.rb
+    - config/initializers/universal_logger_patch.rb
 Metrics/ParameterLists:
   Exclude:
     - app/aspects/extensions/fetchers/input.rb
