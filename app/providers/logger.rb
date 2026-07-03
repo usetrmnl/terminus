@@ -17,6 +17,7 @@ module Terminus
       def prepare = require "cogger"
 
       def start
+        add_aliases
         add_filters
         register :logger, build_instance
       end
@@ -24,6 +25,20 @@ module Terminus
       private
 
       attr_reader :environment, :resolver, :id
+
+      def add_aliases
+        cogger.add_formatter(
+          :rack,
+          Cogger::Formatters::Emoji,
+          "%<emoji:dynamic>s <dynamic>[%<id>s] [%<level>s] [%<at>s] %<verb>s " \
+          "%<status>s %<elapsed>s %<ip>s %<path>s %<length>s </dynamic>"
+        )
+
+        cogger.add_formatter :sql,
+                             Cogger::Formatters::Emoji,
+                             "%<emoji:dynamic>s <dynamic>[%<id>s] [%<level>s] [%<at>s] %<db>s " \
+                             "%<elapsed>s%<elapsed_unit>s %<query>s</dynamic>"
+      end
 
       def add_filters
         cogger.add_filters :csrf, :HTTP_ID, :mac_address, :password, :password_confirmation
