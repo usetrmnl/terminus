@@ -15,7 +15,7 @@ GEM
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
     bigdecimal (4.1.2)
-    binding_of_caller (1.0.1)
+    binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
     caliber (0.94.0)
       rubocop (~> 1.88)
@@ -241,9 +241,9 @@ GEM
       temple (~> 0.10.0, >= 0.10.2)
       tilt (~> 2.3)
       zeitwerk (~> 2.6)
-    hanami-webconsole (2.3.1)
+    hanami-webconsole (3.0.0)
       better_errors (~> 2.10, >= 2.10.1)
-      binding_of_caller (~> 1.0)
+      binding_of_caller (~> 2.0)
     htmx (3.2.0)
       refinements (~> 14.0)
       zeitwerk (~> 2.7)
@@ -603,7 +603,7 @@ DEPENDENCIES
   hanami-db (~> 3.0)
   hanami-router (~> 3.0)
   hanami-view (~> 3.0)
-  hanami-webconsole (~> 2.3)
+  hanami-webconsole (~> 3.0)
   htmx (~> 3.0)
   http (~> 6.0)
   i18n (~> 1.14)
@@ -655,7 +655,7 @@ CHECKSUMS
   bcrypt (3.1.22) sha256=1f0072e88c2d705d94aff7f2c5cb02eb3f1ec4b8368671e19112527489f29032
   better_errors (2.10.1) sha256=f798f1bac93f3e775925b7fcb24cffbcf0bb62ee2210f5350f161a6b75fc0a73
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
-  binding_of_caller (1.0.1) sha256=2b2902abff4246ddcfbc4da9b69bc4a019e22aeb300c2ff6289a173d4b90b29a
+  binding_of_caller (2.0.0) sha256=e53eebf8428a85587aede7b43a83e7419eb85b8b690938a96aa330d03052d517
   caliber (0.94.0) sha256=20fc133a452ff3261ea73a024ed3d8da9cee7154795e32c67362bf4f7f60ed64
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-validate_html5 (2.1.0) sha256=9c5bcac8058f05c8468c0856ccfbf91478e24c7ff07c79b8ac7c64ba9291cf5a
@@ -719,7 +719,7 @@ CHECKSUMS
   hanami-router (3.0.0) sha256=2438db070c7ed7d3f28f1777fc32bdc86e7a9b744a29ab51098f4fa41408210b
   hanami-utils (3.0.1) sha256=0d46181bd86115127a04a6d0481df819eb558714ce58c6b4da7e0bb65c5dcd9b
   hanami-view (3.0.0) sha256=54db94e3484155f69d2b91ebe303f7e32e32927418a0686197a1ad5d272adc8b
-  hanami-webconsole (2.3.1) sha256=0fec8e5b4395ab3c93b976a4cb8a7b9d61ed85d19c67534aa74c99385f2c768f
+  hanami-webconsole (3.0.0) sha256=5d8f46e1e2783e03403c58500cbad6274e2022cbc60867a7354442e6b60c2bdd
   htmx (3.2.0) sha256=515b398420dc8576f146d35722095b61a1f218aaa20a58f22a2462ec0206c9bf
   http (6.0.3) sha256=0206e79131089ca9aae557c6791afd6bf9339af319d78a616af1477ae79614fa
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
