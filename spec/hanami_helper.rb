@@ -6,7 +6,6 @@ require "capybara/cuprite"
 require "capybara/rspec"
 require "capybara/validate_html5"
 require "database_cleaner/sequel"
-require "hanami/cli"
 require "hanami/prepare"
 require "rack/test"
 require "rom-factory"
@@ -47,10 +46,10 @@ RSpec.configure do |config|
   config.include_context "with login", type: :feature
 
   databases = proc do
-    Hanami.app.slices.with_nested.prepend(Hanami.app).each.with_object Set.new do |slice, dbs|
+    Hanami.app.with_slices.each_with_object Set.new do |slice, databases|
       next unless slice.key? "db.rom"
 
-      dbs.merge slice["db.rom"].gateways.values.map(&:connection).to_enum
+      databases.merge slice["db.rom"].gateways.values.map(&:connection)
     end
   end
 
@@ -64,12 +63,6 @@ RSpec.configure do |config|
     end
   end
 
-  config.before do
-    Hanami.app[:shrine].storages.each_value(&:clear!)
-    Sidekiq.redis(&:flushdb)
-    Sidekiq::Worker.clear_all
-  end
-
   config.prepend_before :each, :db do |example|
     databases.call.each do |db|
       DatabaseCleaner[:sequel, db:].strategy = example.metadata[:js] ? :truncation : :transaction
@@ -77,7 +70,11 @@ RSpec.configure do |config|
     end
   end
 
-  config.append_after :each, :db do
-    databases.call.each { |db| DatabaseCleaner[:sequel, db:].clean }
+  config.before do
+    Hanami.app[:shrine].storages.each_value(&:clear!)
+    Sidekiq.redis(&:flushdb)
+    Sidekiq::Worker.clear_all
   end
+
+  config.after(:each, :db) { databases.call.each { DatabaseCleaner[:sequel, db: it].clean } }
 end
