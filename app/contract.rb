@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
-require "refinements/pathname"
+require "dry/validation"
 
 module Terminus
   # Defines user create contract.
   class Contract < Dry::Validation::Contract
-    using Refinements::Pathname
-
     config.messages.backend = :i18n
-    config.messages.load_paths.merge Hanami.app.root.join("config/locales").files("*.yml")
+
+    Hanami.app.config.i18n.tap do |i18n|
+      (i18n.shared_load_path + i18n.load_path).each do |entry|
+        path = Hanami.app.root.join entry.sub(/\*.*/, "")
+        config.messages.load_paths.merge path.glob("**/*.yml")
+      end
+    end
   end
 end
