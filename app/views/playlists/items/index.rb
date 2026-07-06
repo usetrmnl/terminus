@@ -7,7 +7,7 @@ module Terminus
         # The index view.
         class Index < View
           expose :playlist_id
-          expose :items
+          decorate :items
           expose :query
         end
       end

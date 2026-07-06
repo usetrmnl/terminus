@@ -67,6 +67,18 @@ RSpec.describe "Playlists", :db do
     expect(page).to have_no_text(playlist.label)
   end
 
+  it "shows and edits items", :aggregate_failures, :js do
+    screen = Factory[:screen, :with_image]
+    Factory[:playlist_item, playlist_id: playlist.id, screen_id: screen.id]
+    visit routes.path(:playlist, id: playlist.id)
+
+    expect(page).to have_css(%(img[src^="memory://"]))
+
+    visit routes.path(:playlist_edit, id: playlist.id)
+
+    expect(page).to have_text("Loading items...")
+  end
+
   it "plays screenshow", :aggregate_failures, :js do
     visit routes.path(:playlist_screens, playlist_id: playlist.id)
 
