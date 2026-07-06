@@ -39,7 +39,7 @@ jobs:
       - restore_cache:
           name: Gems Restore
           keys:
-            - gem-cache-3-{{.Branch}}-{{checksum "Gemfile.lock"}}
+            - gem-cache-4-{{.Branch}}-{{checksum "Gemfile.lock"}}
             - gem-cache-
 
       - run:
@@ -51,14 +51,14 @@ jobs:
 
       - save_cache:
           name: Gems Store
-          key: gem-cache-3-{{.Branch}}-{{checksum "Gemfile.lock"}}
+          key: gem-cache-4-{{.Branch}}-{{checksum "Gemfile.lock"}}
           paths:
             - vendor/bundle
 
       - restore_cache:
           name: Packages Restore
           keys:
-            - package-cache-3-{{.Branch}}-{{checksum "package.json"}}
+            - package-cache-4-{{.Branch}}-{{checksum "package.json"}}
             - package-cache-
 
       - run:
@@ -67,7 +67,7 @@ jobs:
 
       - save_cache:
           name: Packages Store
-          key: package-cache-3-{{.Branch}}-{{checksum "package.json"}}
+          key: package-cache-4-{{.Branch}}-{{checksum "package.json"}}
           paths:
             - node_modules
 
