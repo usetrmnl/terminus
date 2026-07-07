@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   build:
     working_directory: ~/project
@@ -28,7 +29,9 @@ jobs:
 
       - run:
           name: Chromium Install
-          command: apt-get install -y chromium
+          command: |
+            apt-get install -y chromium-common=147.0.7727.137-1~deb13u1
+            apt-get install -y chromium=147.0.7727.137-1~deb13u1
 
       - run:
           name: Node Install
@@ -39,26 +42,25 @@ jobs:
       - restore_cache:
           name: Gems Restore
           keys:
-            - gem-cache-4-{{.Branch}}-{{checksum "Gemfile.lock"}}
+            - gem-cache-5-{{.Branch}}-{{checksum "Gemfile.lock"}}
             - gem-cache-
 
       - run:
           name: Gems Install
           command: |
-            gem update --system
             bundle config set path "vendor/bundle"
             bundle install
 
       - save_cache:
           name: Gems Store
-          key: gem-cache-4-{{.Branch}}-{{checksum "Gemfile.lock"}}
+          key: gem-cache-5-{{.Branch}}-{{checksum "Gemfile.lock"}}
           paths:
             - vendor/bundle
 
       - restore_cache:
           name: Packages Restore
           keys:
-            - package-cache-4-{{.Branch}}-{{checksum "package.json"}}
+            - package-cache-5-{{.Branch}}-{{checksum "package.json"}}
             - package-cache-
 
       - run:
@@ -67,7 +69,7 @@ jobs:
 
       - save_cache:
           name: Packages Store
-          key: package-cache-4-{{.Branch}}-{{checksum "package.json"}}
+          key: package-cache-5-{{.Branch}}-{{checksum "package.json"}}
           paths:
             - node_modules
 
