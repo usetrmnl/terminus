@@ -27,12 +27,14 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformer do
           }
         ],
         dark_mode: "yes",
+        id: 123,
         name: "Test",
         polling_body: %({"sort":"name", "limit": 10}),
         polling_headers: "accept=application/json&content-type=application/json",
         polling_url: "https://test.io/test",
         polling_verb: "get",
         refresh_interval: 100,
+        serverless_language: "",
         static_data: %({"handle":"test", "email": "test@test.io"}),
         strategy: "polling"
       }
@@ -40,10 +42,12 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformer do
 
     let :proof do
       {
+        id: 123,
         name: "test",
         label: "Test",
         description: "Imported from TRMNL.",
         kind: "poll",
+        serverless_language: nil,
         poll_headers: {
           "accept" => "application/json",
           "content-type" => "application/json"
