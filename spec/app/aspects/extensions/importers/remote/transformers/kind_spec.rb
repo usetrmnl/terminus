@@ -36,6 +36,14 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformers::K
       )
     end
 
+    it "answers failure when strategy is none and OAuth is enabled" do
+      attributes = {strategy: "none", oauth_enabled: true}
+
+      expect(transformer.call(attributes)).to be_failure(
+        "Unsupported kind: oauth. Use: polling or static."
+      )
+    end
+
     it "answers failure with unknown kind" do
       attributes = {strategy: "bogus"}
 

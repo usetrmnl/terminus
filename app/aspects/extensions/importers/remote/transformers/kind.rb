@@ -24,11 +24,14 @@ module Terminus
 
               def call attributes
                 strategy = attributes.delete :strategy
+                usage = "Use: #{keys.to_sentence :or}"
 
                 if keys.include? strategy
                   Success process(strategy, attributes)
+                elsif attributes[:oauth_enabled]
+                  Failure "Unsupported kind: oauth. #{usage}."
                 else
-                  Failure "Unsupported kind: #{strategy}. Use: #{keys.to_sentence :or}."
+                  Failure "Unsupported kind: #{strategy}. #{usage}."
                 end
               end
 
@@ -38,10 +41,10 @@ module Terminus
 
               def process strategy, attributes
                 kind = kinds[strategy]
-                static_data = attributes.delete :static_data
+                static_body = attributes.delete :static_data
 
                 if kind == "static"
-                  attributes.merge! kind:, static_body: static_data
+                  attributes.merge! kind:, static_body:
                 else
                   attributes.merge! kind:, poll_body: attributes[:poll_body]
                 end
