@@ -19,7 +19,10 @@ module Terminus
 
       def find_by(**) = account.where(**).one
 
-      def find_or_create(**) = find_by(**) || create(**)
+      def find_or_create(name:, **)
+        account.dataset.insert_conflict(target: :name, conflict_action: :nothing).insert(name:, **)
+        find_by name:
+      end
 
       def search key, value
         account.where(Sequel.ilike(key, "%#{value}%"))

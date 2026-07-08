@@ -75,14 +75,14 @@ RSpec.describe Terminus::Repositories::Model, :db do
   describe "#find_or_create" do
     it "answers existing record" do
       model
-      record = repository.find_or_create :name, model.name, label: "Upsert"
+      record = repository.find_or_create name: model.name, label: "Upsert"
 
       expect(record.id).to eq(model.id)
     end
 
-    it "creates new record when record doesn't exist" do
-      creation = repository.find_or_create :name, "test", label: "Upsert", width: 1, height: 1
-      expect(creation).to have_attributes(name: "test", label: "Upsert", width: 1, height: 1)
+    it "answers created record when not found" do
+      record = repository.find_or_create name: "test", label: "Upsert", width: 1, height: 1
+      expect(record).to have_attributes(name: "test", label: "Upsert", width: 1, height: 1)
     end
   end
 

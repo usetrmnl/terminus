@@ -53,11 +53,12 @@ RSpec.describe Terminus::Repositories::Account, :db do
   end
 
   describe "#find_or_create" do
-    it "finds existing record" do
-      expect(repository.find_or_create(name: account.name)).to have_attributes(account.to_h)
+    it "answers existing record" do
+      record = repository.find_or_create name: account.name, label: account.label
+      expect(record).to have_attributes(account.to_h)
     end
 
-    it "creates record when not found" do
+    it "answers created record when not found" do
       expect(repository.find_or_create(name: "default", label: "Default")).to have_attributes(
         name: "default",
         label: "Default"

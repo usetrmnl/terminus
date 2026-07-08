@@ -21,10 +21,9 @@ module Terminus
 
       def find_by(**) = with_associations.where(**).one
 
-      def find_or_create(key, value, **)
-        with_associations.where(key => value)
-                         .one
-                         .then { |record| record || create(name: value, **) }
+      def find_or_create(name:, **)
+        model.dataset.insert_conflict(target: :name, conflict_action: :nothing).insert(name:, **)
+        find_by name:
       end
 
       def search key, value
