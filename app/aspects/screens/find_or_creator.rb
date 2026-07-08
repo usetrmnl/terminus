@@ -6,7 +6,7 @@ require "initable"
 module Terminus
   module Aspects
     module Screens
-      # Findos or creates record with image attachment from HTML content only.
+      # Finds or creates record with image attachment using only HTML content.
       class FindOrCreator
         include Deps[
           "aspects.screens.temp_pather",
@@ -16,8 +16,8 @@ module Terminus
         include Initable[struct: proc { Terminus::Structs::Screen.new }]
         include Dry::Monads[:result]
 
-        def call **attributes
-          mold_builder.call(**attributes).bind do |mold|
+        def call(**)
+          mold_builder.call(**).bind do |mold|
             record = find mold
             record ? Success(record) : create(mold)
           end
