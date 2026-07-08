@@ -50,6 +50,10 @@ module Terminus
       patch "/playlists/:id", to: "api.playlists.patch", as: :playlist
       delete "/playlists/:id", to: "api.playlists.delete", as: :playlist
 
+      post "/extensions/:extension_id/build",
+           to: "api.extensions.build.create",
+           as: :extension_build
+
       get "/screens", to: "api.screens.index", as: :screens
       post "/screens", to: "api.screens.create", as: :screens
       patch "/screens/:id", to: "api.screens.patch", as: :screen

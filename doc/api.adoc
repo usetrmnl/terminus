@@ -1313,6 +1313,35 @@ curl -X "DELETE" "https://localhost:2443/api/playlists/2" \
 You'll get an empty hash when there is nothing to delete.
 ====
 
+=== Extensions
+
+Allows you to trigger an extension build (screen regeneration) on demand — the API
+equivalent of the Build button — so automations can rebuild the moment source data
+changes instead of waiting for the extension's schedule.
+
+.POST Request
+[%collapsible]
+====
+[source,bash]
+----
+curl -X "POST" "https://localhost:2443/api/extensions/1/build"      -H 'Authorization: <redacted>'      -H 'Content-Type: application/json'
+----
+====
+
+.POST Response (202 Accepted)
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "enqueued": true
+  }
+}
+----
+====
+
 === Screens
 
 Used for managing device screens by supplying content for rendering, screenshotting, and grey scaling to render properly on your device. You can also use these optional keys when making requests:
