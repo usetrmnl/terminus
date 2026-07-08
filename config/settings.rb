@@ -13,6 +13,7 @@ module Terminus
     setting :ferrum_default_timeout, constructor: Types::Params::Integer, default: 30
     setting :ferrum_process_timeout, constructor: Types::Params::Integer, default: 15
     setting :ferrum_javascript_errors, constructor: Types::Params::Bool, default: true
+    setting :ferrum_url, constructor: Types::Params::String, default: ""
     setting :fonts_root,
             constructor: Terminus::Types::Pathname,
             default: Hanami.app.root.join("public/fonts")

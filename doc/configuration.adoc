@@ -35,6 +35,7 @@ There are several environment variables you can use to customize behavior by upd
 * `FERRUM_DEFAULT_TIMEOUT`: Used for configuring {ferrum_link} headless browser default time allowed for the browser to respond to a request. Default: `30`.
 * `FERRUM_PROCESS_TIMEOUT`: Used for configuring {ferrum_link} headless browser time allowed for the browser to start. Default: `15`.
 * `FERRUM_JAVASCRIPT_ERRORS`: Used for configuring {ferrum_link} headless browser JavaScript errors. Default: `true`.
+* `FERRUM_URL`: Used for connecting {ferrum_link} to a remote browser (i.e. `http://browser:3000`) instead of spawning a local process. Useful when the host kernel can't run the bundled Chromium (i.e. older NAS hardware) and rendering is delegated to a sidecar container such as browserless. Default: `""` (spawn locally).
 * `FIRMWARE_SYNCHRONIZER`: Enables/disables firmware synchronization. See {doc_jobs_link} for details. Defaults to enabled.
 * `FONT_SYNCHRONIZER`: Enables/disables firmware synchronization. See {doc_jobs_link} for details. Defaults to enabled.
 * `FONTS_PATH`: The path to where {trmnl_framework_link} fonts are stored since the Framework stylesheets require a relative path to all fonts to load properly. This is necessary when rendering screens for {doc_extensions_link}. Default: `public/fonts`.

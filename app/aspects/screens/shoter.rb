@@ -38,6 +38,14 @@ module Terminus
                              .slice(*options_map.keys)
                              .transform_keys!(options_map)
                              .merge!(browser_options:)
+
+          remote_url = settings.ferrum_url
+
+          return if remote_url.empty?
+
+          @options.delete :process_timeout
+          @options.delete :browser_options
+          @options[:url] = remote_url
         end
 
         def call(content, output_path, **viewport) = save content, viewport, output_path

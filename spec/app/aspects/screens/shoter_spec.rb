@@ -48,6 +48,22 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
       expect(logger.reread).to match(/DEBUG.+Ferrum browser options\..+js_errors.+true/)
     end
 
+    context "with remote browser URL" do
+      subject(:shoter) { described_class.new browser: }
+
+      before { allow(settings).to receive(:ferrum_url).and_return "http://browser:3000" }
+
+      it "connects to remote browser" do
+        shoter.call content, path, width: 800, height: 480
+        expect(browser).to have_received(:new).with(hash_including(url: "http://browser:3000"))
+      end
+
+      it "excludes process options" do
+        shoter.call content, path, width: 800, height: 480
+        expect(browser).to have_received(:new).with(hash_excluding(:process_timeout, :browser_options))
+      end
+    end
+
     context "with browser error" do
       subject(:shoter) { described_class.new browser: }
 
