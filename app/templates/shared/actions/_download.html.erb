@@ -1,5 +1,8 @@
 <% if path && name %>
-  <%= link_to path, download: name, class: :action do %>
+  <%= link_to path,
+              download: name,
+              class: "action bit-tooltip-trigger",
+              interestfor: "tooltip-action-download" do %>
     <%= image_tag "icons/download.svg", alt: "Download", class: :icon, width: 25, height: 25 %>
   <% end %>
 <% end %>

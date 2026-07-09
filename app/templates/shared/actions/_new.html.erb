@@ -1,5 +1,6 @@
 <%= link_to path,
-            class: locals.fetch(:class, "bit-button-new"),
+            class: locals.fetch(:class, "bit-button-new bit-tooltip-trigger"),
+            interestfor: "tooltip-action-new",
             **HTMX[
               get: path,
               trigger: "click, keyup[ctrlKey&&key=='n'] from:body",

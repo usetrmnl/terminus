@@ -14,11 +14,17 @@
                       indicator: ".bit-loader"
                     ] %>
 
-      <%= link_to path, class: "action", tabindex: 2 do %>
+      <%= link_to path,
+                  class: "action bit-tooltip-trigger",
+                  tabindex: 2,
+                  interestfor: "tooltip-action-clear" do %>
         <%= image_tag "icons/cancel.svg", alt: "Clear", width: 25, height: 25 %>
       <% end %>
 
-      <button type="submit" class="action-end" tabindex="3">
+      <button type="submit"
+              class="action-end bit-tooltip-trigger"
+              tabindex="3"
+              interestfor="tooltip-action-search">
         <%= image_tag "icons/search.svg", alt: "Search", width: 25, height: 25 %>
       </button>
     </div>

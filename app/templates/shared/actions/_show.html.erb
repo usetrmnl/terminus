@@ -1,5 +1,6 @@
 <%= link_to path,
-            class: :action,
+            class: "action bit-tooltip-trigger",
+            interestfor: "tooltip-action-view",
             **HTMX[
               get: path,
               target: locals.fetch(:target, "closest .bit-page"),

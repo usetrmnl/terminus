@@ -9,7 +9,7 @@ RSpec.describe Terminus::Actions::Firmware::Index, :db do
 
   describe "#call" do
     let(:firmware) { Factory[:firmware, :with_attachment] }
-    let(:proof) { %(<a download="test.bin" class="action" href="memory://abc123.bin">) }
+    let(:proof) { %r(download="test.bin".+href="memory://abc123.bin") }
 
     before { firmware }
 
