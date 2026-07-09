@@ -1,13 +1,16 @@
 :root {
+  --site-ash: oklch(97% 0% 68deg);
   --site-black: oklch(0% 0% 0deg);
   --site-blue: oklch(61% 54% 258deg);
+  --site-crimson: oklch(0.38 0.15 31.3);
   --site-darkgrey: oklch(47% 0% 0deg);
   --site-darkorange: oklch(0.61 0.1931 37.38);
+  --site-ghost: oklch(94% 0% 68deg);
   --site-green: oklch(65% 35% 155deg);
   --site-lightgrey: oklch(83% 0% 264deg);
   --site-orange: oklch(0.69 0.1855 32.11);
   --site-red: oklch(53% 54% 29deg);
-  --site-crimson: oklch(0.38 0.15 31.3);
+  --site-silver: oklch(91% 0% 68deg);
   --site-white: oklch(100% 0% 90deg);
   --site-yellow: hsl(44.875, 100%, 75%);
 }
