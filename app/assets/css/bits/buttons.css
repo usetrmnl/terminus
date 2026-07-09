@@ -5,6 +5,11 @@
   display: flex;
   gap: 0.5rem;
   padding: 0.3rem 1rem;
+  transition: scale 0.15s ease;
+
+  &:hover {
+    scale: 0.95;
+  }
 
   &:disabled {
     background-color: var(--site-darkgrey);
