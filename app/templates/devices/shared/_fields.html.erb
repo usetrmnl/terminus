@@ -89,7 +89,7 @@
 
   <%= scope(:form_field, key: :display_compatibility, errors:).render do %>
     <%= form.check_box :display_compatibility,
-                       id: :device_firmware_update,
+                       id: :device_display_compatibility,
                        checked: field_for(:display_compatibility, fields, device),
                        switch: true,
                        class: :checkbox %>
