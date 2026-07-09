@@ -6,8 +6,8 @@ require "initable"
 module Terminus
   module Aspects
     module Screens
-      # Finds or creates record with image attachment using only HTML content.
-      class FindOrCreator
+      # Creates (or finds) record with image attachment using only HTML content.
+      class Creator
         include Deps[
           "aspects.screens.temp_pather",
           "aspects.screens.mold_builder",

@@ -80,9 +80,9 @@ detectors:
       - Terminus::Aspects::Screens::Converters::Monochrome#as_two_to_eight_bit
       - Terminus::Aspects::Screens::Converters::Monochrome#as_two_to_four_bit_dither
       - Terminus::Aspects::Screens::Converters::Monochrome#convert
+      - Terminus::Aspects::Screens::Creator#find
       - Terminus::Aspects::Screens::Creators::TempPath#capture_input
       - Terminus::Aspects::Screens::Designer::EventStream#render_preview
-      - Terminus::Aspects::Screens::FindOrCreator#find
       - Terminus::Aspects::Screens::Shoter#save
       - Terminus::Aspects::Screens::TempPather#capture_input
       - Terminus::Aspects::Screens::Upserters::TempPath#capture_input

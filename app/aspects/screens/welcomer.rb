@@ -5,7 +5,7 @@ module Terminus
     module Screens
       # Creates welcome screen for new device.
       class Welcomer
-        include Deps[creator: "aspects.screens.find_or_creator", view: "views.screens.welcome.new"]
+        include Deps["aspects.screens.creator", view: "views.screens.welcome.new"]
 
         def call device
           creator.call content: String.new(view.call(device:)),

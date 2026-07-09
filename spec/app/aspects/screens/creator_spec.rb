@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Screens::FindOrCreator, :db do
+RSpec.describe Terminus::Aspects::Screens::Creator, :db do
   subject(:creator) { described_class.new }
 
   describe "#call" do
