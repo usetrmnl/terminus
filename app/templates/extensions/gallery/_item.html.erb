@@ -21,7 +21,8 @@
     <%= form_for routes.path(:extensions_gallery) do |form| %>
       <%= form.hidden_field :id, value: item.id %>
 
-      <%= form.submit class: "action bit-button" do %>
+      <%= form.submit class: "action bit-button bit-tooltip-trigger",
+                      interestfor: "tooltip-action-import" do %>
         <%= image_tag "icons/plus.svg", alt: "Import", class: :icon, width: 25, height: 25 %>
       <% end %>
     <% end %>

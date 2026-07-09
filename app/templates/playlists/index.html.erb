@@ -34,6 +34,16 @@
         <%= playlist.render :playlist %>
       <% end %>
     </ul>
+
+    <%= scope(:tooltip_action_content, label: "New").render %>
+    <%= scope(:tooltip_action_content, label: "Search").render %>
+    <%= scope(:tooltip_action_content, label: "Clear").render %>
+    <%= scope(:tooltip_action_content, label: "View").render %>
+    <%= scope(:tooltip_action_content, label: "Edit").render %>
+    <%= scope(:tooltip_action_content, label: "Play").render %>
+    <%= scope(:tooltip_action_content, label: "Clone").render %>
+    <%= scope(:tooltip_action_content, label: "Mirror").render %>
+    <%= scope(:tooltip_action_content, label: "Delete").render %>
   <% else %>
     <div class="bit-gallery">
       <%= render "shared/empty", message: "No playlists found." %>

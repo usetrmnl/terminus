@@ -40,5 +40,12 @@
       <%= render "shared/empty", message: "No models found." %>
     </div>
   <% end %>
-</section>
 
+  <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Search").render %>
+  <%= scope(:tooltip_action_content, label: "Clear").render %>
+  <%= scope(:tooltip_action_content, label: "View").render %>
+  <%= scope(:tooltip_action_content, label: "Edit").render %>
+  <%= scope(:tooltip_action_content, label: "Clone").render %>
+  <%= scope(:tooltip_action_content, label: "Delete").render %>
+</section>

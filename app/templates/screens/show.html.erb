@@ -23,6 +23,9 @@
         <%= render "shared/actions/download", path: screen.image_uri, name: screen.image_name %>
       </div>
 
+      <%= scope(:tooltip_action_content, label: "Edit").render %>
+      <%= scope(:tooltip_action_content, label: "Download").render %>
+
       <dl class="bit-definition-list">
         <dt class="key">
           Name

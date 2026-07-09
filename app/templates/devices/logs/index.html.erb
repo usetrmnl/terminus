@@ -52,5 +52,9 @@
     <% else %>
       <%= render "shared/empty", message: "No logs found." %>
     <% end %>
+
+    <%= scope(:tooltip_action_content, label: "Search").render %>
+    <%= scope(:tooltip_action_content, label: "Clear").render %>
+    <%= scope(:tooltip_action_content, label: "Delete").render %>
   </div>
 </section>

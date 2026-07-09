@@ -29,6 +29,11 @@
                    target: "closest .bit-page" %>
       </div>
 
+      <%= scope(:tooltip_action_content, label: "Edit").render %>
+      <%= scope(:tooltip_action_content, label: "Play").render %>
+      <%= scope(:tooltip_action_content, label: "Clone").render %>
+      <%= scope(:tooltip_action_content, label: "Mirror").render %>
+
       <dl class="bit-definition-list">
         <dt class="key">Name</dt>
         <dd class="value"><%= playlist.name %></dd>

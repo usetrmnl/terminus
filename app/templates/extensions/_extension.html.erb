@@ -4,7 +4,9 @@
   <%= tag.span extension.kind %>
 
   <div class="actions">
-    <%= link_to routes.path(:extension_edit, id: extension.id), class: :action do %>
+    <%= link_to routes.path(:extension_edit, id: extension.id),
+                class: :action,
+                interestfor: "tooltip-action-edit" do %>
       <%= image_tag "icons/edit.svg", alt: "Edit", width: 25, height: 25 %>
     <% end %>
 

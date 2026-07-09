@@ -39,4 +39,12 @@
       <%= render "shared/empty", message: "No devices found." %>
     </div>
   <% end %>
+
+  <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Search").render %>
+  <%= scope(:tooltip_action_content, label: "Clear").render %>
+  <%= scope(:tooltip_action_content, label: "View").render %>
+  <%= scope(:tooltip_action_content, label: "Edit").render %>
+  <%= scope(:tooltip_action_content, label: "Logs").render %>
+  <%= scope(:tooltip_action_content, label: "Delete").render %>
 </section>

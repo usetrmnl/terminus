@@ -16,6 +16,8 @@
         <%= render "shared/actions/edit", path: routes.path(:model_edit, id: model.id) %>
       </div>
 
+      <%= scope(:tooltip_action_content, label: "Edit").render %>
+
       <dl class="bit-definition-list">
          <dt class="key">
            Name

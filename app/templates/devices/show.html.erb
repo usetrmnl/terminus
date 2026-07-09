@@ -26,6 +26,9 @@
         <%= render "shared/actions/logs", path: routes.path(:device_logs, device_id: device.id) %>
       </div>
 
+      <%= scope(:tooltip_action_content, label: "Edit").render %>
+      <%= scope(:tooltip_action_content, label: "Logs").render %>
+
       <dl class="bit-definition-list">
         <dt class="key">
           Model
