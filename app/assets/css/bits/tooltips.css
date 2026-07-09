@@ -1,0 +1,56 @@
+.bit-page:has(:interest-source) .bit-tooltip-trigger {
+  interest-delay-start: 0s;
+}
+
+.bit-tooltip-trigger {
+  interest-delay-start: 0.2s;
+  position: relative;
+}
+
+.bit-tooltip-action {
+  --corner: 5px;
+  --arrow-height: 8px;
+  --arror-position: 50%;
+  --arrow-width: 8px;
+  --caret-down:
+    shape(from var(--corner) 0,
+      hline to calc(100% - var(--corner)),
+      curve to right var(--corner) with right top,
+      vline to calc(100% - (var(--corner) + var(--arrow-height))),
+      curve to calc(100% - var(--corner)) calc(100% - var(--arrow-height))
+        with right calc(100% - var(--arrow-height)),
+      hline to calc(var(--arror-position) + var(--arrow-width)),
+      line by calc(var(--arrow-width) * -1) var(--arrow-height),
+      line by calc(var(--arrow-width) * -1) calc(var(--arrow-height) * -1),
+      hline to var(--corner),
+      curve to left calc(100% - (var(--corner) + var(--arrow-height)))
+        with left calc(100% - var(--arrow-height)),
+      vline to var(--corner),
+      curve to var(--corner) top with left top);
+  background-color: var(--site-white);
+  border-shape: var(--caret-down);
+  color: var(--site-black);
+  opacity: 0;
+  overflow: hidden;
+  padding: 0.2rem 0.5rem 0.5rem 0.5rem;
+  position-area: top;
+  position: fixed;
+  transform: translateY(0);
+  transition:
+    opacity 0.1s ease,
+    transform 0.4s cubic-bezier(0.3, 1.2, 0.6, 1),
+    display 0.4s allow-discrete,
+    overlay 0.4s allow-discrete;
+  transition-delay: 0s;
+
+  &:popover-open {
+    opacity: 1;
+    transform: translateY(-0.5rem);
+    transition-delay: 0.1s;
+
+    @starting-style {
+      transform: translateY(0);
+      opacity: 0;
+    }
+  }
+}
