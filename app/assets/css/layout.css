@@ -160,7 +160,7 @@
     text-decoration: none;
     transition: border-bottom-color 0.3s ease-in-out;
 
-    &:hover, &:active, &.active {
+    &:hover, &:active, &[data-state="active"] {
       border-bottom-color: var(--site-orange);
     }
   }
