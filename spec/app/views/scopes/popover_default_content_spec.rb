@@ -7,9 +7,9 @@ RSpec.describe Terminus::Views::Scopes::PopoverDefaultContent do
 
   let(:locals) { {name: "test", label: "Test"} }
 
-  describe "#dom_id" do
+  describe "#element_id" do
     it "answers ID" do
-      expect(scope.dom_id).to eq("popover-test")
+      expect(scope.element_id).to eq("popover-test")
     end
   end
 

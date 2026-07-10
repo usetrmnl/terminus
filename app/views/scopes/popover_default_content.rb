@@ -5,7 +5,7 @@ module Terminus
     module Scopes
       # Provides customized popover content.
       class PopoverDefaultContent < Hanami::View::Scope
-        def dom_id = "popover-#{name}"
+        def element_id = "popover-#{name}"
 
         def render(path = "shared/popovers/content/default") = super
       end

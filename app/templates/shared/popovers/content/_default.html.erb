@@ -1,7 +1,9 @@
-<%= tag.dialog id: dom_id, class: locals.fetch(:class, "bit-popover-content"), popover: :auto do %>
+<%= tag.dialog id: element_id,
+               class: locals.fetch(:class, "bit-popover-content"),
+               popover: :auto do %>
   <%= tag.button type: :button,
                  class: :close,
-                 popovertarget: dom_id,
+                 popovertarget: element_id,
                  popovertargetaction: :hide,
                  "aria-label" => "Close dialog" do %>
     <span aria-hidden=true>&times;</span>

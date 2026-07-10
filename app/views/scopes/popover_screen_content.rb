@@ -5,7 +5,7 @@ module Terminus
     module Scopes
       # Provides customized popover content.
       class PopoverScreenContent < Hanami::View::Scope
-        def dom_id = "popover-screen-#{id}"
+        def element_id = "popover-screen-#{id}"
 
         def width = locals.fetch __method__, 800
 

@@ -9,9 +9,9 @@ RSpec.describe Terminus::Views::Scopes::PopoverScreenContent do
 
   let(:locals) { Terminus::Aspects::Screens::Placeholder[id: 1].popover_attributes }
 
-  describe "#dom_id" do
+  describe "#element_id" do
     it "answers ID" do
-      expect(scope.dom_id).to eq("popover-screen-1")
+      expect(scope.element_id).to eq("popover-screen-1")
     end
   end
 
