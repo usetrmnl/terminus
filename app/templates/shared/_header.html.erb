@@ -11,15 +11,15 @@
   </label>
 
   <ul class="site-menu">
-    <li class="item"><%= link_to "Dashboard", routes.path(:root), class: :link %></li>
-    <li class="item"><%= link_to "Designs", routes.path(:designs), class: :link %></li>
-    <li class="item"><%= link_to "Screens", routes.path(:screens), class: :link %></li>
-    <li class="item"><%= link_to "Playlists", routes.path(:playlists), class: :link %></li>
-    <li class="item"><%= link_to "Devices", routes.path(:devices), class: :link %></li>
-    <li class="item"><%= link_to "Models", routes.path(:models), class: :link %></li>
-    <li class="item"><%= link_to "Extensions", routes.path(:extensions), class: :link %></li>
-    <li class="item"><%= link_to "Firmware", routes.path(:firmwares), class: :link %></li>
-    <li class="item"><%= link_to "Users", routes.path(:users), class: :link %></li>
-    <li class="item"><%= link_to "Logout", "/logout", class: :link %></li>
+    <%= scope(:menu_item, label: "Dashboard", path: routes.path(:root)).render %>
+    <%= scope(:menu_item, label: "Designs", path: routes.path(:designs)).render %>
+    <%= scope(:menu_item, label: "Screens", path: routes.path(:screens)).render %>
+    <%= scope(:menu_item, label: "Playlists", path: routes.path(:playlists)).render %>
+    <%= scope(:menu_item, label: "Devices", path: routes.path(:devices)).render %>
+    <%= scope(:menu_item, label: "Models", path: routes.path(:models)).render %>
+    <%= scope(:menu_item, label: "Extensions", path: routes.path(:extensions)).render %>
+    <%= scope(:menu_item, label: "Firmware", path: routes.path(:firmwares)).render %>
+    <%= scope(:menu_item, label: "Users", path: routes.path(:users)).render %>
+    <%= scope(:menu_item, label: "Logout", path: "/logout").render %>
   </ul>
 </nav>
