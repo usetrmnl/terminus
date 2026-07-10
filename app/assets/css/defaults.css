@@ -14,7 +14,7 @@
 
 :where(html) {
   accent-color: var(--site-orange);
-  background-color: oklch(from var(--site-lightgrey) l c h / 0.2);
+  background-color: var(--site-ash);
   font-family: var(--site-font-family);
   font-size: clamp(1rem, 0.95rem + 0.35dvw, 1.25rem);
   hanging-punctuation: first allow-end last;
@@ -132,7 +132,7 @@
 }
 
 :where(kbd) {
-  background-color: oklch(from var(--site-lightgrey) l c h / 0.1);
+  background-color: var(--site-ash);
   border-radius: 0.2rem;
   border: 0.1rem solid var(--site-lightgrey);
   color: var(--site-black);
@@ -205,11 +205,11 @@
   }
 }
 
-:where(tr) {
-  background-color: oklch(from var(--site-lightgrey) l c h / 0.15);
+:where(tbody > tr) {
+  background-color: var(--site-ghost);
 
   &:hover {
-    background-color: oklch(from var(--site-lightgrey) l c h / 0.2);
+    background-color: var(--site-silver);
   }
 
   &:last-child {

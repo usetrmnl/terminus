@@ -34,7 +34,7 @@
 }
 
 .bit-button-decline {
-  background-color: oklch(from var(--site-lightgrey) l c h / 0.2);
+  background-color: var(--site-silver);
   border-radius: 1.5rem;
   color: var(--site-black);
 

@@ -12,8 +12,8 @@
 }
 
 .bit-toggle-bar {
-  background-color: oklch(from var(--site-lightgrey) l c h / 0.3);
-  border: 0.1rem solid oklch(from var(--site-lightgrey) l c h / 0.3);
+  background-color: var(--site-ash);
+  border: 0.15rem solid var(--site-silver);
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-around;

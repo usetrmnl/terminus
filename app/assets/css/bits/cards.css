@@ -51,7 +51,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border: 0.1rem solid var(--site-lightgrey);
+    border: 0.1rem solid var(--site-silver);
     border-radius: 0.5rem;
   }
 
@@ -59,7 +59,7 @@
     padding: 0.5rem;
 
     &:hover {
-      background-color: oklch(from var(--site-lightgrey) l c h / 0.3);
+      background-color: var(--site-silver);
     }
   }
 }

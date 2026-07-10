@@ -59,9 +59,9 @@
   }
 
   .value {
-    background-color: oklch(from var(--site-lightgrey) l c h / 0.2);
+    background-color: var(--site-ash);
     border-radius: 0.7rem;
-    border: var(--input-border-width) solid oklch(from var(--site-lightgrey) l c h / 0.5);
+    border: var(--input-border-width) solid var(--site-silver);
     outline: none;
     padding: 0.4rem;
     width: 100%;
@@ -84,14 +84,10 @@
 
   .action, .action-end {
     background-color: var(--site-white);
-    border: 0.1rem solid oklch(from var(--site-lightgrey) l c h / 0.5);
+    border: 0.1rem solid var(--site-silver);
     cursor: pointer;
     outline: none;
     padding: 0 0.5rem;
-
-    &:active, &:hover {
-      background-color: oklch(from var(--site-lightgrey) l c h / 0.5);
-    }
 
     &:focus {
       border: 0.1rem solid oklch(from var(--site-orange) l c h / 0.5);
@@ -114,8 +110,6 @@
 
   .checkbox {
     accent-color: var(--site-orange);
-    background-color: oklch(from var(--site-white) l c h / 0.5);
-    border: 0.1rem solid oklch(from var(--site-lightgrey) l c h / 0.5);
     height: 1rem;
     width: 1rem;
   }

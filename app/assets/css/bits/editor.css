@@ -1,5 +1,5 @@
 .cm-editor {
-  border: 0.15rem solid oklch(from var(--site-lightgrey) l c h / 0.5);
+  border: 0.15rem solid var(--site-darkgrey);
   border-radius: 0.5rem;
   min-height: 10rem;
 }

@@ -124,7 +124,7 @@
 
   .link {
     align-items: center;
-    border-bottom: 0.05rem solid transparent;
+    border-bottom: 0.1rem solid transparent;
     color: inherit;
     display: flex;
     flex-direction: column;
@@ -132,7 +132,7 @@
     transition: border-bottom-color 0.3s ease-in-out;
 
     &:hover, &:active, &.active {
-      border-bottom-color: var(--site-black);
+      border-bottom-color: var(--site-orange);
     }
   }
 

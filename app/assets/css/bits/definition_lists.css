@@ -10,16 +10,15 @@
 
   .key {
     align-items: center;
-    background-color: oklch(from var(--site-darkgrey) l c h / 0.2);
+    background-color: var(--site-silver);
     border-radius: 0.5rem 0 0 0.5rem;
-    color: oklch(from var(--site-darkgrey) l c h / 0.7);
     display: flex;
     font-weight: 400;
     justify-content: flex-end;
   }
 
   .value {
-    background-color: oklch(from var(--site-lightgrey) l c h / 0.3);
+    background-color: var(--site-ghost);
     border-radius: 0rem 0.5rem 0.5rem 0;
     font-weight: 350;
   }
