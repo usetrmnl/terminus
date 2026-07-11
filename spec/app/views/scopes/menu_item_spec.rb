@@ -3,8 +3,6 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Views::Scopes::MenuItem do
-  using Refinements::Hash
-
   subject(:scope) { described_class.new locals:, rendering: Terminus::View.new.rendering(context:) }
 
   let(:locals) { {label: "Tasks", path: "/tasks"} }
