@@ -27,8 +27,7 @@ SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 RUN <<STEPS
   apt-get update -qq
   apt-get install --no-install-recommends -y \
-  chromium-common=147.0.7727.137-1~deb13u1 \
-  chromium=147.0.7727.137-1~deb13u1 \
+  chromium \
   curl \
   fonts-noto-cjk \
   git \

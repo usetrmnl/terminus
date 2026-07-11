@@ -29,9 +29,7 @@ jobs:
 
       - run:
           name: Chromium Install
-          command: |
-            apt-get install -y chromium-common=147.0.7727.137-1~deb13u1
-            apt-get install -y chromium=147.0.7727.137-1~deb13u1
+          command: apt-get install -y chromium
 
       - run:
           name: Node Install
