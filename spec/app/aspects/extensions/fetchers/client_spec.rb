@@ -35,13 +35,14 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         expect(client.call(input)).to be_success(
-          data: [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ],
-          error: {}
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: [
+              {
+                "title" => "Castle in the Sky",
+                "director" => "Hayao Miyazaki"
+              }
+            ]
+          ]
         )
       end
     end
@@ -69,17 +70,18 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
         result = client.call input.with(headers: {content_type: "application/ld+json"})
 
         expect(result).to be_success(
-          data: {
-            "@context" => "https://json-ld.org/contexts/person.jsonld",
-            "@id" => "http://dbpedia.org/resource/John_Lennon",
-            "name" => "John Lennon",
-            "born" => "1940-10-09",
-            "spouse" => [
-              "http://dbpedia.org/resource/Yoko_Ono",
-              "http://dbpedia.org/resource/Cynthia_Lennon"
-            ]
-          },
-          error: {}
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {
+              "@context" => "https://json-ld.org/contexts/person.jsonld",
+              "@id" => "http://dbpedia.org/resource/John_Lennon",
+              "name" => "John Lennon",
+              "born" => "1940-10-09",
+              "spouse" => [
+                "http://dbpedia.org/resource/Yoko_Ono",
+                "http://dbpedia.org/resource/Cynthia_Lennon"
+              ]
+            }
+          ]
         )
       end
     end
@@ -108,18 +110,19 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
         result = client.call input.with(headers: {content_type: "application/geo+json"})
 
         expect(result).to be_success(
-          data: {
-            "@context" => [
-              "https://geojson.org/geojson-ld/geojson-context.jsonld",
-              {
-                "@version" => "1.1"
-              }
-            ],
-            "type" => "Feature",
-            "geometry" => {},
-            "properties" => {}
-          },
-          error: {}
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {
+              "@context" => [
+                "https://geojson.org/geojson-ld/geojson-context.jsonld",
+                {
+                  "@version" => "1.1"
+                }
+              ],
+              "type" => "Feature",
+              "geometry" => {},
+              "properties" => {}
+            }
+          ]
         )
       end
     end
@@ -145,13 +148,14 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
         )
 
         expect(result).to be_success(
-          data: [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ],
-          error: {}
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: [
+              {
+                "title" => "Castle in the Sky",
+                "director" => "Hayao Miyazaki"
+              }
+            ]
+          ]
         )
       end
     end
@@ -174,16 +178,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
       it "answers failure" do
         result = client.call input.with(headers: {content_type: "application/+json"})
 
-        expect(result).to match(
-          Failure(
-            data: {},
-            error: {
+        expect(result).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Unknown MIME Type: application/+json."
             }
-          )
+          ]
         )
       end
     end
@@ -191,7 +194,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
     context "with image" do
       before do
         response = HTTP::Response.new headers: {content_type: "image/png"},
-                                      body: {}.to_json,
+                                      body: {},
                                       status: 200,
                                       version: 1.0
 
@@ -200,7 +203,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "image/png"})
-        expect(result).to be_success(data: "{}", error: {})
+        expect(result).to be_success(Terminus::Aspects::Extensions::Fetchers::Response.new)
       end
     end
 
@@ -223,13 +226,14 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
         result = client.call input.with(headers: {content_type: "text/csv"})
 
         expect(result).to be_success(
-          data: [
-            {
-              "title" => "Castle in the Sky",
-              "director" => "Hayao Miyazaki"
-            }
-          ],
-          error: {}
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: [
+              {
+                "title" => "Castle in the Sky",
+                "director" => "Hayao Miyazaki"
+              }
+            ]
+          ]
         )
       end
     end
@@ -252,7 +256,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "text/plain"})
-        expect(result).to be_success(data: %w[one two three], error: {})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: %w[one two three]
+          ]
+        )
       end
     end
 
@@ -273,7 +282,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "text/xml"})
-        expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {"catalog" => "Empty"}
+          ]
+        )
       end
     end
 
@@ -294,7 +308,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "application/xml"})
-        expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {"catalog" => "Empty"}
+          ]
+        )
       end
     end
 
@@ -315,7 +334,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "application/rss+xml"})
-        expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {"catalog" => "Empty"}
+          ]
+        )
       end
     end
 
@@ -336,7 +360,12 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers success" do
         result = client.call input.with(headers: {content_type: "application/atom+xml"})
-        expect(result).to be_success(data: {"catalog" => "Empty"}, error: {})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {"catalog" => "Empty"}
+          ]
+        )
       end
     end
 
@@ -365,7 +394,11 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
       end
 
       it "answers success" do
-        expect(client.call(input)).to be_success(data: {"name" => "test"}, error: {})
+        expect(client.call(input)).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            data: {"name" => "test"}
+          ]
+        )
       end
     end
 
@@ -393,7 +426,9 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
       end
 
       it "answers success" do
-        expect(client.call(input)).to be_success(data: "{}", error: {})
+        expect(client.call(input)).to be_success(
+          Terminus::Aspects::Extensions::Fetchers::Response[data: "{}"]
+        )
       end
     end
 
@@ -409,16 +444,16 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers failure" do
         result = client.call input.with(headers: {content_type: "text/html"})
-        expect(result).to match(
-          Failure(
-            data: {},
-            error: {
+
+        expect(result).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Unknown MIME Type: text/html."
             }
-          )
+          ]
         )
       end
     end
@@ -434,16 +469,15 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
       end
 
       it "answers failure" do
-        expect(client.call(input)).to match(
-          Failure(
-            data: {},
-            error: {
+        expect(client.call(input)).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: 404,
               type: "application/json",
               body: {error: "Danger!"}.to_json
             }
-          )
+          ]
         )
       end
     end
@@ -453,16 +487,16 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::RequestError, "Danger!"
-        expect(client.call(input)).to match(
-          Failure(
-            data: {},
-            error: {
+
+        expect(client.call(input)).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Unable to make request"
             }
-          )
+          ]
         )
       end
     end
@@ -472,16 +506,16 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::ConnectionError, "Danger!"
-        expect(client.call(input)).to match(
-          Failure(
-            data: {},
-            error: {
+
+        expect(client.call(input)).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Unable to connect"
             }
-          )
+          ]
         )
       end
     end
@@ -491,16 +525,16 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise HTTP::TimeoutError, "Danger!"
-        expect(client.call(input)).to match(
-          Failure(
-            data: {},
-            error: {
+
+        expect(client.call(input)).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Connection timed out"
             }
-          )
+          ]
         )
       end
     end
@@ -510,16 +544,16 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
       it "answers failure" do
         allow(http).to receive(:headers).and_raise OpenSSL::SSL::SSLError, "Danger!"
-        expect(client.call(input)).to match(
-          Failure(
-            data: {},
-            error: {
+
+        expect(client.call(input)).to be_failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[
+            errors: {
               uri: "https://ghibliapi.vercel.app/films",
               code: nil,
               type: nil,
               body: "Unable to secure connection"
             }
-          )
+          ]
         )
       end
     end

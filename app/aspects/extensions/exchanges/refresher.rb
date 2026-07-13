@@ -44,15 +44,13 @@ module Terminus
             Success exchange_repository.find id
           end
 
-          # :reek:FeatureEnvy
-          # :reek:TooManyStatements
           def fetch inputs, data:, errors: {}
             inputs.each.with_index 1 do |input, index|
               key = "source_#{index}"
 
               case client.call input
-                in Success(payload) then data.merge! key => payload[:data]
-                in Failure(payload) then errors.merge! key => payload[:error]
+                in Success(response) then response.merge_data key, data
+                in Failure(response) then response.merge_errors key, errors
                 else errors.merge! key => "Unable to fetch, invalid result."
               end
             end

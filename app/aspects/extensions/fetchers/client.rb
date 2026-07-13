@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "core"
 require "dry/monads"
 require "initable"
 
@@ -11,7 +10,7 @@ module Terminus
         # A client for processing HTTP requests.
         class Client
           include Deps[:http]
-          include Initable[source: Extensions::Source, special_header: "Accept"]
+          include Initable[source: Extensions::Source, special_header: "Accept", response: Response]
           include Dry::Monads[:result]
 
           def call input
@@ -57,25 +56,21 @@ module Terminus
           # :reek:FeatureEnvy
           def build_success input, result
             if result.success?
-              Success data: result.success, error: Core::EMPTY_HASH
+              Success response[data: result.success]
             else
               build_failure input, result.failure
             end
           end
 
           def build_failure input, body
-            Failure data: Core::EMPTY_HASH, error: {uri: input.uri, code: nil, type: nil, body:}
+            Failure response[errors: {uri: input.uri, code: nil, type: nil, body:}]
           end
 
           # :reek:FeatureEnvy
           def build_detailed_failure input, error
-            Failure data: Core::EMPTY_HASH,
-                    error: {
-                      uri: input.uri,
-                      code: error.code,
-                      type: error.mime_type,
-                      body: error.body
-                    }
+            Failure response[
+              errors: {uri: input.uri, code: error.code, type: error.mime_type, body: error.body}
+            ]
           end
         end
       end

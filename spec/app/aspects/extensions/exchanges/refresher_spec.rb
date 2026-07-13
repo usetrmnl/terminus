@@ -11,20 +11,23 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     let(:exchange) { Factory[:extension_exchange] }
 
     it "answers success with data and no errors" do
-      allow(client).to receive(:call).and_return(Success(data: "test"))
+      allow(client).to receive(:call).and_return(
+        Success(
+          Terminus::Aspects::Extensions::Fetchers::Response[data: "test"]
+        )
+      )
 
       expect(refresher.call(exchange)).to match(
-        Success(
-          having_attributes(
-            data: {"source_1" => "test"},
-            errors: {}
-          )
-        )
+        Success(having_attributes(data: {"source_1" => "test"}))
       )
     end
 
     it "answers success with errors only" do
-      allow(client).to receive(:call).and_return(Failure(error: "Danger!"))
+      allow(client).to receive(:call).and_return(
+        Failure(
+          Terminus::Aspects::Extensions::Fetchers::Response[errors: "Danger!"]
+        )
+      )
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -39,7 +42,9 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     it "answers success that retains previous data while updating error" do
       exchange = Factory[:extension_exchange, data: {"source_1" => "initial"}]
 
-      allow(client).to receive(:call).and_return(Failure(error: "Danger!"))
+      allow(client).to receive(:call).and_return(
+        Failure(Terminus::Aspects::Extensions::Fetchers::Response[errors: "Danger!"])
+      )
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -54,7 +59,10 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     it "answers success with mixed data and errors" do
       exchange = Factory[:extension_exchange, template: "https://one.io\nhttps://two.io"]
 
-      allow(client).to receive(:call).and_return(Failure(error: "Danger!"), Success(data: "pass"))
+      allow(client).to receive(:call).and_return(
+        Failure(Terminus::Aspects::Extensions::Fetchers::Response[errors: "Danger!"]),
+        Success(Terminus::Aspects::Extensions::Fetchers::Response[data: "pass"])
+      )
 
       expect(refresher.call(exchange)).to match(
         Success(
@@ -80,7 +88,9 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
     end
 
     it "answers an exchange" do
-      allow(client).to receive(:call).and_return(Success(data: "test"))
+      allow(client).to receive(:call).and_return(
+        Success(Terminus::Aspects::Extensions::Fetchers::Response[data: "test"])
+      )
 
       expect(refresher.call(exchange)).to match(
         Success(kind_of(Terminus::Structs::ExtensionExchange))

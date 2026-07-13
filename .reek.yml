@@ -67,6 +67,7 @@ detectors:
       - Terminus::Actions::Users::Update#error
       - Terminus::Aspects::Errors::Problem#enum
       - Terminus::Aspects::Extensions::Cloner#build_attributes
+      - Terminus::Aspects::Extensions::Exchanges::Refresher#fetch
       - Terminus::Aspects::Extensions::Fetchers::Client#maybe_alter_mime_type
       - Terminus::Aspects::Extensions::Importers::Remote::Extractor#build
       - Terminus::Aspects::Extensions::Importers::Remote::Transformers::Kind#process
