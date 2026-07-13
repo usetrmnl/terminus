@@ -5,7 +5,7 @@
   <%= tag.span model.dimensions %>
 
   <div class="actions">
-    <%= render "shared/actions/show", path: routes.path(:model, id: model.id) %>
+    <%= render "shared/actions/view", path: routes.path(:model, id: model.id) %>
     <%= render "shared/actions/edit", path: routes.path(:model_edit, id: model.id) %>
     <%= render "shared/actions/clone", path: routes.path(:model_clone_new, model_id: model.id) %>
     <%= render "shared/actions/delete", path: routes.path(:model, id: model.id), subject: :model %>

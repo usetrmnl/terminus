@@ -12,7 +12,7 @@
   <%= tag.span playlist.mode.capitalize %>
 
   <div class="actions">
-    <%= render "shared/actions/show", path: routes.path(:playlist, id: playlist.id) %>
+    <%= render "shared/actions/view", path: routes.path(:playlist, id: playlist.id) %>
     <%= render "shared/actions/edit", path: routes.path(:playlist_edit, id: playlist.id) %>
 
     <%= render "shared/actions/play",

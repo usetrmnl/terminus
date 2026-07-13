@@ -5,7 +5,7 @@
   <%= tag.span user.status.name, class: "bit-pill bit-pill-#{user.pill}" %>
 
   <div class="actions">
-   <%= render "shared/actions/show", path: routes.path(:user, id: user.id) %>
+   <%= render "shared/actions/view", path: routes.path(:user, id: user.id) %>
    <%= render "shared/actions/edit", path: routes.path(:user_edit, id: user.id) %>
   </div>
 </li>
