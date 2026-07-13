@@ -16,14 +16,16 @@ module Terminus
               key: :HTTP_MODEL,
               map: {
                 "og" => "og_plus",
-                "reTerminal E1001" => "seeed_e1001",
-                "reTerminal E1002" => "seeed_e1002",
+                "og_gen2" => "og_plus",
+                "paper_s3" => "m5_paper_s3",
+                "reterminal_e1001" => "seeed_e1001",
+                "reterminal_e1002" => "seeed_e1002",
+                "reterminal_e1003" => "seeed_e1003",
                 "seeed_esp32c3" => "seeed_e1001",
                 "seeed_esp32s3" => "seeed_e1002",
-                "waveshare" => "waveshare_4_26",
                 "x" => "v2",
                 "xiao_epaper_display" => "og_plus",
-                "XTEINK_X4" => "xteink_x4"
+                "xteink_x4" => "xteink_x4"
               },
               fallback: "og_plus"
             ]

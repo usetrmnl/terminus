@@ -13,14 +13,29 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
       expect(transformer.call(headers)).to be_success(HTTP_MODEL: "og_plus")
     end
 
+    it "transforms TRMNL OG Gen 2" do
+      headers = {HTTP_MODEL: "og_gen2"}
+      expect(transformer.call(headers)).to be_success(HTTP_MODEL: "og_plus")
+    end
+
+    it "transforms Paper S3" do
+      headers = {HTTP_MODEL: "paper_s3"}
+      expect(transformer.call(headers)).to be_success(HTTP_MODEL: "m5_paper_s3")
+    end
+
     it "transforms reTerminal E1001" do
-      headers = {HTTP_MODEL: "reTerminal E1001"}
+      headers = {HTTP_MODEL: "reterminal_e1001"}
       expect(transformer.call(headers)).to be_success(HTTP_MODEL: "seeed_e1001")
     end
 
     it "transforms reTerminal E1002" do
-      headers = {HTTP_MODEL: "reTerminal E1002"}
+      headers = {HTTP_MODEL: "reterminal_e1002"}
       expect(transformer.call(headers)).to be_success(HTTP_MODEL: "seeed_e1002")
+    end
+
+    it "transforms reTerminal E1003" do
+      headers = {HTTP_MODEL: "reterminal_e1003"}
+      expect(transformer.call(headers)).to be_success(HTTP_MODEL: "seeed_e1003")
     end
 
     it "transforms Seeed ESP32C3" do
@@ -31,11 +46,6 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
     it "transforms Seeed ESP32S3" do
       headers = {HTTP_MODEL: "seeed_esp32s3"}
       expect(transformer.call(headers)).to be_success(HTTP_MODEL: "seeed_e1002")
-    end
-
-    it "transforms Waveshare" do
-      headers = {HTTP_MODEL: "waveshare"}
-      expect(transformer.call(headers)).to be_success(HTTP_MODEL: "waveshare_4_26")
     end
 
     it "transforms TRMNL X" do
@@ -49,7 +59,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
     end
 
     it "transforms XTEINK X4" do
-      headers = {HTTP_MODEL: "XTEINK_X4"}
+      headers = {HTTP_MODEL: "xteink_x4"}
       expect(transformer.call(headers)).to be_success(HTTP_MODEL: "xteink_x4")
     end
 
