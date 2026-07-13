@@ -1,4 +1,4 @@
-<%= scope(:popover_default_content, name: :import, label: "Extension Import").render do %>
+<%= scope(:popover_default_content, name: :import, label: "Import").render do %>
   <%= form_for :extension,
                routes.path(:extension_import),
                enctype: "multipart/form-data",
@@ -11,7 +11,7 @@
                  select: ".site-body"
                ] do |form| %>
 
-    <p>Please attach a zip file (extension) to import into your collection.</p>
+    <p>Please attach a zip file to import a previously exported extension into your collection.</p>
 
     <%= form.file_field :attachment,
                         id: :extension_attachment,

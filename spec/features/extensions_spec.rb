@@ -91,7 +91,7 @@ RSpec.describe "Extensions", :db do
     visit routes.path(:extensions)
     click_button "Upload"
 
-    within ".bit-popover-content", text: "Extension Import" do
+    within ".bit-popover-content", text: "Import" do
       attach_file "extension_attachment", path
     end
 

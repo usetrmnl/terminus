@@ -15,6 +15,7 @@
                  icon: :upload,
                  width: 25,
                  height: 25 %>
+
       <%= render "shared/actions/new", path: routes.path(:extension_new) %>
     </div>
   </header>
@@ -49,6 +50,7 @@
   <% end %>
 
   <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Import").render %>
   <%= scope(:tooltip_action_content, label: "Search").render %>
   <%= scope(:tooltip_action_content, label: "Clear").render %>
   <%= scope(:tooltip_action_content, label: "Edit").render %>
