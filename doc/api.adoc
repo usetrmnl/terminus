@@ -90,7 +90,7 @@ The following is an example of the response sent back to the device which also h
   "maximum_compatibility": false,
   "refresh_rate": 900,
   "reset_firmware": false,
-  "special_function": "sleep",
+  "special_function": "none",
   "temperature_profile": "default",
   "touchbar_mode": "tap",
   "update_firmware": false
