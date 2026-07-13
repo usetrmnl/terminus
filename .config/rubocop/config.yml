@@ -40,7 +40,7 @@ Metrics/MethodLength:
     - config/initializers/universal_logger_patch.rb
 Metrics/ParameterLists:
   Exclude:
-    - app/aspects/extensions/fetchers/input.rb
+    - app/aspects/extensions/fetchers/request.rb
     - app/aspects/screens/placeholder.rb
 Naming/VariableNumber:
   AllowedPatterns:

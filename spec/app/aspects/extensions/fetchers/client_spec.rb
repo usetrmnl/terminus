@@ -12,7 +12,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
   describe "#call" do
     let :input do
-      Terminus::Aspects::Extensions::Fetchers::Input[
+      Terminus::Aspects::Extensions::Fetchers::Request[
         headers: {"Accept" => "application/json"},
         uri: "https://ghibliapi.vercel.app/films"
       ]
@@ -371,7 +371,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
     context "with POST body" do
       let :input do
-        Terminus::Aspects::Extensions::Fetchers::Input[
+        Terminus::Aspects::Extensions::Fetchers::Request[
           headers: {content_type: "application/json"},
           verb: :post,
           uri: "https://test.io",
@@ -404,7 +404,7 @@ RSpec.describe Terminus::Aspects::Extensions::Fetchers::Client do
 
     context "with POST but without body" do
       let :input do
-        Terminus::Aspects::Extensions::Fetchers::Input[
+        Terminus::Aspects::Extensions::Fetchers::Request[
           headers: {content_type: "application/json"},
           verb: :post,
           uri: "https://test.io"

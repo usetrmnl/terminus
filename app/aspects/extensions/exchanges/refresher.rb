@@ -16,7 +16,7 @@ module Terminus
             extension_repository: "repositories.extension",
             exchange_repository: "repositories.extension_exchange"
           ]
-          include Initable[input: Fetchers::Input]
+          include Initable[request: Fetchers::Request]
           include Dry::Monads[:result]
 
           def call exchange
@@ -25,30 +25,30 @@ module Terminus
 
             return Failure "Unable to find extension by ID: #{extension_id}." unless extension
 
-            update exchange, build_inputs(exchange, extension)
+            update exchange, build_requests(exchange, extension)
           end
 
           private
 
-          def build_inputs exchange, extension
+          def build_requests exchange, extension
             uri_builder.call(extension, exchange.template).map do |uri|
-              input[uri:, **exchange.http_attributes]
+              request[uri:, **exchange.http_attributes]
             end
           end
 
-          def update exchange, inputs
+          def update exchange, requests
             id = exchange.id
-            payloads = fetch inputs, data: exchange.data.dup
+            payloads = fetch requests, data: exchange.data.dup
 
             exchange_repository.update id, **payloads, refreshed_at: Time.now
             Success exchange_repository.find id
           end
 
-          def fetch inputs, data:, errors: {}
-            inputs.each.with_index 1 do |input, index|
+          def fetch requests, data:, errors: {}
+            requests.each.with_index 1 do |request, index|
               key = "source_#{index}"
 
-              case client.call input
+              case client.call request
                 in Success(response) then response.merge_data key, data
                 in Failure(response) then response.merge_errors key, errors
                 else errors.merge! key => "Unable to fetch, invalid result."
