@@ -36,6 +36,21 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
       )
     end
 
+    it "answers success that retains previous data while updating error" do
+      exchange = Factory[:extension_exchange, data: {"source_1" => "initial"}]
+
+      allow(client).to receive(:call).and_return(Failure(error: "Danger!"))
+
+      expect(refresher.call(exchange)).to match(
+        Success(
+          having_attributes(
+            data: {"source_1" => "initial"},
+            errors: {"source_1" => "Danger!"}
+          )
+        )
+      )
+    end
+
     it "answers success with mixed data and errors" do
       exchange = Factory[:extension_exchange, template: "https://one.io\nhttps://two.io"]
 
@@ -51,7 +66,7 @@ RSpec.describe Terminus::Aspects::Extensions::Exchanges::Refresher, :db do
       )
     end
 
-    it "answers success with fetech error" do
+    it "answers success with fetch error" do
       allow(client).to receive(:call).and_return(:bogus)
 
       expect(refresher.call(exchange)).to match(

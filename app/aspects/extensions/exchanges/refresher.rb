@@ -38,7 +38,7 @@ module Terminus
 
           def update exchange, inputs
             id = exchange.id
-            payloads = fetch inputs
+            payloads = fetch inputs, data: exchange.data.dup
 
             exchange_repository.update id, **payloads, refreshed_at: Time.now
             Success exchange_repository.find id
@@ -46,7 +46,7 @@ module Terminus
 
           # :reek:FeatureEnvy
           # :reek:TooManyStatements
-          def fetch inputs, data: {}, errors: {}
+          def fetch inputs, data:, errors: {}
             inputs.each.with_index 1 do |input, index|
               key = "source_#{index}"
 
