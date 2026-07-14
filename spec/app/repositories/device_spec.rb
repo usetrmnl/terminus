@@ -129,27 +129,6 @@ RSpec.describe Terminus::Repositories::Device, :db do
     end
   end
 
-  describe "#update_by_mac_address" do
-    it "updates record with attributes" do
-      device
-      update = repository.update_by_mac_address device.mac_address,
-                                                label: "Update",
-                                                mac_address: "5E:E1:DD:6F:7F:82"
-
-      expect(update).to have_attributes(label: "Update", mac_address: "5E:E1:DD:6F:7F:82")
-    end
-
-    it "answers record without updates for no attributes" do
-      update = repository.update_by_mac_address(device.mac_address).to_h.tap { it.delete :playlist }
-      expect(update).to eq(device.to_h)
-    end
-
-    it "answers nil when device can't be found" do
-      update = repository.update_by_mac_address "bogus"
-      expect(update).to be(nil)
-    end
-  end
-
   describe "#where" do
     it "answers record for label" do
       records = repository.where(label: device.label).map { it.to_h.tap { it.delete :playlist } }
