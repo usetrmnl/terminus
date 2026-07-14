@@ -9,14 +9,8 @@ RSpec.describe "/api/log", :db do
   let :headers do
     {
       "CONTENT_TYPE" => "application/json",
-      "HTTP_BASE64" => "true",
-      "HTTP_FW_VERSION" => "0.0.0",
-      "HTTP_HEIGHT" => 480,
-      "HTTP_HOST" => "test.io",
       "HTTP_ID" => device.mac_address,
-      "HTTP_REFRESH_RATE" => 100,
-      "HTTP_USER_AGENT" => "test",
-      "HTTP_WIDTH" => 800
+      "HTTP_ACCESS_TOKEN" => device.api_key
     }
   end
 

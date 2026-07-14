@@ -11,14 +11,9 @@ RSpec.describe Terminus::Actions::API::Log::Create, :db do
   describe "#call" do
     let :headers do
       {
-        "HTTP_BASE64" => "true",
-        "HTTP_FW_VERSION" => "0.0.0",
-        "HTTP_HEIGHT" => 480,
-        "HTTP_HOST" => "test.io",
+        "CONTENT_TYPE" => "application/json",
         "HTTP_ID" => device.mac_address,
-        "HTTP_REFRESH_RATE" => 100,
-        "HTTP_USER_AGENT" => "test",
-        "HTTP_WIDTH" => 800
+        "HTTP_ACCESS_TOKEN" => device.api_key
       }
     end
 
