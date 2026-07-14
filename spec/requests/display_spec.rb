@@ -104,9 +104,9 @@ RSpec.describe "/api/display", :db do
 
     it "answers not found problem details" do
       problem = Petail[
-        type: "/problem_details#device_id",
+        type: "/problem_details#api_key",
         status: :not_found,
-        detail: "Invalid device ID.",
+        detail: "Invalid API key.",
         instance: "/api/display"
       ]
 
@@ -119,9 +119,9 @@ RSpec.describe "/api/display", :db do
 
     it "answers problem details" do
       problem = Petail[
-        type: "/problem_details#device_id",
+        type: "/problem_details#api_key",
         status: :not_found,
-        detail: "Invalid device ID.",
+        detail: "Invalid API key.",
         instance: "/api/display"
       ]
 
