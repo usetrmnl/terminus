@@ -8,7 +8,8 @@ RSpec.describe "/api/display", :db do
   include_context "with firmware headers"
 
   let :device do
-    provisioner.call(model_id: Factory[:model].id, mac_address: "A1:B2:C3:D4:E5:F6").value!
+    api_key = firmware_headers.fetch "HTTP_ACCESS_TOKEN"
+    provisioner.call(model_id: Factory[:model].id, api_key:).value!
   end
 
   let(:provisioner) { Terminus::Aspects::Devices::Provisioner.new }
@@ -136,7 +137,7 @@ RSpec.describe "/api/display", :db do
   end
 
   context "with any error" do
-    let(:device) { Factory[:device] }
+    let(:device) { Factory[:device, api_key: firmware_headers.fetch("HTTP_ACCESS_TOKEN")] }
 
     before do
       device

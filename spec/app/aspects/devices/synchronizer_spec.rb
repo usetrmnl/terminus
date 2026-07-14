@@ -8,7 +8,7 @@ RSpec.describe Terminus::Aspects::Devices::Synchronizer, :db do
   include_context "with firmware headers"
 
   describe "#call" do
-    let(:device) { Factory[:device] }
+    let(:device) { Factory[:device, api_key: firmware_headers.fetch("HTTP_ACCESS_TOKEN")] }
 
     it "updates device upon success" do
       device
@@ -16,6 +16,7 @@ RSpec.describe Terminus::Aspects::Devices::Synchronizer, :db do
       expect(updater.call(firmware_headers)).to match(
         Success(
           have_attributes(
+            api_key: "abc123",
             battery_charge: 85,
             battery_voltage: 4.74,
             firmware_version: "1.2.3",
@@ -30,7 +31,7 @@ RSpec.describe Terminus::Aspects::Devices::Synchronizer, :db do
     end
 
     it "fails to update device upon failure" do
-      expect(updater.call(firmware_headers)).to be_failure("Unable to find device by MAC address.")
+      expect(updater.call(firmware_headers)).to be_failure("Unable to find device by API key.")
     end
   end
 end
