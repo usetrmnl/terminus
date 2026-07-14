@@ -20,21 +20,6 @@ RSpec.describe Terminus::Aspects::Firmware::Models::Setup, :db do
     end
   end
 
-  describe ".welcome" do
-    it "answers welcome record" do
-      randomizer = class_double SecureRandom, alphanumeric: "abc123"
-
-      expect(described_class.welcome(randomizer:)).to eq(
-        described_class[
-          api_key: "abc123",
-          image_url: %(#{Hanami.app[:settings].api_uri}/assets/setup.bmp),
-          message: "Welcome to Terminus!",
-          status: 200
-        ]
-      )
-    end
-  end
-
   describe "#initialize" do
     it "answers default attributes" do
       expect(model.to_h).to eq(

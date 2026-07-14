@@ -15,13 +15,6 @@ module Terminus
                 status: 200
           end
 
-          def self.welcome settings: Hanami.app[:settings], randomizer: SecureRandom
-            new api_key: randomizer.alphanumeric(30),
-                image_url: %(#{settings.api_uri}/assets/setup.bmp),
-                message: "Welcome to Terminus!",
-                status: 200
-          end
-
           def initialize(**)
             super
             self[:message] ||= "Device not registered."
