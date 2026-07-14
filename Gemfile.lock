@@ -247,7 +247,7 @@ GEM
     htmx (3.3.0)
       refinements (~> 14.0)
       zeitwerk (~> 2.8)
-    http (6.0.3)
+    http (6.0.4)
       http-cookie (~> 1.0)
       llhttp (~> 0.6.1)
     http-cookie (1.1.6)
@@ -376,7 +376,7 @@ GEM
       prism (~> 1.0)
       rbs (>= 2.7.0)
     rexml (3.4.4)
-    roda (3.105.0)
+    roda (3.106.0)
       rack
     rodauth (2.44.0)
       roda (>= 2.6.0)
@@ -723,7 +723,7 @@ CHECKSUMS
   hanami-view (3.0.0) sha256=54db94e3484155f69d2b91ebe303f7e32e32927418a0686197a1ad5d272adc8b
   hanami-webconsole (3.0.0) sha256=5d8f46e1e2783e03403c58500cbad6274e2022cbc60867a7354442e6b60c2bdd
   htmx (3.3.0) sha256=dc4baca4b4aeda9a66636a60385a899145e57e27a551e0b7c79efa0c405fd084
-  http (6.0.3) sha256=0206e79131089ca9aae557c6791afd6bf9339af319d78a616af1477ae79614fa
+  http (6.0.4) sha256=3768f902489ea8309424f1881c668af8d3ca73675648a755dfe2cb0030d42d26
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   ice_nine (0.11.2) sha256=5d506a7d2723d5592dc121b9928e4931742730131f22a1a37649df1c1e2e63db
@@ -788,7 +788,7 @@ CHECKSUMS
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   repl_type_completor (0.1.15) sha256=dec24c45fffefa3b55b19115fee20b3446c2f75c7605f579ab6047e931edd335
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
-  roda (3.105.0) sha256=1273b4f84f606a32fd17114b92b345196d18e8afb07c4b75b873354a54bd6e35
+  roda (3.106.0) sha256=1a1cfb13c6690db158a3929e9c9ece88e697fb23b05baae63f07b0773e3bbade
   rodauth (2.44.0) sha256=4d00ec73d65c52fe6915b797dce172ed060109bc3a00e2ff8ab08c4f5370dd77
   rom (5.4.3) sha256=dc8925ba216e9635651edbbb1b4ddc0f145782a100e78458434e5f0aacfec2c8
   rom-changeset (5.4.0) sha256=503b9d2ad082743a28c06da70d431c7f12c18c4c0bca7f90c66d5aa2e13db898
@@ -852,7 +852,7 @@ CHECKSUMS
   zeitwerk (2.8.2) sha256=7212a61311083c604184b1ea2574b9aa05cd14f855a0841c06985cabe9181d12
 
 RUBY VERSION
-  ruby 4.0.5
+  ruby 4.0.6
 
 BUNDLED WITH
   4.0.16
