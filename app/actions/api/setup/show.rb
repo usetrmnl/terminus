@@ -31,7 +31,7 @@ module Terminus
           private
 
           def create model, response
-            provision_device(model).either proc { response.with body: payload.welcome.to_json },
+            provision_device(model).either proc { response.with body: payload.for(it).to_json },
                                            -> error { not_found error, response }
           end
 

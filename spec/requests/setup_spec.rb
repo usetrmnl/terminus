@@ -10,7 +10,7 @@ RSpec.describe "/api/setup", :db do
     {"HTTP_FW_VERSION" => "1.2.3", "HTTP_ID" => "A1:B2:C3:D4:E5:F6", "HTTP_MODEL" => "og"}
   end
 
-  it "answers new device when device doesn't exist" do
+  it "answers new device when missing" do
     model
     get routes.path(:api_setup), {}, **headers
 
@@ -27,7 +27,7 @@ RSpec.describe "/api/setup", :db do
     get routes.path(:api_setup), {}, **headers
 
     expect(json_payload).to match(
-      api_key: match_device_api_key,
+      api_key: device.api_key,
       image_url: %(#{settings.api_uri}/assets/setup.bmp),
       message: "Welcome to Terminus!",
       status: 200
