@@ -39,7 +39,7 @@ module Terminus
             firmware_version, model_name = model.to_h.values_at :firmware_version, :model_name
 
             provisioner.call model_id: find_model_id(model_name),
-                             mac_address: model.computed_mac_address,
+                             mac_address: model.mac_address,
                              firmware_version:
           end
 

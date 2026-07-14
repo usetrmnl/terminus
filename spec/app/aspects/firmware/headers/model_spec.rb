@@ -70,21 +70,6 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
     end
   end
 
-  describe "#computed_mac_address" do
-    it "answers MAC address when present" do
-      expect(record.computed_mac_address).to eq("A1:B2:C3:D4:E5:F6")
-    end
-
-    it "answers MAC address when MAC address isn't present but API Key is" do
-      record = described_class[api_key: "A1:B2:C3:D4:E5:F6"]
-      expect(record.computed_mac_address).to eq("A1:B2:C3:D4:E5:F6")
-    end
-
-    it "answers nil when MAC address and API Key aren't present" do
-      expect(described_class.new.computed_mac_address).to be(nil)
-    end
-  end
-
   describe "#device_attributes" do
     it "answers device attributes" do
       expect(record.device_attributes).to eq(

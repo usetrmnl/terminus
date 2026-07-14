@@ -22,7 +22,7 @@ module Terminus
 
         def update result, at: Time.now
           result.bind do |model|
-            device = repository.update_by_mac_address model.computed_mac_address,
+            device = repository.update_by_mac_address model.mac_address,
                                                       **model.device_attributes,
                                                       synced_at: at
             device ? Success(device) : Failure("Unable to find device by MAC address.")
