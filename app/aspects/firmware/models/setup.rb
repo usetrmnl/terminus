@@ -8,6 +8,13 @@ module Terminus
       module Models
         # Models data for API setup responses.
         Setup = Struct.new :api_key, :image_url, :message, :status do
+          def self.for device, settings: Hanami.app[:settings]
+            new api_key: device.api_key,
+                image_url: %(#{settings.api_uri}/assets/setup.bmp),
+                message: "Welcome to Terminus!",
+                status: 200
+          end
+
           def self.welcome settings: Hanami.app[:settings], randomizer: SecureRandom
             new api_key: randomizer.alphanumeric(30),
                 image_url: %(#{settings.api_uri}/assets/setup.bmp),

@@ -5,6 +5,21 @@ require "hanami_helper"
 RSpec.describe Terminus::Aspects::Firmware::Models::Setup, :db do
   subject(:model) { described_class.new }
 
+  describe ".for" do
+    it "answers welcome record" do
+      device = Factory[:device, api_key: "abc123"]
+
+      expect(described_class.for(device)).to eq(
+        described_class[
+          api_key: "abc123",
+          image_url: %(#{Hanami.app[:settings].api_uri}/assets/setup.bmp),
+          message: "Welcome to Terminus!",
+          status: 200
+        ]
+      )
+    end
+  end
+
   describe ".welcome" do
     it "answers welcome record" do
       randomizer = class_double SecureRandom, alphanumeric: "abc123"
