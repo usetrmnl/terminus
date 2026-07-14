@@ -110,6 +110,25 @@ RSpec.describe Terminus::Repositories::Device, :db do
     end
   end
 
+  describe "#update_by_api_key" do
+    it "updates record with attributes" do
+      device
+      update = repository.update_by_api_key device.api_key, label: "Update", api_key: "abc123"
+
+      expect(update).to have_attributes(label: "Update", api_key: "abc123")
+    end
+
+    it "answers record without updates for no attributes" do
+      update = repository.update_by_api_key(device.api_key).to_h.tap { it.delete :playlist }
+      expect(update).to eq(device.to_h)
+    end
+
+    it "answers nil when device can't be found" do
+      update = repository.update_by_api_key "bogus"
+      expect(update).to be(nil)
+    end
+  end
+
   describe "#update_by_mac_address" do
     it "updates record with attributes" do
       device

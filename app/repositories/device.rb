@@ -40,6 +40,15 @@ module Terminus
         update device.id, **attributes
       end
 
+      def update_by_api_key value, **attributes
+        device = find_by api_key: value
+
+        return device if attributes.empty?
+        return unless device
+
+        update device.id, **attributes
+      end
+
       def where(**)
         with_associations.where(**)
                          .order { created_at.asc }
