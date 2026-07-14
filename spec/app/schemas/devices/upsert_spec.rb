@@ -12,6 +12,7 @@ RSpec.describe Terminus::Schemas::Devices::Upsert do
         playlist_id: nil,
         label: "Test",
         mac_address: "AA:BB:CC:11:22:33",
+        api_key: "secret",
         refresh_rate: 100,
         image_cached: "on",
         image_timeout: 0,

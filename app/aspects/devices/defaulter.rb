@@ -14,10 +14,11 @@ module Terminus
 
         def call
           {
-            mac_address: mac_address_builder.call,
+            api_key: randomizer.alphanumeric(30),
             firmware_update: true,
             image_timeout: 0,
             label: "TRMNL",
+            mac_address: mac_address_builder.call,
             refresh_rate: 900
           }
         end

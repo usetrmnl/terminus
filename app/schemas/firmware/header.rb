@@ -5,7 +5,7 @@ module Terminus
     module Firmware
       # Validates request headers.
       Header = Dry::Schema.Params do
-        optional(:HTTP_ACCESS_TOKEN).maybe Types::MACAddress
+        optional(:HTTP_ACCESS_TOKEN).maybe :string
         optional(:HTTP_BATTERY_VOLTAGE).filled :float
         optional(:HTTP_FW_VERSION).filled Types::Version
         optional(:HTTP_HEIGHT).filled :integer

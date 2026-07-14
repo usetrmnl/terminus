@@ -3,7 +3,7 @@
 RSpec.shared_context "with firmware headers" do
   let :firmware_headers do
     {
-      "HTTP_ACCESS_TOKEN" => "",
+      "HTTP_ACCESS_TOKEN" => "abc123",
       "HTTP_BATTERY_VOLTAGE" => "4.74",
       "HTTP_FW_VERSION" => "1.2.3",
       "HTTP_HEIGHT" => "480",

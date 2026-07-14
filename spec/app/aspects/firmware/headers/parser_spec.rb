@@ -12,6 +12,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
     let :debug_message_pattern do
       /
         DEBUG.+Processing\sdevice\srequest\sheaders.+
+        HTTP_ACCESS_TOKEN.+
         HTTP_BATTERY_VOLTAGE.+
         HTTP_FW_VERSION.+
         HTTP_HEIGHT.+
@@ -35,6 +36,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
     it "answers header record when success" do
       expect(parser.call(firmware_headers)).to be_success(
         Terminus::Aspects::Firmware::Headers::Model[
+          api_key: "abc123",
           battery_charge: 85.0,
           battery_voltage: 4.74,
           charging: false,

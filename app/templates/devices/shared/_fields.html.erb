@@ -48,6 +48,24 @@
     </div>
   <% end %>
 
+  <%= scope(:form_field, key: :api_key, errors:).render do %>
+    <label class="key" for="device_api_key">
+      API Key
+      <%= render "shared/popovers/triggers/default", name: :api_key %>
+    </label>
+
+    <div class="input-group" x-data="{ show: false }">
+      <%= form.text_field :api_key,
+                          id: :device_api_key,
+                          value: field_for(:api_key, fields, device),
+                          class: "value value-cap",
+                          autocomplete: :off,
+                          "x-bind:type" => "show ? 'text' : 'password'"%>
+
+      <%= render "shared/visibility_button" %>
+    </div>
+  <% end %>
+
   <%= scope(:form_field, key: :refresh_rate, errors:).render do %>
     <label class="key" for="device_refresh_rate">
       Refresh Rate

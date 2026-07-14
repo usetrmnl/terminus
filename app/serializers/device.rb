@@ -11,6 +11,7 @@ module Terminus
         playlist_id
         label
         mac_address
+        api_key
         firmware_profile
         firmware_update
         firmware_version

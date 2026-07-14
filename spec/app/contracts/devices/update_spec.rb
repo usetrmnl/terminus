@@ -14,6 +14,7 @@ RSpec.describe Terminus::Contracts::Devices::Update do
           playlist_id: nil,
           label: "Test",
           mac_address: "AA:BB:CC:11:22:33",
+          api_key: "secret",
           refresh_rate: 100,
           image_timeout: 0,
           firmware_update: "on",

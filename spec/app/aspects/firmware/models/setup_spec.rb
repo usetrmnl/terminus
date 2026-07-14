@@ -7,10 +7,14 @@ RSpec.describe Terminus::Aspects::Firmware::Models::Setup, :db do
 
   describe ".welcome" do
     it "answers welcome record" do
-      expect(described_class.welcome).to eq(
+      randomizer = class_double SecureRandom, alphanumeric: "abc123"
+
+      expect(described_class.welcome(randomizer:)).to eq(
         described_class[
+          api_key: "abc123",
           image_url: %(#{Hanami.app[:settings].api_uri}/assets/setup.bmp),
-          message: "Welcome to Terminus!"
+          message: "Welcome to Terminus!",
+          status: 200
         ]
       )
     end
@@ -18,7 +22,12 @@ RSpec.describe Terminus::Aspects::Firmware::Models::Setup, :db do
 
   describe "#initialize" do
     it "answers default attributes" do
-      expect(model.to_h).to eq(image_url: nil, message: "MAC Address not registered.")
+      expect(model.to_h).to eq(
+        api_key: nil,
+        image_url: nil,
+        message: "Device not registered.",
+        status: 404
+      )
     end
 
     it "is frozen" do
@@ -30,7 +39,12 @@ RSpec.describe Terminus::Aspects::Firmware::Models::Setup, :db do
     it "answers JSON" do
       payload = JSON model.to_json, symbolize_names: true
 
-      expect(payload).to eq(image_url: nil, message: "MAC Address not registered.")
+      expect(payload).to eq(
+        api_key: nil,
+        image_url: nil,
+        message: "Device not registered.",
+        status: 404
+      )
     end
   end
 end

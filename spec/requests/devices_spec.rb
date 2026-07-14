@@ -15,6 +15,7 @@ RSpec.describe "/api/devices", :db do
       playlist_id: playlist.id,
       label: "Test",
       mac_address: "A1:B2:C3:D4:E5:F6",
+      api_key: "abc123",
       refresh_rate: 100,
       image_cached: "on",
       image_timeout: 5,
@@ -55,6 +56,7 @@ RSpec.describe "/api/devices", :db do
           playlist_id: playlist.id,
           label: "Test",
           mac_address: "A1:B2:C3:D4:E5:F6",
+          api_key: match_device_api_key,
           refresh_rate: 900,
           image_cached: false,
           image_timeout: 0,
@@ -105,6 +107,7 @@ RSpec.describe "/api/devices", :db do
         playlist_id: playlist.id,
         label: "Test",
         mac_address: "A1:B2:C3:D4:E5:F6",
+        api_key: match_device_api_key,
         refresh_rate: 900,
         image_cached: false,
         image_timeout: 0,
@@ -154,6 +157,7 @@ RSpec.describe "/api/devices", :db do
         playlist_id: kind_of(Integer),
         label: "Test",
         mac_address: "A1:B2:C3:D4:E5:F6",
+        api_key: "abc123",
         refresh_rate: 100,
         image_cached: true,
         image_timeout: 5,
@@ -186,7 +190,8 @@ RSpec.describe "/api/devices", :db do
       model_id: model.id,
       playlist_id: nil,
       label: "Test",
-      mac_address: "A1:B2:C3:D4:E5:F6"
+      mac_address: "A1:B2:C3:D4:E5:F6",
+      api_key: "abc123"
     }
 
     post routes.path(:api_devices),
@@ -201,6 +206,7 @@ RSpec.describe "/api/devices", :db do
         playlist_id: kind_of(Integer),
         label: "Test",
         mac_address: "A1:B2:C3:D4:E5:F6",
+        api_key: "abc123",
         refresh_rate: 900,
         image_cached: false,
         image_timeout: 0,
@@ -338,6 +344,7 @@ RSpec.describe "/api/devices", :db do
         playlist_id: playlist.id,
         label: "Test",
         mac_address: "A1:B2:C3:D4:E5:F6",
+        api_key: match_device_api_key,
         refresh_rate: 900,
         image_cached: false,
         image_timeout: 0,

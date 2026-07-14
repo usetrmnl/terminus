@@ -18,6 +18,7 @@ RSpec.describe Terminus::Serializers::Device do
       playlist_id: playlist.id,
       label: "Serialize Test",
       mac_address: "A1:B2:C3:D4:E5:F6",
+      api_key: "abc123",
       firmware_profile: true,
       firmware_update: true,
       firmware_version: "1.2.3",

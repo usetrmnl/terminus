@@ -15,8 +15,10 @@ RSpec.describe "/api/setup", :db do
     get routes.path(:api_setup), {}, **headers
 
     expect(json_payload).to match(
+      api_key: match_device_api_key,
       image_url: %(#{settings.api_uri}/assets/setup.bmp),
-      message: "Welcome to Terminus!"
+      message: "Welcome to Terminus!",
+      status: 200
     )
   end
 
@@ -24,9 +26,11 @@ RSpec.describe "/api/setup", :db do
     headers["HTTP_ID"] = device.mac_address
     get routes.path(:api_setup), {}, **headers
 
-    expect(json_payload).to eq(
+    expect(json_payload).to match(
+      api_key: match_device_api_key,
       image_url: %(#{settings.api_uri}/assets/setup.bmp),
-      message: "Welcome to Terminus!"
+      message: "Welcome to Terminus!",
+      status: 200
     )
   end
 

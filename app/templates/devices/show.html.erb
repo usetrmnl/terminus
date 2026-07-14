@@ -53,6 +53,12 @@
         <dd class="value bit-secret"><%= device.mac_address %></dd>
 
         <dt class="key">
+           API Key
+           <%= render "shared/popovers/triggers/default", name: :api_key %>
+         </dt>
+         <dd class="value bit-secret"><%= device.api_key %></dd>
+
+        <dt class="key">
           Refresh Rate
           <%= render "shared/popovers/triggers/default", name: :refresh_rate %>
         </dt>

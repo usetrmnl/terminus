@@ -315,7 +315,8 @@ CREATE TABLE public.device (
     display_profile text DEFAULT 'default'::text NOT NULL,
     firmware_profile boolean DEFAULT false NOT NULL,
     touch_bar text DEFAULT 'tap'::text NOT NULL,
-    wifi_band double precision DEFAULT 0 NOT NULL
+    wifi_band double precision DEFAULT 0 NOT NULL,
+    api_key text
 );
 
 
@@ -1296,6 +1297,13 @@ CREATE INDEX audit_user_at_idx ON public.user_authentication_audit_log USING btr
 
 
 --
+-- Name: device_api_key_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX device_api_key_index ON public.device USING btree (api_key) WHERE (api_key IS NOT NULL);
+
+
+--
 -- Name: device_log_level_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1808,4 +1816,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260610103052_remove_device_api_key_and_friendly_id_columns.rb'),
 ('20260615094348_create_screen_template.rb'),
 ('20260618094125_add_screen_template_id_column.rb'),
-('20260630091508_add_device_log_level_column.rb');
+('20260630091508_add_device_log_level_column.rb'),
+('20260714090149_add_device_api_key_column.rb');

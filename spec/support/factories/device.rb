@@ -3,6 +3,7 @@
 Factory.define :device, relation: :device do |factory|
   factory.association :model
 
+  factory.api_key { SecureRandom.alphanumeric 30 }
   factory.battery_charge 0
   factory.battery_voltage 3.0
   factory.display_compatibility false

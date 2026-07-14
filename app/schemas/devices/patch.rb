@@ -10,6 +10,7 @@ module Terminus
         optional(:playlist_id).filled :integer
         optional(:label).filled :string
         optional(:mac_address).filled Types::MACAddress
+        optional(:api_key).filled :string
         optional(:refresh_rate).filled :integer, gt?: 0
         optional(:image_cached).maybe :bool
         optional(:image_timeout).filled :integer, gteq?: 0

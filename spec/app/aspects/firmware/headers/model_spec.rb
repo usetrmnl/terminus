@@ -9,6 +9,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
 
   subject :record do
     described_class[
+      api_key: "abc123",
       battery_charge: 85.0,
       battery_voltage: 4.74,
       charging: false,
@@ -38,7 +39,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
 
       expect(record).to eq(
         described_class[
-          api_key: "",
+          api_key: "abc123",
           battery_charge: "85",
           battery_voltage: "4.74",
           charging: "false",
