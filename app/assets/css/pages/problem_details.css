@@ -1,16 +1,16 @@
 .page-problem_details {
+  font-size: 1rem;
+
   .introduction {
-    font-size: 1.5rem;
-    margin: 0 0 3rem 0;
+    margin-bottom: 1rem;
   }
 
   .summary {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
   }
 
   .label {
-    font-size: 1rem;
     font-weight: 600;
+    margin-bottom: 1rem;
   }
 }
