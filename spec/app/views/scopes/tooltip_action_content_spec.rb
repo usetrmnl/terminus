@@ -10,8 +10,13 @@ RSpec.describe Terminus::Views::Scopes::TooltipActionContent do
   let(:locals) { {label: "Test"} }
 
   describe "#element_id" do
-    it "answers prefix with downcased label" do
+    it "answers snakecased label without spaces" do
       expect(scope.element_id).to eq("tooltip-action-test")
+    end
+
+    it "answers snakecased label with spaces" do
+      locals[:label] = "Example With Spaces"
+      expect(scope.element_id).to eq("tooltip-action-example_with_spaces")
     end
 
     it "answers custom name when provided" do
