@@ -60,11 +60,11 @@
                model: "response" %>
 
     <p class="help" x-show="response === 'data'">
-      The following is a capture of the last responses.
+      The last successful response. Only updated when there are no errors.
     </p>
 
     <p class="help" x-show="response === 'errors'">
-      The following is a capture of any associated errors.
+      The errors (if any) associated with the last request.
     </p>
   </div>
 
