@@ -4,28 +4,57 @@
 
 <ul class="links">
   <li class="item">
-    <%= link_to "TRMNL", "https://trmnl.com", class: :link %>
+    <%= link_to "https://trmnl.com",
+                class: :link,
+                interestfor: "tooltip-action-trmnl" do %>
+      <%= image_tag "logos/black.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 
   <li class="item">
-    <%= link_to "Problem Details", routes.path(:problem_details), class: :link %>
+    <%= link_to "https://help.usetrmnl.com",
+                class: :link,
+                interestfor: "tooltip-action-help" do %>
+      <%= image_tag "icons/help.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 
   <li class="item">
-    <%= link_to "Help", "https://help.usetrmnl.com", class: :link %>
+    <%= link_to routes.path(:problem_details),
+                class: :link,
+                interestfor: "tooltip-action-problem_details" do %>
+      <%= image_tag "icons/problem_details.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 
   <li class="item">
-    <%= link_to "Syndication", "https://alchemists.io/feeds/projects/terminus.xml", class: :link %>
+    <%= link_to "https://alchemists.io/feeds/projects/terminus.xml",
+                class: :link,
+                interestfor: "tooltip-action-syndication" do %>
+      <%= image_tag "icons/syndication.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 
   <li class="item">
-    <%= link_to "YouTube",
-                "https://www.youtube.com/playlist?list=PLrBM92erso_AFRIDfFGRMEJnEc3lki9Qb",
-                class: :link %>
+    <%= link_to "https://www.youtube.com/playlist?list=PLrBM92erso_AFRIDfFGRMEJnEc3lki9Qb",
+                class: :link,
+                interestfor: "tooltip-action-you_tube" do %>
+      <%= image_tag "icons/youtube.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 
   <li class="item">
-    <%= link_to "Source", "https://github.com/usetrmnl/terminus", class: :link %>
+    <%= link_to "https://github.com/usetrmnl/terminus",
+                class: :link,
+                interestfor: "tooltip-action-source" do %>
+      <%= image_tag "icons/git.svg", class: :icon, width: 30, height: 30, loading: :lazy %>
+    <% end %>
   </li>
 </ul>
+
+<%= scope(:tooltip_action_content, label: "TRMNL", id: :trmnl).render %>
+<%= scope(:tooltip_action_content, label: "Help").render %>
+<%= scope(:tooltip_action_content, label: "Problem Details", id: :problem_details).render %>
+<%= scope(:tooltip_action_content, label: "Syndication").render %>
+<%= scope(:tooltip_action_content, label: "YouTube").render %>
+<%= scope(:tooltip_action_content, label: "Source").render %>
