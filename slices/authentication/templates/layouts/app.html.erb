@@ -16,12 +16,12 @@
 
     <%= tag.link title: "Terminus: Icon",
                  rel: :icon,
-                 href: main_assets["logo/salmon.svg"],
+                 href: main_assets["logos/salmon.svg"],
                  type: "image/svg+xml" %>
 
     <%= tag.link title: "Terminus: Apple Icon",
                  rel: "apple-touch-icon",
-                 href: main_assets["logo/apple.png"] %>
+                 href: main_assets["logos/apple.png"] %>
 
     <%= tag.link title: "Terminus: Manifest",
                  rel: :manifest,
@@ -37,7 +37,7 @@
   <body class="site-page site-authentication">
     <header>
       <%= link_to routes.path(:root), class: "site-label" do %>
-        <%= tag.img src: main_assets["logo/salmon.svg"], alt: "Logo", width: 30, height: 30 %>
+        <%= tag.img src: main_assets["logos/salmon.svg"], alt: "Logo", width: 30, height: 30 %>
         <h1 class=label>Terminus</h1>
       <% end %>
     </header>

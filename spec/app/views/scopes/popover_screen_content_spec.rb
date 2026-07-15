@@ -43,7 +43,7 @@ RSpec.describe Terminus::Views::Scopes::PopoverScreenContent do
           </figure>
 
           <p class="brand">
-            <img src="#{assets["logo/with_label.svg"]}" alt="Logo with Label" width="150" height="75">
+            <img src="#{assets["logos/with_label.svg"]}" alt="Logo with Label" width="150" height="75">
           </p>
         </dialog>
       CONTENT
