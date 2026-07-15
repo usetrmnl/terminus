@@ -104,7 +104,7 @@ services:
           cpus: "1.0"
 
   keyvalue:
-    image: valkey/valkey:9-alpine
+    image: valkey/valkey:9.1-alpine
     ports:
       - "${KEYVALUE_PORT}:${KEYVALUE_PORT}"
     command: >
