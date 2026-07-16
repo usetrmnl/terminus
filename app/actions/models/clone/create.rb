@@ -26,8 +26,6 @@ module Terminus
             case cloner.call parameters[:model_id], **parameters[:model]
               in Success then response.redirect_to routes.path(:models)
               in Failure(errors) then render_form_error parameters, errors, response
-              # :nocov:
-              # :nocov:
             end
           end
 

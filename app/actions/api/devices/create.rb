@@ -29,8 +29,6 @@ module Terminus
             case provisioner.call(**parameters[:device])
               in Success(device) then response.body = {data: serializer.new(device).to_h}.to_json
               in Failure(String => error) then not_found error, response
-              # :nocov:
-              # :nocov:
             end
           end
 

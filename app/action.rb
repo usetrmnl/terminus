@@ -29,7 +29,6 @@ module Terminus
     def handle_rodauth_redirect rodauth, response
       halted = catch(:halt) { yield }
 
-      # :nocov:
       return unless halted
 
       code, headers, body = *halted
@@ -38,7 +37,6 @@ module Terminus
       response.redirect headers["Location"], code
 
       throw :halt, [code, body]
-      # :nocov:
     end
   end
 end

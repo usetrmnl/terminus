@@ -24,8 +24,6 @@ module Terminus
             case exporter.call extension
               in Success(body) then response.with body: body.read
               in Failure(message) then response.with body: message, status: 500
-              # :nocov:
-              # :nocov:
             end
           end
         end

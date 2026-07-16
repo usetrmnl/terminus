@@ -9,9 +9,7 @@ require_relative "initializers/universal_logger_patch"
 module Terminus
   # The application base configuration.
   class App < Hanami::App
-    # :nocov:
     RubyVM::YJIT.enable if defined? RubyVM::YJIT
-    # :nocov:
     Dry::Schema.load_extensions :monads
     Dry::Validation.load_extensions :monads
 

@@ -18,8 +18,6 @@ module Terminus
             in Success(Structs::User)
               response.render index_view, users: repository.all, layout: htmx_layout.call(request)
             in Failure(result) then error request, response, result
-            # :nocov:
-            # :nocov:
           end
         end
 

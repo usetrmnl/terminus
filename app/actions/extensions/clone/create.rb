@@ -33,8 +33,6 @@ module Terminus
             case cloner.call parameters[:extension_id], **parameters[:extension]
               in Success then response.redirect_to routes.path(:extensions)
               in Failure(errors) then error parameters, errors, response
-              # :nocov:
-              # :nocov:
             end
           end
 

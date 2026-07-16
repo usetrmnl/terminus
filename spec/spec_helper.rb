@@ -3,28 +3,27 @@
 require "simplecov"
 
 unless ENV["COVERAGE"] == "no"
-  SimpleCov.start do
-    add_filter %r(^/spec/)
-    enable_coverage :branch
-    minimum_coverage_by_file line: 95, branch: 95
-
-    add_group "Actions", "app/actions"
-    add_group "Aspects", "app/aspects"
-    add_group "Config", "config"
-    add_group "Contracts", "app/contracts"
-    add_group "DB", "app/db"
-    add_group "Jobs", "app/jobs"
-    add_group "Lib", "lib"
-    add_group "Models", "app/models"
-    add_group "Providers", "app/providers"
-    add_group "Relations", "app/relations"
-    add_group "Repositories", "app/repositories"
-    add_group "Schemas", "app/schemas"
-    add_group "Serializers", "app/serializers"
-    add_group "Slices", "slices"
-    add_group "Structs", "app/structs"
-    add_group "Uploaders", "app/uploaders"
-    add_group "Views", "app/views"
+  SimpleCov.start "strict" do
+    group "Actions", "app/actions"
+    group "Aspects", "app/aspects"
+    group "Config", "config"
+    group "Contracts", "app/contracts"
+    group "DB", "app/db"
+    group "Jobs", "app/jobs"
+    group "Lib", "lib"
+    group "Models", "app/models"
+    group "Providers", "app/providers"
+    group "Relations", "app/relations"
+    group "Repositories", "app/repositories/"
+    group "Schemas", "app/schemas"
+    group "Serializers", "app/serializers"
+    group "Slices", "slices"
+    group "Structs", "app/structs"
+    group "Uploaders", "app/uploaders"
+    group "Views", "app/views"
+    ignore_branches :implicit_else
+    skip "app/templates"
+    skip "slices/authentication/templates"
   end
 end
 

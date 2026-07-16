@@ -23,5 +23,7 @@ Hanami.app.register_provider :http do
     register :http, http
   end
 
+  # simplecov:disable
   stop { slice[:http].close }
+  # simplecov:enable
 end

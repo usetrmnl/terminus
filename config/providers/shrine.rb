@@ -10,12 +10,12 @@ Hanami.app.register_provider :shrine do
     Shrine.storages = if Hanami.env? :test
                         {cache: Shrine::Storage::Memory.new, store: Shrine::Storage::Memory.new}
                       else
+                        # simplecov:disable
                         {
-                          # :nocov:
                           cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
                           store: Shrine::Storage::FileSystem.new("public", prefix: "uploads")
-                          # :nocov:
                         }
+                        # simplecov:enable
                       end
 
     Shrine.plugin :add_metadata

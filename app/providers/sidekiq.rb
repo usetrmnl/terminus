@@ -38,21 +38,21 @@ module Terminus
       end
 
       def configure_server
-        # :nocov:
+        # simplecov:disable
         sidekiq.configure_server do |configuration|
           configuration.redis = {url: slice[:settings].keyvalue_url}
           configuration.logger = slice[:logger]
           configuration.on(:startup) { load_schedule }
         end
-        # :nocov:
+        # simplecov:enable
       end
 
       def sidekiq
         @sidekiq ||= resolver.call
       end
 
+      # simplecov:disable
       def load_schedule
-        # :nocov:
         jobs = YAML.load_file slice.root.join("config/sidekiq_scheduler.yml")
 
         jobs.each do |schedule_name, options|
@@ -62,8 +62,8 @@ module Terminus
         rescue NameError, TypeError
           logger.error { "Unable to initialize job: #{job_name}." }
         end
-        # :nocov:
       end
+      # simplecov:enable
     end
   end
 end

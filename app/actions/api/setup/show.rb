@@ -19,8 +19,6 @@ module Terminus
             case firmware_parser.call request.env
               in Success(model) then create model, response
               in Failure(result) then unprocessable_content result.errors.to_h, response
-              # :nocov:
-              # :nocov:
             end
           end
 

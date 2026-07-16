@@ -16,8 +16,6 @@ module Terminus
           case updater.call(**request.params.to_h)
             in Success(user) then save user, response
             in Failure(result) then error request, result, response
-            # :nocov:
-            # :nocov:
           end
         end
 

@@ -8,7 +8,7 @@ require_relative "feature"
 
 module Authentication
   # Specialized Roda middleware for authentication.
-  # :nocov:
+  # simplecov:disable
   class Middleware < Roda
     UNVERIFIED_ID = 1
     VERIFIED_ID = 2
@@ -150,5 +150,5 @@ module Authentication
       request.rodauth
     end
   end
-  # :nocov:
+  # simplecov:enable
 end

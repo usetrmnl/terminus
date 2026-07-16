@@ -26,7 +26,9 @@ module Terminus
 
         attr_reader :petail
 
+        # simplecov:disable
         def verify_csrf_token?(*) = false
+        # simplecov:enable
 
         private
 
