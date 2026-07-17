@@ -540,7 +540,7 @@ GEM
       inspectable (~> 1.0)
       pipeable (~> 2.0)
       zeitwerk (~> 2.8)
-    trmnl-liquid (0.7.0)
+    trmnl-liquid (0.8.1)
       liquid (~> 5.12)
       redcarpet (~> 3.6)
       rqrcode (~> 3.2)
@@ -836,7 +836,7 @@ CHECKSUMS
   tone (3.3.0) sha256=a54f826802b9c5424c607a2b052cc22df3404d7dd7c40e9340f2ac5bfab42ba0
   transproc (1.1.1) sha256=b2f9a85ecaf7064f0b3893ffac929de9fd713b13f5aaf822b0bd091fd6f5c8c2
   trmnl-api (0.19.0) sha256=5c926072bffe828a3bebae1f3859466c80fef5d56a5c16bafdb10d6723c7a4d3
-  trmnl-liquid (0.7.0) sha256=25e399c694f58888e45eca730e595d08338c5d977358611c2655375cf9e5090a
+  trmnl-liquid (0.8.1) sha256=fd054a9a479132d4c755189e2b5b861a8dab6cda52ce3629af6dd0f93459f4b0
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (3.2.0) sha256=0cdd96b5681a5949cdbc2c55e7b420facae74c4aaf9a9815eee1087cb1853c42
