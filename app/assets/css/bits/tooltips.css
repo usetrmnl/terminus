@@ -10,7 +10,7 @@
 .bit-tooltip-action {
   --corner: 5px;
   --arrow-height: 8px;
-  --arror-position: 50%;
+  --arrow-position: 50%;
   --arrow-width: 8px;
   --caret-down:
     shape(from var(--corner) 0,
@@ -19,7 +19,7 @@
       vline to calc(100% - (var(--corner) + var(--arrow-height))),
       curve to calc(100% - var(--corner)) calc(100% - var(--arrow-height))
         with right calc(100% - var(--arrow-height)),
-      hline to calc(var(--arror-position) + var(--arrow-width)),
+      hline to calc(var(--arrow-position) + var(--arrow-width)),
       line by calc(var(--arrow-width) * -1) var(--arrow-height),
       line by calc(var(--arrow-width) * -1) calc(var(--arrow-height) * -1),
       hline to var(--corner),
