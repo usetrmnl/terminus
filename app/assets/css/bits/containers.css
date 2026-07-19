@@ -19,4 +19,12 @@
   justify-content: center;
   margin-top: 2rem;
   padding: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    & > .bit-card {
+      animation: scaleIn;
+      animation-timeline: view();
+      animation-range: entry 10% entry 100%;
+    }
+  }
 }
