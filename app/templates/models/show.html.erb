@@ -21,91 +21,91 @@
       <dl class="bit-definition-list">
          <dt class="key">
            Name
-           <%= render "shared/popovers/triggers/default", name: :name %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :name).render %>
          </dt>
          <dd class="value"><%= model.name %></dd>
 
          <dt class="key">
            Description
-           <%= render "shared/popovers/triggers/default", name: :description %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :description).render %>
          </dt>
          <dd class="value"><%= model.description %></dd>
 
          <dt class="key">
            Kind
-           <%= render "shared/popovers/triggers/default", name: :kind %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :kind).render %>
          </dt>
          <dd class="value"><%= model.kind_label %></dd>
 
          <dt class="key">
            MIME Type
-           <%= render "shared/popovers/triggers/default", name: :mime_type %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :mime_type).render %>
          </dt>
          <dd class="value"><%= model.mime_type %></dd>
 
          <dt class="key">
            Colors
-           <%= render "shared/popovers/triggers/default", name: :colors %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :colors).render %>
          </dt>
          <dd class="value"><%= model.colors %></dd>
 
          <dt class="key">
            Bit Depth
-           <%= render "shared/popovers/triggers/default", name: :bit_depth %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :bit_depth).render %>
          </dt>
          <dd class="value"><%= model.bit_depth %></dd>
 
          <dt class="key">
            Rotation
-           <%= render "shared/popovers/triggers/default", name: :rotation %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :rotation).render %>
          </dt>
          <dd class="value"><%= model.rotation %></dd>
 
          <dt class="key">
            X Offset
-           <%= render "shared/popovers/triggers/default", name: :offset_x %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :offset_x).render %>
          </dt>
          <dd class="value"><%= model.offset_x %></dd>
 
          <dt class="key">
            Y Offset
-           <%= render "shared/popovers/triggers/default", name: :offset_y %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :offset_y).render %>
          </dt>
          <dd class="value"><%= model.offset_y %></dd>
 
          <dt class="key">
            Scale Factor
-           <%= render "shared/popovers/triggers/default", name: :scale_factor %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :scale_factor).render %>
          </dt>
          <dd class="value"><%= model.scale_factor %></dd>
 
          <dt class="key">
            Width
-           <%= render "shared/popovers/triggers/default", name: :width %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :width).render %>
          </dt>
          <dd class="value"><%= model.width %></dd>
 
          <dt class="key">
            Height
-           <%= render "shared/popovers/triggers/default", name: :height %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :height).render %>
          </dt>
          <dd class="value"><%= model.height %></dd>
 
          <dt class="key">
            Default Palette
-           <%= render "shared/popovers/triggers/default", name: :default_palette %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :default_palette).render %>
          </dt>
          <dd class="value"><%= model.default_palette_label %></dd>
 
          <dt class="key">
            Allowed Palettes
-           <%= render "shared/popovers/triggers/default", name: :allowed_palettes %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :allowed_palettes).render %>
          </dt>
          <dd class="value"><%= model.allowed_palettes %></dd>
 
          <dt class="key">
            CSS
-           <%= render "shared/popovers/triggers/default", name: :css %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :css).render %>
          </dt>
          <dd class="value">
           <%= tag.textarea id: :css,
@@ -121,6 +121,7 @@
       </dl>
     </div>
   </div>
-</section>
 
-<%= render "models/shared/popovers/all" %>
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "models/shared/popovers/all" %>
+</section>

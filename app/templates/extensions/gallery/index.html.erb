@@ -9,7 +9,14 @@
 
       <li class="bit-breadcrumb">
         Gallery
-        <%= render "shared/popovers/triggers/default", name: :overview, width: 20, height: 20 %>
+
+        <%= scope(
+              :popover_trigger_button,
+              tip: :info,
+              target: :overview,
+              width: 20,
+              height: 20
+            ).render %>
       </li>
     </ul>
 
@@ -53,6 +60,7 @@
     </div>
   <% end %>
 
+  <%= scope(:tooltip_action_content, label: "Info").render %>
   <%= scope(:tooltip_action_content, label: "Search").render %>
   <%= scope(:tooltip_action_content, label: "Clear").render %>
   <%= scope(:tooltip_action_content, label: "Import").render %>

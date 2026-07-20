@@ -2,7 +2,7 @@
   <%= scope(:form_field, key: :label, errors:).render do %>
     <label class="key" for="model_label">
       Label
-      <%= render "shared/popovers/triggers/default", name: :label %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :label).render %>
     </label>
 
     <%= form.text_field :label,
@@ -15,7 +15,7 @@
   <%= scope(:form_field, key: :name, errors:).render do %>
     <label class="key" for="model_name">
       Name
-      <%= render "shared/popovers/triggers/default", name: :name %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :name).render %>
     </label>
 
     <%= form.text_field :name,
@@ -28,7 +28,7 @@
   <%= scope(:form_field, key: :description, errors:).render do %>
     <label class="key" for="model_description">
       Description
-      <%= render "shared/popovers/triggers/default", name: :description %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :description).render %>
     </label>
 
     <%= form.text_field :description,
@@ -41,7 +41,7 @@
   <%= scope(:form_field, key: :mime_type, errors:).render do %>
     <label class="key" for="model_mime_type">
       MIME Type
-      <%= render "shared/popovers/triggers/default", name: :mime_type %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :mime_type).render %>
     </label>
 
     <%= form.text_field :mime_type,
@@ -54,7 +54,7 @@
   <%= scope(:form_field, key: :colors, errors:).render do %>
     <label class="key" for="model_colors">
       Colors
-      <%= render "shared/popovers/triggers/default", name: :colors %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :colors).render %>
     </label>
 
     <%= form.number_field :colors,
@@ -66,7 +66,7 @@
   <%= scope(:form_field, key: :bit_depth, errors:).render do %>
     <label class="key" for="model_bit_depth">
       Bit Depth
-      <%= render "shared/popovers/triggers/default", name: :bit_depth %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :bit_depth).render %>
     </label>
 
     <%= form.number_field :bit_depth,
@@ -78,7 +78,7 @@
   <%= scope(:form_field, key: :rotation, errors:).render do %>
     <label class="key" for="model_rotation">
       Rotation
-      <%= render "shared/popovers/triggers/default", name: :rotation %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :rotation).render %>
     </label>
 
     <%= form.number_field :rotation,
@@ -90,7 +90,7 @@
   <%= scope(:form_field, key: :offset_x, errors:).render do %>
     <label class="key" for="model_offset_x">
       X Offset
-      <%= render "shared/popovers/triggers/default", name: :offset_x %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :offset_x).render %>
     </label>
 
     <%= form.number_field :offset_x,
@@ -102,7 +102,7 @@
   <%= scope(:form_field, key: :offset_y, errors:).render do %>
     <label class="key" for="model_offset_y">
       Y Offset
-      <%= render "shared/popovers/triggers/default", name: :offset_y %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :offset_y).render %>
     </label>
 
     <%= form.number_field :offset_y,
@@ -114,7 +114,7 @@
   <%= scope(:form_field, key: :scale_factor, errors:).render do %>
     <label class="key" for="model_scale_factor">
       Scale Factor
-      <%= render "shared/popovers/triggers/default", name: :scale_factor %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :scale_factor).render %>
     </label>
 
     <%= form.number_field :scale_factor,
@@ -126,7 +126,7 @@
   <%= scope(:form_field, key: :width, errors:).render do %>
     <label class="key" for="model_width">
       Width
-      <%= render "shared/popovers/triggers/default", name: :width %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :width).render %>
     </label>
 
     <%= form.number_field :width,
@@ -138,7 +138,7 @@
   <%= scope(:form_field, key: :height, errors:).render do %>
     <label class="key" for="model_height">
       Height
-      <%= render "shared/popovers/triggers/default", name: :height %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :height).render %>
     </label>
 
     <%= form.number_field :height,
@@ -150,7 +150,7 @@
   <%= scope(:form_field, key: :default_palette_id, errors:).render do %>
     <label class="key" for="model_default_palette_id">
       Default Palette
-      <%= render "shared/popovers/triggers/default", name: :default_palette %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :default_palette).render %>
     </label>
 
     <%= form.select :default_palette_id,
@@ -162,7 +162,7 @@
   <%= scope(:form_field, key: :css, errors:).render do %>
     <label class="key" for="model_css">
       CSS
-      <%= render "shared/popovers/triggers/default", name: :css %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :css).render %>
     </label>
 
     <%= form.text_area :css,

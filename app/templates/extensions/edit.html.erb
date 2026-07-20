@@ -17,13 +17,16 @@
       <h1 class="label">Edit Extension</h1>
 
       <div class="bit-actions">
-        <%= render "shared/popovers/triggers/default",
-                   name: :preview,
-                   label: "Preview",
-                   icon: :eye,
-                   class: "bit-button-accept",
-                   width: 25,
-                   height: 25 %>
+        <%= scope(
+              :popover_trigger_button,
+              classes: "bit-button-accept",
+              target: :preview,
+              icon: :eye,
+              width: 25,
+              height: 25).render do %>
+           Preview
+        <% end %>
+
 
         <%= render "extensions/build/button",
                    path: routes.path(:extension_build, extension_id: extension.id) %>
@@ -64,4 +67,6 @@
       <% end %>
     </div>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
 </section>

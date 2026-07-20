@@ -24,13 +24,13 @@
 
         <dt class="key">
           Email
-          <%= render "shared/popovers/triggers/default", name: :email %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :email).render %>
         </dt>
         <dd class="value"><%= tag.a user.email, href: "mailto:#{user.email}" %></dd>
 
         <dt class="key">
           Status
-          <%= render "shared/popovers/triggers/default", name: :status %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :status).render %>
         </dt>
         <dd class="value"><%= user.status.name %></dd>
 
@@ -42,6 +42,8 @@
       </dl>
     </div>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "users/shared/popovers/all" %>
 </section>
 
-<%= render "users/shared/popovers/all" %>

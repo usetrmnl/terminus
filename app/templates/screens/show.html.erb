@@ -29,13 +29,13 @@
       <dl class="bit-definition-list">
         <dt class="key">
           Name
-          <%= render "shared/popovers/triggers/default", name: :name %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :name).render %>
         </dt>
         <dd class="value"><%= screen.name %></dd>
 
         <dt class="key">
           Model
-          <%= render "shared/popovers/triggers/default", name: :model %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
         </dt>
         <dd class="value">
           <%= link_to screen.model.label, routes.path(:model, id: screen.model_id) %>
@@ -61,6 +61,8 @@
       </dl>
     </div>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "screens/shared/popovers/all" %>
 </section>
 
-<%= render "screens/shared/popovers/all" %>

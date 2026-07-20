@@ -2,7 +2,7 @@
   <%= scope(:form_field, key: :version, errors:).render do %>
     <label class="key" for="firmware_version">
       Version
-      <%= render "shared/popovers/triggers/default", name: :version %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :version).render %>
     </label>
 
     <%= form.text_field :version,
@@ -15,7 +15,7 @@
   <%= scope(:form_field, key: :kind, errors:).render do %>
     <label class="key" for="firmware_kind">
       Kind
-      <%= render "shared/popovers/triggers/default", name: :kind %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :kind).render %>
     </label>
 
     <%= form.text_field :kind,
@@ -28,7 +28,7 @@
   <%= scope(:form_field, key: :attachment, errors:).render do %>
     <label class="key" for="firmware_attachment">
       Attachment
-      <%= render "shared/popovers/triggers/default", name: :attachment %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :attachment).render %>
     </label>
 
     <%= form.file_field :attachment,
@@ -38,6 +38,7 @@
 
     <%= tag.span firmware.attachment_name, class: "bit-pill bit-pill-active" if firmware && firmware.attachment_attributes %>
   <% end %>
+
+  <%= render "firmware/shared/popovers/all" %>
 </fieldset>
 
-<%= render "firmware/shared/popovers/all" %>

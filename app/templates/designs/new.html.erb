@@ -18,7 +18,7 @@
       <%= scope(:form_field, key: :model_id, errors:).render do %>
         <label class="key" for="model_id">
           Model
-          <%= render "shared/popovers/triggers/default", name: :model %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
         </label>
 
         <%= tag.select id: :model_id, name: :model_id, class: :value do %>
@@ -38,4 +38,6 @@
       </div>
     <% end %>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
 </section>

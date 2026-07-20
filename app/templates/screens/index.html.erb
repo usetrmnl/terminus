@@ -4,7 +4,14 @@
   <header class="bit-header">
     <h1 class="label">
       Screens
-      <%= render "shared/popovers/triggers/default", name: :overview, width: 20, height: 20 %>
+
+      <%= scope(
+            :popover_trigger_button,
+            tip: :info,
+            target: :overview,
+            width: 20,
+            height: 20
+          ).render %>
     </h1>
 
     <div class="bit-actions">
@@ -44,6 +51,7 @@
     </div>
   <% end %>
 
+  <%= scope(:tooltip_action_content, label: "Info").render %>
   <%= scope(:tooltip_action_content, label: "New").render %>
   <%= scope(:tooltip_action_content, label: "Search").render %>
   <%= scope(:tooltip_action_content, label: "Clear").render %>

@@ -14,7 +14,13 @@
       <%= tag.li "Screens", class: "bit-breadcrumb" %>
     </ul>
 
-    <%= render "shared/popovers/triggers/default", name: :shortcuts, width: 20, height: 20 %>
+    <%= scope(
+          :popover_trigger_button,
+          tip: :info,
+          target: :shortcuts,
+          width: 20,
+          height: 20
+        ).render %>
 
     <%= scope(:popover_default_content, name: :shortcuts, label: "Keyboard Shortcuts").render do %>
       <ul>
@@ -45,5 +51,6 @@
     </div>
   <% end %>
 
+  <%= scope(:tooltip_action_content, label: "Info").render %>
   <%= scope(:tooltip_action_content, label: "Fullscreen").render %>
 </section>

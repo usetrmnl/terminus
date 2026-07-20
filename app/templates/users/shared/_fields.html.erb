@@ -36,7 +36,7 @@
   <%= scope(:form_field, key: :status_id, errors:).render do %>
     <label class="key" for="user_status_id">
       Status
-      <%= render "shared/popovers/triggers/default", name: :status %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :status).render %>
     </label>
 
     <%= form.select :status_id,

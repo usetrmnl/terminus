@@ -2,7 +2,7 @@
   <%= scope(:form_field, key: :model_id, errors:).render do %>
     <label class="key" for="device_model_id">
       Model
-      <%= render "shared/popovers/triggers/default", name: :model %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
     </label>
 
     <%= form.select :model_id, select_options_for(models), id: :device_model_id, class: :value %>
@@ -11,7 +11,7 @@
   <%= scope(:form_field, key: :playlist_id, errors:).render do %>
     <label class="key" for="device_playlist_id">
       Playlist
-      <%= render "shared/popovers/triggers/default", name: :playlist %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :playlist).render %>
     </label>
 
     <%= form.select :playlist_id,
@@ -33,7 +33,7 @@
   <%= scope(:form_field, key: :mac_address, errors:).render do %>
     <label class="key" for="device_mac_address">
       MAC Address
-      <%= render "shared/popovers/triggers/default", name: :mac_address %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :mac_address).render %>
     </label>
 
     <div class="input-group" x-data="{ show: false }">
@@ -51,7 +51,7 @@
   <%= scope(:form_field, key: :api_key, errors:).render do %>
     <label class="key" for="device_api_key">
       API Key
-      <%= render "shared/popovers/triggers/default", name: :api_key %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :api_key).render %>
     </label>
 
     <div class="input-group" x-data="{ show: false }">
@@ -69,7 +69,7 @@
   <%= scope(:form_field, key: :refresh_rate, errors:).render do %>
     <label class="key" for="device_refresh_rate">
       Refresh Rate
-      <%= render "shared/popovers/triggers/default", name: :refresh_rate %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :refresh_rate).render %>
     </label>
 
     <%= form.number_field :refresh_rate,
@@ -82,7 +82,7 @@
   <%= scope(:form_field, key: :image_timeout, errors:).render do %>
     <label class="key" for="device_image_timeout">
       Image Timeout
-      <%= render "shared/popovers/triggers/default", name: :image_timeout %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :image_timeout).render %>
     </label>
 
     <%= form.number_field :image_timeout,
@@ -101,7 +101,7 @@
 
     <label class="key" for="device_firmware_update">
       Firmware Update
-      <%= render "shared/popovers/triggers/default", name: :firmware_update %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :firmware_update).render %>
     </label>
   <% end %>
 
@@ -114,14 +114,14 @@
 
     <label class="key" for="device_display_compatibility">
       Display Compatibility
-      <%= render "shared/popovers/triggers/default", name: :display_compatibility %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :display_compatibility).render %>
     </label>
   <% end %>
 
   <%= scope(:form_field, key: :display_profile, errors:).render do %>
     <label class="key" for="device_display_profile">
       Display Profile
-      <%= render "shared/popovers/triggers/default", name: :display_profile %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :display_profile).render %>
     </label>
 
     <%= form.select :display_profile,
@@ -133,7 +133,7 @@
   <%= scope(:form_field, key: :touch_bar, errors:).render do %>
     <label class="key" for="device_touch_bar">
       Touch Bar
-      <%= render "shared/popovers/triggers/default", name: :touch_bar %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :touch_bar).render %>
     </label>
 
     <%= form.select :touch_bar,
@@ -145,7 +145,7 @@
   <%= scope(:form_field, key: :sleep_start_at, errors:).render do %>
     <label class="key" for="device_sleep_start_at">
       Sleep Start
-      <%= render "shared/popovers/triggers/default", name: :sleep_start %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :sleep_start).render %>
     </label>
 
     <%= form.time_field :sleep_start_at,
@@ -157,7 +157,7 @@
   <%= scope(:form_field, key: :sleep_stop_at, errors:).render do %>
     <label class="key" for="device_sleep_stop_at">
       Sleep Stop
-      <%= render "shared/popovers/triggers/default", name: :sleep_end %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :sleep_stop).render %>
     </label>
 
     <%= form.time_field :sleep_stop_at,

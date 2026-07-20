@@ -10,7 +10,13 @@
       <fieldset class="box">
         <legend class="label">
           IP Addresses
-          <%= render "shared/popovers/triggers/default", name: :ip_addresses %>
+
+          <%= scope(
+            :popover_trigger_button,
+            tip: :info,
+            target: :ip_addresses,
+            width: 20,
+            height: 20).render %>
         </legend>
 
         <ul class="list">
@@ -25,7 +31,13 @@
       <fieldset class="box">
         <legend class="label">
           Firmware
-          <%= render "shared/popovers/triggers/default", name: :firmware %>
+
+          <%= scope(
+            :popover_trigger_button,
+            tip: :info,
+            target: :firmware,
+            width: 20,
+            height: 20).render %>
         </legend>
 
         <ul class="list">
@@ -94,6 +106,7 @@
       </fieldset>
     </div>
   </div>
-</section>
 
-<%= render "popovers" %>
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "popovers" %>
+</section>

@@ -1,7 +1,7 @@
 <%= scope(:form_field, key: :label, errors:).render do %>
   <label class="key" for="template_label">
     Label
-    <%= render "shared/popovers/triggers/default", name: :label %>
+    <%= scope(:popover_trigger_button, tip: :info, target: :label).render %>
   </label>
 
   <%= form.text_field :label,
@@ -14,7 +14,7 @@
 <%= scope(:form_field, key: :name, errors:).render do %>
   <label class="key" for="template_name">
     Name
-    <%= render "shared/popovers/triggers/default", name: :name %>
+    <%= scope(:popover_trigger_button, tip: :info, target: :name).render %>
   </label>
 
   <%= form.text_field :name,

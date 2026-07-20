@@ -32,7 +32,7 @@
       <dl class="bit-definition-list">
         <dt class="key">
           Model
-          <%= render "shared/popovers/triggers/default", name: :model %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
         </dt>
         <dd class="value">
           <%= link_to device.model.label, routes.path(:model, id: device.model_id) %>
@@ -40,7 +40,7 @@
 
         <dt class="key">
           Playlist
-          <%= render "shared/popovers/triggers/default", name: :playlist %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :playlist).render %>
         </dt>
         <dd class="value">
           <%= device.playlist ? link_to(device.playlist.label, routes.path(:playlist, id: device.playlist_id)) : nil %>
@@ -48,31 +48,31 @@
 
         <dt class="key">
           MAC Address
-          <%= render "shared/popovers/triggers/default", name: :mac_address %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :mac_address).render %>
         </dt>
         <dd class="value bit-secret"><%= device.mac_address %></dd>
 
         <dt class="key">
            API Key
-           <%= render "shared/popovers/triggers/default", name: :api_key %>
+           <%= scope(:popover_trigger_button, tip: :info, target: :api_key).render %>
          </dt>
          <dd class="value bit-secret"><%= device.api_key %></dd>
 
         <dt class="key">
           Refresh Rate
-          <%= render "shared/popovers/triggers/default", name: :refresh_rate %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :refresh_rate).render %>
         </dt>
         <dd class="value"><%= device.refresh_rate %></dd>
 
         <dt class="key">
           Image Timeout
-          <%= render "shared/popovers/triggers/default", name: :image_timeout %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :image_timeout).render %>
         </dt>
         <dd class="value"><%= device.image_timeout %></dd>
 
         <dt class="key">
           Image Cached
-          <%= render "shared/popovers/triggers/default", name: :image_cached %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :image_cached).render %>
         </dt>
         <dd class="value"><%= boolean device.image_cached %></dd>
 
@@ -84,55 +84,55 @@
 
         <dt class="key">
           Firmware Update
-          <%= render "shared/popovers/triggers/default", name: :firmware_update %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :firmware_update).render %>
         </dt>
         <dd class="value"><%= boolean device.firmware_update %></dd>
 
         <dt class="key">
           Firmware Profile
-          <%= render "shared/popovers/triggers/default", name: :firmware_profile %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :firmware_profile).render %>
         </dt>
         <dd class="value"><%= boolean device.firmware_profile %></dd>
 
         <dt class="key">
           Display Compatibility
-          <%= render "shared/popovers/triggers/default", name: :display_compatibility %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :display_compatibility).render %>
         </dt>
         <dd class="value"><%= boolean device.display_compatibility %></dd>
 
         <dt class="key">
           Display Profile
-          <%= render "shared/popovers/triggers/default", name: :display_profile %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :display_profile).render %>
         </dt>
         <dd class="value"><%= device.formatted_display_profile %></dd>
 
         <dt class="key">
           Touch Bar
-          <%= render "shared/popovers/triggers/default", name: :touch_bar %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :touch_bar).render %>
         </dt>
         <dd class="value"><%= device.formatted_touch_bar %></dd>
 
         <dt class="key">
           Wake Reason
-          <%= render "shared/popovers/triggers/default", name: :wake_reason %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :wake_reason).render %>
         </dt>
         <dd class="value"><%= device.wake_description %></dd>
 
         <dt class="key">
           Wake Duration
-          <%= render "shared/popovers/triggers/default", name: :wake_duration %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :wake_duration).render %>
         </dt>
         <dd class="value"><%= device.wake_duration %> seconds</dd>
 
         <dt class="key">
           Sleep Start
-          <%= render "shared/popovers/triggers/default", name: :sleep_start %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :sleep_start).render %>
         </dt>
         <dd class="value"><%= human_time device.sleep_start_at %></dd>
 
         <dt class="key">
           Sleep Stop
-          <%= render "shared/popovers/triggers/default", name: :sleep_stop %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :sleep_stop).render %>
         </dt>
         <dd class="value"><%= human_time device.sleep_stop_at %></dd>
 
@@ -144,13 +144,13 @@
 
         <dt class="key">
           Synchronized
-          <%= render "shared/popovers/triggers/default", name: :synced_at %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :synced_at).render %>
         </dt>
         <dd class="value"><%= human_at device.synced_at %></dd>
       </dl>
     </div>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "devices/shared/popovers/all" %>
 </section>
-
-<%= render "devices/shared/popovers/all" %>
-

@@ -29,13 +29,13 @@
       <dl class="bit-definition-list">
         <dt class="key">
           Version
-          <%= render "shared/popovers/triggers/default", name: :version %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :version).render %>
         </dt>
         <dd class="value"><%= firmware.version %></dd>
 
         <dt class="key">
           Kind
-          <%= render "shared/popovers/triggers/default", name: :kind %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :kind).render %>
         </dt>
         <dd class="value"><%= firmware.kind %></dd>
 
@@ -50,6 +50,7 @@
       </dl>
     </div>
   </div>
-</section>
 
-<%= render "firmware/shared/popovers/all" %>
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+  <%= render "firmware/shared/popovers/all" %>
+</section>

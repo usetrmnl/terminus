@@ -12,7 +12,7 @@
   <%= scope(:form_field, key: :name, errors:).render do %>
     <label class="key" for="screen_name">
       Name
-      <%= render "shared/popovers/triggers/default", name: :name %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :name).render %>
     </label>
 
     <%= tag.input id: :screen_name,
@@ -25,7 +25,7 @@
   <%= scope(:form_field, key: :model_id, errors:).render do %>
     <label class="key" for="screen_model_id">
       Model
-      <%= render "shared/popovers/triggers/default", name: :model %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
     </label>
 
     <%= form.select :model_id, select_options_for(models), id: :screen_model_id, class: :value %>
@@ -34,7 +34,7 @@
   <%= scope(:form_field, key: :image, errors:).render do %>
     <label class="key" for="screen_image">
       Image
-      <%= render "shared/popovers/triggers/default", name: :image %>
+      <%= scope(:popover_trigger_button, tip: :info, target: :image).render %>
     </label>
 
     <%= form.file_field :image,

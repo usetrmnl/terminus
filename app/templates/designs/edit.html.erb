@@ -27,7 +27,7 @@
       <%= scope(:form_field, key: :screen_id, errors:).render do %>
         <label class="key" for="screen_id">
           Screen
-          <%= render "shared/popovers/triggers/default", name: :screen %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :screen).render %>
         </label>
 
         <%= tag.select id: :screen_id, name: :screen_id, class: :value do %>
@@ -59,4 +59,6 @@
       </div>
     <% end %>
   </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
 </section>
