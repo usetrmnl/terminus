@@ -1,6 +1,3 @@
-<%= tag.button type: :button,
-               class: locals.fetch(:class, "bit-popover-trigger"),
-               interestfor: "tooltip-action-#{name}",
-               popovertarget: "popover-#{name}" do %>
+<%= tag.button type: :button, class: classes, interestfor: tip, popovertarget: target do %>
   <%= yield %>
 <% end %>

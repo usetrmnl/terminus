@@ -3,7 +3,10 @@
 <li id="<%= device.id %>" class="bit-card device">
   <h2 class="label"><%= device.label %></h2>
 
-  <%= render "shared/popovers/triggers/screen", name: "screen-#{current_screen.id}" do %>
+  <%= scope(
+        :popover_trigger_button,
+        target: "screen-#{current_screen.id}"
+      ).render("shared/popovers/triggers/screen") do %>
     <%= render "shared/screen", uri: current_screen.image_uri %>
   <% end %>
 

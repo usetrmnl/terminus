@@ -1,7 +1,10 @@
 <% screen = item.screen %>
 
 <div class="item">
-  <%= render "shared/popovers/triggers/screen", name: "screen-#{screen.id}" do %>
+  <%= scope(
+        :popover_trigger_button,
+        target: "screen-#{screen.id}"
+      ).render("shared/popovers/triggers/screen") do %>
     <%= render "shared/screen", uri: screen.image_uri %>
   <% end %>
 

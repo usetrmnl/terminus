@@ -1,8 +1,11 @@
 <li id="<%= item.id %>" class="bit-card">
   <h2 class="label"><%= item.name %></h2>
 
-  <%= render "shared/popovers/triggers/screen", name: "screen-#{item.id}" do %>
-    <%= tag.img src: item.screenshot_url, alt: "Screenshot", class: :screen, loading: :lazy %>
+  <%= scope(
+        :popover_trigger_button,
+        target: "screen-#{item.id}"
+      ).render("shared/popovers/triggers/screen") do %>
+    <%= render "shared/screen", uri: item.screenshot_url %>
   <% end %>
 
   <%= scope(

@@ -23,7 +23,10 @@
                    class: "bit-card bit-form" do |form| %>
         <h1 class="label">Edit Screen</h1>
 
-        <%= render "shared/popovers/triggers/screen", name: "screen-#{screen.id}" do %>
+        <%= scope(
+              :popover_trigger_button,
+              target: "screen-#{screen.id}"
+            ).render("shared/popovers/triggers/screen") do %>
           <%= render "shared/screen", uri: screen.image_uri %>
         <% end %>
 
