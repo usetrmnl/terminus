@@ -1,0 +1,4 @@
+<%= tag.button type: :button, class: classes, interestfor: tip, popovertarget: target do %>
+  <%= image_tag icon_uri, class: :icon, width:, height:, loading: :lazy %>
+  <%= yield if block_given? %>
+<% end %>
