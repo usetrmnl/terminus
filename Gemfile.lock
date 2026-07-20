@@ -47,7 +47,7 @@ GEM
       refinements (~> 14.0)
       tone (~> 3.0)
       zeitwerk (~> 2.8)
-    concurrent-ruby (1.3.7)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     console (1.37.0)
       fiber-annotation
@@ -142,7 +142,7 @@ GEM
       dry-initializer (~> 3.2)
       dry-schema (~> 1.14)
       zeitwerk (~> 2.6)
-    erb (6.0.5)
+    erb (6.0.6)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -658,7 +658,7 @@ CHECKSUMS
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   chunky_png (1.4.0) sha256=89d5b31b55c0cf4da3cf89a2b4ebc3178d8abe8cbaf116a1dba95668502fdcfe
   cogger (2.5.0) sha256=ddad67d5283a588bf4090513fac46b1f548e3f138d1c4c8f071525dd8d26963b
-  concurrent-ruby (1.3.7) sha256=4412caec3a5ea2e5fdc52076724c071a81f2c0593d83b2ac8cbb8ca63b3151b0
+  concurrent-ruby (1.3.8) sha256=b2f1be836e968ccc78ccfce277ea79c72a88633f22306782c16ff23fb415d1e1
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   console (1.37.0) sha256=8093b286c2595a063849c098594fee5155ecc7967d36f3aa8cbe7569c8f3efd7
   containable (2.4.0) sha256=7d8915952e8fbcdc4061463506c919bb0e40b6c0a76a137a52e88f71aa74ab4f
@@ -693,7 +693,7 @@ CHECKSUMS
   dry-transformer (1.1.0) sha256=87bfe22a708aa69f3e6e76a6119aba0b42999f154e4fe7c261d4673720534da3
   dry-types (1.9.1) sha256=baebeecdb9f8395d6c9d227b62011279440943e3ef2468fe8ccc1ba11467f178
   dry-validation (1.11.1) sha256=70900bb5a2d911c8aab566d3e360c6bff389b8bf92ea8e04885ce51c41ff8085
-  erb (6.0.5) sha256=858e63488cb796c9daba8b6e9ff4b3879c395022049be9a66a8e00980e612eac
+  erb (6.0.6) sha256=a9b24986700f5bf127c4f297c5403c3ca41b83b0a316c0cd09a096b56e644ae5
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
   et-orbi (1.4.0) sha256=6c7e3c90779821f9e3b324c5e96fda9767f72995d6ae435b96678a4f3e2de8bc
   etcher (4.4.0) sha256=99f9bf7a77954ca7ec01e0b96719e2f2a1c0d38383f5f24bd1fcfef6ef06d713
