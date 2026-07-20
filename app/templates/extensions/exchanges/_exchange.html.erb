@@ -12,11 +12,14 @@
   <td><%= exchange.refreshed_at %></td>
 
   <td class="bit-actions">
-    <%= render "shared/popovers/triggers/default",
-        name: "curl-#{exchange.id}",
-        icon: :eye,
-        width: 25,
-        height: 25 %>
+    <%= scope(
+      :popover_trigger_button,
+      icon: :eye,
+      tip: :curl,
+      target: "curl-#{exchange.id}",
+      width: 25,
+      height: 25
+    ).render %>
 
     <%= scope(
       :popover_default_content,

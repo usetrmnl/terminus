@@ -42,4 +42,9 @@
       <%= render "shared/empty", message: "No exchanges found." %>
     </div>
   <% end %>
+
+  <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Curl").render %>
+  <%= scope(:tooltip_action_content, label: "Edit").render %>
+  <%= scope(:tooltip_action_content, label: "Delete").render %>
 </section>
