@@ -19,7 +19,7 @@ module Terminus
           if settings.model_synchronizer
             palette.call.bind { model.call }
           else
-            logger.info { "Model synchronization is disabled." }
+            logger.warn { "Model synchronization is disabled." }
           end
         end
       end

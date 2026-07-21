@@ -25,7 +25,7 @@ RSpec.describe Terminus::Jobs::Synchronizers::Font do
 
       it "logs information" do
         job.perform
-        expect(logger.reread).to match(/INFO.+Font synchronization is disabled\./)
+        expect(logger.reread).to match(/WARN.+Font synchronization is disabled\./)
       end
     end
   end

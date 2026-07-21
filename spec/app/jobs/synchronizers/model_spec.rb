@@ -58,7 +58,7 @@ RSpec.describe Terminus::Jobs::Synchronizers::Model do
 
       it "logs information" do
         job.perform
-        expect(logger.reread).to match(/INFO.+Model synchronization is disabled\./)
+        expect(logger.reread).to match(/WARN.+Model synchronization is disabled\./)
       end
     end
   end

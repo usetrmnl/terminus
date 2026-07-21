@@ -25,7 +25,7 @@ RSpec.describe Terminus::Jobs::Synchronizers::Firmware do
 
       it "logs information" do
         job.perform
-        expect(logger.reread).to match(/INFO.+Firmware synchronization is disabled\./)
+        expect(logger.reread).to match(/WARN.+Firmware synchronization is disabled\./)
       end
     end
   end

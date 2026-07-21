@@ -13,7 +13,7 @@ module Terminus
         def perform
           return synchronizer.call if settings.firmware_synchronizer
 
-          logger.info { "Firmware synchronization is disabled." }
+          logger.warn { "Firmware synchronization is disabled." }
         end
       end
     end

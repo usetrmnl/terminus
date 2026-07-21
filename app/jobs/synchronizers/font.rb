@@ -13,7 +13,7 @@ module Terminus
         def perform
           return synchronizer.call if settings.font_synchronizer
 
-          logger.info { "Font synchronization is disabled." }
+          logger.warn { "Font synchronization is disabled." }
         end
       end
     end
