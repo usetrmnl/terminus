@@ -38,5 +38,13 @@ module Terminus
     setting :session_inactivity_limit, constructor: Types::Params::Integer, default: 1_800
     setting :session_lifetime_limit, constructor: Types::Params::Integer, default: 86_400
     setting :session_expiration_enabled, constructor: Types::Params::Bool, default: true
+    setting :auth_mode, constructor: Types::Params::String, default: "local"
+    setting :app_origin, constructor: Types::Params::String, default: ""
+    setting :oidc_issuer, constructor: Types::Params::String, default: ""
+    setting :oidc_client_id, constructor: Types::Params::String, default: ""
+    setting :oidc_client_secret, constructor: Types::Params::String, default: ""
+    setting :oidc_scopes, constructor: Types::Params::String, default: "openid email profile"
+    setting :oidc_break_glass_email, constructor: Types::Params::String, default: ""
+    setting :session_cookie_secure, constructor: Types::Params::Bool, default: false
   end
 end
