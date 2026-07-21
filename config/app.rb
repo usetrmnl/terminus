@@ -29,7 +29,14 @@ module Terminus
                               {
                                 key: "terminus.session",
                                 secret: settings.app_secret,
-                                expire_after: 3_600 # 1 hour.
+                                expire_after: 3_600, # 1 hour.
+                                # Default-false so upstream's supported plain-HTTP deployments
+                                # keep working (a Secure cookie would be dropped over HTTP);
+                                # TLS deployments set SESSION_COOKIE_SECURE=true.
+                                secure: settings.session_cookie_secure,
+                                # Lax (not Strict) so the session/state cookie survives the
+                                # top-level redirect back from the OIDC provider's callback.
+                                same_site: :lax
                               }
     # rubocop:enable Layout/FirstArrayElementLineBreak
 
