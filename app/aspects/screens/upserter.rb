@@ -21,7 +21,7 @@ module Terminus
             in label:, name:, uri:, preprocessed: true
               handle_preprocessed label:, name:, content: uri, **attributes
             in label:, name:, uri: then handle_unprocessed label:, name:, content: uri, **attributes
-            else Failure "Invalid attributes: #{attributes.inspect}."
+            else Failure "Invalid attributes for screen upsert: #{attributes.inspect}."
           end
         end
 
