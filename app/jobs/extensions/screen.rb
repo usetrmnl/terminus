@@ -13,10 +13,19 @@ module Terminus
         def perform id, model_id = nil, device_id = nil
           extension = repository.find id
 
-          return Failure "Unable to find by extension ID: #{id}." unless extension
-
-          screen_upserter.call extension, model_id:, device_id:
+          if extension
+            screen_upserter.call(extension, model_id:, device_id:)
+            log_info id
+          else
+            log_error id
+          end
         end
+
+        private
+
+        def log_info(id) = logger.info { "Enqueued screen upsert for extension ID: #{id}." }
+
+        def log_error(id) = logger.error { "Unable to find by extension ID: #{id}." }
       end
     end
   end

@@ -5,6 +5,8 @@ require "hanami_helper"
 RSpec.describe Terminus::Jobs::Extensions::Screen, :db do
   subject(:job) { described_class.new }
 
+  include_context "with application dependencies"
+
   describe "#perform" do
     let :extension do
       Factory[
@@ -20,9 +22,10 @@ RSpec.describe Terminus::Jobs::Extensions::Screen, :db do
     let(:model) { Factory[:model] }
 
     it "creates screen" do
-      result = job.perform extension.id, model.id
+      job.perform extension.id, model.id
+      screen = Terminus::Repositories::Screen.new.find_by name: "extension-test"
 
-      expect(result.success).to have_attributes(
+      expect(screen).to have_attributes(
         name: "extension-test",
         label: "Extension Test",
         image_attributes: hash_including(
@@ -33,14 +36,17 @@ RSpec.describe Terminus::Jobs::Extensions::Screen, :db do
       )
     end
 
-    it "answers success when extension and model exist" do
-      result = job.perform extension.id, model.id
-      expect(result).to match(Success(kind_of(Terminus::Structs::Screen)))
+    it "logs info when enqueued" do
+      job.perform extension.id, model.id
+
+      expect(logger.reread).to match(
+        /INFO.+Enqueued screen upsert for extension ID: #{extension.id}./
+      )
     end
 
-    it "answers failure when extension can't be found" do
-      result = job.perform 13, model.id
-      expect(result).to be_failure("Unable to find by extension ID: 13.")
+    it "logs error when extension can't be found" do
+      job.perform 666, model.id
+      expect(logger.reread).to match(/ERROR.+Unable to find by extension ID: 666\./)
     end
   end
 end

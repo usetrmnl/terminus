@@ -16,10 +16,19 @@ module Terminus
         def perform id
           exchange = repository.find id
 
-          return Failure "Unable to find exchange ID: #{id}." unless exchange
-
-          refresher.call exchange
+          if exchange
+            refresher.call exchange
+            log_info id
+          else
+            log_error id
+          end
         end
+
+        private
+
+        def log_info(id) = logger.info { "Enqueued refresh for exchange: #{id}." }
+
+        def log_error(id) = logger.error { "Unable to find exchange ID: #{id}." }
       end
     end
   end

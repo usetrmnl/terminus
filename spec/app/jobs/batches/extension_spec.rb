@@ -5,6 +5,8 @@ require "hanami_helper"
 RSpec.describe Terminus::Jobs::Batches::Extension, :db do
   subject(:job) { described_class.new }
 
+  include_context "with application dependencies"
+
   describe "#perform" do
     let(:repository) { Terminus::Repositories::Extension.new }
     let(:extension) { Factory[:extension] }
@@ -15,14 +17,14 @@ RSpec.describe Terminus::Jobs::Batches::Extension, :db do
 
       before { repository.update_with_models extension.id, {}, [model.id] }
 
-      it "enqueues delegate job" do
-        result = job.perform extension.id
-        expect(result).to be_success("Enqueued jobs for extension: #{extension.id}.")
+      it "logs info when extension is found" do
+        job.perform extension.id
+        expect(logger.reread).to match(/INFO.+Enqueued jobs for extension: #{extension.id}\./)
       end
 
-      it "answers failure when extension can't be found" do
-        result = job.perform 666
-        expect(result).to be_failure("Unable to enqueue jobs for extension: 666.")
+      it "logs error when extension can't be found" do
+        job.perform 666
+        expect(logger.reread).to match(/ERROR.+Unable to enqueue jobs for extension: 666\./)
       end
     end
 
@@ -31,14 +33,14 @@ RSpec.describe Terminus::Jobs::Batches::Extension, :db do
 
       before { repository.update_with_devices extension.id, {}, [device.id] }
 
-      it "enqueues delegate job" do
-        result = job.perform extension.id
-        expect(result).to be_success("Enqueued jobs for extension: #{extension.id}.")
+      it "logs info when extension is found" do
+        job.perform extension.id
+        expect(logger.reread).to match(/INFO.+Enqueued jobs for extension: #{extension.id}\./)
       end
 
-      it "answers failure when extension can't be found" do
-        result = job.perform 666
-        expect(result).to be_failure("Unable to enqueue jobs for extension: 666.")
+      it "logs error when extension can't be found" do
+        job.perform 666
+        expect(logger.reread).to match(/ERROR.+Unable to enqueue jobs for extension: 666\./)
       end
     end
   end

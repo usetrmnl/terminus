@@ -16,11 +16,12 @@ module Terminus
         def perform id
           extension = repository.find id
 
-          return Failure "Unable to enqueue jobs for extension: #{id}." unless extension
-
-          extension.devices.any? ? enqueue_devices(extension) : enqueue_models(extension)
-
-          Success "Enqueued jobs for extension: #{id}."
+          if extension
+            extension.devices.any? ? enqueue_devices(extension) : enqueue_models(extension)
+            log_info id
+          else
+            log_error id
+          end
         end
 
         private
@@ -32,6 +33,10 @@ module Terminus
         def enqueue_devices extension
           extension.devices.each { |device| job.perform_async extension.id, nil, device.id }
         end
+
+        def log_info(id) = logger.info { "Enqueued jobs for extension: #{id}." }
+
+        def log_error(id) = logger.error { "Unable to enqueue jobs for extension: #{id}." }
       end
     end
   end
