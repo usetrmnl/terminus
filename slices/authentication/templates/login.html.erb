@@ -10,4 +10,12 @@
   <%== rodauth.button rodauth.login_button %>
 </form>
 
+<% if rodauth.features.include?(:omniauth_base) && !rodauth.omniauth_providers.empty? -%>
+<form method="post" action="<%= rodauth.omniauth_request_path(:openid_connect) %>" class="rodauth" role="form">
+  <%== rodauth.csrf_tag(rodauth.omniauth_request_path(:openid_connect)) %>
+  <%== rodauth.button "Sign in with SSO" %>
+</form>
+<% end -%>
+<% if rodauth.features.include?(:create_account) -%>
 <%= link_to "Register", "/register" %>
+<% end -%>
