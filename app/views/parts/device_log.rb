@@ -17,6 +17,10 @@ module Terminus
             else "bit-pill-dark"
           end
         end
+
+        def source_link root: "https://github.com/usetrmnl/trmnl-firmware/blob/main"
+          helpers.link_to "#{source_path}:#{source_line}", "#{root}/#{source_path}#L#{source_line}"
+        end
       end
     end
   end

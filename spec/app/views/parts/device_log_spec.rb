@@ -43,4 +43,19 @@ RSpec.describe Terminus::Views::Parts::DeviceLog do
       expect(part.level_class).to eq("bit-pill-dark")
     end
   end
+
+  describe "#source_link" do
+    it "answers default URI" do
+      expect(part.source_link).to eq(
+        "<a href=\"https://github.com/usetrmnl/trmnl-firmware/blob/main/src/test.cpp#L13\">" \
+        "src/test.cpp:13</a>"
+      )
+    end
+
+    it "answers custom URI" do
+      expect(part.source_link(root: "https://source.io")).to eq(
+        "<a href=\"https://source.io/src/test.cpp#L13\">src/test.cpp:13</a>"
+      )
+    end
+  end
 end
