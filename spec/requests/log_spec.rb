@@ -59,7 +59,7 @@ RSpec.describe "/api/log", :db do
         sleep_duration: 50,
         source_line: 5,
         source_path: "src/bl.cpp",
-        special_function: "none",
+        command: "none",
         wake_reason: "timer",
         wifi_signal: -54,
         wifi_status: "connected"

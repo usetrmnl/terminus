@@ -12,7 +12,7 @@ Factory.define :device_log, relation: :device_log do |factory|
   factory.refresh_rate 50
   factory.sleep_duration 25
   factory.firmware_version "1.2.3"
-  factory.special_function "none"
+  factory.command "none"
   factory.wake_reason "timer"
   factory.battery_voltage 4.75
   factory.free_heap_size 150000

@@ -9,13 +9,13 @@ module Terminus
     module Firmware
       # Transforms a raw firmware log into attributes fit for creating a device log record.
       class LogTransformer
-        include Initable[key_map: {id: :external_id}.freeze]
+        include Initable[key_map: {id: :external_id, special_function: :command}.freeze]
 
         using Refinements::Hash
 
         def call payload
           payload.fetch(:logs, Core::EMPTY_HASH).map do |item|
-            item.transform_keys!(key_map).transform_value!(:created_at) { Time.at it }
+            item.transform_keys(key_map).transform_value!(:created_at) { Time.at it }
           end
         end
       end
