@@ -163,21 +163,6 @@ CREATE TYPE public.screen_kind_enum AS ENUM (
 
 
 --
--- Name: special_function_enum; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE public.special_function_enum AS ENUM (
-    'identify',
-    'sleep',
-    'add_wifi',
-    'restart_playlist',
-    'rewind',
-    'send_to_me',
-    'none'
-);
-
-
---
 -- Name: wake_reason_enum; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -338,7 +323,7 @@ CREATE TABLE public.device_log (
     refresh_rate integer DEFAULT 0 CONSTRAINT device_logs_refresh_rate_not_null NOT NULL,
     sleep_duration integer DEFAULT 0 CONSTRAINT device_logs_sleep_duration_not_null NOT NULL,
     firmware_version text CONSTRAINT device_logs_firmware_version_not_null NOT NULL,
-    special_function public.special_function_enum CONSTRAINT device_logs_special_function_not_null NOT NULL,
+    command text CONSTRAINT device_logs_special_function_not_null NOT NULL,
     wake_reason public.wake_reason_enum DEFAULT 'timer'::public.wake_reason_enum CONSTRAINT device_logs_wake_reason_not_null NOT NULL,
     battery_voltage double precision DEFAULT 0 CONSTRAINT device_logs_battery_voltage_not_null NOT NULL,
     free_heap_size integer DEFAULT 0 CONSTRAINT device_logs_free_heap_size_not_null NOT NULL,
@@ -1322,7 +1307,7 @@ CREATE INDEX device_logs_device_id_index ON public.device_log USING btree (devic
 -- Name: device_logs_special_function_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX device_logs_special_function_index ON public.device_log USING btree (special_function);
+CREATE INDEX device_logs_special_function_index ON public.device_log USING btree (command);
 
 
 --
@@ -1819,4 +1804,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260618094125_add_screen_template_id_column.rb'),
 ('20260630091508_add_device_log_level_column.rb'),
 ('20260714090149_add_device_api_key_column.rb'),
-('20260721160734_add_device_command_column.rb');
+('20260721160734_add_device_command_column.rb'),
+('20260721160742_rename_device_log_function_columan_as_command.rb');
