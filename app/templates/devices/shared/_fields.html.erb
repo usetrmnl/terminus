@@ -130,6 +130,18 @@
                     class: :value %>
   <% end %>
 
+  <%= scope(:form_field, key: :command, errors:).render do %>
+    <label class="key" for="device_command">
+      Command
+      <%= scope(:popover_trigger_button, tip: :info, target: :command).render %>
+    </label>
+
+    <%= form.select :command,
+                    select_options(translate("devices.shared._fields.commands")),
+                    id: :device_command,
+                    class: :value %>
+  <% end %>
+
   <%= scope(:form_field, key: :touch_bar, errors:).render do %>
     <label class="key" for="device_touch_bar">
       Touch Bar

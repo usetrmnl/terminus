@@ -110,8 +110,14 @@
         <dd class="value"><%= device.formatted_display_profile %></dd>
 
         <dt class="key">
+          Command
+          <%= scope(:popover_trigger_button, tip: :info, target: :command).render %>
+        </dt>
+        <dd class="value"><%= device.translated_command %></dd>
+
+        <dt class="key">
           Touch Bar
-          <%= scope(:popover_trigger_button, tip: :info, target: :touch_bar).render %>
+          <%= scope(:popover_trigger_button, tip: :info, target: :command).render %>
         </dt>
         <dd class="value"><%= device.formatted_touch_bar %></dd>
 

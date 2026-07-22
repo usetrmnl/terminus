@@ -12,6 +12,7 @@ RSpec.describe "Devices", :db do
     model
     visit routes.path(:devices)
     click_link "New"
+    select "None", from: "Command"
     click_button "Save"
 
     expect(page).to have_text("must be filled")
