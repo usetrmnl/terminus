@@ -1,0 +1,18 @@
+<%= scope(:popover_default_content, name: :command, label: "Command").render do %>
+  <p>⚠️ Only <em>Add WiFi</em> is supported at the moment. The rest of the commands will be supported soon.</p>
+
+  <p>A command allows you to program the button on the back of your device. Once a command is selected, press the button on the back of your device for ~2 seconds to issue your command. Each command is explained below:</p>
+
+  <ul>
+    <li><strong>Identify</strong>: Renders screen with device label and name so you can identify your device.</li>
+    <li><strong>Sleep</strong>: Renders sleep screen for an amount of time. Takes precedence over existing sleep schedule.</li>
+    <li><strong>Add WiFi</strong>: Enables the captive portal so you can change WiFi networks.</li>
+    <li><strong>First Screen</strong>: Updates to first screen in playlist.</li>
+    <li><strong>Last Screen</strong>: Updates to last screen in playlist.</li>
+    <li><strong>Previous Screen</strong>: Updates to previous screen.</li>
+    <li><strong>Email</strong>: Send current screen to an email address or multiple email addresses.</li>
+    <li><strong>Interrupt</strong>: Show a specific screen for a duration of time. Use to interrupt your playlist with a special screen in order to temporarily hide and not expose current playlist.</li>
+    <li><strong>Pause</strong>: Pauses on current screen until clicked again (which then triggers next screen).</li>
+    <li><strong>None</strong>: Does nothing, command is ignored. This is the default when no command is selected.</li>
+  </ul>
+<% end %>
