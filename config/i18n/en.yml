@@ -5,3 +5,17 @@ en:
         hash?: "must be a JSON object"
       model:
         hash?: "must be a JSON object"
+  devices:
+    shared:
+      _fields:
+        commands:
+          identify: Identify
+          sleep: Sleep
+          add_wifi: Add WiFi
+          first_screen: First Screen
+          last_screen: Last Screen
+          previous_screen: Previous Screen
+          email_screen: Email Screen
+          interrupt: Interrupt
+          pause: Pause
+          none: None
