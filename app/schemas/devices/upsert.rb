@@ -27,6 +27,7 @@ module Terminus
         optional(:width).filled :integer
         optional(:height).filled :integer
         optional(:touch_bar).filled :string
+        optional(:command).filled :string
         optional(:wake_duration).maybe :integer
         optional(:wake_reason).filled :string
         optional(:sleep_start_at).maybe :string
