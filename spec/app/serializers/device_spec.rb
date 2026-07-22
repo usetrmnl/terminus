@@ -34,6 +34,7 @@ RSpec.describe Terminus::Serializers::Device do
       image_timeout: 5,
       display_compatibility: false,
       display_profile: "default",
+      command: "none",
       touch_bar: "tap",
       width: 800,
       height: 480,

@@ -29,6 +29,7 @@ module Terminus
         height
         display_compatibility
         display_profile
+        command
         touch_bar
         sleep_start_at
         sleep_stop_at
