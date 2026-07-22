@@ -136,6 +136,24 @@ RSpec.describe Terminus::Views::Helpers do
     end
   end
 
+  describe "#select_options" do
+    it "answers options" do
+      list = {one: "One", two: "Two"}
+
+      expect(helper.select_options(list)).to eq(
+        [
+          ["Select...", ""],
+          ["One", :one],
+          ["Two", :two]
+        ]
+      )
+    end
+
+    it "answers prompt when given an empty array" do
+      expect(helper.select_options([])).to contain_exactly(["Select...", ""])
+    end
+  end
+
   describe "#select_options_for" do
     it "answers record options" do
       record = Data.define(:id, :label).new 1, "Test"

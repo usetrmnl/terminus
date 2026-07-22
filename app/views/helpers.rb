@@ -70,6 +70,12 @@ module Terminus
         %(#{count} #{value.pluralize suffix, count})
       end
 
+      def select_options list
+        list.reduce [["Select...", Core::EMPTY_STRING]] do |options, (name, label)|
+          options.append [label, name]
+        end
+      end
+
       def select_options_for records, label: :label, id: :id
         records.reduce [["Select...", Core::EMPTY_STRING]] do |options, record|
           options.append [record.public_send(label), record.public_send(id)]
