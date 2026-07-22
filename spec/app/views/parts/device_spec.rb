@@ -149,6 +149,12 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     end
   end
 
+  describe "#translated_command" do
+    it "answers translation" do
+      expect(part.translated_command).to eq("None")
+    end
+  end
+
   describe "#wake_description" do
     it "answers unknown when blank" do
       expect(part.wake_description).to eq("Unknown.")

@@ -26,6 +26,8 @@ module Terminus
 
         def formatted_touch_bar = touch_bar.capitalize
 
+        def translated_command = helpers.translate "devices.shared._fields.commands.#{command}"
+
         def wake_description = String(wake_reason).empty? ? "Unknown." : wake_reason
 
         def wifi_measurement_label
