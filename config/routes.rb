@@ -32,6 +32,8 @@ module Terminus
       patch "/devices/:id", to: "api.devices.patch", as: :device
       delete "/devices/:id", to: "api.devices.delete", as: :device
 
+      get "/extensions", to: "api.extensions.index", as: :extensions
+
       resource :display, to: "api.display", only: :show
 
       get "/firmware", to: "api.firmware.index", as: :firmwares
