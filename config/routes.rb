@@ -35,6 +35,7 @@ module Terminus
       get "/extensions", to: "api.extensions.index", as: :extensions
       get "/extensions/:id", to: "api.extensions.show", as: :extension
       post "/extensions", to: "api.extensions.create", as: :extensions
+      patch "/extensions/:id", to: "api.extensions.patch", as: :extension
 
       resource :display, to: "api.display", only: :show
 
