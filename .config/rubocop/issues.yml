@@ -4,6 +4,7 @@ I18n/RailsI18n/DecorateString:
     - app/actions/api/devices/patch.rb
     - app/actions/api/display/show.rb
     - app/actions/api/extensions/create.rb
+    - app/actions/api/extensions/patch.rb
     - app/actions/api/firmware/create.rb
     - app/actions/api/firmware/patch.rb
     - app/actions/api/log/create.rb
