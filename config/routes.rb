@@ -33,6 +33,7 @@ module Terminus
       delete "/devices/:id", to: "api.devices.delete", as: :device
 
       get "/extensions", to: "api.extensions.index", as: :extensions
+      get "/extensions/:id", to: "api.extensions.show", as: :extension
 
       resource :display, to: "api.display", only: :show
 
