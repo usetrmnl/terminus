@@ -8,7 +8,9 @@ module Terminus
         attributes = values.fetch(:extension).slice :interval, :unit
 
         case attributes
-          in {unit: "none"} \
+          in {} \
+             | {interval: Integer, **nil} \
+             | {unit: "none"} \
              | {unit: "minute", interval: 0..59} \
              | {unit: "hour", interval: 0..23} \
              | {unit: "day", interval: 1..31} \

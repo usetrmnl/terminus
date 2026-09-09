@@ -21,19 +21,38 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
   end
 
   describe "#call" do
-    let(:attributes) { {extension: {interval: 5}} }
+    let(:attributes) { Hash.new }
 
-    context "when none" do
-      before { attributes[:extension][:unit] = "none" }
+    it "answers success when empty" do
+      attributes[:extension] = {}
+      result = contract.call attributes
 
-      it "answers success" do
-        result = contract.call attributes
-        expect(result.success?).to be(true)
-      end
+      expect(result.success?).to be(true)
+    end
+
+    it "answers success with only interval" do
+      attributes[:extension] = {interval: 13}
+      result = contract.call attributes
+
+      expect(result.success?).to be(true)
+    end
+
+    it "answers success when none only" do
+      attributes[:extension] = {unit: "none"}
+      result = contract.call attributes
+
+      expect(result.success?).to be(true)
+    end
+
+    it "answers success when none with interval" do
+      attributes[:extension] = {unit: "none", interval: 5}
+      result = contract.call attributes
+
+      expect(result.success?).to be(true)
     end
 
     context "when minute" do
-      before { attributes[:extension][:unit] = "minute" }
+      before { attributes[:extension] = {unit: "minute", interval: 5} }
 
       it "answers success with valid attributes" do
         result = contract.call attributes
@@ -64,7 +83,7 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
     end
 
     context "when hour" do
-      before { attributes[:extension][:unit] = "hour" }
+      before { attributes[:extension] = {unit: "hour", interval: 5} }
 
       it "answers success with valid attributes" do
         result = contract.call attributes
@@ -95,7 +114,7 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
     end
 
     context "when day" do
-      before { attributes[:extension][:unit] = "day" }
+      before { attributes[:extension] = {unit: "day", interval: 5} }
 
       it "answers success with valid attributes" do
         result = contract.call attributes
@@ -122,7 +141,7 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
     end
 
     context "when week" do
-      before { attributes[:extension][:unit] = "week" }
+      before { attributes[:extension] = {unit: "week", interval: 5} }
 
       it "answers success with valid attributes" do
         result = contract.call attributes
@@ -153,7 +172,7 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
     end
 
     context "when month" do
-      before { attributes[:extension][:unit] = "month" }
+      before { attributes[:extension] = {unit: "month", interval: 5} }
 
       it "answers success with valid attributes" do
         result = contract.call attributes
