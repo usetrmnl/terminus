@@ -11,8 +11,9 @@ module Terminus
       class Base < Action
         config.formats.accept :json
         handle_exception Dry::Types::SchemaError => :detail_enum,
-                         ROM::SQL::UniqueConstraintError => :detail_duplicate,
-                         ROM::SQL::ForeignKeyConstraintError => :detail_foreign_key
+                         ROM::SQL::DatabaseError => :detail_out_of_range,
+                         ROM::SQL::ForeignKeyConstraintError => :detail_foreign_key,
+                         ROM::SQL::UniqueConstraintError => :detail_duplicate
 
         using Refines::Actions::Response
 
@@ -46,6 +47,11 @@ module Terminus
 
         def detail_foreign_key request, response, error
           payload = problem_detail.foreign_key error.message, request.path
+          response.with body: payload.to_json, format: :problem_details, status: payload.status
+        end
+
+        def detail_out_of_range request, response, error
+          payload = problem_detail.out_of_range error.message, request.path
           response.with body: payload.to_json, format: :problem_details, status: payload.status
         end
       end

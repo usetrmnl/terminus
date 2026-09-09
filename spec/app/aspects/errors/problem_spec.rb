@@ -60,4 +60,19 @@ RSpec.describe Terminus::Aspects::Errors::Problem do
       )
     end
   end
+
+  describe ".out_of_range" do
+    it "answers payload" do
+      message = "PG::NumericValueOutOfRange: ERROR:  integer out of range"
+
+      expect(problem_detail.out_of_range(message, "/api/test")).to eq(
+        RFC::API::Problem[
+          type: "/problem_details#invalid_numeric",
+          status: :unprocessable_content,
+          detail: "Integer out of range. Use a smaller value.",
+          instance: "/api/test"
+        ]
+      )
+    end
+  end
 end

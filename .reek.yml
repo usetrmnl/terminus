@@ -31,6 +31,7 @@ detectors:
       - Terminus::Actions::API::Base#detail_duplicate
       - Terminus::Actions::API::Base#detail_enum
       - Terminus::Actions::API::Base#detail_foreign_key
+      - Terminus::Actions::API::Base#detail_out_of_range
       - Terminus::Actions::API::Screens::Create#handle
       - Terminus::Actions::API::Screens::Create#save
       - Terminus::Actions::API::Screens::Patch#replace
@@ -119,4 +120,5 @@ detectors:
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Errors::Problem#duplicate
       - Terminus::Aspects::Errors::Problem#foreign_key
+      - Terminus::Aspects::Errors::Problem#out_of_range
       - Terminus::Aspects::Liquid::Filters#json

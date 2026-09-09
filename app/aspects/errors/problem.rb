@@ -56,6 +56,17 @@ module Terminus
             instance:
           ]
         end
+
+        def out_of_range message, instance
+          detail = message.delete_prefix("PG::NumericValueOutOfRange: ERROR:  ").capitalize
+
+          RFC::API::Problem[
+            type: "/problem_details#invalid_numeric",
+            status: :unprocessable_content,
+            detail: "#{detail}. Use a smaller value.",
+            instance:
+          ]
+        end
       end
     end
   end

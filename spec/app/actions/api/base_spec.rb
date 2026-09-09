@@ -63,5 +63,21 @@ RSpec.describe Terminus::Actions::API::Base do
         expect(problem_detail).to have_attributes(type: /invalid_foreign_key/)
       end
     end
+
+    context "with numeric out of range error" do
+      let :implementation do
+        Class.new described_class do
+          def handle(*)
+            fail ROM::SQL::DatabaseError,
+                 StandardError.new("PG::NumericValueOutOfRange: ERROR:  integer out of range")
+          end
+        end
+      end
+
+      it "answers problem details" do
+        problem_detail = RFC::API::Problem.from_json Rack::MockRequest.new(action).get("").body
+        expect(problem_detail).to have_attributes(type: /invalid_numeric/)
+      end
+    end
   end
 end
