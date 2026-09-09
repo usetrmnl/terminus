@@ -10,8 +10,8 @@ module Terminus
         params do
           required(:id).filled :integer
           required(:extension).filled Schemas::Extensions::Upsert
-          optional(:model_ids).array :int?
-          optional(:device_ids).array :int?
+          optional(:model_ids).array :integer
+          optional(:device_ids).array :integer
         end
 
         rule extension: :interval, &Rules::Cron
