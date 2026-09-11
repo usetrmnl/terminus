@@ -27,6 +27,8 @@ RSpec.describe "Devices", :db do
 
   it "edits", :aggregate_failures, :js do
     device
+    other_model = Factory[:model, label: "Other Model"]
+
     visit routes.path(:devices)
     click_link "Edit"
     fill_in "device[label]", with: nil
@@ -34,9 +36,11 @@ RSpec.describe "Devices", :db do
 
     expect(page).to have_text("must be filled")
 
+    select other_model.label, from: "device[model_id]"
     fill_in "device[label]", with: "Edit Test"
     click_button "Save"
 
+    expect(page).to have_text("Other Model")
     expect(page).to have_text("Edit Test")
   end
 

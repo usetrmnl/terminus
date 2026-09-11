@@ -29,7 +29,10 @@
       <%= scope(:popover_screen_content, **current_screen.popover_attributes).render %>
       <%= render "measurements", device: %>
 
-      <%= form_for :device, routes.path(:devices), method: :put, class: "bit-form" do |form| %>
+      <%= form_for :device,
+                   routes.path(:device, id: device.id),
+                   method: :put,
+                   class: "bit-form" do |form| %>
         <%= render "devices/shared/fields",
                    form:,
                    models:,
