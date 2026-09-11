@@ -1,53 +1,59 @@
-<%= tag.section class: "htmx-slide",
-                **HTMX[
-                  ext: :slide,
-                  select_oob: "#slide, #progress, #actions",
-                  swap: "transition:true"
-                ] do %>
-
+<%= tag.section class: "htmx-slide" do %>
   <div class="container">
     <div class="viewport">
-      <%= tag.img id: :slide,
-                  src: current.image_uri,
-                  alt: current.label,
-                  class: :slide,
-                  width: current.width,
-                  height: current.height %>
+      <hx-partial hx-target=".slide" hx-swap="outerHTML transition:true">
+        <%= tag.img src: current.image_uri,
+                    alt: current.label,
+                    class: :slide,
+                    width: current.width,
+                    height: current.height %>
+      </hx-partial>
     </div>
 
-    <%= tag.progress id: :progress,
-                     "aria-label" => status,
-                     class: :progress,
-                     value: index,
-                     max: total %>
+    <hx-partial hx-target=".progress" hx-swap="outerHTML">
+      <%= tag.progress "aria-label" => status,
+                       class: :progress,
+                       value: index,
+                       max: total %>
+    </hx-partial>
 
-    <%= tag.div id: :actions, class: :actions do %>
-      <%= render :direction,
-                 label: "Previous",
-                 uri: previous_uri,
-                 direction: :backward,
-                 key: "ArrowLeft" %>
+    <hx-partial hx-target=".actions" hx-swap="outerHTML">
+      <%= tag.div class: :actions do %>
+        <%= render :direction,
+                   label: "Previous",
+                   uri: previous_uri,
+                   direction: :backward,
+                   key: "ArrowLeft" %>
 
-      <%= tag.span status, class: "bit-text-center" %>
+        <%= tag.span status, class: "bit-text-center" %>
 
-      <%= render :direction,
-                 label: "Next",
-                 uri: next_uri,
-                 direction: :forward,
-                 key: "ArrowRight" %>
+        <%= render :direction,
+                   label: "Next",
+                   uri: next_uri,
+                   direction: :forward,
+                   key: "ArrowRight" %>
 
-      <%= render :direction, label: "First", uri: first_uri, direction: :backward, key: "[" %>
+        <%= render :direction,
+                   label: "First",
+                   uri: first_uri,
+                   direction: :backward,
+                   key: "BracketLeft" %>
 
-      <button data-fullscreen-trigger interestfor="tooltip-action-fullscreen">
-        <%= image_tag "icons/fullscreen.svg",
-                      alt: "Fullscreen",
-                      class: :fullscreen,
-                      width: 25,
-                      height: 25,
-                      loading: :lazy %>
-      </button>
+        <button data-fullscreen-trigger interestfor="tooltip-action-fullscreen">
+          <%= image_tag "icons/fullscreen.svg",
+                        alt: "Fullscreen",
+                        class: :fullscreen,
+                        width: 25,
+                        height: 25,
+                        loading: :lazy %>
+        </button>
 
-      <%= render :direction, label: "Last", uri: last_uri, direction: :forward, key: "]" %>
-    <% end %>
+        <%= render :direction,
+                   label: "Last",
+                   uri: last_uri,
+                   direction: :forward,
+                   key: "BracketRight" %>
+      <% end %>
+    </hx-partial>
   </div>
 <% end %>

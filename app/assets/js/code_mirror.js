@@ -61,6 +61,6 @@ function initializeCodeMirror() {
   });
 }
 
-document.addEventListener("htmx:load", function(event) {
+document.addEventListener("htmx:after:process", function(event) {
   initializeCodeMirror();
 });

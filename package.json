@@ -19,10 +19,9 @@
     "codemirror": "^6.0.2",
     "esbuild": "^0.28.1",
     "hanami-assets": "^3.0.0",
-    "htmx-ext-sse": "^2.2.4",
-    "htmx-remove": "^3.6.0",
-    "htmx-slide": "^0.6.0",
-    "htmx.org": "^2.0.8"
+    "htmx-remove": "^4.0.0",
+    "htmx-slide": "^0.7.0",
+    "htmx.org": "^4.0.0"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

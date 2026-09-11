@@ -10,10 +10,8 @@
 
   <div class="bit-body">
     <figure class="device"
-            hx-ext="sse"
-            hx-swap="innerHTML"
-            sse-connect="/preview/<%= current_screen_id %>"
-            sse-swap="preview">
+            hx-sse:connect="/preview/<%= current_screen_id %>"
+            hx-on:preview="this.innerHTML = event.detail.data">
       <%= render :loader %>
     </figure>
 

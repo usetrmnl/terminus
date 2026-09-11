@@ -99,33 +99,33 @@ RSpec.describe "Playlists", :db do
     click_link "Play"
 
     expect(page).to have_text(playlist.label)
-    expect(page).to have_css(%(#progress[value="0"]))
-    expect(page).to have_css(%(#progress[max="2"]))
+    expect(page).to have_css(%(.progress[value="0"]))
+    expect(page).to have_css(%(.progress[max="2"]))
     expect(page).to have_text("1 of 3")
 
     click_link "Next"
 
-    expect(page).to have_css(%(#progress[value="1"]))
+    expect(page).to have_css(%(.progress[value="1"]))
     expect(page).to have_text("2 of 3")
 
     click_link "Next"
 
-    expect(page).to have_css(%(#progress[value="2"]))
+    expect(page).to have_css(%(.progress[value="2"]))
     expect(page).to have_text("3 of 3")
 
     click_link "Previous"
 
-    expect(page).to have_css(%(#progress[value="1"]))
+    expect(page).to have_css(%(.progress[value="1"]))
     expect(page).to have_text("2 of 3")
 
     click_link "First"
 
-    expect(page).to have_css(%(#progress[value="0"]))
+    expect(page).to have_css(%(.progress[value="0"]))
     expect(page).to have_text("1 of 3")
 
     click_link "Last"
 
-    expect(page).to have_css(%(#progress[value="2"]))
+    expect(page).to have_css(%(.progress[value="2"]))
     expect(page).to have_text("3 of 3")
   end
 

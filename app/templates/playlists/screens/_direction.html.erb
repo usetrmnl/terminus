@@ -2,4 +2,8 @@
             uri,
             class: :action,
             data: {direction:},
-            **HTMX[get: uri, trigger: "click, keyup[key=='#{key}'] from:body", push_url: true] %>
+            **HTMX[
+              get: uri,
+              trigger: "click, keyup[event.code=='#{key}'] from:body",
+              push_url: true
+            ] %>

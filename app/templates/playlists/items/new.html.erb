@@ -1,7 +1,6 @@
 <%= form_for :playlist_item,
              routes.path(:playlist_item_new, playlist_id: playlist.id),
-             class: "bit-form",
-             **HTMX[ext: :remove] do |form| %>
+             class: "bit-form" do |form| %>
   <%= render :fields, form:, screen_options:, item:, fields:, errors: %>
 
   <div class="form-actions">

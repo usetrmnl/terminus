@@ -40,7 +40,7 @@ window.htmx = htmx;
 
 Alpine.start();
 
-import "htmx-ext-sse";
+import "htmx.org/dist/ext/hx-sse";
 import "htmx-remove";
 import "htmx-slide";
 

@@ -4,7 +4,7 @@
                post: path,
                target: :this,
                swap: "swap:1s",
-               "on::before-request" => %(this.innerHTML = "<button class='bit-button-accept' disabled>Enqueuing...</button>")
+               "on::before:request" => %(this.innerHTML = "<button class='bit-button-accept' disabled>Enqueuing...</button>")
              ] do |form| %>
   <%= form.submit class: "bit-button-accept" do %>
     <%= image_tag "icons/gear_and_hammer.svg",
