@@ -34,7 +34,7 @@ RSpec.describe Terminus::Actions::Devices::Logs::Index, :db do
     it "renders htmx response with search results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {device_id: device_log.device_id}
       )
 
@@ -44,7 +44,7 @@ RSpec.describe Terminus::Actions::Devices::Logs::Index, :db do
     it "renders htmx response with no results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {device_id: device_log.device_id, query: "bogus"}
       )
 

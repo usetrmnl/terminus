@@ -9,13 +9,13 @@
   </header>
 
   <div class="bit-body">
-    <figure class="device"
-            hx-ext="sse"
-            hx-swap="innerHTML"
-            sse-connect="/preview/<%= current_screen_id %>"
-            sse-swap="preview">
+    <%= tag.figure class: :device,
+                  **HTMX[
+                    "sse:connect" => "/preview/#{current_screen_id}",
+                    "on:preview" => "this.innerHTML = event.detail.data"
+                  ] do %>
       <%= render :loader %>
-    </figure>
+    <% end %>
 
     <%= form_for :design,
                  routes.path(:design, id: template.id),

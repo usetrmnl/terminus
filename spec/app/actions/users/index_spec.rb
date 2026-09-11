@@ -23,7 +23,7 @@ RSpec.describe Terminus::Actions::Users::Index, :db do
     it "renders htmx response with search results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {query: user.name}
       )
 
@@ -33,7 +33,7 @@ RSpec.describe Terminus::Actions::Users::Index, :db do
     it "renders htmx response with no results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {query: "bogus"}
       )
 
@@ -42,7 +42,7 @@ RSpec.describe Terminus::Actions::Users::Index, :db do
 
     it "renders all users with no query" do
       user
-      response = action.call Rack::MockRequest.env_for("", "HTTP_HX_TRIGGER" => "search")
+      response = action.call Rack::MockRequest.env_for("", "HTTP_HX_SOURCE" => "input#search")
 
       expect(response.body.first).to include(%(<h2 class="label">#{user.name}</h2>))
     end

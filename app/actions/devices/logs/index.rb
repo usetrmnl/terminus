@@ -25,7 +25,7 @@ module Terminus
 
             device = device_repository.find parameters[:device_id]
 
-            if htmx.request? request.env, :trigger, "search"
+            if htmx.request? request.env, :source, "input#search"
               render_search_results parameters, device, response
             else
               render_all parameters, device, response

@@ -11,7 +11,7 @@ module Terminus
           query = request.params[:query].to_s
           users = load query
 
-          if htmx.request? request.env, :trigger, "search"
+          if htmx.request? request.env, :source, "input#search"
             add_htmx_headers response, query
             response.render view, users:, query:, layout: false
           else

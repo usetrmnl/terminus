@@ -11,7 +11,7 @@ module Terminus
           query = request.params[:query]
           firmware = load query
 
-          if htmx.request? request.env, :trigger, "search"
+          if htmx.request? request.env, :source, "input#search"
             add_htmx_headers response, query
             response.render view, firmware:, query:, layout: false
           else

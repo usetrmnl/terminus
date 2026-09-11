@@ -26,7 +26,7 @@ RSpec.describe Terminus::Actions::Devices::Index, :db do
     it "renders htmx response with search results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {query: device.label}
       )
 
@@ -36,7 +36,7 @@ RSpec.describe Terminus::Actions::Devices::Index, :db do
     it "renders htmx response with no results" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {query: "bogus"}
       )
 
@@ -45,7 +45,7 @@ RSpec.describe Terminus::Actions::Devices::Index, :db do
 
     it "renders all devices with no query" do
       device
-      response = action.call Rack::MockRequest.env_for("", "HTTP_HX_TRIGGER" => "search")
+      response = action.call Rack::MockRequest.env_for("", "HTTP_HX_SOURCE" => "input#search")
 
       expect(response.body.first).to include(%(<h2 class="label">Test</h2>))
     end

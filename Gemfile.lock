@@ -242,7 +242,7 @@ GEM
     hanami-webconsole (3.0.0)
       better_errors (~> 2.10, >= 2.10.1)
       binding_of_caller (~> 2.0)
-    htmx (3.3.0)
+    htmx (4.0.0)
       refinements (~> 14.0)
       zeitwerk (~> 2.8)
     http (6.0.4)
@@ -608,7 +608,7 @@ DEPENDENCIES
   hanami-router (~> 3.0)
   hanami-view (~> 3.0)
   hanami-webconsole (~> 3.0)
-  htmx (~> 3.0)
+  htmx (~> 4.0)
   http (~> 6.0)
   i18n (~> 1.14)
   initable (~> 1.0)
@@ -726,7 +726,7 @@ CHECKSUMS
   hanami-utils (3.0.1) sha256=0d46181bd86115127a04a6d0481df819eb558714ce58c6b4da7e0bb65c5dcd9b
   hanami-view (3.0.2) sha256=b145c23a720e76b05f178ef087340ffe27ea00495ec4d4a53bd1bd391fbb0592
   hanami-webconsole (3.0.0) sha256=5d8f46e1e2783e03403c58500cbad6274e2022cbc60867a7354442e6b60c2bdd
-  htmx (3.3.0) sha256=dc4baca4b4aeda9a66636a60385a899145e57e27a551e0b7c79efa0c405fd084
+  htmx (4.0.0) sha256=1df015799c2fcd4ed6111bef502fc6fbb11243d84fa81b78a5769c76bbf952ed
   http (6.0.4) sha256=3768f902489ea8309424f1881c668af8d3ca73675648a755dfe2cb0030d42d26
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5

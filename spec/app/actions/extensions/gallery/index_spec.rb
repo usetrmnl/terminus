@@ -89,7 +89,7 @@ RSpec.describe Terminus::Actions::Extensions::Gallery::Index do
 
       response = action.call Rack::MockRequest.env_for(
         "",
-        "HTTP_HX_TRIGGER" => "search",
+        "HTTP_HX_SOURCE" => "input#search",
         "router.params" => {query: "bogus"}
       )
 
