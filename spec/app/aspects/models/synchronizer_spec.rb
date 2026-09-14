@@ -112,7 +112,7 @@ RSpec.describe Terminus::Aspects::Models::Synchronizer, :db do
         synchronizer.call
         record = repository.all.first
 
-        expect(record.default_palette_id).to eq(palettes.last.id)
+        expect(record.default_palette_id).to eq(palettes.first.id)
       end
     end
 
@@ -173,7 +173,7 @@ RSpec.describe Terminus::Aspects::Models::Synchronizer, :db do
 
         record = repository.all.first
 
-        expect(record.default_palette_id).to eq(palettes.last.id)
+        expect(record.default_palette_id).to eq(palettes.first.id)
       end
 
       it "doesn't set default palette when already set" do

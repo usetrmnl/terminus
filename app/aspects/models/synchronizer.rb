@@ -73,7 +73,7 @@ module Terminus
         def set_default_palette model, names
           return if model.default_palette_id
 
-          palette = palette_repository.find_by name: names.last
+          palette = palette_repository.find_by name: names.first
 
           return unless palette
 
