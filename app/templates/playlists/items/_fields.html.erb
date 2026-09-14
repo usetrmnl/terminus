@@ -2,6 +2,9 @@
   <%= scope(:form_field, key: :screen_id, errors:).render do %>
     <label class="key" for="playlist_item_screen_id">Screen</label>
 
-    <%= form.select :screen_id, screen_options, id: :playlist_item_screen_id, class: :value %>
+    <%= form.select :screen_id,
+                    select_options_for(screens, default: default_option(screens, screen_selection)),
+                    id: :playlist_item_screen_id,
+                    class: :value %>
   <% end %>
 </fieldset>

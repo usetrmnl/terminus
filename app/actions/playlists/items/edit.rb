@@ -7,8 +7,8 @@ module Terminus
         # The edit action.
         class Edit < Action
           include Deps[
-            "aspects.playlists.screen_optioner",
-            repository: "repositories.playlist_item"
+            repository: "repositories.playlist_item",
+            screen_repository: "repositories.screen"
           ]
 
           params do
@@ -23,7 +23,17 @@ module Terminus
 
             item = repository.find_by playlist_id: parameters[:playlist_id], id: parameters[:id]
 
-            response.render view, screen_options: screen_optioner.call, item:, layout: false
+            response.render view,
+                            screens: screen_repository.all,
+                            item:,
+                            screen_selection: screen_selection(item),
+                            layout: false
+          end
+
+          private
+
+          def screen_selection item
+            screen_repository.find(item.screen_id).then { it.label if it }
           end
         end
       end

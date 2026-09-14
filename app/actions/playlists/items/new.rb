@@ -7,8 +7,8 @@ module Terminus
         # The new action.
         class New < Action
           include Deps[
-            "aspects.playlists.screen_optioner",
-            playlist_repository: "repositories.playlist"
+            playlist_repository: "repositories.playlist",
+            screen_repository: "repositories.screen"
           ]
 
           params { required(:playlist_id).filled :integer }
@@ -19,8 +19,17 @@ module Terminus
             halt 422 unless parameters.valid?
 
             playlist = playlist_repository.find parameters[:playlist_id]
-            response.render view, playlist:, screen_options: screen_optioner.call, layout: false
+
+            response.render view,
+                            playlist:,
+                            screens: screen_repository.all,
+                            screen_selection:,
+                            layout: false
           end
+
+          private
+
+          def screen_selection = screen_repository.all.first.then { it.label if it }
         end
       end
     end

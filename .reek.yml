@@ -47,8 +47,6 @@ detectors:
       - Terminus::Actions::Firmware::Update#error
       - Terminus::Actions::Models::Update#error
       - Terminus::Actions::Playlists::Create#error
-      - Terminus::Actions::Playlists::Items::Edit#screen_options
-      - Terminus::Actions::Playlists::Items::New#screen_options
       - Terminus::Actions::Playlists::Screens::Show#view_settings
       - Terminus::Actions::Playlists::Update#error
       - Terminus::Actions::Users::Update#error

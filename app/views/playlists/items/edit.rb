@@ -8,8 +8,9 @@ module Terminus
       module Items
         # The edit view.
         class Edit < View
-          expose :screen_options
           expose :item
+          expose :screens
+          expose :screen_selection
           expose :fields, default: Core::EMPTY_HASH
           expose :errors, default: Core::EMPTY_HASH
         end

@@ -1,7 +1,7 @@
 <% uri = routes.path(:playlist_item, playlist_id: item.playlist_id, id: item.id) %>
 
 <%= form_for :playlist_item, uri, method: :put, class: "bit-form" do |form| %>
-  <%= render :fields, form:, screen_options:, item:, fields:, errors: %>
+  <%= render :fields, form:, item:, screens:, screen_selection:, fields:, errors: %>
 
   <div class="form-actions">
     <%= form.submit "Save",

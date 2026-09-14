@@ -9,8 +9,9 @@ module Terminus
         # The new view.
         class New < View
           expose :playlist
-          expose :screen_options
           expose :item
+          expose :screens
+          expose :screen_selection
           expose :fields, default: Core::EMPTY_HASH
           expose :errors, default: Core::EMPTY_HASH
         end
