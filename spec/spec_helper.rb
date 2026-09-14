@@ -4,6 +4,7 @@ require "simplecov"
 
 unless ENV["COVERAGE"] == "no"
   SimpleCov.start "strict" do
+    coverage(:branch) { ignore :implicit_else }
     group "Actions", "app/actions"
     group "Aspects", "app/aspects"
     group "Config", "config"
@@ -22,7 +23,6 @@ unless ENV["COVERAGE"] == "no"
     group "Structs", "app/structs"
     group "Uploaders", "app/uploaders"
     group "Views", "app/views"
-    ignore_branches :implicit_else
     skip "app/templates"
     skip "slices/authentication/templates"
   end
