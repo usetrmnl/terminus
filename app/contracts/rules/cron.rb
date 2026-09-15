@@ -1,11 +1,13 @@
 # auto_register: false
 # frozen_string_literal: true
 
+require "core"
+
 module Terminus
   module Contracts
     module Rules
       Cron = lambda do
-        attributes = values.fetch(:extension).slice :interval, :unit
+        attributes = values.fetch(:extension, Core::EMPTY_HASH).slice :interval, :unit
 
         case attributes
           in {} \

@@ -10,7 +10,7 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
 
     Class.new Dry::Validation::Contract do
       params do
-        required(:extension).hash do
+        optional(:extension).hash do
           optional(:interval).filled :integer
           optional(:unit).filled :string
         end
@@ -24,6 +24,13 @@ RSpec.describe Terminus::Contracts::Rules::Cron do
     let(:attributes) { Hash.new }
 
     it "answers success when empty" do
+      attributes = {}
+      result = contract.call attributes
+
+      expect(result.success?).to be(true)
+    end
+
+    it "answers success when extension is empty" do
       attributes[:extension] = {}
       result = contract.call attributes
 
