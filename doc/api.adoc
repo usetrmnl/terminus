@@ -466,7 +466,7 @@ curl -X "PATCH" "https://localhost:2443/api/devices/1" \
 }'
 ----
 
-You can change a single attribute or multiple attributes at once. All attributes found in the POST request example are supported.
+You can change a single attribute or multiple attributes at once. All attributes found in the POST request are supported.
 ====
 
 .PATCH Response
@@ -565,8 +565,318 @@ curl -X "DELETE" "https://localhost:2443/api/devices/1" \
   }
 }
 ----
+====
 
-You'll get an empty hash when there is nothing to delete.
+=== Extensions
+
+Allows you to manage your extensions.
+
+.GET Request
+[%collapsible]
+====
+[source,bash]
+----
+# Multiple
+curl "https://localhost:2443/api/extensions" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+
+# Single.
+curl "https://localhost:2443/api/extensions/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+====
+
+.GET Response
+[%collapsible]
+====
+[source,json]
+----
+# Multiple.
+{
+  "data": [
+    {
+      "data": {
+        "id": 1,
+        "label": "Demo",
+        "name": "demo",
+        "description": null,
+        "kind": "poll",
+        "mode": "text",
+        "tags": [
+          "demo"
+        ],
+        "static_body": null,
+        "fields": null,
+        "template": "<h1>{{source_1.label}}</h1>",
+        "data": null,
+        "interval": 1,
+        "unit": "none",
+        "days": [],
+        "last_day_of_month": false,
+        "start_at": "2026-09-14T06:00:00-06:00",
+        "created_at": "2026-09-15T16:03:35-06:00",
+        "updated_at": "2026-09-15T16:25:12-06:00",
+        "model_ids": [
+          11
+        ],
+        "device_ids": [
+          14
+        ]
+      }
+    }
+  ]
+}
+
+# Single.
+{
+  "data": {
+    "id": 1,
+    "label": "Demo",
+    "name": "demo",
+    "description": null,
+    "kind": "poll",
+    "mode": "text",
+    "tags": [
+      "demo"
+    ],
+    "static_body": null,
+    "fields": null,
+    "template": "<h1>{{source_1.label}}</h1>",
+    "data": null,
+    "interval": 1,
+    "unit": "none",
+    "days": [],
+    "last_day_of_month": false,
+    "start_at": "2026-09-14T06:00:00-06:00",
+    "created_at": "2026-09-15T16:03:35-06:00",
+    "updated_at": "2026-09-15T16:25:12-06:00",
+    "model_ids": [
+      11
+    ],
+    "device_ids": [
+      14
+    ]
+  }
+}
+----
+
+You'll get an empty array when no devices exist.
+====
+
+.POST Request
+[%collapsible]
+====
+[source,bash]
+----
+# Minimum
+curl -X "POST" "https://localhost:2443/api/extensions" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "extension": {
+    "label": "Demo",
+    "name": "demo"
+  }
+}'
+----
+
+[source,bash]
+----
+# Maximum (all possible fields)
+curl -X "POST" "https://localhost:2443/api/extensions" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "device_ids": [
+    14
+  ],
+  "extension": {
+    "description": "A demo.",
+    "unit": "week",
+    "label": "Demo",
+    "template": "<h1>{{source_1.label}}</h1>",
+    "interval": 1,
+    "static_body": {
+      "label": "Demo"
+    },
+    "tags": [
+      "demo"
+    ],
+    "fields": [
+      {
+        "field_type": "author_bio",
+        "desription": "A demonstration.",
+        "keyname": "bio",
+        "name": "Demo",
+        "category": "demo"
+      }
+    ],
+    "start_at": "2026-09-01T00:00:00",
+    "mode": "text",
+    "data": {
+      "label": "Demo"
+    },
+    "days": [
+      "monday",
+      "friday"
+    ],
+    "last_day_of_month": true,
+    "kind": "static",
+    "name": "demo"
+  },
+  "model_ids": [
+    11
+  ]
+}'
+----
+====
+
+.POST Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "label": "Demo",
+    "name": "demo",
+    "description": "A demo.",
+    "kind": "static",
+    "mode": "text",
+    "tags": [
+      "demo"
+    ],
+    "static_body": {
+      "label": "Demo"
+    },
+    "fields": [
+      {
+        "name": "Demo",
+        "keyname": "bio",
+        "category": "demo",
+        "desription": "A demonstration.",
+        "field_type": "author_bio"
+      }
+    ],
+    "template": "<h1>{{source_1.label}}</h1>",
+    "data": {
+      "label": "Demo"
+    },
+    "interval": 1,
+    "unit": "week",
+    "days": [
+      "monday",
+      "friday"
+    ],
+    "last_day_of_month": true,
+    "start_at": "2026-08-31T18:00:00-06:00",
+    "created_at": "2026-09-15T16:39:12-06:00",
+    "updated_at": "2026-09-15T16:39:12-06:00",
+    "model_ids": [
+      11
+    ],
+    "device_ids": [
+      14
+    ]
+  }
+}
+----
+====
+
+.PATCH Request
+[%collapsible]
+====
+[source,bash]
+----
+curl -X "PATCH" "https://localhost:2443/api/extensions/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "extension": {
+    "label": "Demo Update"
+  }
+}'
+----
+
+You can change a single attribute or multiple attributes at once. All attributes found in the POST request are supported.
+====
+
+.PATCH Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "label": "Demo Update",
+    "name": "demo",
+    "description": null,
+    "kind": "poll",
+    "mode": "text",
+    "tags": [],
+    "static_body": {},
+    "fields": {},
+    "template": null,
+    "data": {},
+    "interval": 1,
+    "unit": "none",
+    "days": [],
+    "last_day_of_month": false,
+    "start_at": "2026-09-14T18:00:00-06:00",
+    "created_at": "2026-09-15T16:43:03-06:00",
+    "updated_at": "2026-09-15T16:43:10-06:00",
+    "model_ids": [],
+    "device_ids": []
+  }
+}
+----
+====
+
+.DELETE Request
+[%collapsible]
+====
+[source,bash]
+----
+curl -X "DELETE" "https://localhost:2443/api/extensions/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+====
+
+.DELETE Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 54,
+    "label": "Demo",
+    "name": "demo",
+    "description": null,
+    "kind": "poll",
+    "mode": "text",
+    "tags": [],
+    "static_body": {},
+    "fields": {},
+    "template": null,
+    "data": {},
+    "interval": 1,
+    "unit": "none",
+    "days": [],
+    "last_day_of_month": false,
+    "start_at": "2026-09-14T18:00:00-06:00",
+    "created_at": "2026-09-15T16:43:03-06:00",
+    "updated_at": "2026-09-15T16:43:31-06:00",
+    "model_ids": [],
+    "device_ids": []
+  }
+}
+----
 ====
 
 === Firmware
@@ -740,8 +1050,6 @@ curl -X "DELETE" "https://localhost:2443/api/firmware/10" \
   }
 }
 ----
-
-You'll get an empty hash when there is nothing to delete.
 ====
 
 === Models
@@ -1053,8 +1361,6 @@ curl -X "DELETE" "https://localhost:2443/api/models/2" \
   }
 }
 ----
-
-You'll get an empty hash when there is nothing to delete.
 ====
 
 === Playlists
@@ -1315,8 +1621,6 @@ curl -X "DELETE" "https://localhost:2443/api/playlists/2" \
   }
 }
 ----
-
-You'll get an empty hash when there is nothing to delete.
 ====
 
 === Screens
