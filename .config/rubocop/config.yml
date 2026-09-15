@@ -62,3 +62,7 @@ RSpec/SpecFilePathFormat:
 Style/IpAddresses:
   Exclude:
     - spec/**/*
+ThreadSafety/EnvMutation:
+  Exclude:
+    - scripts/docker/entrypoint
+    - spec/**/*

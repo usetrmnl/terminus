@@ -27,6 +27,7 @@ gem "http", "~> 6.0"
 gem "i18n", "~> 1.14"
 gem "initable", "~> 1.0"
 gem "inspectable", "~> 1.0"
+gem "json", "~> 2.21" # TODO: Remove once Sequel supports JSON 3.0.0.
 gem "jwt", "~> 3.1"
 gem "marcel", "~> 2.1"
 gem "mini_magick", "~> 5.2"
