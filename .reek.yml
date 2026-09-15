@@ -42,7 +42,7 @@ detectors:
       - Terminus::Actions::Extensions::Gallery::Create#render_error
       - Terminus::Actions::Extensions::Gallery::Create#render_schema_error
       - Terminus::Actions::Extensions::Gallery::Index#render_error
-      - Terminus::Actions::Extensions::Update#error
+      - Terminus::Actions::Extensions::Update#success
       - Terminus::Actions::Firmware::Create#error
       - Terminus::Actions::Firmware::Update#error
       - Terminus::Actions::Models::Update#error
