@@ -28,8 +28,8 @@ RSpec.describe Terminus::Aspects::Models::Finder, :db do
     end
 
     it "answers failure when unable to find by model or device ID" do
-      expect(finder.call(model_id: 13, device_id: 666)).to be_failure(
-        "Unable to find model for model ID (13) or device ID (666)."
+      expect(finder.call(model_id: 666, device_id: 666)).to be_failure(
+        "Unable to find model for model ID (666) or device ID (666)."
       )
     end
   end
