@@ -71,7 +71,7 @@ RSpec.describe Terminus::Aspects::Extensions::Updater, :db do
       expect(schedule).to have_received(:upsert).with(
         "extension-test",
         {},
-        old_name: "extension-test"
+        old_name: "extension-initial"
       )
     end
 

@@ -17,7 +17,9 @@ module Terminus
 
           return Failure "Unable to find extension ID: #{id}." unless extension
 
-          validate(extension, attributes, validator).fmap { update id, it.to_h }
+          validate(extension, attributes, validator).fmap do |result|
+            update id, extension.screen_name, result.to_h
+          end
         end
 
         private
@@ -26,15 +28,15 @@ module Terminus
           validator.call(attributes).to_monad.alt_map { [extension, it] }
         end
 
-        def update id, attributes
+        def update id, old_name, attributes
           extension = repository.update id, attributes.fetch(:extension, Core::EMPTY_HASH)
-          update_ancillaries extension, attributes
+          update_ancillaries extension, old_name, attributes
         end
 
-        def update_ancillaries extension, attributes
+        def update_ancillaries extension, old_name, attributes
           update_models extension, Array(attributes[:model_ids])
           update_devices extension, Array(attributes[:device_ids])
-          schedule.upsert(*extension.to_schedule, old_name: extension.screen_name)
+          schedule.upsert(*extension.to_schedule, old_name:)
           extension
         end
 
