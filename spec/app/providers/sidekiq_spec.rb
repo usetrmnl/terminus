@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Providers::Sidekiq do
+RSpec.describe Terminus::Providers::Sidekiq, :db do
   using Refinements::Hash
 
   subject :provider do
