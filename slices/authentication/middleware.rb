@@ -15,6 +15,9 @@ module Authentication
 
     plugin :middleware
 
+    # TODO: Remove after upgrading to Roda 4.0.0.
+    plugin :json_parser, content_type_regexp: %r(\Aapplication/(?:vnd\.api\+)?json\b)i
+
     plugin :rodauth, json: true do
       enable :active_sessions,
              :audit_logging,
