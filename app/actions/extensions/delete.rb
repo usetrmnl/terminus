@@ -11,7 +11,7 @@ module Terminus
 
         def handle request, response
           case deleter.call request.params.to_h
-            in Success(extension) then response.with body: ""
+            in Success then response.with body: ""
             else halt :unprocessable_content
           end
         end
