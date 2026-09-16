@@ -1,11 +1,15 @@
 # auto_register: false
 # frozen_string_literal: true
 
+require "refinements/hash"
+
 module Terminus
   module Providers
     # The Sidekiq provider.
     class Sidekiq < Hanami::Provider::Source
-      include Deps[:logger]
+      include Deps[:logger, extension_repository: "repositories.extension"]
+
+      using Refinements::Hash
 
       RESOLVER = proc { Object.const_get "Sidekiq" }
 
@@ -23,6 +27,7 @@ module Terminus
       def start
         configure_server
         configure_client
+        load_schedules
         register :sidekiq, sidekiq
       end
 
@@ -38,28 +43,42 @@ module Terminus
       end
 
       def configure_server
-        # simplecov:disable
         sidekiq.configure_server do |configuration|
+          # simplecov:disable
           configuration.redis = {url: slice[:settings].keyvalue_url}
           configuration.logger = slice[:logger]
-          configuration.on(:startup) { load_schedule }
         end
-        # simplecov:enable
       end
 
-      # simplecov:disable
-      def load_schedule
+      def load_schedules
+        private_methods.tap { it.delete __method__ }
+                       .grep(/load_/).each { __send__ it }
+      end
+
+      # :reek:TooManyStatements
+      def load_static_schedules
         jobs = YAML.load_file slice.root.join("config/sidekiq_scheduler.yml")
 
-        jobs.each do |schedule_name, options|
-          resolver.call.set_schedule schedule_name, options
-          job_name = options["class"]
-          Object.const_get(job_name).perform_in 0
+        jobs.each do |name, configuration|
+          sidekiq.set_schedule name, configuration
+          job = configuration["class"]
+          Object.const_get(job).perform_in 0
         rescue NameError, TypeError
-          logger.error { "Unable to initialize job: #{job_name}." }
+          logger.error { "Unable to initialize job: #{job}." }
         end
       end
-      # simplecov:enable
+
+      def load_extension_schedules
+        extension_repository.all.each { maybe_add_schedule(*it.to_schedule) }
+      end
+
+      def maybe_add_schedule name, configuration
+        existing = sidekiq.get_schedule name
+
+        return if configuration.empty? || existing.hash == configuration.stringify_keys.hash
+
+        sidekiq.set_schedule name, configuration
+      end
 
       def sidekiq
         @sidekiq ||= resolver.call
