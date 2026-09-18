@@ -6,5 +6,5 @@
   height: 1.25rem;
   width: 1.25rem;
   will-change: transform;
-  transform: translateZ(0);
+  transform: rotate(var(--angle)) translateZ(0);
 }
