@@ -1,0 +1,17 @@
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --length {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --number {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: false;
+}
