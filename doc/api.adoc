@@ -569,7 +569,7 @@ curl -X "DELETE" "https://localhost:2443/api/devices/1" \
 
 === Extensions
 
-Allows you to manage your extensions.
+Allows you to manage your link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extensions].
 
 .GET Request
 [%collapsible]

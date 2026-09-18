@@ -226,3 +226,7 @@ This allows each device to answer an empty array, a single record, or multiple r
 === Server
 
 You can attach sensors to your Raspberry PI which allows you to access sensor records when building extensions. This is fully explained in the link:/doc/raspberry_pi.adoc[Raspberry Pi Documentation] for this project.
+
+== API
+
+Extensions have a robust API which is of great aid when not always needing the UI. For further detaails, check out the link:https://github.com/usetrmnl/terminus/blob/main/doc/api.adoc[API Documentation].
