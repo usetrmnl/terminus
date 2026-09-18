@@ -25,6 +25,17 @@
       animation: scaleIn;
       animation-timeline: view();
       animation-range: entry 10% entry 100%;
+      border-image-source: conic-gradient(from var(--angle), var(--site-orange) var(--angle), transparent 0deg);
+      border-image-slice: var(--number);
+      border-image-repeat: round;
+      transition-duration: 0.6s;
+      transition-property: --angle, --length, --number;
+
+      &:hover {
+        --angle: 360deg;
+        --length: 0.15rem;
+        --number: 20;
+      }
     }
   }
 }

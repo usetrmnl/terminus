@@ -1,6 +1,7 @@
 .bit-card {
   align-items: center;
   background-color: var(--site-white);
+  border: 0.15rem solid transparent;
   border-radius: 0.5rem;
   box-shadow:
     0.7px 0.7px 0.7px rgba(0, 0, 0, 0.022),
@@ -10,9 +11,9 @@
     20px 20px 20px rgba(0, 0, 0, 0.07)
   ;
   display: grid;
-  justify-items: center;
-  grid-template: 1fr auto auto auto auto / 1fr;
   gap: 1rem;
+  grid-template: 1fr auto auto auto auto / 1fr;
+  justify-items: center;
   padding: 1.5rem 1rem;
 
   .label {
