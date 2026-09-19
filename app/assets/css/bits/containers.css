@@ -25,6 +25,40 @@
       animation: scaleIn;
       animation-timeline: view();
       animation-range: entry 10% entry 100%;
+      position: relative;
+      z-index: 0;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: -0.15rem;
+        border-radius: 0.5rem;
+        background: conic-gradient(
+          from var(--angle),
+          oklch(0.61 0.1931 37.38) 0%,
+          oklch(0.72 0.17 33)   40%,
+          oklch(0.90 0.15 31.05) 50%,
+          oklch(0.72 0.17 33)   60%,
+          oklch(0.61 0.1931 37.38) 100%
+        );
+        z-index: var(--site-z-index-hidden);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 0.4rem;
+        background: inherit;
+        z-index: var(--site-z-index-hidden);
+      }
+
+      &:hover::before {
+        opacity: 1;
+        animation: spin 2s linear infinite;
+      }
     }
   }
 }
