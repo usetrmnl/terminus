@@ -14,7 +14,14 @@ module Terminus
     # Order matters.
     use Rack::Attack
     use Aspects::Designs::Middleware, pattern: %r(/preview/(?<id>.+))
-    use Rack::Static, root: "public", urls: ["/.well-known/security.txt", "/fonts", "/uploads"]
+    use Rack::Static,
+        root: "public",
+        urls: [
+          "/.well-known/security.txt",
+          "/fonts",
+          "/robots.txt",
+          "/uploads"
+        ]
     use Rack::Deflater
 
     slice :authentication, at: "/" do

@@ -1,0 +1,6 @@
+# Specification: https://www.rfc-editor.org/rfc/rfc9309.html
+# Content Signal: https://contentsignals.org
+
+User-Agent: *
+Content-Signal: ai-input=no, ai-train=no, search=yes
+Allow: /
