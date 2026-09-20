@@ -9,6 +9,7 @@ db/*.sqlite
 node_modules
 Procfile.dev
 public/*
+!public/robots.txt
 !public/404.html
 !public/500.html
 tmp
