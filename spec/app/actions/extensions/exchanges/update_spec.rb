@@ -36,5 +36,12 @@ RSpec.describe Terminus::Actions::Extensions::Exchanges::Update, :db do
       parameters[:exchange][:template] = nil
       expect(response.body.to_s).to include("must be filled")
     end
+
+    it "answers unprocessable entity for unknown ID" do
+      response = action.call extension_id: exchange.extension_id,
+                             id: 666,
+                             exchange: {template: "test"}
+      expect(response.status).to eq(422)
+    end
   end
 end

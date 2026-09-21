@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "initable"
-
 module Terminus
   module Actions
     module Extensions
@@ -9,48 +7,39 @@ module Terminus
         # The update action.
         class Update < Action
           include Deps[
+            "aspects.extensions.exchanges.updater",
             "aspects.errors.detailer",
-            extension_repository: "repositories.extension",
-            repository: "repositories.extension_exchange"
+            validator: "contracts.extensions.exchanges.update",
+            repository: "repositories.extension_exchange",
+            extension_repository: "repositories.extension"
           ]
-          include Initable[job: Jobs::Extensions::ExchangeRefresh]
-
-          contract Contracts::Extensions::Exchanges::Update
 
           def handle request, response
-            parameters = request.params
-            extension_id, id = parameters.to_h.values_at :extension_id, :id
-            exchange = repository.find_by(extension_id:, id:)
-
-            if parameters.valid?
-              save exchange, parameters, response
-            else
-              error exchange, parameters, response
+            case updater.call(request.params.to_h, validator:)
+              in Success(exchange) then success exchange, response
+              in Failure(String) then halt :unprocessable_content
+              in Failure(result) then failure result, response
             end
           end
 
           private
 
-          def save exchange, parameters, response
-            id = exchange.id
-
-            repository.update id, **parameters[:exchange]
-            job.perform_async id
-
+          def success exchange, response
             response.redirect_to routes.path(
               :extension_exchanges,
               extension_id: exchange.extension_id
             )
           end
 
-          def error exchange, parameters, response
-            errors = parameters.errors[:exchange]
-
+          def failure result, response
+            exchange = repository.find result[:id]
+            errors = result.errors[:exchange]
             response.flash.now[:alert] = detailer.call errors, "Exchange "
+
             response.render view,
                             extension: extension_repository.find(exchange.extension_id),
                             exchange:,
-                            fields: parameters[:exchange],
+                            fields: result[:exchange],
                             errors:
           end
         end
