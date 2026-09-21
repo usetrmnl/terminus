@@ -6,7 +6,7 @@ module Terminus
       module Extensions
         # The create action.
         class Create < Base
-          include Deps["aspects.extensions.creator", validator: "contracts.extensions.api.create"]
+          include Deps["aspects.extensions.creator", validator: "contracts.api.extensions.create"]
           include Initable[serializer: Serializers::Extension]
 
           using Refines::Actions::Response

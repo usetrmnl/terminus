@@ -6,7 +6,7 @@ module Terminus
       module Extensions
         # The patch action.
         class Patch < Base
-          include Deps["aspects.extensions.updater", validator: "contracts.extensions.api.patch"]
+          include Deps["aspects.extensions.updater", validator: "contracts.api.extensions.patch"]
           include Initable[serializer: Serializers::Extension]
 
           using Refines::Actions::Response
