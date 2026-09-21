@@ -50,6 +50,16 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
       allow(device).to receive(:charging).and_return(true)
       expect(part.battery_measurement_label).to eq("Charging")
     end
+
+    it "answers charging when battery voltage is at minimum voltage" do
+      allow(device).to receive(:battery_voltage).and_return(4.2)
+      expect(part.battery_measurement_label).to eq("Charging")
+    end
+
+    it "answers charging when battery voltage is higher than minimum voltage" do
+      allow(device).to receive(:battery_voltage).and_return(4.5)
+      expect(part.battery_measurement_label).to eq("Charging")
+    end
   end
 
   describe "#formatted_display_profile" do

@@ -9,8 +9,8 @@ module Terminus
       class Device < Hanami::View::Part
         include Deps["aspects.screens.fetcher", "aspects.screens.placeholder"]
 
-        def battery_measurement_label
-          return "Charging" if charging
+        def battery_measurement_label minimum_voltage: 4.2
+          return "Charging" if charging || battery_voltage >= minimum_voltage
 
           "Battery (#{helpers.format_number battery_percentage, precision: 0}%)"
         end
