@@ -2,16 +2,14 @@
 
 module Terminus
   module Contracts
-    module Extensions
-      module API
-        # The contract for extension patches.
-        class Patch < Contract
+    module API
+      module Extensions
+        # The contract for extension creates.
+        class Create < Contract
           params do
-            required(:id).filled :integer
-
-            optional(:extension).filled :hash do
-              optional(:name).filled :string
-              optional(:label).filled :string
+            required(:extension).filled :hash do
+              required(:name).filled :string
+              required(:label).filled :string
               optional(:description).maybe :string
               optional(:mode).filled :string
               optional(:kind).filled :string
