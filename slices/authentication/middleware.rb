@@ -143,6 +143,9 @@ module Authentication
         session_inactivity_timeout Hanami.app[:settings].session_inactivity_limit
         max_session_lifetime Hanami.app[:settings].session_lifetime_limit
       else
+        session_inactivity_deadline nil
+        session_lifetime_deadline nil
+
         Hanami.app[:logger].warn { "Rodauth session expiration is disabled." }
       end
     end
