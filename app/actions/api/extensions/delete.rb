@@ -11,8 +11,10 @@ module Terminus
 
           using Refines::Actions::Response
 
+          params { required(:id).filled :integer }
+
           def handle request, response
-            case deleter.call request.params.to_h
+            case deleter.call request.params.to_h, validator: contract
               in Success(extension) then success extension, response
               else failure response
             end
