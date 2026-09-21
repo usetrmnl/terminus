@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "initable"
-
 module Terminus
   module Actions
     module Extensions
@@ -9,34 +7,32 @@ module Terminus
         # The create action.
         class Create < Action
           include Deps[
+            "aspects.extensions.exchanges.creator",
             "aspects.errors.detailer",
-            extension_repository: "repositories.extension",
-            repository: "repositories.extension_exchange"
+            validator: "contracts.extensions.exchanges.create",
+            extension_repository: "repositories.extension"
           ]
-          include Initable[job: Jobs::Extensions::ExchangeRefresh]
-
-          contract Contracts::Extensions::Exchanges::Create
 
           def handle request, response
-            parameters = request.params
-
-            if parameters.valid?
-              save parameters, response
-            else
-              error parameters, response
+            case creator.call(request.params.to_h, validator:)
+              in Success then success request, response
+              in Failure(result) then failure result, response
             end
           end
 
           private
 
-          def save parameters, response
-            extension_id, exchange = parameters.to_h.values_at :extension_id, :exchange
-            job.perform_async repository.create(extension_id:, **exchange).id
-
+          def success request, response
             response.redirect_to routes.path(
               :extension_exchanges,
-              extension_id: parameters[:extension_id]
+              extension_id: request[:extension_id]
             )
+          end
+
+          def failure result, response
+            response.render view,
+                            fields: result[:exchange],
+                            errors: result.errors[:exchange]
           end
 
           def error parameters, response
@@ -49,6 +45,53 @@ module Terminus
                             fields:,
                             errors:
           end
+        end
+      end
+    end
+  end
+end
+
+# TODO: Remove when finished.
+__END__
+
+# frozen_string_literal: true
+
+require "refinements/hash"
+
+module Terminus
+  module Actions
+    module Extensions
+      # The create action.
+      class Create < Action
+        include Deps[
+          :htmx_layout,
+          "aspects.extensions.creator",
+          validator: "contracts.extensions.create",
+          repository: "repositories.extension",
+          index_view: "views.extensions.index"
+        ]
+
+        using Refinements::Hash
+
+        def handle request, response
+          case creator.call(request.params.to_h, validator:)
+            in Success then success request, response
+            in Failure(result) then failure result, response
+          end
+        end
+
+        private
+
+        def success request, response
+          response.render index_view, extensions: repository.all, layout: htmx_layout.call(request)
+        end
+
+        def failure result, response
+          fields = result[:extension].transform_with!(
+            start_at: -> value { value.strftime("%Y-%m-%dT%H:%M:%S") }
+          )
+
+          response.render view, fields:, errors: result.errors[:extension], layout: false
         end
       end
     end
