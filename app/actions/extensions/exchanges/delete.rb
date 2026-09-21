@@ -6,22 +6,20 @@ module Terminus
       module Exchanges
         # The delete action.
         class Delete < Action
-          include Deps[repository: "repositories.extension_exchange"]
+          include Deps["aspects.extensions.exchanges.deleter"]
 
           params do
             required(:extension_id).filled :integer
             required(:id).filled :integer
           end
 
+          using Terminus::Refines::Actions::Response
+
           def handle request, response
-            parameters = request.params
-
-            halt :unprocessable_content unless parameters.valid?
-
-            record = repository.find_by(**parameters)
-
-            repository.delete record.id
-            response.body = ""
+            case deleter.call request.params.to_h, validator: contract
+              in Success then response.with body: ""
+              else halt :unprocessable_content
+            end
           end
         end
       end
