@@ -80,13 +80,12 @@ module Terminus
       def battery_voltage_to_percent
         raw = ((battery_voltage - 3) / 0.012).round 2
 
-        return 0 if raw.negative?
-
         case raw
           when 88.. then 100
           when 85.. then 95
           when 83.. then 90
           when 10.. then raw.round 2
+          when ..0 then 0
           else 1
         end
       end
