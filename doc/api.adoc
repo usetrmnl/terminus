@@ -44,7 +44,7 @@ The {trmnl_firmware_link} will include the following headers in each HTTP reques
 * `BATTERY_CURRENT`: The battery current. Can be negative or positive. Example: `115`.
 * `BATTERY_HEALTH`: The battery health. Range: `-1` to `100`.
 * `BATTERY_TEMP`: The battery temperature in Celsius. Range: `-1` to infinity.
-* `BATTERY_VOLTAGE`: The remaining battery level. This is a float (usually 0.0 to 4.1).
+* `BATTERY_VOLTAGE`: The remaining battery level. This is a float (3.0 to 4.2, roughly).
 * `FW_VERSION`: The firmware version (i.e. `1.2.3`).
 * `HEIGHT`: The device height. Example: 480.
 * `HOST`: The host (usually the IP address).

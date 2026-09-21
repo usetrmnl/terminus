@@ -5,7 +5,7 @@ Factory.define :device, relation: :device do |factory|
 
   factory.api_key { SecureRandom.alphanumeric 30 }
   factory.battery_charge 0
-  factory.battery_voltage 3.0
+  factory.battery_voltage 3.84
   factory.display_compatibility false
   factory.display_profile "default"
   factory.firmware_update true

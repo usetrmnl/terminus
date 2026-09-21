@@ -81,6 +81,7 @@ detectors:
       - Terminus::Providers::RackAttack#throttle_login
       - Terminus::Repositories::Screen#create_with_image
       - Terminus::Repositories::Screen#update_with_image
+      - Terminus::Structs::Device#battery_voltage_to_percent
   LongParameterList:
     enabled: false
   NestedIterators:

@@ -48,89 +48,94 @@ RSpec.describe Terminus::Structs::Device, :db do
   end
 
   describe "#battery_percentage" do
-    it "answers percentage when charge is positive" do
-      device = Factory.structs[:device, battery_charge: 85]
-      expect(device.battery_percentage).to eq(85)
+    it "answers one battery charge when positive" do
+      device = Factory.structs[:device, battery_charge: 75]
+      expect(device.battery_percentage).to eq(75)
     end
 
-    it "answers zero when charge and voltage are zero" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0]
-      expect(device.battery_percentage).to eq(0)
+    it "answers one hundred percent when beyond upper bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 5]
+      expect(device.battery_percentage).to eq(100)
     end
 
-    it "answers ten percent when voltage is extremely low" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0.1]
-      expect(device.battery_percentage).to eq(10)
+    it "answers one hundred percent when in range" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.1]
+      expect(device.battery_percentage).to eq(100)
     end
 
-    it "answers ten percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0.25]
-      expect(device.battery_percentage).to eq(10)
+    it "answers one hundred percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.06]
+      expect(device.battery_percentage).to eq(100)
     end
 
-    it "answers twenty percent when voltage is just above the ten percent band" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0.455]
-      expect(device.battery_percentage).to eq(20)
+    it "answers ninety five percent when in range" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.05]
+      expect(device.battery_percentage).to eq(95)
     end
 
-    it "answers twenty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0.75]
-      expect(device.battery_percentage).to eq(20)
+    it "answers ninety five percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.02]
+      expect(device.battery_percentage).to eq(95)
     end
 
-    it "answers thirty percent when voltage is just above the twenty percent band" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 0.95]
-      expect(device.battery_percentage).to eq(30)
+    it "answers ninety percent when in range" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.01]
+      expect(device.battery_percentage).to eq(90)
     end
 
-    it "answers thirty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 1.15]
-      expect(device.battery_percentage).to eq(30)
+    it "answers ninety percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.996]
+      expect(device.battery_percentage).to eq(90)
     end
 
-    it "answers fourty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 1.5]
-      expect(device.battery_percentage).to eq(40)
-    end
-
-    it "answers fifty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 2.0]
-      expect(device.battery_percentage).to eq(50)
-    end
-
-    it "answers sixty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 2.5]
-      expect(device.battery_percentage).to eq(60)
-    end
-
-    it "answers seventy percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.0]
-      expect(device.battery_percentage).to eq(70)
-    end
-
-    it "answers eighty percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.3]
+    it "answers eighty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.96]
       expect(device.battery_percentage).to eq(80)
     end
 
-    it "answers ninety percent when voltage is just above the eighty percent band" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.605]
-      expect(device.battery_percentage).to eq(90)
+    it "answers seventy percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.84]
+      expect(device.battery_percentage).to eq(70)
     end
 
-    it "answers ninety percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.9]
-      expect(device.battery_percentage).to eq(90)
+    it "answers sixty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.72]
+      expect(device.battery_percentage).to eq(60)
     end
 
-    it "answers one hundred percent when voltage is in range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.5]
-      expect(device.battery_percentage).to eq(100)
+    it "answers fifty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.6]
+      expect(device.battery_percentage).to eq(50)
     end
 
-    it "answers one hundred percent when voltage is beyond range" do
-      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 4.8]
-      expect(device.battery_percentage).to eq(100)
+    it "answers fourty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.48]
+      expect(device.battery_percentage).to eq(40)
+    end
+
+    it "answers thirty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.36]
+      expect(device.battery_percentage).to eq(30)
+    end
+
+    it "answers twenty percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.24]
+      expect(device.battery_percentage).to eq(20)
+    end
+
+    it "answers ten percent when at lower bound" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.12]
+      expect(device.battery_percentage).to eq(10)
+    end
+
+    it "answers one percent when in range" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 3.1]
+      expect(device.battery_percentage).to eq(1)
+    end
+
+    it "answers zero when negative" do
+      device = Factory.structs[:device, battery_charge: 0, battery_voltage: 2]
+      expect(device.battery_percentage).to eq(0)
     end
   end
 
