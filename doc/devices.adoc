@@ -13,14 +13,14 @@ toc::[]
 
 == WiFi
 
-Connecting devices requires using the WiFi captive portal on your mobile phone to connect your TRMNL device to your local network where this server is running. You can also delete your device, via the UI and/or API, and it'll be reconfigured for you automatically when the device next makes a link:api.adoc#display[Display API] request. For more information (including dealing with tricky WiFi situations), check out the help guides:
+Connecting devices requires using the WiFi captive portal on your mobile phone to connect your TRMNL device to your local network where this server is running. You can also delete your device, via the UI and/or API, and it'll be reconfigured for you automatically when the device next makes a link:api.adoc#display[Display API] request. For more information (including dealing with tricky WiFi situations), check out these guides:
 
 * link:https://help.usetrmnl.com/en/articles/12263392-connect-your-device-to-terminus-byos[How to connect your device to Terminus].
 * link:https://help.usetrmnl.com/en/articles/11663377-setting-up-a-trmnl-on-tricky-wi-fi-situations[Dealing with tricky Wi-Fi situations].
 
 == Models
 
-Terminus supports multiple models (as found via the _Models_ page within the UI). These models are used during the device auto-provisioning process to ensure your device is associated with the correct model for rendering screens on your device. That said, some devices require special care as documented below.
+Multiple models are supported (as found via the _Models_ page within the UI). These models are used during the device auto-provisioning process to ensure your device is associated with the correct model for rendering screens on your device. That said, some devices require special care as documented below.
 
 === CrowPanel ESP32 4.2inch E-paper
 
@@ -40,7 +40,7 @@ Great for development purposes especially if you want a quick way to test sensor
 
 === TRMNL OG (B/W/R/Y)
 
-**Requires Firmware 1.8.12 (or higher).** Ensure you disable automatic firmware updates once the device is provisioned or you'll be stuck with a loading screen only showing the TRMNL logo in the right hand corner of the screen.
+**Requires Firmware 1.8.16 (or higher).** You'll want to disable automatic firmware updates once the device is provisioned or you'll be stuck with a loading screen only showing the TRMNL logo in the right hand corner of the screen as new updates arrive (this is an outstanding Firmware issue).
 
 === TRMNL reMarkable Paper Pro
 
@@ -53,9 +53,9 @@ Great for development purposes especially if you want a quick way to test sensor
 * link:https://www.waveshare.com[Site]: Visit the web site to learn more.
 * link:https://www.waveshare.com/esp32-s3-epaper-3.97.htm?sku=33810[Model]: The product page.
 
-=== XTEINK X4
+=== XTEINK X3 and X4
 
-**Requires Firmware 1.8.12 (or higher).** Ensure you disable automatic firmware updates once the device is provisioned or you'll be stuck with a loading screen only showing the TRMNL logo in the right hand corner of the screen. You might need to {flash_link} the device before using.
+**Requires Firmware 1.8.16 (or higher).** Ensure you disable automatic firmware updates once the device is provisioned or you'll be stuck with a loading screen only showing the TRMNL logo in the right hand corner of the screen. You might need to {flash_link} the device before using.
 
 Provides a slim design that supports 800x480 resolutions like our TRMNL OG devices. The only downside is that the WiFi signal is weaker so range is limited.
 
