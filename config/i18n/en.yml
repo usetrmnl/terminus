@@ -1,4 +1,8 @@
 en:
+  api:
+    shared:
+      errors:
+        validation: "Validation failed."
   date:
     formats:
       day_month_long: "%A, %B %-d"
