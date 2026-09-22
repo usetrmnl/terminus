@@ -45,6 +45,10 @@ module Terminus
       patch "/extensions/:id", to: "api.extensions.patch", as: :extension
       delete "/extensions/:id", to: "api.extensions.delete", as: :extension
 
+      get "/extensions/:extension_id/exchanges",
+          to: "api.extensions.exchanges.index",
+          as: :extension_exchanges
+
       resource :display, to: "api.display", only: :show
 
       get "/firmware", to: "api.firmware.index", as: :firmwares
