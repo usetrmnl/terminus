@@ -10,10 +10,10 @@ module Terminus
           include Initable[serializer: Serializers::Extension]
 
           def handle request, response
-            screen = repository.find request.params[:id]
+            extension = repository.find request.params[:id]
 
-            response.body = if screen
-                              {data: serializer.new(screen).to_h}.to_json
+            response.body = if extension
+                              {data: serializer.new(extension).to_h}.to_json
                             else
                               problem[status: :not_found].to_json
                             end
