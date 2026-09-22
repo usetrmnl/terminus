@@ -54,6 +54,9 @@ module Terminus
       post "/extensions/:extension_id/exchanges",
            to: "api.extensions.exchanges.create",
            as: :extension_exchanges
+      patch "/extensions/:extension_id/exchanges/:id",
+            to: "api.extensions.exchanges.patch",
+            as: :extension_exchange
 
       resource :display, to: "api.display", only: :show
 
