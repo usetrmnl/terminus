@@ -57,6 +57,9 @@ module Terminus
       patch "/extensions/:extension_id/exchanges/:id",
             to: "api.extensions.exchanges.patch",
             as: :extension_exchange
+      delete "/extensions/:extension_id/exchanges/:id",
+             to: "api.extensions.exchanges.delete",
+             as: :extension_exchange
 
       resource :display, to: "api.display", only: :show
 
