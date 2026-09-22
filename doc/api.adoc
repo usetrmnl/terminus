@@ -879,6 +879,196 @@ curl -X "DELETE" "https://localhost:2443/api/extensions/1" \
 ----
 ====
 
+=== Extension Exchanges
+
+Allows you to manage the exchanges of each link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extension]. These are what allow you to obtain data from multiple sources.
+
+💡 When using POST or PATCH, there will be a slight delay in updating of associated `data` or `errors`. This is due to background jobs being enqueued which might take a few seconds to process. Use GET to acquire updated responses if desired.
+
+.GET Request
+[%collapsible]
+====
+[source,bash]
+----
+# Multiple.
+curl "https://localhost:2443/api/extensions/1/exchanges" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+
+# Single.
+curl "https://localhost:2443/api/extensions/1/exchanges/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+====
+
+.GET Response
+[%collapsible]
+====
+[source,json]
+----
+# Multiple.
+{
+  "data": [
+    {
+      "id": 1,
+      "headers": {},
+      "verb": "get",
+      "template": "https://demo.io",
+      "data": {},
+      "errors": {},
+      "refreshed_at": "2026-09-15T16:03:35-06:00",
+      "created_at": "2026-09-15T16:03:35-06:00",
+      "updated_at": "2026-09-15T16:03:35-06:00"
+    }
+  ]
+}
+
+# Single.
+{
+  "data": {
+    "id": 1,
+    "headers": {},
+    "verb": "get",
+    "template": "https://demo.io",
+    "data": {},
+    "errors": {},
+    "refreshed_at": "2026-09-15T16:03:35-06:00",
+    "created_at": "2026-09-15T16:03:35-06:00",
+    "updated_at": "2026-09-15T16:03:35-06:00"
+  }
+}
+----
+
+You'll get an empty array when no devices exist.
+====
+
+.POST Request
+[%collapsible]
+====
+[source,bash]
+----
+# Minimum
+curl -X "POST" "https://localhost:2443/api/extensions/1/exchanges" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "exchange": {
+    "template": "https://demo.io"
+  }
+}'
+
+# Maximum
+curl -X "POST" "https://localhost:2443/api/extensions/1/exchanges" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "exchange": {
+    "body": {
+      "name": "demo"
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "verb": "post",
+    "template": "https://demo.io"
+  }
+}'
+----
+====
+
+.POST Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "headers": {},
+    "verb": "get",
+    "template": "https://demo.io",
+    "data": {},
+    "errors": {},
+    "refreshed_at": nil,
+    "created_at": "2026-09-15T16:03:35-06:00",
+    "updated_at": "2026-09-15T16:03:35-06:00"
+  }
+}
+----
+====
+
+.PATCH Request
+[%collapsible]
+====
+[source,bash]
+----
+curl -X "PATCH" "https://localhost:2443/api/extensions/1/exchanges/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "extension": {
+    "template": "https://demo.io"
+  }
+}'
+----
+
+You can change a single attribute or multiple attributes at once. All attributes found in the POST request are supported.
+====
+
+.PATCH Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "headers": {},
+    "verb": "get",
+    "template": "https://demo.io",
+    "data": {},
+    "errors": {},
+    "refreshed_at": nil,
+    "created_at": "2026-09-15T16:03:35-06:00",
+    "updated_at": "2026-09-15T16:03:35-06:00"
+  }
+}
+----
+====
+
+.DELETE Request
+[%collapsible]
+====
+[source,bash]
+----
+curl -X "DELETE" "https://localhost:2443/api/extensions/1/exchanges/1" \
+     -H 'Authorization: <redacted>' \
+     -H 'Content-Type: application/json'
+----
+====
+
+.DELETE Response
+[%collapsible]
+====
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "headers": {},
+    "verb": "get",
+    "template": "https://demo.io",
+    "data": {},
+    "errors": {},
+    "refreshed_at": nil,
+    "created_at": "2026-09-15T16:03:35-06:00",
+    "updated_at": "2026-09-15T16:03:35-06:00"
+  }
+}
+----
+====
+
 === Firmware
 
 Manages firmware records for keeping devices up-to-date. By default, firmware is sourced from {trmnl_firmware_link} but you can manage your own custom firmware if desired. The following details the supported requests and responses.

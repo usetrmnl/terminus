@@ -110,6 +110,21 @@
   </details>
 
   <details name="details">
+    <summary id="extension_exchange" class="summary">Extension Exchange</summary>
+
+    <p>Could not create or update an extension exchange. The following is the list of supported keys:</p>
+
+    <h2 class="label">Required</h2>
+
+    <dl class="bit-definition-list">
+      <dt class="key">template</dt>
+      <dd class="value">A URI or list of URLs to obtain data from. Can use Liquid syntax.</dd>
+    </dl>
+
+    <p>When making a POST request the above is required but when making a PATCH request they are optional as long you supply at least one key.</p>
+  </details>
+
+  <details name="details">
     <summary id="firmware_payload" class="summary">Firmware Payload</summary>
 
     <p>Could not create or update firmware. The following is the list of supported keys:</p>
