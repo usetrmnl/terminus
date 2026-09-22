@@ -47,7 +47,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#model_payload",
               status: :unprocessable_content,
-              detail: "Validation failed.",
+              detail: translate("api.shared.errors.validation"),
               instance: "/api/models",
               extensions: {errors: parameters.errors.to_h}
             ]

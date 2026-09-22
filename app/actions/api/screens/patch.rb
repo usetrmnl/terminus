@@ -63,7 +63,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#screen_payload",
               status: :unprocessable_content,
-              detail: "Validation failed.",
+              detail: translate("api.shared.errors.validation"),
               instance: "/api/screens",
               extensions: {errors:}
             ]

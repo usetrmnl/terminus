@@ -30,7 +30,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#device_payload",
               status: :unprocessable_content,
-              detail: "Validation failed.",
+              detail: translate("api.shared.errors.validation"),
               instance: "/api/devices",
               extensions: {errors: parameters.errors.to_h}
             ]
