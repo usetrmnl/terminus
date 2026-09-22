@@ -8,6 +8,7 @@ module Terminus
       class Model < Base
         include Deps[
           :settings,
+          :i18n,
           :logger,
           palette: "aspects.palettes.synchronizer",
           model: "aspects.models.synchronizer"
@@ -19,7 +20,7 @@ module Terminus
           if settings.model_synchronizer
             palette.call.bind { model.call }
           else
-            logger.warn { "Model synchronization is disabled." }
+            logger.warn { i18n.translate "jobs.synchronizers.model.warning" }
           end
         end
       end

@@ -89,7 +89,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#api_key",
               status: __method__,
-              detail: "Invalid API key.",
+              detail: translate(".invalid_api_key"),
               instance: "/api/display"
             ]
           end

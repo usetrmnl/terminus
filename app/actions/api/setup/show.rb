@@ -56,7 +56,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#device_setup",
               status: __method__,
-              detail: "Invalid request headers.",
+              detail: translate(".invalid_headers"),
               instance: "/api/setup",
               extensions: {errors:}
             ]

@@ -10,6 +10,7 @@ module Terminus
       class Synchronizer
         include Deps[
           :settings,
+          :i18n,
           firmware_parser: "aspects.firmware.headers.parser",
           repository: "repositories.device"
         ]
@@ -25,7 +26,9 @@ module Terminus
             device = repository.update_by_api_key model.api_key,
                                                   **model.device_attributes,
                                                   synced_at: at
-            device ? Success(device) : Failure("Unable to find device by API key.")
+            message = i18n.translate "aspects.devices.synchronizer.invalid_api_key"
+
+            device ? Success(device) : Failure(message)
           end
         end
       end

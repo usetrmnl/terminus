@@ -12,12 +12,17 @@ module Terminus
           module Transformers
             # Transforms (mutates) by adding defaults for initialization.
             class Default
-              include Initable[description: "Imported from TRMNL.", unit: "minute"]
+              include Deps[:i18n]
+              include Initable[unit: "minute"]
               include Dry::Monads[:result]
 
               using Refinements::String
 
               def call attributes
+                description = i18n.translate(
+                  "aspects.extensions.importers.remote.transformers.default.imported"
+                )
+
                 Success attributes.merge!(
                   name: attributes[:label].snakecase.tr("/", "_"),
                   description:,

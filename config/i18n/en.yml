@@ -1,8 +1,61 @@
 en:
   api:
+    display:
+      show:
+        invalid_api_key: Invalid API key.
+    log:
+      create:
+        no_device: Unable to find device.
+        invalid_device_id: Invalid device ID.
+        invalid_payload: Validation failed due to invalid payload.
+    setup:
+      show:
+        invalid_headers: Invalid request headers.
     shared:
       errors:
         validation: "Validation failed."
+  aspects:
+    designs:
+      event_source:
+        disconnected: Event stream disconnected.
+      importer:
+        imported: Imported design.
+    devices:
+      sensors:
+        synchronizer:
+          duplicate: Duplicate sensor detected. Skipped.
+      synchronizer:
+        invalid_api_key: Unable to find device by API key.
+    extensions:
+      exchanges:
+        refresher:
+          bad_fetch: Unable to fetch, invalid result.
+      importers:
+        local:
+          creators:
+            exchange:
+              imported: Imported extension exchange.
+            extension:
+              imported: Imported extension.
+        remote:
+          creator:
+            bad_transform: Unable to transform exchange template.
+          transformer:
+            no_serverless: Serverless transforms are not supported yet.
+          transformers:
+            default:
+              imported: Imported from TRMNL.
+    firmware:
+      headers:
+        parser:
+          debug: Processing device request headers.
+    screens:
+      mold_builder:
+        debug: Screen mold built.
+      positioner:
+        empty_playlist: Unable to obtain next screen. Playlist has no items.
+    unzipper:
+      no_directories: Directories are not allowed.
   date:
     formats:
       day_month_long: "%A, %B %-d"
@@ -45,6 +98,10 @@ en:
           other: "%{count} seconds"
       future: in %{time}
       past: "%{time} ago"
+  designs:
+    import:
+      create:
+        notice: Design imported!
   devices:
     shared:
       _fields:
@@ -60,6 +117,27 @@ en:
         hash?: "must be a JSON object"
       model:
         hash?: "must be a JSON object"
+  extensions:
+    gallery:
+      index:
+        alert: Unable to process TRMNL API.
+    import:
+      create:
+        notice: Extension imported!
+    update:
+      notice: Changes saved.
+  jobs:
+    extensions:
+      screen:
+        info: Enqueued extension screen upsert.
+        error: Unable to find extension.
+    synchronizers:
+      firmware:
+        warning: Firmware synchronization is disabled.
+      font:
+        warning: Font synchronization is disabled.
+      model:
+        warning: Model synchronization is disabled.
   time:
     formats:
       shorter: "%-I:%M %p"

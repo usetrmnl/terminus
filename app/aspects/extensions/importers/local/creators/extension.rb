@@ -13,6 +13,7 @@ module Terminus
             class Extension
               include Deps[
                 "aspects.errors.detailer",
+                :i18n,
                 :logger,
                 "aspects.jobs.schedule",
                 repository: "repositories.extension"
@@ -47,7 +48,11 @@ module Terminus
 
               def log extension
                 logger.debug do
-                  {tags: [{extension_id: extension.id}], message: "Imported extension."}
+                  message = i18n.translate(
+                    "aspects.extensions.importers.local.creators.extension.imported"
+                  )
+
+                  {tags: [{extension_id: extension.id}], message:}
                 end
               end
             end

@@ -6,14 +6,14 @@ module Terminus
     module Synchronizers
       # Synchronizes TRMNL Framework fonts for local use.
       class Font < Base
-        include Deps[:settings, "aspects.fonts.synchronizer"]
+        include Deps[:settings, :i18n, "aspects.fonts.synchronizer"]
 
         sidekiq_options queue: "within_1_minute"
 
         def perform
           return synchronizer.call if settings.font_synchronizer
 
-          logger.warn { "Font synchronization is disabled." }
+          logger.warn { i18n.translate "jobs.synchronizers.font.warning" }
         end
       end
     end

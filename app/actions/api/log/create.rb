@@ -62,12 +62,12 @@ module Terminus
           end
 
           def not_found response
-            logger.error "Unable to find device."
+            logger.error translate(".no_device")
 
             response.with_details problem[
               type: "/problem_details#device_id",
               status: __method__,
-              detail: "Invalid device ID.",
+              detail: translate(".invalid_device_id"),
               instance: "/api/log"
             ]
           end
@@ -80,7 +80,7 @@ module Terminus
             response.with_details problem[
               type: "/problem_details#log_payload",
               status: __method__,
-              detail: "Validation failed due to incorrect or invalid payload.",
+              detail: translate(".invalid_payload"),
               instance: "/api/log",
               extensions: {errors:}
             ]

@@ -9,7 +9,12 @@ module Terminus
     module Screens
       # Initializes and builds a screen mold.
       class MoldBuilder
-        include Deps["aspects.models.finder", :logger, palette_repository: "repositories.palette"]
+        include Deps[
+          "aspects.models.finder",
+          :i18n,
+          :logger,
+          palette_repository: "repositories.palette"
+        ]
         include Initable[mold: Mold, fallbacks: {grays: 0, color_codes: []}]
         include Dry::Monads[:result]
 
@@ -43,7 +48,13 @@ module Terminus
         end
 
         def log_debug record
-          logger.debug { {tags: [record.log_attributes], message: "Screen mold built."} }
+          logger.debug do
+            {
+              tags: [record.log_attributes],
+              message: i18n.translate("aspects.screens.mold_builder.debug")
+            }
+          end
+
           record
         end
       end

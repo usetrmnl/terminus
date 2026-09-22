@@ -108,7 +108,7 @@ RSpec.describe "/api/log", :db do
       problem = RFC::API::Problem[
         type: "/problem_details#log_payload",
         status: :unprocessable_content,
-        detail: "Validation failed due to incorrect or invalid payload.",
+        detail: "Validation failed due to invalid payload.",
         instance: "/api/log",
         extensions: {errors: {logs: ["must be filled"]}}
       ]

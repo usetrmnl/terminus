@@ -10,6 +10,7 @@ module Terminus
       class EventSource
         include Deps[
           :logger,
+          :i18n,
           repository: "repositories.screen",
           view: "views.designs.event_stream"
         ]
@@ -18,7 +19,7 @@ module Terminus
         def call stream
           write stream
         rescue Errno::EPIPE, Errno::ECONNRESET, IOError
-          logger.debug { "Event stream disconnected." }
+          logger.debug { i18n.translate "aspects.designs.event_source.disconnected" }
         ensure
           stream.close
         end

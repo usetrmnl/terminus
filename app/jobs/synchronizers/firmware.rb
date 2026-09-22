@@ -6,14 +6,14 @@ module Terminus
     module Synchronizers
       # Synchronizes TRMNL Firmware for local use.
       class Firmware < Base
-        include Deps[:settings, :logger, "aspects.firmware.synchronizer"]
+        include Deps[:settings, :i18n, :logger, "aspects.firmware.synchronizer"]
 
         sidekiq_options queue: "within_1_minute"
 
         def perform
           return synchronizer.call if settings.firmware_synchronizer
 
-          logger.warn { "Firmware synchronization is disabled." }
+          logger.warn { i18n.translate "jobs.synchronizers.firmware.warning" }
         end
       end
     end

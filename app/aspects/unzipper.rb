@@ -8,7 +8,7 @@ module Terminus
   module Aspects
     # A monadic decompressor of zip file content.
     class Unzipper
-      include Deps["zip.file"]
+      include Deps[:i18n, "zip.file"]
       include Initable[max_files: 10, max_file_size: 1024**2]
       include Dry::Monads[:result]
 
@@ -36,8 +36,9 @@ module Terminus
 
       def read entry, attributes
         input = entry.get_input_stream
+        message = i18n.translate "aspects.unzipper.no_directories"
 
-        return Failure "Directories are not allowed." if input == Zip::NullInputStream
+        return Failure message if input == Zip::NullInputStream
 
         attributes[entry.name] = input.read
         Success attributes

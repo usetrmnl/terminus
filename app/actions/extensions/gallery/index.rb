@@ -23,7 +23,7 @@ module Terminus
               in Failure(Dry::Schema::Result => result)
                 render_errors result, parameters, response
               else
-                response.flash.now[:alert] = "Unable to process TRMNL API."
+                response.flash.now[:alert] = translate ".alert"
                 response.render view, recipe: empty_recipe, **parameters.to_h.slice(:query, :page)
             end
           end

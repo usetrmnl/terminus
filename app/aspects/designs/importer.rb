@@ -14,6 +14,7 @@ module Terminus
         include Deps[
           "aspects.unzipper",
           "aspects.errors.detailer",
+          :i18n,
           :logger,
           repository: "repositories.screen_template"
         ]
@@ -62,7 +63,10 @@ module Terminus
 
         def log screen_template
           logger.debug do
-            {tags: [{screen_template_id: screen_template.id}], message: "Imported design."}
+            {
+              tags: [{screen_template_id: screen_template.id}],
+              message: i18n.translate("aspects.designs.importer.imported")
+            }
           end
         end
       end

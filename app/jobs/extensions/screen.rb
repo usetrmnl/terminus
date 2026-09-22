@@ -6,7 +6,11 @@ module Terminus
     module Extensions
       # Creates screen for extension and model or device ID.
       class Screen < Base
-        include Deps["aspects.extensions.screen_upserter", repository: "repositories.extension"]
+        include Deps[
+          :i18n,
+          "aspects.extensions.screen_upserter",
+          repository: "repositories.extension"
+        ]
 
         sidekiq_options queue: "within_1_minute"
 
@@ -25,11 +29,11 @@ module Terminus
         private
 
         def log_info tags
-          logger.info { {tags:, message: "Enqueued extension screen upsert."} }
+          logger.info { {tags:, message: i18n.translate("jobs.extensions.screen.info")} }
         end
 
         def log_error tags
-          logger.error { {tags:, message: "Unable to find extension."} }
+          logger.error { {tags:, message: i18n.translate("jobs.extensions.screen.error")} }
         end
       end
     end

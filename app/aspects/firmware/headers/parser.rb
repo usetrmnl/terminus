@@ -9,6 +9,7 @@ module Terminus
         # Parses firmware HTTP headers into records.
         class Parser
           include Deps[
+            :i18n,
             :logger,
             model_name_transformer: "aspects.firmware.headers.transformers.model_name",
             sensors_transformer: "aspects.firmware.headers.transformers.sensors"
@@ -22,7 +23,10 @@ module Terminus
           end
 
           def call headers
-            logger.debug { {tags: tags(headers), message: "Processing device request headers."} }
+            logger.debug do
+              message = i18n.translate "aspects.firmware.headers.parser.debug"
+              {tags: tags(headers), message:}
+            end
 
             pipe headers,
                  validate(schema, as: :to_h),

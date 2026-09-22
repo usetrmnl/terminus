@@ -10,6 +10,7 @@ module Terminus
         # Updates an exchange based on multiple responses.
         class Refresher
           include Deps[
+            :i18n,
             "aspects.extensions.fetcher.client",
             "aspects.extensions.exchanges.request_builder",
             extension_repository: "repositories.extension",
@@ -40,11 +41,12 @@ module Terminus
           def fetch requests, data:, errors: {}
             requests.each.with_index 1 do |request, index|
               key = "source_#{index}"
+              bad_fetch = i18n.translate "aspects.extensions.exchanges.refresher.bad_fetch"
 
               case client.call request
                 in Success(response) then response.merge_data key, data
                 in Failure(response) then response.merge_errors key, errors
-                else errors.merge! key => "Unable to fetch, invalid result."
+                else errors.merge! key => bad_fetch
               end
             end
 

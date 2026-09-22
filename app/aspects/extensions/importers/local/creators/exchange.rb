@@ -12,6 +12,7 @@ module Terminus
             class Exchange
               include Deps[
                 "aspects.errors.detailer",
+                :i18n,
                 :logger,
                 repository: "repositories.extension_exchange"
               ]
@@ -41,8 +42,16 @@ module Terminus
               end
 
               def log exchange, attributes
-                tags = [{extension_id: attributes[:extension_id], exchange_id: exchange.id}]
-                logger.debug(tags:) { "Imported extension exchange." }
+                logger.debug do
+                  message = i18n.translate(
+                    "aspects.extensions.importers.local.creators.exchange.imported"
+                  )
+
+                  {
+                    tags: [{extension_id: attributes[:extension_id], exchange_id: exchange.id}],
+                    message:
+                  }
+                end
               end
             end
           end

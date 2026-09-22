@@ -10,6 +10,7 @@ module Terminus
           # Transforms remote plugin (recipe) data into extension attributes.
           class Transformer
             include Deps[
+              :i18n,
               "aspects.extensions.importers.remote.extractor",
               "aspects.extensions.importers.remote.transformers.data",
               "aspects.extensions.importers.remote.transformers.default",
@@ -44,7 +45,9 @@ module Terminus
 
             def validate archive
               if archive.key? :transform
-                Failure "Serverless transforms are not supported yet."
+                Failure i18n.translate(
+                  "aspects.extensions.importers.remote.transformer.no_serverless"
+                )
               else
                 YAML.load(archive[:settings])
                     .then { |settings| schema.call settings }

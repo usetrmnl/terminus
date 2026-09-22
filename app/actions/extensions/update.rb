@@ -26,7 +26,7 @@ module Terminus
         private
 
         def success extension, response
-          response.flash[:notice] = "Changes saved."
+          response.flash[:notice] = translate ".notice"
           response.redirect_to routes.path(:extension_edit, id: extension.id)
         end
 

@@ -9,6 +9,7 @@ module Terminus
       # Updates a device's current playlist item by position.
       class Positioner
         include Deps[
+          :i18n,
           :logger,
           playlist_repository: "repositories.playlist",
           item_repository: "repositories.playlist_item"
@@ -62,7 +63,7 @@ module Terminus
         def obtain_screen item
           return Success item.screen if item
 
-          Failure "Unable to obtain next screen. Playlist has no items."
+          Failure i18n.translate("aspects.screens.positioner.empty_playlist")
         end
       end
     end

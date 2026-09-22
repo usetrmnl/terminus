@@ -12,6 +12,7 @@ module Terminus
           class Creator
             include Deps[
               :logger,
+              :i18n,
               "aspects.extensions.importers.remote.transformer",
               keyer: "aspects.extensions.importers.remote.transformers.template_keys",
               repository: "repositories.extension",
@@ -71,8 +72,14 @@ module Terminus
                   logger.debug { message }
                   Core::EMPTY_STRING
                 else
-                  logger.error { "Unable to transform exchange template." }
+                  log_error
                   Core::EMPTY_STRING
+              end
+            end
+
+            def log_error
+              logger.error do
+                i18n.translate "aspects.extensions.importers.remote.creator.bad_transform"
               end
             end
           end

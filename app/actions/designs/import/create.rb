@@ -27,7 +27,7 @@ module Terminus
             flash = response.flash
 
             case upsert parameters
-              in Success then flash[:notice] = "Design imported!"
+              in Success then flash[:notice] = translate ".notice"
               in Failure(message) then flash[:alert] = message
             end
 

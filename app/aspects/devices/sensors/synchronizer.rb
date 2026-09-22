@@ -14,6 +14,7 @@ module Terminus
         class Synchronizer
           include Deps[
             :settings,
+            :i18n,
             :logger,
             device_relation: "relations.device",
             sensor_repository: "repositories.device_sensor"
@@ -57,7 +58,12 @@ module Terminus
 
           def deduplicate device_id, attributes
             if find_with device_id, attributes
-              logger.debug { {tags: [attributes], message: "Duplicate sensor detected. Skipped."} }
+              logger.debug do
+                {
+                  tags: [attributes],
+                  message: i18n.translate("aspects.devices.sensors.synchronizer.duplicate")
+                }
+              end
             else
               sensor_repository.create device_id:, source: "server", **attributes
             end
