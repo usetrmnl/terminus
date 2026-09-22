@@ -48,6 +48,9 @@ module Terminus
       get "/extensions/:extension_id/exchanges",
           to: "api.extensions.exchanges.index",
           as: :extension_exchanges
+      get "/extensions/:extension_id/exchanges/:id",
+          to: "api.extensions.exchanges.show",
+          as: :extension_exchange
 
       resource :display, to: "api.display", only: :show
 
