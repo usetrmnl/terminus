@@ -5,7 +5,7 @@ require "hanami_helper"
 RSpec.describe Terminus::Serializers::Extensions::Exchange do
   subject(:serializer) { described_class.new exchange }
 
-  let(:exchange) { Factory[:extension_exchange, **attributes] }
+  let(:exchange) { Factory.structs[:extension_exchange, **attributes] }
 
   let :attributes do
     {
