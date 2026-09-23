@@ -1,3 +1,10 @@
 <%= scope(:popover_default_content, name: :api_key, label: "API Key").render do %>
-  <p>Used for Display API requests to authenticate between server and device after the device has been provisioned.</p>
+  <p>Used for API requests to authenticate between server and device after the physical device has been automatically provisioned for you or if you created a virtual device.</p>
+
+  <p>Once an API Key has been created and stored on your device, this then becomes the primary form of authentication between server and device. Should you need to generate or use a different API Key with your device, you'll need to do one of the following:</p>
+
+  <ul>
+    <li>Set <em>Firmware Reset</em> to <code>true</code> and then wait for your device to wake up and reset itself (or press the button on the back of your device to force the reset). Then you can create a new API Key and then reconnect the device to this server.</li>
+    <li>Flash the firmware on your device and then either delete this device or let the device reconnect. Handy if you have a device with an unknown API key, forgot your API Key, or need to reset your device in general.</li>
+  </ul>
 <% end %>
