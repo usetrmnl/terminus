@@ -30,6 +30,7 @@ gem "initable", "~> 1.0"
 gem "inspectable", "~> 1.0"
 gem "jwt", "~> 3.1"
 gem "marcel", "~> 2.1"
+gem "metapath", "~> 0.0"
 gem "mini_magick", "~> 5.2"
 gem "nori", "~> 2.7"
 gem "pg", "~> 1.6", force_ruby_platform: true
