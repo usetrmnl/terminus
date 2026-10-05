@@ -1,0 +1,84 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+Bundler.require :tools
+
+require "dry/monads"
+require "hanami/prepare"
+require "initable"
+require "metapath"
+require "refinements/hash"
+require "refinements/pathname"
+
+module Terminus
+  class Importer
+    include Deps[
+      "aspects.screens.upserter",
+      :logger,
+      model_repository: "repositories.model",
+      item_repository: "repositories.playlist_item",
+      playlist_repostiory: "repositories.playlist"
+    ]
+    include Initable[metapath: proc { Metapath.new }]
+    include Dry::Monads[:result]
+
+    using Refinements::Hash
+    using Refinements::Pathname
+
+    def call root
+      case metapath.call root
+        in Success(*records) then import records
+        in Failure(message) then logger.error { message }
+      end
+    end
+
+    private
+
+    def import records
+      playlist_name = records.first.fetch "playlist"
+      playlist_id = playlist_repostiory.find_by(name: playlist_name).id
+
+      item_repository.delete_all(playlist_id:)
+
+      records.each do |record|
+        logger.info { "Processing #{record.path}..." }
+        upsert_screen(record).fmap { |screen| add_to_playlist playlist_id, screen, record }
+                             .then { log it }
+      end
+    end
+
+    def upsert_screen record
+      path = record.path
+
+      model = model_repository.find_by name: record.fetch("model")
+
+      upserter.call label: record.label,
+                    name: record.name,
+                    uri: path.to_s,
+                    model_id: model.id,
+                    mode: record.fetch("mode")
+    end
+
+    def add_to_playlist id, screen, record
+      position = record.position
+
+      item = item_repository.create(playlist_id: id, screen_id: screen.id, position:)
+
+      playlist_repostiory.update id, current_item_id: item.id if position == 1
+      screen
+    end
+
+    def log result
+      case result
+        in Success(screen) then logger.info { "Upserted screen: #{screen.label} (#{screen.id})." }
+        in Failure(message) then logger.error { message }
+        else logger.fatal { "Unable to process: #{path}." }
+      end
+    end
+  end
+end
+
+importer = Terminus::Importer.new
+
+importer.call "~/Scratch/games"
