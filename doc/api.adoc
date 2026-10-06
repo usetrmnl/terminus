@@ -1101,7 +1101,6 @@ curl "https://localhost:2443/api/firmware/1" \
     {
       "id": 1,
       "version": "1.7.2",
-      "kind": "trmnl",
       "file_name": "1.7.2.bin",
       "mime_type": "application/octet-stream",
       "size": 1306608,
@@ -1117,7 +1116,6 @@ curl "https://localhost:2443/api/firmware/1" \
   "data": {
     "id": 1,
     "version": "1.7.2",
-    "kind": "trmnl",
     "file_name": "1.7.2.bin",
     "mime_type": "application/octet-stream",
     "size": 1306608,
@@ -1142,7 +1140,6 @@ curl -X "POST" "https://localhost:2443/api/firmware" \
      -d $'{
   "firmware": {
     "version": "2.0.0",
-    "kind": "terminus",
     "uri": "https://demo.terminus.io/2.0.0.bin"
   }
 }'
@@ -1158,7 +1155,6 @@ curl -X "POST" "https://localhost:2443/api/firmware" \
   "data": {
     "id": 10,
     "version": "2.0.0",
-    "kind": "terminus",
     "file_name": "2.0.0.bin",
     "mime_type": "application/octet-stream",
     "size": 1225536,
@@ -1197,7 +1193,6 @@ You can change a single attribute or multiple attributes at once.
   "data": {
     "id": 10,
     "version": "2.0.0",
-    "kind": "terminus",
     "file_name": "2.0.0.bin",
     "mime_type": "application/octet-stream",
     "size": 1225536,
@@ -1230,7 +1225,6 @@ curl -X "DELETE" "https://localhost:2443/api/firmware/10" \
   "data": {
     "id": 10,
     "version": "2.0.0",
-    "kind": "terminus",
     "file_name": "2.0.0.bin",
     "mime_type": "application/octet-stream",
     "size": 1225536,

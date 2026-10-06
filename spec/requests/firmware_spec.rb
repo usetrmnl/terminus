@@ -10,8 +10,7 @@ RSpec.describe "/api/firmware", :db do
 
   let :attributes do
     {
-      version: "0.0.0",
-      kind: "test"
+      version: "0.0.0"
     }
   end
 
@@ -30,7 +29,6 @@ RSpec.describe "/api/firmware", :db do
         {
           id: firmware.id,
           version: "0.0.0",
-          kind: "test",
           file_name: "0.0.0.bin",
           uri: "memory://abc123.bin",
           mime_type: "application/octet-stream",
@@ -61,7 +59,6 @@ RSpec.describe "/api/firmware", :db do
       data: {
         id: firmware.id,
         version: "0.0.0",
-        kind: "test",
         file_name: "0.0.0.bin",
         uri: "memory://abc123.bin",
         mime_type: "application/octet-stream",
@@ -91,7 +88,6 @@ RSpec.describe "/api/firmware", :db do
       data: {
         id: kind_of(Integer),
         version: "0.0.0",
-        kind: "test",
         file_name: "0.0.0.bin",
         uri: %r(memory://\h{32}\.bin),
         mime_type: "application/octet-stream",
@@ -151,7 +147,6 @@ RSpec.describe "/api/firmware", :db do
       data: {
         id: firmware.id,
         version: "0.0.0",
-        kind: "test",
         file_name: "0.0.0.bin",
         uri: %r(memory://\h{32}\.bin),
         mime_type: "application/octet-stream",
@@ -172,7 +167,6 @@ RSpec.describe "/api/firmware", :db do
       data: {
         id: firmware.id,
         version: "0.0.0",
-        kind: "test",
         file_name: "0.0.0.bin",
         uri: "memory://abc123.bin",
         mime_type: "application/octet-stream",
@@ -230,7 +224,6 @@ RSpec.describe "/api/firmware", :db do
       data: {
         id: firmware.id,
         version: "0.0.0",
-        kind: "test",
         file_name: "0.0.0.bin",
         uri: "memory://abc123.bin",
         mime_type: "application/octet-stream",

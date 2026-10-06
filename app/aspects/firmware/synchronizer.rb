@@ -38,9 +38,7 @@ module Terminus
         end
 
         def create version, struct
-          repository.create version: version,
-                            kind: "trmnl",
-                            attachment_data: struct.attachment_attributes
+          repository.create version: version, attachment_data: struct.attachment_attributes
         end
       end
     end

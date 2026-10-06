@@ -12,19 +12,6 @@
                         autocomplete: :off %>
   <% end %>
 
-  <%= scope(:form_field, key: :kind, errors:).render do %>
-    <label class="key" for="firmware_kind">
-      Kind
-      <%= scope(:popover_trigger_button, tip: :info, target: :kind).render %>
-    </label>
-
-    <%= form.text_field :kind,
-                        id: :firmware_kind,
-                        value: field_for(:kind, fields, firmware),
-                        class: :value,
-                        autocomplete: :off %>
-  <% end %>
-
   <%= scope(:form_field, key: :attachment, errors:).render do %>
     <label class="key" for="firmware_attachment">
       Attachment
