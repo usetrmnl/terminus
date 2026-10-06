@@ -518,7 +518,7 @@ CREATE TABLE public.firmware (
     attachment_data jsonb DEFAULT '{}'::jsonb CONSTRAINT firmwares_attachment_data_not_null NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP CONSTRAINT firmwares_created_at_not_null NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP CONSTRAINT firmwares_updated_at_not_null NOT NULL,
-    model_id integer
+    kind text DEFAULT 'terminus'::text NOT NULL
 );
 
 
@@ -1362,13 +1362,6 @@ CREATE INDEX extension_unit_index ON public.extension USING btree (unit);
 
 
 --
--- Name: firmware_model_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX firmware_model_id_index ON public.firmware USING btree (model_id);
-
-
---
 -- Name: firmwares_attachment_data_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1571,14 +1564,6 @@ ALTER TABLE ONLY public.extension_model
 
 ALTER TABLE ONLY public.extension_model
     ADD CONSTRAINT extension_model_model_id_fkey FOREIGN KEY (model_id) REFERENCES public.model(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: firmware firmware_model_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.firmware
-    ADD CONSTRAINT firmware_model_id_fkey FOREIGN KEY (model_id) REFERENCES public.model(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1815,5 +1800,4 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260810102551_drop_screen_device_id_and_kind_index.rb'),
 ('20260824132105_add_device_firmware_reset_column.rb'),
 ('20260825130920_drop_screen_kind_enum.rb'),
-('20260902101629_alter_device_log_sleep_duration_type.rb'),
-('20261006094916_add_firmware_model_id.rb');
+('20260902101629_alter_device_log_sleep_duration_type.rb');
