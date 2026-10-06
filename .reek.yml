@@ -118,15 +118,12 @@ detectors:
       - UniversalLoggerPatch#_log_structured
   UncommunicativeMethodName:
     exclude:
-      - "::Icalendar::Calendar#rfc_3339"
-      - "::Icalendar::Event#rfc_3339"
-      - "::Icalendar::Timezone#rfc_3339"
+      - Terminus::Refines::Icalendar#self.map_3339
+      - Terminus::Refines::Icalendar#self.rfc_3339
   UtilityFunction:
     exclude:
-      - "::Icalendar::Calendar#rfc_3339"
+      - Terminus::Refines::Icalender
       - "::Icalendar::Event#coordinates"
-      - "::Icalendar::Event#rfc_3339"
-      - "::Icalendar::Timezone#rfc_3339"
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Errors::Problem#duplicate
       - Terminus::Aspects::Errors::Problem#foreign_key
