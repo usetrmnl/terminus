@@ -7,7 +7,7 @@ RSpec.describe Terminus::Actions::Firmware::New, :db do
 
   describe "#call" do
     let(:firmware) { Factory[:firmware] }
-    let(:params) { {firmware: {version: "0.0.0", kind: "terminus"}} }
+    let(:params) { {firmware: {version: "0.0.0"}} }
 
     it "renders default response" do
       response = Rack::MockRequest.new(action).post("", params:)

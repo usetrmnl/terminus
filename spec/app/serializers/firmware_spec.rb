@@ -11,7 +11,6 @@ RSpec.describe Terminus::Serializers::Firmware do
     {
       id: 1,
       version: "0.0.0",
-      kind: "test",
       created_at: "2025-01-01T10:10:10+0000",
       updated_at: "2025-01-01T10:10:10+0000"
     }

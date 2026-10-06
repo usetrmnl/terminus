@@ -19,7 +19,6 @@ module Terminus
 
             required(:firmware).filled :hash do
               optional(:version).filled Types::Version
-              optional(:kind).filled :string
               optional(:uri).filled :string
             end
           end

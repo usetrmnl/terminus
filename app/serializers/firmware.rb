@@ -5,7 +5,7 @@ module Terminus
   module Serializers
     # A model serializer for specific keys.
     class Firmware
-      KEYS = %i[id version kind created_at updated_at].freeze
+      KEYS = %i[id version created_at updated_at].freeze
 
       def initialize record, keys: KEYS, transformer: Transformers::Time
         @record = record

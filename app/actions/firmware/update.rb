@@ -12,7 +12,6 @@ module Terminus
 
           required(:firmware).filled :hash do
             required(:version).filled Types::Version
-            required(:kind).filled :string
             optional(:attachment).filled Schemas::Attachment
           end
         end

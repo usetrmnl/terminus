@@ -35,7 +35,6 @@ RSpec.describe Terminus::Aspects::Firmware::Synchronizer, :db do
 
       expect(response).to have_attributes(
         version: "1.2.3",
-        kind: "trmnl",
         attachment_attributes: {
           id: /\h{32}\.bin/,
           metadata: {
