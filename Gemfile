@@ -51,7 +51,7 @@ gem "shrine", "~> 3.6"
 gem "sidekiq", "~> 8.0"
 gem "sidekiq-scheduler", "~> 6.0"
 gem "superfluid", "~> 0.0"
-gem "trmnl-api", "~> 0.20"
+gem "trmnl-api", "~> 0.22"
 gem "versionaire", "~> 15.3"
 gem "wholeable", "~> 2.1"
 
