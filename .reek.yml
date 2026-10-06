@@ -61,6 +61,7 @@ detectors:
       - Terminus::Aspects::Extensions::Importers::Remote::Extractor#build
       - Terminus::Aspects::Extensions::Importers::Remote::Transformers::Kind#process
       - Terminus::Aspects::Extensions::Renderers::Image#render_multiple
+      - Terminus::Aspects::Firmware::Synchronizer#attach
       - Terminus::Aspects::Playlists::ScreenOptioner#call
       - Terminus::Aspects::Screens::Compressor#convert
       - Terminus::Aspects::Screens::Converters::Color#convert
