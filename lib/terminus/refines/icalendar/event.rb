@@ -21,31 +21,31 @@ module Terminus
               color: color.to_s,
               comments: comment.map(&:to_s),
               contacts: contact.map(&:to_s),
-              created_at: rfc_3339(created),
+              created_at: Icalendar.rfc_3339(created),
               description: description.to_s,
               duration: duration.to_h,
-              end_at: rfc_3339(dtend),
-              exceptions: exdate.map(&:rfc3339),
+              end_at: Icalendar.rfc_3339(dtend),
+              exceptions: Icalendar.map_3339(exdate),
               geocoordinates: coordinates(geo),
               images: image.map(&:to_s),
               location: location.to_s,
               name: ical_name,
               organizer: organizer.to_s,
               priority: priority.to_i,
-              recurrence_id: rfc_3339(recurrence_id),
+              recurrence_id: Icalendar.rfc_3339(recurrence_id),
               recurrence_rule: rrule.map(&:to_h),
-              recurrences: rdate.map(&:rfc3339),
+              recurrences: Icalendar.map_3339(rdate),
               related_to:,
               request_status: request_status.map(&:to_s),
               resources: resources.map(&:to_s),
               sequence: sequence.to_i,
-              start_at: rfc_3339(dtstart),
+              start_at: Icalendar.rfc_3339(dtstart),
               status: status.to_s,
               summary: summary.to_s,
-              synced_at: rfc_3339(dtstamp),
+              synced_at: Icalendar.rfc_3339(dtstamp),
               time_transparency: transp.to_s,
               uid: uid.to_s,
-              updated_at: rfc_3339(last_modified),
+              updated_at: Icalendar.rfc_3339(last_modified),
               url: url.to_s
             }
           end
@@ -53,8 +53,6 @@ module Terminus
           private
 
           def coordinates(value) = value ? value.map(&:to_f) : Core::EMPTY_ARRAY
-
-          def rfc_3339(at) = (at.rfc3339 if at)
         end
       end
     end

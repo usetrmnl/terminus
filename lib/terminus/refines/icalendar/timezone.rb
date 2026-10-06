@@ -12,13 +12,9 @@ module Terminus
             {
               id: tzid.to_s,
               url: tzurl.to_s,
-              updated_at: rfc_3339(last_modified)
+              updated_at: Icalendar.rfc_3339(last_modified)
             }
           end
-
-          private
-
-          def rfc_3339(at) = (at.rfc3339 if at)
         end
       end
     end

@@ -26,15 +26,11 @@ module Terminus
               source: source.to_s,
               timezone: timezone.to_h,
               uid: uid.to_s,
-              updated_at: rfc_3339(last_modified),
+              updated_at: Icalendar.rfc_3339(last_modified),
               url: url.to_s,
               version: version.to_s
             }
           end
-
-          private
-
-          def rfc_3339(at) = (at.rfc3339 if at)
         end
       end
     end
