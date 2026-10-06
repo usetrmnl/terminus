@@ -3,6 +3,10 @@
 Factory.define :firmware, relation: :firmware do |factory|
   factory.version "0.0.0"
 
+  factory.trait :with_model do |trait|
+    trait.association :firmware_model
+  end
+
   factory.trait :with_attachment do |trait|
     trait.attachment_data do
       {
