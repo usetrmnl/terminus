@@ -4,8 +4,6 @@ module Terminus
   module Repositories
     # The screen repository.
     class Screen < DB::Repository[:screen]
-      INTERRUPTS = %w[error notification sleep wake welcome].freeze
-
       commands :create
 
       commands update: :by_pk,

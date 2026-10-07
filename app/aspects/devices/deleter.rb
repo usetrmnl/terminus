@@ -7,8 +7,8 @@ module Terminus
       class Deleter
         include Deps[repository: "repositories.device", screen_repository: "repositories.screen"]
 
-        def call id, interrupts: Repositories::Screen::INTERRUPTS
-          screen_repository.where(device_id: id, kind: interrupts)
+        def call id, kinds: %w[error welcome].freeze
+          screen_repository.where(device_id: id, kind: kinds)
                            .each { screen_repository.delete it.id }
           repository.delete id
         end
