@@ -19,7 +19,7 @@ module Terminus
         transaction do
           record = create attributes
 
-          create_associations :extension_device, record, :device_id, device_ids
+          extension_device.create_all record.id, device_ids
           record
         end
       end
@@ -28,7 +28,7 @@ module Terminus
         transaction do
           record = create attributes
 
-          create_associations :extension_model, record, :model_id, model_ids
+          extension_model.create_all record.id, model_ids
           record
         end
       end
@@ -47,7 +47,7 @@ module Terminus
         transaction do
           record = update id, attributes
 
-          update_associations :extension_device, id, :device_id, device_ids
+          extension_device.update_all id, device_ids
           record
         end
       end
@@ -56,7 +56,7 @@ module Terminus
         transaction do
           record = update id, attributes
 
-          update_associations :extension_model, id, :model_id, model_ids
+          extension_model.update_all id, model_ids
           record
         end
       end
@@ -70,27 +70,6 @@ module Terminus
       private
 
       def with_associations = extension.combine :devices, :models
-
-      # rubocop:todo-next Metrics/ParameterLists
-      def create_associations name, record, foreign_key, values
-        associations = values.map { |id| {extension_id: record.id, foreign_key => id} }
-        __send__(name).changeset(:create, associations).commit
-      end
-
-      # :reek:FeatureEnvy
-      # :reek:TooManyStatements
-      # rubocop:todo-next Metrics/ParameterLists
-      def update_associations name, id, foreign_key, values
-        association = __send__ name
-
-        association.where(extension_id: id).exclude(foreign_key => values).delete
-
-        old_ids = association.where(extension_id: id, foreign_key => values).map(foreign_key)
-        new_ids = values.reject { |id| old_ids.include? id.to_i }
-        associations = new_ids.map { |model_id| {extension_id: id, foreign_key => model_id} }
-
-        association.changeset(:create, associations).commit
-      end
     end
   end
 end
