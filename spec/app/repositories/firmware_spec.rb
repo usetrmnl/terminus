@@ -18,6 +18,36 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
     end
   end
 
+  describe "#create_with_models" do
+    let(:model) { Factory[:model] }
+    let(:union_repository) { Terminus::Repositories::FirmwareModel.new }
+
+    it "answers record" do
+      record = repository.create_with_models({version: "1.2.3"}, [model.id])
+      expect(record).to have_attributes(version: "1.2.3")
+    end
+
+    it "creates association" do
+      firmware = repository.create_with_models({version: "1.2.3"}, [model.id])
+
+      expect(union_repository.all).to include(
+        having_attributes(firmware_id: firmware.id, model_id: model.id)
+      )
+    end
+
+    it "doesn't create record when ID is invalid" do
+      repository.create_with_models({version: "1.2.3"}, [666])
+    rescue ROM::SQL::ForeignKeyConstraintError
+      expect(repository.all).to eq([])
+    end
+
+    it "doesn't create association when ID is invalid" do
+      repository.create_with_models({version: "1.2.3"}, [666])
+    rescue ROM::SQL::ForeignKeyConstraintError
+      expect(union_repository.all).to eq([])
+    end
+  end
+
   describe "#delete" do
     it "deletes existing record" do
       firmware
@@ -59,7 +89,7 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
 
   describe "#find" do
     it "answers record by ID" do
-      expect(repository.find(firmware.id)).to eq(firmware)
+      expect(repository.find(firmware.id).id).to eq(firmware.id)
     end
 
     it "answers nil for unknown ID" do
@@ -73,11 +103,11 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
 
   describe "#find_by" do
     it "answers record when found by single attribute" do
-      expect(repository.find_by(version: firmware.version)).to eq(firmware)
+      expect(repository.find_by(version: firmware.version).id).to eq(firmware.id)
     end
 
     it "answers record when found by multiple attributes" do
-      expect(repository.find_by(id: firmware.id, version: firmware.version)).to eq(firmware)
+      expect(repository.find_by(id: firmware.id, version: firmware.version).id).to eq(firmware.id)
     end
 
     it "answers nil when not found" do
@@ -94,11 +124,30 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
       firmware
       two = Factory[:firmware, version: "0.1.0"]
 
-      expect(repository.latest).to eq(two)
+      expect(repository.latest.id).to eq(two.id)
     end
 
     it "answers nil when records don't exist" do
       expect(repository.latest).to be(nil)
+    end
+  end
+
+  describe "#replace_attachment" do
+    it "answers record with attachment" do
+      attached = repository.replace_attachment firmware, "0.0.0", StringIO.new("test")
+
+      expect(attached).to have_attributes(
+        version: "0.0.0",
+        attachment_attributes: hash_including(
+          metadata: hash_including(
+            size: kind_of(Integer),
+            width: nil,
+            height: nil,
+            filename: "0.0.0.bin",
+            mime_type: "application/octet-stream"
+          )
+        )
+      )
     end
   end
 
@@ -119,6 +168,68 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
 
     it "answers empty array for invalid value" do
       expect(repository.search(:version, "1.1.1")).to eq([])
+    end
+  end
+
+  describe "#update_with_models" do
+    let(:model) { Factory[:model] }
+    let(:union_repository) { Terminus::Repositories::FirmwareModel.new }
+
+    it "answers record" do
+      record = repository.update_with_models firmware.id, {version: "1.2.3"}, [model.id]
+      expect(record).to have_attributes(version: "1.2.3")
+    end
+
+    it "creates missing association" do
+      repository.update_with_models firmware.id, {version: "1.2.3"}, [model.id]
+
+      expect(union_repository.all).to include(
+        having_attributes(firmware_id: firmware.id, model_id: model.id)
+      )
+    end
+
+    it "updates existing association" do
+      firmware = repository.create_with_models({version: "1.2.3"}, [model.id])
+      other_model = Factory[:model]
+
+      repository.update_with_models firmware.id, {version: "1.2.3"}, [other_model.id]
+
+      expect(union_repository.all).to include(
+        having_attributes(firmware_id: firmware.id, model_id: other_model.id)
+      )
+    end
+  end
+
+  describe "#where" do
+    let(:model) { Factory[:model] }
+
+    before { Factory[:firmware_model, firmware_id: firmware.id, model_id: model.id] }
+
+    it "answers records for single attribute" do
+      expect(repository.where(version: firmware.version)).to contain_exactly(firmware)
+    end
+
+    it "answers records for multiple attributes" do
+      records = repository.where firmware_id: firmware.id, version: firmware.version
+      expect(records).to contain_exactly(firmware)
+    end
+
+    it "answers records for model attribute" do
+      expect(repository.where(name: model.name)).to contain_exactly(firmware)
+    end
+
+    it "answers records for firmware and model attributes" do
+      expect(repository.where(version: firmware.version, label: model.label)).to contain_exactly(
+        firmware
+      )
+    end
+
+    it "answers empty array for unknown value" do
+      expect(repository.where(version: "bogus")).to eq([])
+    end
+
+    it "answers empty array for nil" do
+      expect(repository.where(version: nil)).to eq([])
     end
   end
 end
