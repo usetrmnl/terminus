@@ -39,6 +39,8 @@ module Terminus
                 .order { created_at.asc }
                 .to_a
       end
+
+      def where_with_model(**) = firmware.with_model_join(**)
     end
   end
 end

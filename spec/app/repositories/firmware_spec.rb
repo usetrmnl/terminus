@@ -121,4 +121,25 @@ RSpec.describe Terminus::Repositories::Firmware, :db do
       expect(repository.search(:version, "1.1.1")).to eq([])
     end
   end
+
+  describe "#where_with_model" do
+    before { Factory[:firmware_model, firmware_id: firmware.id] }
+
+    it "answers record for single attribute" do
+      expect(repository.where_with_model(version: firmware.version)).to contain_exactly(firmware)
+    end
+
+    it "answers record for multiple attributes" do
+      records = repository.where_with_model firmware_id: firmware.id, version: firmware.version
+      expect(records).to contain_exactly(firmware)
+    end
+
+    it "answers empty array for unknown value" do
+      expect(repository.where_with_model(version: "bogus")).to eq([])
+    end
+
+    it "answers empty array for nil" do
+      expect(repository.where_with_model(version: nil)).to eq([])
+    end
+  end
 end
