@@ -222,7 +222,7 @@ See {doc_raspberry_pi_link} documentation for details.
 
 === Kubernetes
 
-See {doc_kubernetes_link} documentation for details.
+For Kubernetes support, check out the link:https://github.com/pradeepbbl/terminus-kubernetes[Terminus Kubernetes] project, as managed by Pradeep Mishra, for documentation and full automation.
 
 === Render
 
