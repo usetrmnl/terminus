@@ -1,6 +1,8 @@
 <li id="<%= firmware.id %>" class="bit-card">
   <h2 class="label"><%= firmware.version %></h2>
 
+  <span><%= firmware.first_model_link %></span>
+  <span><%= firmware.total_models %></span>
   <span><%= size firmware.attachment_size %></span>
 
   <div class="actions">

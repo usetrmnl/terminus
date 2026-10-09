@@ -6,6 +6,7 @@ module Terminus
       # The show view.
       class Show < View
         expose :firmware
+        expose :models
       end
     end
   end

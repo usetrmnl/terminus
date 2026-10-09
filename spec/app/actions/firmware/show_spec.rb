@@ -6,7 +6,7 @@ RSpec.describe Terminus::Actions::Firmware::Show, :db do
   subject(:action) { described_class.new }
 
   describe "#call" do
-    let(:firmware) { Factory[:firmware] }
+    let(:firmware) { Factory[:firmware, :with_model] }
 
     it "renders default response" do
       response = action.call Rack::MockRequest.env_for(

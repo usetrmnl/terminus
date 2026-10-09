@@ -5,7 +5,7 @@ require "hanami_helper"
 RSpec.describe "Firmware", :db do
   include_context "with temporary directory"
 
-  let(:firmware) { Factory[:firmware, :with_attachment] }
+  let(:firmware) { Factory[:firmware, :with_model, :with_attachment] }
   let(:path) { temp_dir.join("test.bin").tap { it.binwrite [123].pack("N") } }
 
   it "creates", :aggregate_failures, :js do
