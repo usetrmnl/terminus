@@ -9,7 +9,7 @@ module Terminus
           include Deps["aspects.screens.upserter", view: "views.screens.interrupts.error.show"]
 
           def call device, message
-            upserter.call content: String.new(view.call(body: message)),
+            upserter.call content: String.new(view.call(message:)),
                           **device.screen_attributes("error")
           end
         end
