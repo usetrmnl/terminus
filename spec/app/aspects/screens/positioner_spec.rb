@@ -58,6 +58,30 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
       expect(positioner.call(device, direction: :last).success).to have_attributes(label: /Test/)
     end
 
+    context "with manual playlist" do
+      before { playlist_repository.update device.playlist_id, mode: "manual" }
+
+      it "answers current screen and does not advance position" do
+        screen = positioner.call(device).value!
+        expect(positioner.call(device).value!).to have_attributes(id: screen.id)
+      end
+
+      it "answers next screen when event is given" do
+        positioner.call device
+
+        screen = Factory[:screen, label: "Test"]
+
+        Factory[
+          :playlist_item,
+          playlist_id: device.playlist_id,
+          screen_id: screen.id,
+          position: 2
+        ]
+
+        expect(positioner.call(device, event: "button").success).to have_attributes(id: screen.id)
+      end
+    end
+
     it "logs debug message for movement" do
       positioner.call device
       expect(logger.reread).to match(/DEBUG.+Updated playlist.+\d+.+moving.+forward/)

@@ -10,7 +10,7 @@ detectors:
     exclude:
       - Terminus::Aspects::PasswordEncryptor#call
       - Terminus::Aspects::Playlists::SlideWindow#screens
-      - Terminus::Aspects::Screens::Interrupter#call
+      - Terminus::Aspects::Screens::Positioner#process
   DataClump:
     exclude:
       - Terminus::Actions::API::Base
