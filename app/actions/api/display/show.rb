@@ -36,8 +36,8 @@ module Terminus
 
           private
 
-          def interrupt device, trigger, response
-            interrupter.call(device, trigger:)
+          def interrupt device, event, response
+            interrupter.call(device, event:)
                        .either -> screen { success device, screen, response },
                                -> message { error_for device, message, response }
           end

@@ -50,6 +50,8 @@ en:
         parser:
           debug: Processing device request headers.
     screens:
+      interrupter:
+        invalid_command: "Invalid device command: %{command}. Please check your device's settings."
       mold_builder:
         debug: Screen mold built.
       positioner:

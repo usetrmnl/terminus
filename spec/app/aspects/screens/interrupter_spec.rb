@@ -15,37 +15,37 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       identify = instance_spy Terminus::Aspects::Screens::Interrupts::Identify
       interrupter = described_class.new(identify:)
 
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
       expect(identify).to have_received(:call).with(device)
     end
 
     it "processes device screen first command" do
       device = Factory.structs[:device, command: "screen_first"]
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
-      expect(positioner).to have_received(:call).with(device, direction: :first)
+      expect(positioner).to have_received(:call).with(device, event: "button", direction: :first)
     end
 
     it "processes device screen backward command" do
       device = Factory.structs[:device, command: "screen_backward"]
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
-      expect(positioner).to have_received(:call).with(device, direction: :backward)
+      expect(positioner).to have_received(:call).with(device, event: "button", direction: :backward)
     end
 
     it "processes device screen forward command" do
       device = Factory.structs[:device, command: "screen_forward"]
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
-      expect(positioner).to have_received(:call).with(device, direction: :forward)
+      expect(positioner).to have_received(:call).with(device, event: "button", direction: :forward)
     end
 
     it "processes device screen last command" do
       device = Factory.structs[:device, command: "screen_last"]
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
-      expect(positioner).to have_received(:call).with(device, direction: :last)
+      expect(positioner).to have_received(:call).with(device, event: "button", direction: :last)
     end
 
     it "processes device screen wipe command" do
@@ -53,41 +53,59 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       wipe = instance_spy Terminus::Aspects::Screens::Interrupts::Wipe
       interrupter = described_class.new(wipe:)
 
-      interrupter.call device, trigger: "button"
+      interrupter.call device, event: "button"
 
       expect(wipe).to have_received(:call)
     end
 
-    it "sleeps when device is asleep" do
-      device = Factory.structs[:device]
-      sleep = instance_spy Terminus::Aspects::Screens::Interrupts::Sleep
-      interrupter = described_class.new(sleep:)
-
-      allow(device).to receive(:asleep?).and_return(true)
-      interrupter.call device, trigger: "button"
-
-      expect(sleep).to have_received(:call).with(device)
-    end
-
-    it "forwards to next screen when trigger is unknown" do
+    it "forwards to next screen when event is unknown" do
       device = Factory.structs[:device]
       interrupter.call device
 
       expect(positioner).to have_received(:call).with(device, direction: :forward)
     end
 
-    it "forwards to next screen when device command is unknown" do
-      device = Factory.structs[:device, command: "anything"]
-      interrupter.call device, trigger: "button"
+    it "processes device command for the EXT0 event" do
+      device = Factory.structs[:device, command: "screen_first"]
+      interrupter.call device, event: "EXT0"
 
-      expect(positioner).to have_received(:call).with(device, direction: :forward)
+      expect(positioner).to have_received(:call).with(device, event: "EXT0", direction: :first)
     end
 
-    it "processes device command when using EXT0 trigger" do
-      device = Factory.structs[:device, command: "screen_first"]
-      interrupter.call device, trigger: "EXT0"
+    it "renders invalid device command error screen" do
+      device = Factory.structs[:device, command: "bogus"]
+      error = instance_spy Terminus::Aspects::Screens::Interrupts::Error
+      interrupter = described_class.new(error:)
 
-      expect(positioner).to have_received(:call).with(device, direction: :first)
+      interrupter.call device, event: "button"
+
+      expect(error).to have_received(:call).with(
+        device,
+        "Invalid device command: bogus. Please check your device's settings."
+      )
+    end
+
+    context "when device is asleep" do
+      subject(:interrupter) { described_class.new positioner:, sleep: }
+
+      let(:sleep) { instance_spy Terminus::Aspects::Screens::Interrupts::Sleep }
+
+      before { allow(device).to receive(:asleep?).and_return(true) }
+
+      it "remains asleep when button isn't pressed" do
+        interrupter.call device, event: "timer"
+        expect(sleep).to have_received(:call).with(device)
+      end
+
+      it "temporarily wakes when button is pressed" do
+        interrupter.call device, event: "button"
+
+        expect(positioner).to have_received(:call).with(
+          device,
+          event: "button",
+          direction: :forward
+        )
+      end
     end
   end
 end
