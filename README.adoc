@@ -12,7 +12,6 @@
 :doc_extensions_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extensions]
 :doc_internationalization_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/internationalization.adoc[Internationalization]
 :doc_jobs_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc[Jobs]
-:doc_kubernetes_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/kubernetes.adoc[Kubernetes]
 :doc_raspberry_pi_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/raspberry_pi.adoc[Raspberry PI]
 :doc_render_link: link:[link:https://github.com/usetrmnl/terminus/blob/main/doc/render.adoc[Render]]
 :docker_link: link:https://www.docker.com[Docker]
