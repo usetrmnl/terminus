@@ -1,6 +1,10 @@
 <li id="<%= firmware.id %>" class="bit-card">
   <h2 class="label"><%= firmware.version %></h2>
 
+  <span>
+    <%= link_to firmware.model.label, routes.path(:model, id: firmware.model.id) %>
+  </span>
+
   <span><%= size firmware.attachment_size %></span>
 
   <div class="actions">

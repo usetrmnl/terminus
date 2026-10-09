@@ -33,6 +33,11 @@
         </dt>
         <dd class="value"><%= firmware.version %></dd>
 
+        <dt class="key">Model</dt>
+        <dd class="value">
+          <%= link_to firmware.model.label, routes.path(:model, id: firmware.model.id) %>
+        </dd>
+
         <dt class="key">Size</dt>
         <dd class="value"><%= size firmware.attachment_size %></dd>
 

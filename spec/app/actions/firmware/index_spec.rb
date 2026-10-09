@@ -8,7 +8,7 @@ RSpec.describe Terminus::Actions::Firmware::Index, :db do
   include_context "with application dependencies"
 
   describe "#call" do
-    let(:firmware) { Factory[:firmware, :with_attachment] }
+    let(:firmware) { Factory[:firmware, :with_model, :with_attachment] }
     let(:proof) { %r(download="test.bin".+href="memory://abc123.bin") }
 
     before { firmware }
