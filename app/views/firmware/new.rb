@@ -7,6 +7,9 @@ module Terminus
     module Firmware
       # The new view.
       class New < View
+        include Deps[model_repository: "repositories.model"]
+
+        expose(:models) { model_repository.all }
         expose :firmware
         expose :fields, default: Core::EMPTY_HASH
         expose :errors, default: Core::EMPTY_HASH

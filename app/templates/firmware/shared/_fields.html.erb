@@ -1,31 +1,48 @@
-<fieldset class="column">
-  <%= scope(:form_field, key: :version, errors:).render do %>
-    <label class="key" for="firmware_version">
-      Version
-      <%= scope(:popover_trigger_button, tip: :info, target: :version).render %>
-    </label>
+<fieldset class="row">
+  <fieldset class="column">
+    <legend class="legend">Firmware</legend>
 
-    <%= form.text_field :version,
-                        id: :firmware_version,
-                        value: field_for(:version, fields, firmware),
-                        class: :value,
-                        autocomplete: :off %>
-  <% end %>
+    <%= scope(:form_field, key: :version, errors:).render do %>
+      <label class="key" for="firmware_version">
+        Version
+        <%= scope(:popover_trigger_button, tip: :info, target: :version).render %>
+      </label>
 
-  <%= scope(:form_field, key: :attachment, errors:).render do %>
-    <label class="key" for="firmware_attachment">
-      Attachment
-      <%= scope(:popover_trigger_button, tip: :info, target: :attachment).render %>
-    </label>
+      <%= form.text_field :version,
+                          id: :firmware_version,
+                          value: field_for(:version, fields, firmware),
+                          class: :value,
+                          autocomplete: :off %>
+    <% end %>
 
-    <%= form.file_field :attachment,
-                        id: :firmware_attachment,
-                        value: field_for(:attachment_data, fields, firmware),
-                        class: :value %>
+    <%= scope(:form_field, key: :attachment, errors:).render do %>
+      <label class="key" for="firmware_attachment">
+        Attachment
+        <%= scope(:popover_trigger_button, tip: :info, target: :attachment).render %>
+      </label>
 
-    <%= tag.span firmware.attachment_name, class: "bit-pill bit-pill-active" if firmware && firmware.attachment_attributes %>
-  <% end %>
+      <%= form.file_field :attachment,
+                          id: :firmware_attachment,
+                          value: field_for(:attachment_data, fields, firmware),
+                          class: :value %>
 
-  <%= render "firmware/shared/popovers/all" %>
+      <%= tag.span firmware.attachment_name, class: "bit-pill bit-pill-active" if firmware && firmware.attachment_attributes %>
+    <% end %>
+
+    <%= render "firmware/shared/popovers/all" %>
+  </fieldset>
+
+  <fieldset class="column">
+    <legend class="legend">Models</legend>
+
+    <select name="model_ids[]"
+            id="firmware_models"
+            multiple="multiple"
+            class="value">
+      <% selected_model_ids = firmware ? firmware.models.map(&:id) : [] %>
+      <% models.each do |model| %>
+        <%= tag.option model.label, value: model.id, selected: selected_model_ids.include?(model.id) %>
+      <% end %>
+    </select>
+  </fieldset>
 </fieldset>
-
