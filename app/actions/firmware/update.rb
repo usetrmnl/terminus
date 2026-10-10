@@ -5,7 +5,7 @@ module Terminus
     module Firmware
       # The update action.
       class Update < Action
-        include Deps[repository: "repositories.firmware"]
+        include Deps["aspects.firmware.updater", repository: "repositories.firmware"]
 
         params do
           required(:id).filled :integer
@@ -14,47 +14,28 @@ module Terminus
             required(:version).filled Types::Version
             optional(:attachment).filled Schemas::Attachment
           end
+
+          required(:model_ids).filled(:array).each(:integer)
         end
 
         def handle request, response
           parameters = request.params
           record = repository.find parameters[:id]
+          io = parameters.dig :firmware, :attachment, :tempfile
 
-          halt :unprocessable_content unless record
-
-          if parameters.valid?
-            save record, parameters, response
-          else
-            error record, parameters, response
+          case updater.call parameters.to_h, io, validator: contract
+            in Success then response.redirect_to routes.path(:firmware, id: record.id)
+            in Failure(result) then error record, result, response
           end
         end
 
         private
 
-        # :reek:TooManyStatements
-        def save record, parameters, response
-          id = record.id
-          attributes = parameters[:firmware]
-          attachment = attributes.delete :attachment
-
-          repository.update id, **attributes
-          attach record, attachment
-          response.redirect_to routes.path(:firmware, id:)
-        end
-
-        # :reek:FeatureEnvy
-        def attach record, attachment
-          return unless attachment
-
-          record.replace attachment[:tempfile], metadata: {"filename" => "#{record.version}.bin"}
-          repository.update record.id, attachment_data: record.attachment_attributes
-        end
-
-        def error record, parameters, response
+        def error record, result, response
           response.render view,
                           firmware: record,
-                          fields: parameters[:firmware],
-                          errors: parameters.errors[:firmware]
+                          fields: result[:firmware],
+                          errors: result.errors[:firmware]
         end
       end
     end
