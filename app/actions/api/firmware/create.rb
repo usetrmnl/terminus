@@ -19,6 +19,8 @@ module Terminus
               required(:version).filled Types::Version
               required(:uri).filled :string
             end
+
+            required(:model_ids).array :integer
           end
 
           def handle request, response
