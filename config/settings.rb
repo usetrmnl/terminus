@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require "core"
 require "terminus/types"
 
 module Terminus
   # The application base settings.
   class Settings < Hanami::Settings
+    setting :allowed_uris, constructor: Terminus::Types::URIs, default: Core::EMPTY_STRING
     setting :api_access_token_period, constructor: Types::Params::Integer, default: 1_800
     setting :app_secret,
             constructor: Types::Params::String.constrained(filled: true, min_size: 64),
@@ -31,7 +33,9 @@ module Terminus
     setting :http_timeout_write, constructor: Types::Params::Integer.constrained(gt: 0), default: 10
     setting :keyvalue_url, constructor: Types::Params::String.constrained(filled: true)
     setting :model_synchronizer, constructor: Types::Params::Bool, default: true
-    setting :rack_attack_allowed_subnets, constructor: Types::Params::String, default: ""
+    setting :rack_attack_allowed_subnets,
+            constructor: Types::Params::String,
+            default: Core::EMPTY_STRING
     setting :sensors_path,
             constructor: Terminus::Types::Pathname,
             default: Hanami.app.root.join("public/sensors.json")
