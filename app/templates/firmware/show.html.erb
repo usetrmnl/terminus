@@ -27,12 +27,6 @@
       <%= scope(:tooltip_action_content, label: "Download").render %>
 
       <dl class="bit-definition-list">
-        <dt class="key">
-          Version
-          <%= scope(:popover_trigger_button, tip: :info, target: :version).render %>
-        </dt>
-        <dd class="value"><%= firmware.version %></dd>
-
         <dt class="key">Models</dt>
         <dd class="value">
           <ul class="list">
@@ -55,5 +49,4 @@
   </div>
 
   <%= scope(:tooltip_action_content, label: "Info").render %>
-  <%= render "firmware/shared/popovers/all" %>
 </section>
