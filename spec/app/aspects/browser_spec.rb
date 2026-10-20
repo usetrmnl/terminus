@@ -35,22 +35,27 @@ RSpec.describe Terminus::Aspects::Browser do
       expect(instance).not_to have_received(:restart)
     end
 
-    it "restarts after maximum pages reached" do
-      browser = described_class.new client:, maximum_renders: 0
-      browser.call
-
-      expect(instance).to have_received(:restart)
-    end
-
-    it "logs message after maximum pages reached" do
-      browser = described_class.new client:, maximum_renders: 1
-      browser.call
-
-      expect(logger.reread).to match(/DEBUG.+Browser restarted after maximum renders reached: 1/)
-    end
-
     it "answers success" do
       expect(browser.call).to be_success
+    end
+
+    context "with maximum renders reached" do
+      subject(:browser) { described_class.new client:, maximum_renders: 1 }
+
+      it "resets render count" do
+        browser.call
+        expect(browser.inspect).to include("@renders=0")
+      end
+
+      it "restarts browser" do
+        browser.call
+        expect(instance).to have_received(:restart)
+      end
+
+      it "logs debug message" do
+        browser.call
+        expect(logger.reread).to match(/DEBUG.+Browser restarted after maximum renders reached: 1/)
+      end
     end
 
     context "with browser error" do

@@ -24,7 +24,7 @@ module Terminus
           "no-sandbox" => nil,
           "process-per-site" => nil
         },
-        maximum_renders: 100
+        maximum_renders: 500
       ]
       include Dry::Monads[:result]
 
@@ -70,8 +70,13 @@ module Terminus
 
         return if renders < maximum_renders
 
-        client.restart
+        restart
         logger.debug { i18n.translate "aspects.browser.maximum_renders", maximum: maximum_renders }
+      end
+
+      def restart
+        self.renders = 0
+        client.restart
       end
 
       def handle_process_timeout_error
