@@ -21,7 +21,9 @@ module Terminus
 
         def translated_command = helpers.translate "devices.shared._fields.commands.#{command}"
 
-        def wake_description = String(wake_reason).empty? ? "Unknown." : wake_reason
+        def wake_description
+          String(wake_reason).empty? ? helpers.translate("views.parts.device.unknown") : wake_reason
+        end
 
         def wifi_measurement_label
           band = wifi_band

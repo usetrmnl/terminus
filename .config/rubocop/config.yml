@@ -14,7 +14,7 @@ I18n/RailsI18n/DecorateString:
     - app/aspects/firmware/models/setup.rb
     - bin/**/*
     - Rakefile
-    - scripts/docker/entrypoint
+    - scripts/**/*
     - slices/authentication/middleware.rb
     - spec/**/*
 I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
