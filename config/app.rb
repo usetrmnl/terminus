@@ -2,6 +2,7 @@
 
 require "hanami"
 require "rfc/api/problem"
+require "terminus/csp_appender"
 
 require_relative "initializers/universal_logger_patch"
 
@@ -16,11 +17,16 @@ module Terminus
     config.inflections { it.acronym "CSP", "DEFAULTS", "HTML", "IP", "MAC", "QR", "URI" }
 
     config.actions.content_security_policy.then do |csp|
-      csp[:connect_src] += " https://trmnl.com"
-      csp[:font_src] += " https://trmnl.com"
       csp[:manifest_src] = "'self'"
-      csp[:script_src] += " 'unsafe-eval' 'unsafe-inline' https://trmnl.com"
+      csp[:script_src] += " 'unsafe-eval' 'unsafe-inline'"
     end
+
+    Hanami.app
+          .config
+          .actions
+          .content_security_policy
+          .instance_variable_get(:@policy)
+          .then { it.replace CSPAppender.new.call(it) }
 
     config.actions.formats.register :problem_details, RFC::API::Problem::MEDIA_TYPE_JSON
 
