@@ -3,6 +3,7 @@
 require "dry/monads"
 require "ferrum"
 require "initable"
+require "inspectable"
 require "refinements/hash"
 require "refinements/string"
 
@@ -27,6 +28,7 @@ module Terminus
         maximum_renders: 500
       ]
       include Dry::Monads[:result]
+      include Inspectable[i18n: :type, client: :type]
 
       using Refinements::Hash
       using Refinements::String

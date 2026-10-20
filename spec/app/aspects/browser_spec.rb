@@ -140,4 +140,14 @@ RSpec.describe Terminus::Aspects::Browser do
       end
     end
   end
+
+  describe "#inspect" do
+    it "lists i18n by type only" do
+      expect(browser.inspect).to match_inspection(i18n: "Hanami::Providers::I18n::Backend")
+    end
+
+    it "lists client by only" do
+      expect(browser.inspect).to match_inspection(client: "Ferrum::Browser")
+    end
+  end
 end
