@@ -16,14 +16,14 @@ To bulk import multiple screens at once, use:
 
 [source,bash]
 ----
-bin/import <root_path_to_images>
+scripts/imports/screens <root_path_to_images>
 ----
 
 The importer requires a root path to where you images are located on your file system. For example, if you have a bunch of images you'd like to import which are located in your `Scratch` folder, you could import them as follows:
 
 [source,bash]
 ----
-bin/import ~/Scratch
+scripts/imports/screens ~/Scratch
 ----
 
 You can control the behavior of how your images are imported by adding a `meta.yml` (recommended) to the root of your folder. Example:
