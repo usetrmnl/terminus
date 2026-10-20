@@ -1,8 +1,6 @@
 inherit_gem:
   caliber: config/all.yml
 
-inherit_from: issues.yml
-
 plugins:
   - rubocop-i18n
   - rubocop-sequel
@@ -11,6 +9,17 @@ I18n/GetText:
   Enabled: false
 I18n/RailsI18n:
   Enabled: true
+I18n/RailsI18n/DecorateString:
+  Exclude:
+    - app/aspects/firmware/models/setup.rb
+    - bin/**/*
+    - Rakefile
+    - scripts/docker/entrypoint
+    - slices/authentication/middleware.rb
+    - spec/**/*
+I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
+  Exclude:
+    - app/views/parts/device.rb
 Metrics/AbcSize:
   Exclude:
     - app/aspects/extensions/importers/remote/transformer.rb
