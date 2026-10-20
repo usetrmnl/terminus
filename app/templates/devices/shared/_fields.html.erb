@@ -1,4 +1,14 @@
 <fieldset class="column">
+  <%= scope(:form_field, key: :label, errors:).render do %>
+    <label class="key" for="device_label">Label</label>
+
+    <%= form.text_field :label,
+                        id: :device_label,
+                        value: field_for(:label, fields, device),
+                        class: :value,
+                        autocomplete: :off %>
+  <% end %>
+
   <%= scope(:form_field, key: :model_id, errors:).render do %>
     <label class="key" for="device_model_id">
       Model
@@ -21,16 +31,6 @@
                     select_options_for(playlists),
                     id: :device_playlist_id,
                     class: :value %>
-  <% end %>
-
-  <%= scope(:form_field, key: :label, errors:).render do %>
-    <label class="key" for="device_label">Label</label>
-
-    <%= form.text_field :label,
-                        id: :device_label,
-                        value: field_for(:label, fields, device),
-                        class: :value,
-                        autocomplete: :off %>
   <% end %>
 
   <%= scope(:form_field, key: :mac_address, errors:).render do %>

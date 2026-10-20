@@ -24,6 +24,14 @@
                  class: "bit-card bit-form" do |form| %>
       <h1 class="label">Edit Design</h1>
 
+      <%= render "shared/fields",
+                 form:,
+                 screens:,
+                 current_screen_id:,
+                 template:,
+                 fields:,
+                 errors: %>
+
       <%= scope(:form_field, key: :screen_id, errors:).render do %>
         <label class="key" for="screen_id">
           Screen
@@ -36,14 +44,6 @@
           <% end %>
         <% end %>
       <% end %>
-
-      <%= render "shared/fields",
-                 form:,
-                 screens:,
-                 current_screen_id:,
-                 template:,
-                 fields:,
-                 errors: %>
 
       <div class="form-actions">
         <%= form.submit "Save",

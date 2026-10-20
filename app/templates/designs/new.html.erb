@@ -15,6 +15,8 @@
     <%= form_for :design, routes.path(:designs), class: "bit-card bit-form" do |form| %>
       <h1 class="label">New Design</h1>
 
+      <%= render "shared/fields", form:, screens:, template:, fields:, errors: %>
+
       <%= scope(:form_field, key: :model_id, errors:).render do %>
         <label class="key" for="model_id">
           Model
@@ -29,8 +31,6 @@
           <% end %>
         <% end %>
       <% end %>
-
-      <%= render "shared/fields", form:, screens:, template:, fields:, errors: %>
 
       <div class="form-actions">
         <%= form.submit "Save", class: "bit-button-accept" %>
