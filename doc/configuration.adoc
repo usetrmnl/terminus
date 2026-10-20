@@ -2,6 +2,7 @@
 :toclevels: 5
 :figure-caption!:
 
+:csp_link: link:https://hanakai.org/learn/hanami/v3.0/actions/content-security-policy[Content Security Policy]
 :doc_docker_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/docker.adoc[Docker]
 :doc_extensions_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extensions]
 :doc_jobs_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc[Jobs]
@@ -21,6 +22,7 @@ The following explains how to customize this application further if desired.
 
 There are several environment variables you can use to customize behavior by updating the `.env` file created for you during setup. They are:
 
+* `ALLOWED_URIS`: Defines a comma-separated list of allowed URIs (domains) to be applied to this application's {csp_link}. Example: `"https://one.io,https://two.io"`. Each URI is appended to the following keys: `child_src`, `connect_src`, `font_src`, `frame_src`, `img_src`, `media_src`, `script_src`, `style_src`. The TRMNL (`https://trmnl.com`) domain is automatically included for you. To view current settings, run the following within the Hanami console: `Hanami.app.config.actions.content_security_policy`. Default: `[]`.
 * `API_ACCESS_TOKEN_PERIOD`: The amount of time, in seconds, the JWT access token remains valid before needing to refresh your access token. Useful when using the link:doc/api.adoc[Server APIs]. Your access token is directly tied to your session which means you'll need to set your `SESSION_LIFETIME_LIMIT` to the same value when making adjustments (especially if your `SESSION_LIFETIME_LIMIT` is lower than this value). You might also want to adjust your `SESSION_INACTIVITY_LIMIT` because your access token will expire if inactive for long periods of time too. Default: 1,800 seconds (30 minutes).
 * `APP_SECRET`: Used for session, cookie, and Cross-Site Request Forgery (CSRF) protection. This is automatically created for you during setup but is recommended that you update this with your own secure value.
 * `APP_SETUP`: Runs setup/update steps (i.e. asset compilation, database migrations, etc). Used by Docker only via the `entrypoint` script. Default: `nil` but `true` for the web service.
