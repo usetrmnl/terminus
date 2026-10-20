@@ -92,6 +92,9 @@ detectors:
   RepeatedConditional:
     exclude:
       - Authentication::Middleware
+  TooManyConstants:
+    exclude:
+      - Terminus::Types
   TooManyInstanceVariables:
     exclude:
       - Terminus::Aspects::Screens::Faux

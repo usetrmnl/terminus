@@ -3,6 +3,30 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Types do
+  describe "URIs" do
+    subject(:type) { described_class::URIs }
+
+    it "answers array of valid URIs" do
+      list = "https://one.io,https://two.io,https://three.io"
+      expect(type.call(list)).to eq(%w[https://one.io https://two.io https://three.io])
+    end
+
+    it "fails with missing scheme" do
+      expectation = proc { type.call "one.io" }
+      expect(&expectation).to raise_error(Dry::Types::ConstraintError, /violates constraints/)
+    end
+
+    it "fails with invalid schema" do
+      expectation = proc { type.call "ftp://one.io" }
+      expect(&expectation).to raise_error(Dry::Types::ConstraintError, /violates constraints/)
+    end
+
+    it "fails with insecure scheme" do
+      expectation = proc { type.call "http://one.io" }
+      expect(&expectation).to raise_error(Dry::Types::ConstraintError, /violates constraints/)
+    end
+  end
+
   describe "File" do
     subject(:type) { described_class::File }
 

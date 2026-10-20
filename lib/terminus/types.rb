@@ -9,6 +9,10 @@ module Terminus
   module Types
     include Dry.Types(default: :strict)
 
+    URIs = Types::Array.constructor(-> value { value.split "," }).of(
+      Dry::Types["string"].constrained(format: URI::DEFAULT_PARSER.make_regexp("https"))
+    )
+
     File = Instance(IO) | Instance(Tempfile) | Instance(StringIO)
 
     LogLevel = String.constrained(format: /\A(debug|info|warn|error|fatal|any)\Z/)
