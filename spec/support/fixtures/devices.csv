@@ -1,0 +1,3 @@
+Label,Model Name,Playlist Name,MAC Address,API Key,Refresh Rate,Image Timeout,Firmware Update,Display Compatibility,Display Profile,Command,Touch Bar,Sleep Start At,Sleep Stop At
+A,og_plus,test,1E:B2:16:6D:7B:AB,abc123y,100,10,true,true,A,screen_forward,swipe,20:00:00,06:00:00
+B,og_plus,,DA:D5:B9:A0:D1:5F,abc123z,100,10,true,true,A,screen_forward,swipe,20:00:00,06:00:00
