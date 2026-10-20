@@ -64,7 +64,9 @@ RSpec.describe "Extensions", :db do
     extension
 
     visit routes.path(:extensions)
-    click_link "Clone"
+    within ".bit-card", text: extension.label do
+      click_link "Clone"
+    end
     fill_in "extension[label]", with: nil
     click_button "Save"
 
@@ -103,7 +105,9 @@ RSpec.describe "Extensions", :db do
     extension
 
     visit routes.path(:extensions)
-    click_link "Download"
+    within ".bit-card", text: extension.label do
+      click_link "Download"
+    end
 
     expect(page.source.encoding).to eq(Encoding::ASCII_8BIT)
   end
