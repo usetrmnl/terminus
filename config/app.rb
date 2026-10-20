@@ -13,7 +13,7 @@ module Terminus
     Dry::Validation.load_extensions :monads
 
     config.i18n.fallbacks = true
-    config.inflections { it.acronym "DEFAULTS", "HTML", "IP", "MAC", "QR", "URI" }
+    config.inflections { it.acronym "CSP", "DEFAULTS", "HTML", "IP", "MAC", "QR", "URI" }
 
     config.actions.content_security_policy.then do |csp|
       csp[:connect_src] += " https://trmnl.com"
