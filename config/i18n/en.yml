@@ -18,10 +18,10 @@ en:
     browser:
       dead: "Browser is dead. This could mean the browser crashed, the server ran out of memory, or a resource limit has been hit. Error: %{message}"
       error: Unable to capture screenshot due to an issue with page navigation, element interaction, or something else.
-      maximum_renders: "Browser restarted after maximum renders reached: %{maximum}."
       no_target: "Browser has no target due to page being closed or crashed. Error: %{message}"
       options: Ferrum browser options.
       process_timeout: "Browser process timed out after %{seconds} %{label}."
+      restart: "Browser restarted after maximum renders reached: %{maximum}."
       timeout: Browser timed out after %{seconds} %{label}. This might be due to the page taking a long time to load.
     designs:
       event_source:

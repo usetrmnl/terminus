@@ -73,7 +73,7 @@ module Terminus
         return if renders < maximum_renders
 
         restart
-        logger.debug { i18n.translate "aspects.browser.maximum_renders", maximum: maximum_renders }
+        logger.debug { i18n.translate "aspects.browser.restart", maximum: maximum_renders }
       end
 
       def restart
