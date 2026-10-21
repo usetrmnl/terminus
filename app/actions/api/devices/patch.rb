@@ -17,7 +17,7 @@ module Terminus
             parameters = request.params
 
             if parameters.valid?
-              device = repository.update(*parameters.to_h.values_at(:id, :device))
+              device = update parameters
               response.body = {data: serializer.new(device).to_h}.to_json
             else
               unprocessable_content parameters, response
@@ -25,6 +25,10 @@ module Terminus
           end
 
           private
+
+          def update parameters
+            repository.find repository.update(*parameters.to_h.values_at(:id, :device)).id
+          end
 
           def unprocessable_content parameters, response
             response.with_details problem[

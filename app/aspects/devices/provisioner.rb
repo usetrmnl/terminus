@@ -46,7 +46,7 @@ module Terminus
           pipe(
             create(mac_address, **),
             fmap { cached_device = it },
-            bind { |device| welcome.call device },
+            bind { welcome.call cached_device },
             fmap { |screen| configure cached_device, screen }
           )
         end
@@ -64,7 +64,7 @@ module Terminus
           item = item_repository.create_with_position playlist_id:, screen_id: screen.id
 
           playlist_repository.update playlist_id, current_item_id: item.id
-          repository.update device.id, playlist_id:
+          repository.find repository.update(device.id, playlist_id:).id
         end
 
         def create_playlist_id device

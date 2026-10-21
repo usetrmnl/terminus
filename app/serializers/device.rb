@@ -26,8 +26,6 @@ module Terminus
         image_timeout
         wake_reason
         wake_duration
-        width
-        height
         display_compatibility
         display_profile
         command
@@ -47,6 +45,7 @@ module Terminus
 
       def to_h
         attributes = record.to_h.slice(*keys)
+        attributes.merge! record.model.to_h.slice(:width, :height)
         attributes.transform_values!(&transformer)
         attributes
       end

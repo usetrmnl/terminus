@@ -22,8 +22,6 @@ RSpec.describe Terminus::Aspects::Devices::Synchronizer, :db do
             firmware_version: "1.2.3",
             wake_reason: "Button pressed.",
             wifi_signal: -54,
-            width: 800,
-            height: 480,
             synced_at: kind_of(Time)
           )
         )

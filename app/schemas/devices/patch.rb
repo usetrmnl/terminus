@@ -25,8 +25,6 @@ module Terminus
         optional(:battery_voltage).filled :float
         optional(:wifi_band).filled :float, gteq?: 0
         optional(:wifi_signal).filled :integer
-        optional(:width).filled :integer
-        optional(:height).filled :integer
         optional(:command).filled :string
         optional(:touch_bar).filled :string
         optional(:wake_duration).maybe :integer

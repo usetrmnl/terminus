@@ -5,7 +5,7 @@ require "hanami_helper"
 RSpec.describe Terminus::Views::Parts::Device, :db do
   subject(:part) { described_class.new value: device, rendering: Terminus::View.new.rendering }
 
-  let(:device) { Factory.structs[:device] }
+  let(:device) { Factory[:device] }
 
   describe "#current_screen" do
     let :device do
@@ -26,18 +26,17 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
   end
 
   describe "#dimensions" do
-    let(:device) { Factory.structs[:device, width: 0, height: 0] }
+    context "with zero dimensions" do
+      let(:device) { Factory[:device, model_id: model.id] }
+      let(:model) { Factory[:model, width: 0, height: 0] }
 
-    it "answers zero width and height" do
-      expect(part.dimensions).to eq("0x0")
+      it "answers zero width and height" do
+        expect(part.dimensions).to eq("0x0")
+      end
     end
 
-    context "with custom dimensions" do
-      let(:device) { Factory.structs[:device, width: 800, height: 480] }
-
-      it "answers custom width and height" do
-        expect(part.dimensions).to eq("800x480")
-      end
+    it "answers custom width and height" do
+      expect(part.dimensions).to eq("800x480")
     end
   end
 

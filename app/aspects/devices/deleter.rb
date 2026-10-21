@@ -10,7 +10,8 @@ module Terminus
         def call id, kinds: %w[error welcome].freeze
           screen_repository.where(device_id: id, kind: kinds)
                            .each { screen_repository.delete it.id }
-          repository.delete id
+
+          repository.find(id).tap { repository.delete id }
         end
       end
     end

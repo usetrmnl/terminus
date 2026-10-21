@@ -267,8 +267,6 @@ CREATE TABLE public.device (
     battery_voltage double precision DEFAULT 0 CONSTRAINT devices_battery_not_null NOT NULL,
     refresh_rate integer DEFAULT 900 CONSTRAINT devices_refresh_rate_not_null NOT NULL,
     image_timeout integer DEFAULT 0 CONSTRAINT devices_image_timeout_not_null NOT NULL,
-    width integer DEFAULT 0 CONSTRAINT devices_width_not_null NOT NULL,
-    height integer DEFAULT 0 CONSTRAINT devices_height_not_null NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP CONSTRAINT devices_created_at_not_null NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP CONSTRAINT devices_updated_at_not_null NOT NULL,
     firmware_update boolean DEFAULT true CONSTRAINT devices_firmware_update_not_null NOT NULL,
@@ -1853,4 +1851,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260902101629_alter_device_log_sleep_duration_type.rb'),
 ('20261006094916_drop_firmware_kind.rb'),
 ('20261012090556_add_screen_template_kind.rb'),
-('20261012111836_add_firmware_model.rb');
+('20261012111836_add_firmware_model.rb'),
+('20261021084105_remove_device_width_and_height_columns.rb');

@@ -73,8 +73,8 @@ RSpec.describe "/api/devices", :db do
           battery_voltage: 3.84,
           wifi_band: 0.0,
           wifi_signal: -44,
-          width: 0,
-          height: 0,
+          width: 800,
+          height: 480,
           touch_bar: "tap",
           wake_duration: 0,
           wake_reason: nil,
@@ -123,8 +123,8 @@ RSpec.describe "/api/devices", :db do
         charging: false,
         wifi_band: 0.0,
         wifi_signal: -44,
-        width: 0,
-        height: 0,
+        width: 800,
+        height: 480,
         display_compatibility: false,
         display_profile: "default",
         wake_duration: 0,
@@ -227,8 +227,8 @@ RSpec.describe "/api/devices", :db do
         battery_voltage: 0,
         wifi_band: 0,
         wifi_signal: 0,
-        width: 0,
-        height: 0,
+        width: 800,
+        height: 480,
         touch_bar: "tap",
         wake_duration: 0,
         wake_reason: nil,
@@ -366,8 +366,8 @@ RSpec.describe "/api/devices", :db do
         battery_voltage: 3.84,
         wifi_band: 0.0,
         wifi_signal: -44,
-        width: 0,
-        height: 0,
+        width: 800,
+        height: 480,
         command: "screen_forward",
         touch_bar: "tap",
         wake_duration: 0,
@@ -387,6 +387,6 @@ RSpec.describe "/api/devices", :db do
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
 
-    expect(json_payload).to match(data: {})
+    expect(json_payload).to match(RFC::API::Problem[status: :not_found].to_h)
   end
 end

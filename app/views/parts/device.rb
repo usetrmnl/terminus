@@ -30,7 +30,7 @@ module Terminus
           band.zero? ? "WiFi (#{wifi_percentage}%)" : "#{band} GHz (#{wifi_percentage}%)"
         end
 
-        def dimensions = "#{width}x#{height}"
+        def dimensions = model.then { "#{it.width}x#{it.height}" }
 
         def current_screen
           fetcher.call(value).either -> screen { screen },
