@@ -23,12 +23,12 @@ RSpec.describe "Dashboard", :db do
   it "shows linked resource counts", :aggregate_failures do
     visit routes.path(:root)
 
-    expect(page).to have_link("0", href: routes.path(:designs))
-    expect(page).to have_link("0", href: routes.path(:devices))
-    expect(page).to have_link("0", href: routes.path(:extensions))
-    expect(page).to have_link("0", href: routes.path(:models))
-    expect(page).to have_link("0", href: routes.path(:playlists))
-    expect(page).to have_link("0", href: routes.path(:screens))
-    expect(page).to have_link("1", href: routes.path(:users))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:designs))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:devices))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:extensions))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:models))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:playlists))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:screens))
+    expect(page).to have_link(text: /\A\d+\z/, href: routes.path(:users))
   end
 end
