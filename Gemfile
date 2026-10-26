@@ -6,6 +6,7 @@ source "https://rubygems.org"
 
 gem "bcrypt", "~> 3.1"
 gem "cogger", "~> 2.5"
+gem "concurrent-ruby", "~> 1.3"
 gem "connection_pool", "~> 3.0"
 gem "containable", "~> 2.4"
 gem "core", "~> 3.2"
