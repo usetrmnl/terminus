@@ -83,16 +83,17 @@ module Terminus
 
       def maybe_restart
         lock.with_write_lock do
-          next if (self.renders += 1) < maximum_renders
+          return if (self.renders += 1) < maximum_renders
 
           restart
           logger.debug { i18n.translate "aspects.browser.restart", maximum: maximum_renders }
         end
       end
 
+      # :reek:TooManyStatements
       def maybe_recover
         lock.with_write_lock do
-          next false if (self.recoveries += 1) > maximum_recoveries
+          return if (self.recoveries += 1) > maximum_recoveries
 
           restart
         rescue Ferrum::Error => error
