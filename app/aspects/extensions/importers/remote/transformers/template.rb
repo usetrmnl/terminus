@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "initable"
-require "refinements/hash"
 
 module Terminus
   module Aspects
@@ -22,8 +21,6 @@ module Terminus
                 BODY
               ]
 
-              using Refinements::Hash
-
               def call attributes, archive
                 merge_content(archive).then { keyer.call it }
                                       .fmap { attributes.merge! template: it }
@@ -32,10 +29,10 @@ module Terminus
               private
 
               def merge_content archive
-                archive.use do |shared, full|
-                  full_transform = format layout, content: full
-                  [shared, full_transform].compact.join "\n\n"
-                end
+                shared, full = archive.values_at :shared, :full
+                full_transform = format layout, content: full
+
+                [shared, full_transform].compact.join "\n\n"
               end
             end
           end
