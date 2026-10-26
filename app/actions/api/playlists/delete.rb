@@ -9,15 +9,17 @@ module Terminus
           include Deps[repository: "repositories.playlist"]
           include Initable[serializer: Serializers::Playlist]
 
-          def handle request, response
-            playlist = repository.with_items.by_pk(request.params[:id]).one
+          using Refines::Actions::Response
 
-            response.body = if playlist
-                              repository.delete playlist.id
-                              {data: serializer.new(playlist).to_h}.to_json
-                            else
-                              {data: {}}.to_json
-                            end
+          def handle request, response
+            id = request.params[:id]
+            playlist = repository.with_items.by_pk(id).one
+
+            if repository.delete id
+              response.with body: {data: serializer.new(playlist).to_h}.to_json
+            else
+              response.with_details problem[status: :not_found]
+            end
           end
         end
       end

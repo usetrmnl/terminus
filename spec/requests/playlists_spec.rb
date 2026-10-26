@@ -166,7 +166,7 @@ RSpec.describe "/api/playlists", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "patches playlist when valid" do
@@ -248,7 +248,7 @@ RSpec.describe "/api/playlists", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "deletes existing record" do
@@ -285,6 +285,6 @@ RSpec.describe "/api/playlists", :db do
            "HTTP_AUTHORIZATION" => access_token,
            "CONTENT_TYPE" => "application/json"
 
-    expect(json_payload).to match(data: {})
+    expect(json_payload).to eq(RFC::API::Problem[status: :not_found].to_h)
   end
 end

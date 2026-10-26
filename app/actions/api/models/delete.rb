@@ -9,9 +9,16 @@ module Terminus
           include Deps[repository: "repositories.model"]
           include Initable[serializer: Serializers::Model]
 
+          using Refines::Actions::Response
+
           def handle request, response
             model = repository.delete request.params[:id]
-            response.body = {data: serializer.new(model).to_h}.to_json
+
+            if model
+              response.with body: {data: serializer.new(model).to_h}.to_json
+            else
+              response.with_details problem[status: :not_found]
+            end
           end
         end
       end
