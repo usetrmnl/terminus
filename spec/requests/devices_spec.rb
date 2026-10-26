@@ -263,7 +263,7 @@ RSpec.describe "/api/devices", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "answers problem details for invalid model" do
@@ -281,7 +281,7 @@ RSpec.describe "/api/devices", :db do
       instance: "/api/devices"
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "patches device when valid" do
@@ -311,7 +311,7 @@ RSpec.describe "/api/devices", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "answers error when patch fails" do
@@ -335,7 +335,7 @@ RSpec.describe "/api/devices", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "deletes existing record" do

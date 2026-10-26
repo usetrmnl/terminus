@@ -118,7 +118,7 @@ RSpec.describe "/api/firmware", :db do
       instance: "/api/firmware"
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "answers error with missing create attributes" do
@@ -142,7 +142,7 @@ RSpec.describe "/api/firmware", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "patches firmware when valid with attachment" do
@@ -200,7 +200,7 @@ RSpec.describe "/api/firmware", :db do
       instance: "/api/firmware"
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "answers error with missing patch attributes" do
@@ -222,7 +222,7 @@ RSpec.describe "/api/firmware", :db do
       }
     ]
 
-    expect(json_payload).to match(problem.to_h)
+    expect(json_payload).to eq(problem.to_h)
   end
 
   it "deletes existing record" do
