@@ -156,7 +156,7 @@ GEM
       zeitwerk (~> 2.8)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    ferrum (0.19.1)
+    ferrum (0.19.2)
       addressable (~> 2.5)
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
@@ -324,7 +324,7 @@ GEM
       stringio
     optparse (0.8.1)
     parallel (2.3.0)
-    parser (3.3.12.0)
+    parser (3.3.13.0)
       ast (~> 2.4.1)
       racc
     pg (1.7.0)
@@ -722,7 +722,7 @@ CHECKSUMS
   et-orbi (1.4.2) sha256=bb555dae668419cb24caa2a293a170e58be6d4df1e017c51f5030bdc133cd20c
   etcher (4.5.0) sha256=caeb623d91f325b7abbd7d50cdd1d9a525006c3c2b0cc50c35cc08a6a0a467f2
   faker (3.8.0) sha256=c147b308df73a90f27a4fc84f18d4c22ef0ad9c2a64b2b61c86fd0ca71753efc
-  ferrum (0.19.1) sha256=2e9ab588d24e08b6765a5a349bc5d367e5c09d3bead26270f1f2279ad7a4bc25
+  ferrum (0.19.2) sha256=76edbd1cd6045d781423687b641da4acfa4e3e6dc5443fb836cab0c4a282ec7e
   fiber-annotation (0.2.0) sha256=7abfadf1d119f508867d4103bf231c0354d019cc39a5738945dec2edadaf6c03
   fiber-local (1.1.0) sha256=c885f94f210fb9b05737de65d511136ea602e00c5105953748aa0f8793489f06
   fiber-storage (1.0.1) sha256=f48e5b6d8b0be96dac486332b55cee82240057065dc761c1ea692b2e719240e1
@@ -780,7 +780,7 @@ CHECKSUMS
   nori (2.9.1) sha256=72dd12420ccb3f62c32466c2e4d8ab1cc08ae525c2488f30524be6ee8cb6e606
   optparse (0.8.1) sha256=42bea10d53907ccff4f080a69991441d611fbf8733b60ed1ce9ee365ce03bd1a
   parallel (2.3.0) sha256=f75a3e904101ce6a1ccb6b8dc800cbafd42166d83330192438dcf29395167a6f
-  parser (3.3.12.0) sha256=21a6d7f755d5a24dfbdc6e6b772e4e879a52e7631a88bc5a3a134606052c9828
+  parser (3.3.13.0) sha256=e02f9b63c2fe05b0c68f692ba4df89b3cb113b663964f75d988fbebfd6c3deca
   pg (1.7.0) sha256=f7b536501284e883d4c9ef86dbde0313063e4aaafc23575b0017b0d572a26afb
   pipeable (2.5.0) sha256=8360821dee6c448ff51dd3c3bf8ad3fb75940f852d4c1ad8fa7146e36ea8da10
   pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
