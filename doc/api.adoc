@@ -37,7 +37,7 @@ curl "https://localhost:2443/api/display" \
 
 The {trmnl_firmware_link} will include the following headers in each HTTP request. All are optional except for the `ID` header. Here's the full list:
 
-* `ACCESS_TOKEN`: The device API when making Display API requests. Used by firmware and simulators to provision and authenticate a device.
+* `ACCESS_TOKEN`: The device API Key when making Display API requests. Used by firmware and simulators to provision and authenticate a device.
 * `BATTERY_CAPACITY`: Ratio of current and max battery capacity. Example: `11300/11420`.
 * `BATTERY_CHARGING`: Boolean for if the battery is charging or not. Example: `0` or `1`.
 * `BATTERY_COUNT`: The number batteries avaiable. Example: `2`.
