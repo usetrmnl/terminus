@@ -16,11 +16,12 @@ en:
         validation: "Validation failed."
   aspects:
     browser:
-      dead: "Browser is dead. This could mean the browser crashed, the server ran out of memory, or a resource limit has been hit. Error: %{message}"
+      dead: "Recovered dead browser due to crash, out of memory, or resource limit."
       error: Unable to capture screenshot due to an issue with page navigation, element interaction, or something else.
       no_target: "Browser has no target due to page being closed or crashed. Error: %{message}"
       options: Ferrum browser options.
       process_timeout: "Browser process timed out after %{seconds} %{label}."
+      recovery: "Browser recovery failed: %{message}"
       restart: "Browser restarted after maximum renders reached: %{maximum}."
       timeout: Browser timed out after %{seconds} %{label}. This might be due to the page taking a long time to load.
     designs:
