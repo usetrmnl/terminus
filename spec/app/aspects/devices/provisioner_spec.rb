@@ -63,7 +63,14 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
         )
       end
 
-      it "associates device with playlist" do
+      it "associates existing playlist" do
+        playlist = Factory[:playlist]
+        device = provisioner.call(model_id: model.id, playlist_id: playlist.id).success
+
+        expect(device).to have_attributes(playlist_id: playlist.id)
+      end
+
+      it "associates device with new playlist" do
         device = provisioner.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
         playlist = Terminus::Repositories::Playlist.new.find device.playlist_id
 

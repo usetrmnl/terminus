@@ -47,7 +47,7 @@ module Terminus
             create(mac_address, **),
             fmap { cached_device = it },
             bind { welcome.call cached_device },
-            fmap { |screen| configure cached_device, screen }
+            fmap { |screen| assign_playlist cached_device, screen, ** }
           )
         end
 
@@ -59,19 +59,23 @@ module Terminus
           Failure error.message.sub(/.+DETAIL:  /m, "").strip
         end
 
-        def configure device, screen
-          playlist_id = create_playlist_id device
+        def assign_playlist device, screen, attributes
+          playlist = playlist_repository.find attributes[:playlist_id]
+
+          if playlist
+            repository.find repository.update(device.id, playlist_id: playlist.id).id
+          else
+            create_playlist device, screen
+          end
+        end
+
+        def create_playlist device, screen
+          id = device.id
+          playlist_id = playlist_repository.create(label: "Device #{id}", name: "device_#{id}").id
           item = item_repository.create_with_position playlist_id:, screen_id: screen.id
 
           playlist_repository.update playlist_id, current_item_id: item.id
           repository.find repository.update(device.id, playlist_id:).id
-        end
-
-        def create_playlist_id device
-          id = device.id
-          playlist = playlist_repository.create label: "Device #{id}", name: "device_#{id}"
-
-          playlist.id
         end
       end
     end
