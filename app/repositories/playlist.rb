@@ -28,6 +28,11 @@ module Terminus
 
       def find_by(**) = with_current_item.where(**).one
 
+      def find_or_create(name:, **)
+        playlist.dataset.insert_conflict(target: :name, conflict_action: :nothing).insert(name:, **)
+        find_by name:
+      end
+
       def search key, value
         playlist.where(Sequel.ilike(key, "%#{value}%"))
                 .order { created_at.asc }

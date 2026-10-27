@@ -90,6 +90,20 @@ RSpec.describe Terminus::Repositories::Playlist, :db do
     end
   end
 
+  describe "#find_or_create" do
+    it "answers existing record" do
+      record = repository.find_or_create name: playlist.name, label: playlist.label
+      expect(record).to have_attributes(playlist.to_h)
+    end
+
+    it "answers created record when not found" do
+      expect(repository.find_or_create(name: "default", label: "Default")).to have_attributes(
+        name: "default",
+        label: "Default"
+      )
+    end
+  end
+
   describe "#search" do
     let(:playlist) { Factory[:playlist, label: "Test"] }
 
