@@ -69,6 +69,12 @@ en:
         empty_playlist: Unable to obtain next screen. Playlist has no items.
     unzipper:
       no_directories: Directories are not allowed.
+  bulk:
+    devices:
+      import:
+        create:
+          download_error: "Unable to download file."
+          notice: "Devices imported!"
   date:
     formats:
       day_month_long: "%A, %B %-d"

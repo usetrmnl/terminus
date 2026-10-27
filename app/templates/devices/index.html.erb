@@ -16,9 +16,21 @@
 
     <div class="bit-actions">
       <%= render "shared/actions/search", path: routes.path(:devices), query: %>
+
+      <%= scope(
+        :popover_trigger_button,
+        icon: :bulk_upload,
+        tip: :bulk_import,
+        target: :bulk_import,
+        width: 25,
+        height: 25
+      ).render %>
+
       <%= render "shared/actions/new", path: routes.path(:device_new) %>
     </div>
   </header>
+
+  <%= render :bulk_import %>
 
   <%= scope(:popover_default_content, name: :overview, label: "Overview").render do %>
     <p>These are you devices, both physical and virtual, managed by this server.</p>
@@ -49,6 +61,7 @@
 
   <%= scope(:tooltip_action_content, label: "Info").render %>
   <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Bulk Import").render %>
   <%= scope(:tooltip_action_content, label: "Search").render %>
   <%= scope(:tooltip_action_content, label: "Clear").render %>
   <%= scope(:tooltip_action_content, label: "View").render %>

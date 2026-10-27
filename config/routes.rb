@@ -94,6 +94,8 @@ module Terminus
 
     scope "bulk" do
       delete "/devices/:device_id/logs", to: "bulk.devices.logs.delete", as: :device_log
+      post "/devices/import", to: "bulk.devices.import.create", as: :device_import
+
       delete "/firmware", to: "bulk.firmware.delete", as: :firmware
     end
 

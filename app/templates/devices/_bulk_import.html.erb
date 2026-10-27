@@ -1,0 +1,32 @@
+<%= scope(:popover_default_content, name: :bulk_import, label: "Bulk Import").render do %>
+  <%= form_for :devices,
+               routes.path(:bulk_device_import),
+               enctype: "multipart/form-data",
+               class: "bit-form" do |form| %>
+
+    <p>Please choose one of the following to import your devices.</p>
+
+    <div class="form-field">
+      <label class="key" for="devices_attachment">Attachment</label>
+
+      <%= form.file_field :attachment,
+                          id: :devices_attachment,
+                          value: nil,
+                          class: :value,
+                          accept: "text/csv" %>
+
+      <p class="help">Please attach a <%= link_to "CSV", "https://en.wikipedia.org/wiki/Comma-separated_values" %> file to import devices. You can download, customize, and import this <%= link_to "template", assets["devices.csv"] %> if you need an example of the expected structure. All attributes are optional except for the model name. Use the same values as used for the UI and API.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="key" for="devices_uri">URI</label>
+      <%= form.url_field :uri, id: :devices_uri, value: nil, class: :value %>
+      <p class="help">Enter the URI of the CSV file to download and import.</p>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Import", class: "bit-button-accept" %>
+      <%= link_to "Cancel", routes.path(:designs), class: "bit-button-decline" %>
+    </div>
+  <% end %>
+<% end %>
