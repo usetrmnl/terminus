@@ -35,7 +35,10 @@ module Terminus
         private
 
         def setup records
-          playlist_id = find_or_create_playlist(records.first.fetch("playlist")).id
+          playlist_id = records.first
+                               .fetch("playlist")
+                               .then { playlist_repostiory.find_or_create(**it.symbolize_keys) }
+                               .id
 
           item_repository.delete_all(playlist_id:)
           process playlist_id, records
@@ -48,13 +51,6 @@ module Terminus
           end
 
           records
-        end
-
-        def find_or_create_playlist attributes
-          name, label = attributes.values_at "name", "label"
-
-          playlist_repostiory.find_by(name:)
-                             .then { it || playlist_repostiory.create(name:, label:) }
         end
 
         def upsert playlist_id, record
