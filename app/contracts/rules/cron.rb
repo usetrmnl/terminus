@@ -7,7 +7,7 @@ module Terminus
   module Contracts
     module Rules
       Cron = lambda do
-        attributes = values.fetch(:extension, Core::EMPTY_HASH).slice :interval, :unit
+        attributes = values.fetch(path.root, Core::EMPTY_HASH).slice :interval, :unit
 
         case attributes
           in {} \

@@ -5,7 +5,7 @@ module Terminus
   module Contracts
     module Rules
       ImageMimeType = lambda do
-        next if values.dig(:model, :mime_type).start_with? "image/"
+        next if values.dig(path.root, :mime_type).start_with? "image/"
 
         key.failure "must be an image"
       end
