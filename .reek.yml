@@ -105,6 +105,7 @@ detectors:
       - Terminus::Aspects::Browser#call
       - Terminus::Aspects::Browser#initialize
       - Terminus::Aspects::Croner#call
+      - Terminus::Aspects::Downloader#check
       - Terminus::Aspects::Extensions::Exchanges::RequestBuilder#render
       - Terminus::Aspects::Extensions::Fetcher::Client#parse
       - Terminus::Aspects::Extensions::Generator#process

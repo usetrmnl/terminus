@@ -22,6 +22,11 @@ RSpec.describe Terminus::Aspects::Downloader do
       expect(logger.reread).to match(/INFO.+Downloaded: #{uri}\./)
     end
 
+    it "answers HTTP response when all domains are allowed" do
+      downloader = described_class.new http:, allowed_domains: []
+      expect(downloader.call(uri)).to be_success(response)
+    end
+
     context "with blocked domain" do
       subject(:downloader) { described_class.new http: }
 

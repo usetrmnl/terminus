@@ -26,6 +26,7 @@ module Terminus
 
       def check uri
         return Failure "Invalid scheme (use HTTPS): #{uri}." unless uri.scheme == "https"
+        return Success() if allowed_domains.empty?
 
         allowed_domains.any? { uri.host == it }
                        .then { it ? Success() : Failure("Blocked domain: #{uri}.") }
