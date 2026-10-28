@@ -532,7 +532,7 @@ GEM
       zeitwerk (~> 2.8)
     stringio (3.2.0)
     strscan (3.1.8)
-    superfluid (0.2.0)
+    superfluid (0.2.1)
       base64 (~> 0.3)
       containable (~> 2.5)
       core (~> 3.4)
@@ -852,7 +852,7 @@ CHECKSUMS
   spek (5.5.0) sha256=c502a9ec87846fa5dac7512d34e29778d9f4ce6f5b1ce6f22538b5b45e36a40d
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   strscan (3.1.8) sha256=aae2db611a225559f21ffbb71765c9a4e60fd262534a9ea84f4f11c7f32f679e
-  superfluid (0.2.0) sha256=9f795d8ef4c7566b0f8c6ad835b0b6444ae078869ad341b4ca21842236150468
+  superfluid (0.2.1) sha256=5914f3b40061b73e18a830e55b132557d5c96fb7ac8649f3729f9cb146829e71
   temple (0.10.7) sha256=369fe560adb6534674ce232899c2232df614bcb29c5359b05efedff7a57ed9c0
   tilt (2.9.0) sha256=da5735d0280bba96e9a91041bb14aee435ccad5c17b0fa519249ae543d9aa3a5
   tone (3.4.0) sha256=94a83ea4fdbcf84945f8f9585312ce8eda222a5e79c19c877e99e313ed8a91cb
