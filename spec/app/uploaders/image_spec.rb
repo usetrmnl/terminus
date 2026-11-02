@@ -10,7 +10,7 @@ RSpec.describe Terminus::Uploaders::Image do
 
     it "answers bit depth when found" do
       path = SPEC_ROOT.join "support/fixtures/test.bmp"
-      path.open { |io| attacher.assign io }
+      path.open { attacher.assign it }
       attributes = JSON attacher.column_values[nil], symbolize_names: true
 
       expect(attributes[:metadata]).to include(bit_depth: 1)
@@ -25,7 +25,7 @@ RSpec.describe Terminus::Uploaders::Image do
 
     it "answers checksum when found" do
       path = SPEC_ROOT.join "support/fixtures/test.png"
-      path.open { |io| attacher.assign io }
+      path.open { attacher.assign it }
       attributes = JSON attacher.column_values[nil], symbolize_names: true
 
       expect(attributes[:metadata]).to include(checksum: match_md5_checksum)
@@ -40,14 +40,14 @@ RSpec.describe Terminus::Uploaders::Image do
 
     it "answers zero errors when valid BMP" do
       path = SPEC_ROOT.join "support/fixtures/test.bmp"
-      path.open { |io| attacher.assign io }
+      path.open { attacher.assign it }
 
       expect(attacher.errors).to eq([])
     end
 
     it "answers zero errors when valid PNG" do
       path = SPEC_ROOT.join "support/fixtures/test.png"
-      path.open { |io| attacher.assign io }
+      path.open { attacher.assign it }
 
       expect(attacher.errors).to eq([])
     end

@@ -16,7 +16,7 @@ module Terminus
       end
 
       def create_with_image path, mold, struct
-        path.open { |io| struct.upload io, metadata: {"filename" => mold.file_name} }
+        path.open { struct.upload it, metadata: {"filename" => mold.file_name} }
         find create(image_data: struct.image_attributes, **mold.image_attributes).id
       end
 
@@ -54,7 +54,7 @@ module Terminus
       def with_associations = screen.combine :model, :template, :extension
 
       def update_with_image path, mold, record
-        path.open { |io| record.replace io, metadata: {"filename" => mold.file_name} }
+        path.open { record.replace it, metadata: {"filename" => mold.file_name} }
         update record.id, image_data: record.image_attributes, **mold.image_attributes
       end
     end

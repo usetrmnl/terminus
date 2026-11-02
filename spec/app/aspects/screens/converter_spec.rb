@@ -26,7 +26,7 @@ RSpec.describe Terminus::Aspects::Screens::Converter do
         color_codes: %w[#000000 #FF0000 #FFFFFF]
       )
 
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -44,7 +44,7 @@ RSpec.describe Terminus::Aspects::Screens::Converter do
     it "converts to monochrome image" do
       converter.call mold
 
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],

@@ -31,7 +31,7 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
 
     it "creates screenshot" do
       shoter.call content, path, width: 800, height: 480
-      image = MiniMagick::Image.open path
+      image = MiniMagick::Image.new path
 
       expect(image).to have_attributes(width: 800, height: 480, type: "JPEG", exif: {})
     end

@@ -20,7 +20,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to one bit dither image" do
       converter.call mold.with(mode: "dither")
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -37,7 +37,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to two bit dither image" do
       converter.call mold.with(mode: "dither", bit_depth: 2)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -55,7 +55,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
     it "converts to four bit dither image" do
       converter.call mold.with(mode: "dither", bit_depth: 4)
       converter.call mold
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -72,7 +72,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to eight bit dither image" do
       converter.call mold.with(mode: "dither", bit_depth: 8)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -89,7 +89,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to one bit image" do
       converter.call mold
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -106,7 +106,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to two bit image" do
       converter.call mold.with(bit_depth: 2)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -123,7 +123,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "converts to eight bit image" do
       converter.call mold.with(bit_depth: 8)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -140,7 +140,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "rotates image" do
       converter.call mold.with(rotation: 90)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [800, 480],
@@ -157,7 +157,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
 
     it "crops image" do
       converter.call mold.with(offset_x: 10, offset_y: 10)
-      image = MiniMagick::Image.open mold.output_path
+      image = MiniMagick::Image.new mold.output_path
 
       expect(image).to have_attributes(
         dimensions: [790, 470],

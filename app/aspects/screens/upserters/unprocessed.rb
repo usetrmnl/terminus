@@ -33,7 +33,7 @@ module Terminus
             mold.with! input_path: Pathname(directory).join("input.png"),
                        output_path: directory.join(mold.file_name)
 
-            image.open(mold.content)
+            image.new(mold.content)
                  .write(mold.input_path)
                  .then { converter.call mold }
                  .bind { |path| save mold, path }

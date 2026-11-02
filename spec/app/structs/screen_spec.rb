@@ -7,18 +7,18 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   let(:path) { SPEC_ROOT.join "support/fixtures/test.png" }
 
-  before { path.open { |io| screen.upload io } }
+  before { path.open { screen.upload it } }
 
   describe "#bit_depth" do
     it "answers bit_depth" do
-      path.open { |io| screen.attach io }
+      path.open { screen.attach it }
       expect(screen.bit_depth).to eq(1)
     end
   end
 
   describe "#height" do
     it "answers height" do
-      path.open { |io| screen.attach io }
+      path.open { screen.attach it }
       expect(screen.height).to eq(1)
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#attach" do
     it "attaches file" do
-      instance = path.open { |io| screen.attach io }
+      instance = path.open { screen.attach it }
 
       expect(instance.image_attributes).to match(
         id: /\h{32}\.png/,
@@ -149,7 +149,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#replace" do
     it "replaces file when valid" do
-      instance = path.open { |io| screen.replace io }
+      instance = path.open { screen.replace it }
 
       expect(instance.image_attributes).to match(
         id: /\h{32}\.png/,
@@ -167,7 +167,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
     end
 
     it "updates attributes when valid" do
-      instance = path.open { |io| screen.replace io }
+      instance = path.open { screen.replace it }
 
       expect(instance.image_attributes).to match(
         id: /\h{32}\.png/,
@@ -186,7 +186,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
     it "updates storage ID" do
       id = screen.image_id
-      instance = path.open { |io| screen.replace io }
+      instance = path.open { screen.replace it }
       expect(id).not_to eq(instance.image_id)
     end
 
@@ -211,7 +211,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#upload" do
     it "uploads file when valid" do
-      instance = path.open { |io| screen.upload io }
+      instance = path.open { screen.upload it }
 
       expect(instance.image_attributes).to match(
         id: /\h{32}\.png/,
@@ -229,7 +229,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
     end
 
     it "updates attributes when valid" do
-      instance = path.open { |io| screen.upload io }
+      instance = path.open { screen.upload it }
 
       expect(instance.image_attributes).to match(
         id: /\h{32}\.png/,
@@ -267,7 +267,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#errors" do
     it "answers empty array when valid" do
-      instance = path.open { |io| screen.attach io }
+      instance = path.open { screen.attach it }
       expect(instance.errors).to eq([])
     end
 
@@ -285,7 +285,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#valid?" do
     it "answers true with no errors" do
-      screen.attach path.open
+      path.open { screen.attach it }
       expect(screen.valid?).to be(true)
     end
 
@@ -297,7 +297,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#width" do
     it "answers width" do
-      screen.attach path.open
+      path.open { screen.attach it }
       expect(screen.width).to eq(1)
     end
   end

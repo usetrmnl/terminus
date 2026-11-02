@@ -24,7 +24,7 @@ module Terminus
 
           def process mold, directory
             path = Pathname(directory).join "input.png"
-            image.open(mold.content).write(path).then { save mold, path }
+            image.new(mold.content).write(path).then { save mold, path }
           end
 
           def save(mold, path) = Success repository.upsert_with_image(path, mold, struct)

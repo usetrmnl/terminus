@@ -68,8 +68,10 @@ RSpec.describe Terminus::Repositories::Screen, :db do
     end
 
     it "deletes associated image" do
-      instance = screen.upload SPEC_ROOT.join("support/fixtures/test.png").open
-      repository.update screen.id, image_data: instance.image_attributes
+      SPEC_ROOT.join("support/fixtures/test.png").open do |io|
+        repository.update screen.id, image_data: screen.upload(io).image_attributes
+      end
+
       repository.delete screen.id
 
       expect(Hanami.app[:shrine].storages[:store].store).to eq({})
