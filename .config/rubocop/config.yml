@@ -57,11 +57,11 @@ Metrics/MethodLength:
     - export_attributes
     - wifi_percentage
   Exclude:
-    - app/aspects/browser.rb
     - app/aspects/screens/converters/color.rb
     - app/aspects/screens/converters/monochrome.rb
     - app/views/helpers.rb
     - config/initializers/universal_logger_patch.rb
+    - lib/terminus/chromium.rb
     - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/ParameterLists:

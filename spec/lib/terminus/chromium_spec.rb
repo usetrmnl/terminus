@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Browser do
+RSpec.describe Terminus::Chromium do
   subject(:browser) { described_class.new }
 
   include_context "with application dependencies"
