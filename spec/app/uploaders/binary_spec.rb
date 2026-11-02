@@ -5,21 +5,18 @@ require "hanami_helper"
 RSpec.describe Terminus::Uploaders::Binary do
   subject(:uploader) { described_class }
 
-  include_context "with temporary directory"
-
   describe "#call" do
     let(:attacher) { uploader::Attacher.new }
 
     it "answers zero errors when valid" do
-      path = temp_dir.join "test.bin"
-      path.binwrite [123].pack("N")
-      path.open { |io| attacher.assign io }
-
+      attacher.assign StringIO.new([123].pack("N")), metadata: {"filename" => "test.bin"}
       expect(attacher.errors).to eq([])
     end
 
     it "answers errors when invalid" do
-      SPEC_ROOT.join("support/fixtures/test.png").open { |io| attacher.assign io }
+      SPEC_ROOT.join("support/fixtures/test.png")
+               .read
+               .then { attacher.assign StringIO.new(it) }
 
       expect(attacher.errors).to eq(
         [
