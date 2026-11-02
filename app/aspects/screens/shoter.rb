@@ -7,7 +7,7 @@ module Terminus
     module Screens
       # Saves web page as screenshot.
       class Shoter
-        include Deps["aspects.browser"]
+        include Deps[:chromium]
         include Dry::Monads[:result]
 
         def call content, output_path, **viewport
@@ -15,7 +15,7 @@ module Terminus
         end
 
         def render content, output_path, viewport
-          browser.call do |page|
+          chromium.call do |page|
             page.content = content
             page.set_viewport(**viewport)
             page.network.wait_for_idle duration: 5

@@ -7,7 +7,10 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
 
   include_context "with temporary directory"
 
-  before { Hanami.app.start :mini_magick }
+  before do
+    Hanami.app.start :mini_magick
+    Hanami.app.start :chromium
+  end
 
   describe "#call" do
     let :content do
@@ -41,8 +44,8 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
     end
 
     it "answers failure when browser has issues" do
-      browser = instance_double Terminus::Aspects::Browser, call: Failure("Danger!")
-      shoter = described_class.new(browser:)
+      chromium = instance_double Terminus::Chromium, call: Failure("Danger!")
+      shoter = described_class.new(chromium:)
 
       expect(shoter.call(content, path, width: 800, height: 480)).to be_failure("Danger!")
     end
