@@ -166,43 +166,39 @@ RSpec.describe Terminus::Structs::Screen, :db do
       )
     end
 
-    it "updates attributes when valid" do
-      instance = path.open { screen.replace it }
+    it "schedules cache delete" do
+      Sidekiq::Testing.fake! do
+        path.open { screen.replace it }
 
-      expect(instance.image_attributes).to match(
-        id: match_shrine_id(extension: :png),
-        storage: "store",
-        metadata: {
-          bit_depth: 1,
-          checksum: match_md5_checksum,
-          filename: "test.png",
-          size: 81,
-          mime_type: "image/png",
-          width: 1,
-          height: 1
-        }
-      )
+        expect(Terminus::Jobs::Attachments::CacheDelete.jobs).to match(
+          [hash_including("args" => [match_shrine_id(extension: :png)])]
+        )
+      end
     end
 
-    it "updates storage ID" do
-      id = screen.image_id
-      instance = path.open { screen.replace it }
-      expect(id).not_to eq(instance.image_id)
+    it "schedules store delete" do
+      Sidekiq::Testing.fake! do
+        path.open { screen.replace it }
+
+        expect(Terminus::Jobs::Attachments::StoreDelete.jobs).to match(
+          [hash_including("args" => [match_shrine_id(extension: :png)])]
+        )
+      end
     end
 
     it "doesn't replace file when invalid" do
       instance = screen.replace StringIO.new
 
       expect(instance.image_attributes).to match(
-        id: match_shrine_id,
+        id: match_shrine_id(extension: :png),
         metadata: {
-          bit_depth: nil,
+          bit_depth: 1,
           checksum: match_md5_checksum,
-          filename: nil,
-          height: nil,
-          size: 0,
-          mime_type: nil,
-          width: nil
+          filename: "test.png",
+          height: 1,
+          size: 81,
+          mime_type: "image/png",
+          width: 1
         },
         storage: "store"
       )

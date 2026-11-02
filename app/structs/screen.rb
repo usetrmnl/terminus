@@ -60,9 +60,17 @@ module Terminus
 
       def mime_type = image_attributes.dig :metadata, :mime_type
 
+      # :reek:TooManyStatements
       def replace(io, **)
-        image_destroy
-        upload(io, **)
+        store_id = image_id
+        attacher.assign(io, **)
+
+        return self unless valid?
+
+        cache_id = attacher.file.id
+        attacher.promote_cached.tap { attributes[:image_data] = it.data }
+        Jobs::Attachments::CacheDelete.perform_async cache_id
+        Jobs::Attachments::StoreDelete.perform_in 60, store_id
         self
       end
 
@@ -81,7 +89,7 @@ module Terminus
 
       private
 
-      attr_reader :store, :attacher
+      attr_reader :store, :attacher, :job
     end
   end
 end
