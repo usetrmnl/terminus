@@ -31,7 +31,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
     it "answers attributes with attachment" do
       expect(screen.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         metadata: {
           bit_depth: 1,
           checksum: match_md5_checksum,
@@ -62,7 +62,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#image_id" do
     it "answers ID" do
-      expect(screen.image_id).to match(/\h{32}/)
+      expect(screen.image_id).to match_shrine_id
     end
   end
 
@@ -96,7 +96,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
   describe "#image_uri" do
     it "answers URI" do
-      expect(screen.image_uri).to match(%r(memory://\h{32}\.png))
+      expect(screen.image_uri).to match_shrine_uri(extension: :png)
     end
 
     it "answers nil when there is no associated image" do
@@ -110,7 +110,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = path.open { screen.attach it }
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         metadata: {
           bit_depth: 1,
           checksum: match_md5_checksum,
@@ -126,7 +126,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
 
     it "doesn't attach when invalid" do
       expect(screen.attach(StringIO.new).image_attributes).to match(
-        id: /\h{32}/,
+        id: match_shrine_id,
         metadata: {
           bit_depth: nil,
           checksum: match_md5_checksum,
@@ -152,7 +152,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = path.open { screen.replace it }
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         metadata: {
           bit_depth: 1,
           checksum: match_md5_checksum,
@@ -170,7 +170,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = path.open { screen.replace it }
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         storage: "store",
         metadata: {
           bit_depth: 1,
@@ -194,7 +194,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = screen.replace StringIO.new
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}/,
+        id: match_shrine_id,
         metadata: {
           bit_depth: nil,
           checksum: match_md5_checksum,
@@ -214,7 +214,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = path.open { screen.upload it }
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         metadata: {
           bit_depth: 1,
           checksum: match_md5_checksum,
@@ -232,7 +232,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       instance = path.open { screen.upload it }
 
       expect(instance.image_attributes).to match(
-        id: /\h{32}\.png/,
+        id: match_shrine_id(extension: :png),
         storage: "store",
         metadata: {
           bit_depth: 1,
@@ -250,7 +250,7 @@ RSpec.describe Terminus::Structs::Screen, :db do
       upload = screen.upload StringIO.new
 
       expect(upload.image_attributes).to match(
-        id: /\h{32}/,
+        id: match_shrine_id,
         metadata: {
           bit_depth: nil,
           checksum: match_md5_checksum,

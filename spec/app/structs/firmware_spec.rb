@@ -41,7 +41,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
 
   describe "#attachment_id" do
     it "answers ID" do
-      expect(firmware.attachment_id).to match(/\h{32}\.bin/)
+      expect(firmware.attachment_id).to match_shrine_id(extension: :bin)
     end
 
     it "answers nil when there is no associated attachment" do
@@ -80,7 +80,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
 
   describe "#attachment_uri" do
     it "answers URI" do
-      expect(firmware.attachment_uri).to match(%r(memory://\h{32}\.bin))
+      expect(firmware.attachment_uri).to match_shrine_uri(extension: :bin)
     end
   end
 
@@ -91,7 +91,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       upload = path.open { firmware.attach it }
 
       expect(upload.data).to match(
-        "id" => /\h{32}\.bin/,
+        "id" => match_shrine_id(extension: :bin),
         "metadata" => {
           "filename" => "test.bin",
           "height" => nil,
@@ -109,7 +109,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       path.open { firmware.attach it }
 
       expect(firmware.attachment_attributes).to match(
-        id: /\h{32}\.bin/,
+        id: match_shrine_id(extension: :bin),
         storage: "cache",
         metadata: {
           filename: "test.bin",
@@ -127,7 +127,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       instance = path.open { firmware.replace it }
 
       expect(instance.attachment_attributes).to match(
-        id: /\h{32}\.bin/,
+        id: match_shrine_id(extension: :bin),
         metadata: {
           filename: "test.bin",
           size: 4,
@@ -154,7 +154,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       upload = path.open { firmware.upload it }
 
       expect(upload.data).to match(
-        "id" => /\h{32}\.bin/,
+        "id" => match_shrine_id(extension: :bin),
         "metadata" => {
           "filename" => "test.bin",
           "height" => nil,
@@ -172,7 +172,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       path.open { firmware.upload it }
 
       expect(firmware.attachment_attributes).to match(
-        id: /\h{32}\.bin/,
+        id: match_shrine_id(extension: :bin),
         storage: "store",
         metadata: {
           filename: "test.bin",
@@ -188,7 +188,7 @@ RSpec.describe Terminus::Structs::Firmware, :db do
       upload = firmware.upload StringIO.new
 
       expect(upload.data).to match(
-        "id" => /\h{32}/,
+        "id" => match_shrine_id,
         "metadata" => {
           "filename" => nil,
           "height" => nil,

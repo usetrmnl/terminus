@@ -39,7 +39,7 @@ RSpec.describe Terminus::Aspects::Firmware::Synchronizer, :db do
             having_attributes(
               version: "1.2.3",
               attachment_attributes: {
-                id: /\h{32}\.bin/,
+                id: match_shrine_id(extension: :bin),
                 metadata: {
                   filename: "1.2.3.bin",
                   height: nil,
