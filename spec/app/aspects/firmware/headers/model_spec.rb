@@ -20,6 +20,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
       image_cached: false,
       mac_address: "A1:B2:C3:D4:E5:F6",
       model_name: "og",
+      panel_revision: "abcdef12",
       refresh_rate: 25,
       sensors: [],
       user_agent: "ESP32HTTPClient",
@@ -36,23 +37,33 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
   describe ".for" do
     it "answers record for raw HTTP headers" do
       record = described_class.for firmware_headers.symbolize_keys!
-
       expect(record).to eq(
         described_class[
+          action: "identify",
           api_key: "abc123",
+          battery_capacity: "4860/6000",
           battery_charge: "85",
+          battery_charging: "0",
+          battery_count: "1",
+          battery_current: "-55",
+          battery_health: "-1",
+          battery_temperature: "20.50",
           battery_voltage: "4.74",
           charging: "false",
+          firmware_profile: "true",
           firmware_version: "1.2.3",
+          gauge_capacity: "4303/5765",
+          gauge_healh: "95",
+          gauge_state_of_charge: "75",
           height: "480",
           host: "https://localhost",
           image_cached: "false",
           mac_address: "A1:B2:C3:D4:E5:F6",
           model_name: "og",
+          panel_revision: nil,
           refresh_rate: "25",
           sensors: "make=Sensirion;model=SCD41;kind=humidity;value=26;" \
                    "unit=percent;created_at=1735714800",
-          firmware_profile: "true",
           user_agent: "ESP32HTTPClient",
           wake_duration: "20",
           wake_reason: "Button pressed.",
@@ -80,6 +91,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
         firmware_version: "1.2.3",
         height: 480,
         image_cached: false,
+        panel_revision: "abcdef12",
         wake_duration: 20,
         wake_reason: "Button pressed.",
         width: 800,

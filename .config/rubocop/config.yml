@@ -38,13 +38,18 @@ Metrics/ClassLength:
     - slices/authentication/middleware.rb
 Metrics/CollectionLiteralLength:
   Exclude:
+    - app/aspects/firmware/headers/model.rb
     - app/serializers/device.rb
     - lib/terminus/refines/icalendar/event.rb
+    - spec/app/aspects/firmware/headers/model_spec.rb
+    - spec/app/aspects/firmware/headers/parser_spec.rb
     - spec/app/contracts/devices/patch_spec.rb
     - spec/app/schemas/devices/upsert_spec.rb
+    - spec/app/schemas/firmware/header_spec.rb
     - spec/app/serializers/device_spec.rb
     - spec/lib/terminus/refines/icalendar/event_spec.rb
     - spec/requests/devices_spec.rb
+    - spec/support/shared_contexts/firmware_headers.rb
 Metrics/CyclomaticComplexity:
   AllowedMethods:
     - wifi_percentage

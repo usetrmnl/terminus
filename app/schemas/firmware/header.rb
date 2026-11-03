@@ -6,17 +6,28 @@ module Terminus
       # Validates request headers.
       Header = Dry::Schema.Params do
         optional(:HTTP_ACCESS_TOKEN).maybe :string
+        optional(:HTTP_BATTERY_CAPACITY).filled :string
+        optional(:HTTP_BATTERY_CHARGING).filled :integer
+        optional(:HTTP_BATTERY_COUNT).filled :integer
+        optional(:HTTP_BATTERY_CURRENT).filled :integer
+        optional(:HTTP_BATTERY_HEALTH).filled :integer
+        optional(:HTTP_BATTERY_TEMP).filled :float
         optional(:HTTP_BATTERY_VOLTAGE).filled :float
         optional(:HTTP_FW_VERSION).filled Types::Version
+        optional(:HTTP_GAUGE_CAPACITY).filled :string
+        optional(:HTTP_GAUGE_HEALTH).filled :integer
+        optional(:HTTP_GAUGE_SOC).filled :integer
         optional(:HTTP_HEIGHT).filled :integer
         optional(:HTTP_HOST).filled :string
         optional(:HTTP_ID).filled Types::MACAddress
         optional(:HTTP_IMAGE_CACHED).filled :bool
         optional(:HTTP_MODEL).filled :string
+        optional(:HTTP_PANEL_REV).filled :string
         optional(:HTTP_PERCENT_CHARGED).filled :float
         optional(:HTTP_REFRESH_RATE).filled :integer
         optional(:HTTP_RSSI).filled :integer
         optional(:HTTP_SENSORS).maybe :string
+        optional(:HTTP_SPECIAL_FUNCTION).filled :string
         optional(:HTTP_TEMPERATURE_PROFILE).filled :bool
         optional(:HTTP_UPDATE_SOURCE).filled :string
         optional(:HTTP_USB_CONNECTED).filled :bool

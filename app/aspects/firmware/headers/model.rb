@@ -8,17 +8,28 @@ module Terminus
       module Headers
         KEY_MAP = {
           HTTP_ACCESS_TOKEN: :api_key,
+          HTTP_BATTERY_CAPACITY: :battery_capacity,
+          HTTP_BATTERY_CHARGING: :battery_charging,
+          HTTP_BATTERY_COUNT: :battery_count,
+          HTTP_BATTERY_CURRENT: :battery_current,
+          HTTP_BATTERY_HEALTH: :battery_health,
+          HTTP_BATTERY_TEMP: :battery_temperature,
           HTTP_BATTERY_VOLTAGE: :battery_voltage,
           HTTP_FW_VERSION: :firmware_version,
+          HTTP_GAUGE_CAPACITY: :gauge_capacity,
+          HTTP_GAUGE_HEALTH: :gauge_healh,
+          HTTP_GAUGE_SOC: :gauge_state_of_charge,
           HTTP_HEIGHT: :height,
           HTTP_HOST: :host,
           HTTP_ID: :mac_address,
           HTTP_IMAGE_CACHED: :image_cached,
           HTTP_MODEL: :model_name,
+          HTTP_PANEL_REV: :panel_revision,
           HTTP_PERCENT_CHARGED: :battery_charge,
           HTTP_REFRESH_RATE: :refresh_rate,
           HTTP_RSSI: :wifi_signal,
           HTTP_SENSORS: :sensors,
+          HTTP_SPECIAL_FUNCTION: :action,
           HTTP_TEMPERATURE_PROFILE: :firmware_profile,
           HTTP_UPDATE_SOURCE: :wake_reason,
           HTTP_USB_CONNECTED: :charging,
@@ -50,6 +61,7 @@ module Terminus
               firmware_version: firmware_version.to_s,
               height:,
               image_cached:,
+              panel_revision:,
               wake_duration:,
               wake_reason:,
               width:,
@@ -62,3 +74,9 @@ module Terminus
     end
   end
 end
+
+# TODO: Remove when finished.
+__END__
+
+HTTP_PANEL_REV
+HTTP_SPECIAL_FUNCTION

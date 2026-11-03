@@ -36,23 +36,29 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
     it "answers header record when success" do
       expect(parser.call(firmware_headers)).to be_success(
         Terminus::Aspects::Firmware::Headers::Model[
+          action: "identify",
           api_key: "abc123",
+          battery_capacity: "4860/6000",
           battery_charge: 85.0,
+          battery_charging: 0,
+          battery_count: 1,
+          battery_current: -55,
+          battery_health: -1,
+          battery_temperature: 20.5,
           battery_voltage: 4.74,
           charging: false,
           firmware_profile: true,
           firmware_version: "1.2.3",
+          gauge_capacity: "4303/5765",
+          gauge_healh: 95,
+          gauge_state_of_charge: 75,
           height: 480,
           host: "https://localhost",
           image_cached: false,
           mac_address: "A1:B2:C3:D4:E5:F6",
           model_name: "og_plus",
+          panel_revision: nil,
           refresh_rate: 25,
-          wake_duration: 20,
-          wake_reason: "Button pressed.",
-          width: 800,
-          wifi_band: 2.4,
-          wifi_signal: -54,
           sensors: [
             {
               make: "Sensirion",
@@ -60,10 +66,16 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
               kind: "humidity",
               value: "26",
               unit: "percent",
-              source: "device",
-              created_at: Time.at(1735714800)
+              created_at: Time.at(1735714800),
+              source: "device"
             }
-          ]
+          ],
+          user_agent: nil,
+          wake_duration: 20,
+          wake_reason: "Button pressed.",
+          width: 800,
+          wifi_band: 2.4,
+          wifi_signal: -54
         ]
       )
     end
