@@ -104,6 +104,12 @@
         <dd class="value"><%= boolean device.firmware_profile %></dd>
 
         <dt class="key">
+          Panel Revision
+          <%= scope(:popover_trigger_button, tip: :info, target: :panel_revision).render %>
+        </dt>
+        <dd class="value"><%= device.formatted_panel_revision %></dd>
+
+        <dt class="key">
           Display Compatibility
           <%= scope(:popover_trigger_button, tip: :info, target: :display_compatibility).render %>
         </dt>
