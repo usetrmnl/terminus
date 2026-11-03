@@ -12,9 +12,11 @@ RSpec.describe Terminus::Aspects::Screens::Upserters::Preprocessed, :db do
   describe "#call" do
     let(:model) { Factory[:model] }
 
-    before { mold.with! model_id: model.id, content: SPEC_ROOT.join("support/fixtures/test.png") }
-
     it "answers screen" do
+      mold.with! model_id: model.id,
+                 content: "https://raw.githubusercontent.com/usetrmnl/terminus/main/spec" \
+                          "/support/fixtures/test.png"
+
       result = upserter.call mold
 
       expect(result.success).to have_attributes(
