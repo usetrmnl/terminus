@@ -27,6 +27,7 @@ module Terminus
         wake_reason
         wake_duration
         display_compatibility
+        panel_revision
         display_profile
         command
         touch_bar
