@@ -102,7 +102,10 @@ module Authentication
       end
 
       # Feature (custom): hanami
-      hanami_view(proc { View.new })
+      # Reuses one view because the view cache, which never evicts, is keyed per view instance.
+      # Built on first render since building it here, while the router loads, deadlocks.
+      view = nil
+      hanami_view(proc { view ||= View.new })
 
       # Feature: jwt
       jwt_secret Hanami.app[:settings].app_secret
