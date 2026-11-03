@@ -17,6 +17,10 @@ module Terminus
 
         def formatted_display_profile = display_profile.capitalize
 
+        def formatted_panel_revision
+          panel_revision || helpers.translate("views.parts.device.unknown")
+        end
+
         def formatted_touch_bar = touch_bar.capitalize
 
         def translated_command = helpers.translate "devices.shared._fields.commands.#{command}"

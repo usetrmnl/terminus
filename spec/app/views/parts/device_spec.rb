@@ -67,6 +67,17 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     end
   end
 
+  describe "#formatted_panel_revision" do
+    it "answers unknown when nil" do
+      expect(part.formatted_panel_revision).to eq("Unknown")
+    end
+
+    it "answers description when present" do
+      allow(device).to receive(:panel_revision).and_return("abcdef12")
+      expect(part.formatted_panel_revision).to eq("abcdef12")
+    end
+  end
+
   describe "#formatted_touch_bar" do
     it "answers capitalized label" do
       expect(part.formatted_touch_bar).to eq("Tap")
@@ -81,7 +92,7 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
 
   describe "#wake_description" do
     it "answers unknown when blank" do
-      expect(part.wake_description).to eq("Unknown.")
+      expect(part.wake_description).to eq("Unknown")
     end
 
     it "answers description when present" do
