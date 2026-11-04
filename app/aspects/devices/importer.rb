@@ -54,7 +54,7 @@ module Terminus
         def parse content
           parser.instance(content, headers: true, header_converters: proc { headers[it] })
                 .to_a
-                .map(&:to_h)
+                .map { it.to_h.compact }
         end
 
         # :reek:FeatureEnvy

@@ -19,6 +19,20 @@ RSpec.describe Terminus::Aspects::Devices::Importer, :db do
       expect(mac_addresses).to eq(%w[1E:B2:16:6D:7B:AB DA:D5:B9:A0:D1:5F])
     end
 
+    it "answers devices with required attributes only" do
+      model
+      playlist
+
+      content = <<~CONTENT
+        Label,Model Name,Playlist Name,MAC Address,API Key,Refresh Rate,Image Timeout,Firmware Update,Display Compatibility,Display Profile,Command,Touch Bar,Sleep Start At,Sleep Stop At
+        ,og_plus,test,,,,,,,,,,,
+      CONTENT
+
+      model_ids = importer.call(content).value![:devices].map(&:model_id)
+
+      expect(model_ids).to contain_exactly(model.id)
+    end
+
     it "answers failures when model can't be found" do
       expect(importer.call(content)).to be_failure(
         errors: [
