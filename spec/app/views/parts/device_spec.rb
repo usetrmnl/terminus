@@ -9,7 +9,7 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
 
   describe "#current_screen" do
     let :device do
-      Terminus::Aspects::Devices::Provisioner.new.call(model_id: Factory[:model].id).value!
+      Terminus::Aspects::Devices::Creator.new.call(model_id: Factory[:model].id).value!
     end
 
     it "answers screen when device is provisioned" do

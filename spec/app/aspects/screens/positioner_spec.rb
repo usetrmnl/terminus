@@ -8,8 +8,10 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
   include_context "with application dependencies"
 
   describe "#call" do
-    let(:device) { provisioner.call(model_id: Factory[:model].id).value! }
-    let(:provisioner) { Terminus::Aspects::Devices::Provisioner.new }
+    let :device do
+      Terminus::Aspects::Devices::Creator.new.call(model_id: Factory[:model].id).value!
+    end
+
     let(:playlist_repository) { Terminus::Repositories::Playlist.new }
     let(:item_repository) { Terminus::Repositories::PlaylistItem.new }
 

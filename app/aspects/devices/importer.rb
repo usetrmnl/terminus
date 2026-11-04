@@ -10,7 +10,7 @@ module Terminus
       # Bulk imports devices.
       class Importer
         include Deps[
-          "aspects.devices.provisioner",
+          "aspects.devices.creator",
           contract: "contracts.devices.imports.bulk",
           model_repository: "repositories.model",
           playlist_repository: "repositories.playlist"
@@ -60,19 +60,17 @@ module Terminus
         # :reek:FeatureEnvy
         def process rows, partition: Hash.new { |nascence, lacuna| nascence[lacuna] = [] }
           rows.each.with_object partition do |row, all|
-            case provision row
+            case create_device row
               in Success(record) then all[:devices].append record
               in Failure(result) then all[:errors].append result
             end
           end
         end
 
-        def provision row
-          build_ids(row).bind { provisioner.call(**it, **row) }
-        end
+        def create_device(row) = find_device_foreign_ids(row).bind { creator.call(**it, **row) }
 
         # :reek:TooManyStatements
-        def build_ids row
+        def find_device_foreign_ids row
           model_id = nil
           model_name = row.delete :model_name
 

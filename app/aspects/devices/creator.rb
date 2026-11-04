@@ -7,8 +7,8 @@ require "pipeable"
 module Terminus
   module Aspects
     module Devices
-      # Handles the setup and default configuration of new devices.
-      class Provisioner
+      # Creates and configures new device.
+      class Creator
         include Deps[
           "aspects.devices.defaulter",
           "aspects.screens.interrupts.welcome",

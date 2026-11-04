@@ -5,9 +5,12 @@ require "hanami_helper"
 RSpec.describe "/api/display", :db do
   include_context "with firmware headers"
 
-  let(:device) { provisioner.call(model_id: model.id, api_key:, firmware_version: "1.2.3").value! }
+  let :device do
+    device_creator.call(model_id: model.id, api_key:, firmware_version: "1.2.3").value!
+  end
+
   let(:api_key) { firmware_headers.fetch "HTTP_ACCESS_TOKEN" }
-  let(:provisioner) { Terminus::Aspects::Devices::Provisioner.new }
+  let(:device_creator) { Terminus::Aspects::Devices::Creator.new }
   let(:model) { Factory[:model] }
 
   before do
@@ -36,7 +39,7 @@ RSpec.describe "/api/display", :db do
   end
 
   it "answers payload with custom device attribute" do
-    provisioner.call(model_id: model.id, api_key:, refresh_rate: 20).value!
+    device_creator.call model_id: model.id, api_key:, refresh_rate: 20
     get routes.path(:api_display), {}, **firmware_headers
 
     expect(json_payload).to include(refresh_rate: 20)
@@ -45,7 +48,7 @@ RSpec.describe "/api/display", :db do
   it "answers firmware update when device update is enabled and versions don't match" do
     firmware = Factory[:firmware, :with_attachment, version: "3.2.1"]
     Factory[:firmware_model, firmware_id: firmware.id, model_id: model.id]
-    provisioner.call(model_id: model.id, api_key:, firmware_update: true).value!
+    device_creator.call(model_id: model.id, api_key:, firmware_update: true).value!
 
     get routes.path(:api_display), {}, **firmware_headers
 

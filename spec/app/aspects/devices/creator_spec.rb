@@ -2,13 +2,13 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
-  subject(:provisioner) { described_class.new }
+RSpec.describe Terminus::Aspects::Devices::Creator, :db do
+  subject(:creator) { described_class.new }
 
   describe "#call" do
     it "answers existing device with redacted API key" do
       device = Factory[:device, mac_address: "02:A1:B2:C3:D4:E5"]
-      result = provisioner.call mac_address: device.mac_address
+      result = creator.call mac_address: device.mac_address
 
       expect(result.success).to have_attributes(
         playlist_id: nil,
@@ -21,7 +21,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       let(:device) { Factory[:device, mac_address: "02:A1:B2:C3:D4:E5", firmware_reset: true] }
 
       it "answers existing device with API key when firmware reset is enabled" do
-        result = provisioner.call mac_address: device.mac_address
+        result = creator.call mac_address: device.mac_address
 
         expect(result.success).to have_attributes(
           playlist_id: nil,
@@ -31,8 +31,8 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "answers existing device with redacted API key after firmware reset is disabled" do
-        provisioner.call mac_address: device.mac_address
-        result = provisioner.call mac_address: device.mac_address
+        creator.call mac_address: device.mac_address
+        result = creator.call mac_address: device.mac_address
 
         expect(result.success).to have_attributes(
           playlist_id: nil,
@@ -46,7 +46,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       let(:model) { Factory[:model] }
 
       it "answers device with given MAC address" do
-        result = provisioner.call mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id
+        result = creator.call mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id
 
         expect(result.success).to have_attributes(
           model_id: model.id,
@@ -55,7 +55,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "answers device with virtual MAC address" do
-        result = provisioner.call model_id: model.id
+        result = creator.call model_id: model.id
 
         expect(result.success).to have_attributes(
           model_id: model.id,
@@ -65,13 +65,13 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
 
       it "associates existing playlist" do
         playlist = Factory[:playlist]
-        device = provisioner.call(model_id: model.id, playlist_id: playlist.id).success
+        device = creator.call(model_id: model.id, playlist_id: playlist.id).success
 
         expect(device).to have_attributes(playlist_id: playlist.id)
       end
 
       it "associates device with new playlist" do
-        device = provisioner.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
+        device = creator.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
         playlist = Terminus::Repositories::Playlist.new.find device.playlist_id
 
         expect(playlist).to have_attributes(
@@ -81,7 +81,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "associates playlist item with welcome screen" do
-        device = provisioner.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
+        device = creator.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
         item = Terminus::Repositories::PlaylistItem.new.find_by playlist_id: device.playlist_id
         screen = item.screen
 
@@ -93,7 +93,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "associates playlist current item with welcome screen" do
-        device = provisioner.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
+        device = creator.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
         playlist = Terminus::Repositories::Playlist.new.find device.playlist_id
         screen = Terminus::Repositories::Screen.new.find playlist.current_item.screen_id
 
@@ -104,7 +104,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "answers failure with nil model ID" do
-        result = provisioner.call mac_address: "02:A1:B2:C3:D4:E5", model_id: nil
+        result = creator.call mac_address: "02:A1:B2:C3:D4:E5", model_id: nil
 
         expect(result).to be_failure(
           %(Null value in column "model_id" of relation "device" violates not-null constraint.)
@@ -112,7 +112,7 @@ RSpec.describe Terminus::Aspects::Devices::Provisioner, :db do
       end
 
       it "answers failure with invalid model ID" do
-        result = provisioner.call mac_address: "02:A1:B2:C3:D4:E5", model_id: 13
+        result = creator.call mac_address: "02:A1:B2:C3:D4:E5", model_id: 13
         expect(result).to be_failure(%(Key (model_id)=(13) is not present in table "model".))
       end
     end

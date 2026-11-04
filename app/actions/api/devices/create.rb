@@ -6,7 +6,7 @@ module Terminus
       module Devices
         # The create action.
         class Create < Base
-          include Deps["aspects.devices.provisioner"]
+          include Deps["aspects.devices.creator"]
           include Initable[serializer: Serializers::Device]
 
           using Refines::Actions::Response
@@ -26,7 +26,7 @@ module Terminus
           private
 
           def process parameters, response
-            case provisioner.call(**parameters[:device])
+            case creator.call(**parameters[:device])
               in Success(device) then response.body = {data: serializer.new(device).to_h}.to_json
               in Failure(String => error) then not_found error, response
             end
