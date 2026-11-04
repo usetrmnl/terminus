@@ -74,10 +74,7 @@ RSpec.describe Terminus::Aspects::Devices::Creator, :db do
         device = creator.call(mac_address: "02:A1:B2:C3:D4:E5", model_id: model.id).success
         playlist = Terminus::Repositories::Playlist.new.find device.playlist_id
 
-        expect(playlist).to have_attributes(
-          label: "Device #{device.id}",
-          name: "device_#{device.id}"
-        )
+        expect(playlist).to have_attributes(label: device.label, name: "device_#{device.id}")
       end
 
       it "associates playlist item with welcome screen" do
@@ -87,7 +84,7 @@ RSpec.describe Terminus::Aspects::Devices::Creator, :db do
 
         expect(screen).to have_attributes(
           model_id: model.id,
-          label: "Welcome #{device.id}",
+          label: "#{device.label} (Welcome)",
           name: "welcome_#{device.id}"
         )
       end
@@ -98,7 +95,7 @@ RSpec.describe Terminus::Aspects::Devices::Creator, :db do
         screen = Terminus::Repositories::Screen.new.find playlist.current_item.screen_id
 
         expect(screen).to have_attributes(
-          label: "Welcome #{device.id}",
+          label: "#{device.label} (Welcome)",
           name: "welcome_#{device.id}"
         )
       end

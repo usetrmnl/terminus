@@ -14,21 +14,21 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Sleep, :db do
         :screen,
         model_id: model.id,
         device_id: device.id,
-        label: "Sleep #{device.id}",
+        label: "#{device.label} (Sleep)",
         name: "sleep_#{device.id}",
         kind: "sleep"
       ]
 
       expect(interrupter.call(device).success).to have_attributes(
         id: screen.id,
-        label: "Sleep #{device.id}",
+        label: "#{device.label} (Sleep)",
         name: "sleep_#{device.id}"
       )
     end
 
     it "answers new screen when not found" do
       expect(interrupter.call(device).success).to have_attributes(
-        label: "Sleep #{device.id}",
+        label: "#{device.label} (Sleep)",
         name: "sleep_#{device.id}",
         image_attributes: hash_including(
           metadata: hash_including(

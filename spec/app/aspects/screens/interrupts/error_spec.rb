@@ -12,7 +12,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Error, :db do
 
     it "answers new screen when not found" do
       expect(interrupter.call(device, message).success).to have_attributes(
-        label: "Error #{device.id}",
+        label: "#{device.label} (Error)",
         name: "error_#{device.id}",
         image_attributes: hash_including(
           metadata: hash_including(
@@ -29,12 +29,12 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Error, :db do
       Factory[
         :screen,
         model_id: device.model_id,
-        label: "Error #{device.id}",
+        label: "#{device.label} (Error)",
         name: "error_#{device.id}"
       ]
 
       expect(interrupter.call(device, message).success).to have_attributes(
-        label: "Error #{device.id}",
+        label: "#{device.label} (Error)",
         name: "error_#{device.id}",
         image_attributes: hash_including(
           metadata: hash_including(

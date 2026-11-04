@@ -45,7 +45,7 @@ module Terminus
         mac_address.tr ":", Core::EMPTY_STRING
       end
 
-      def screen_label(prefix) = "#{prefix} #{id}"
+      def screen_label(suffix) = "#{label} (#{suffix})"
 
       def screen_name(kind) = "#{kind}_#{id}"
 
