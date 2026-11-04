@@ -113,7 +113,7 @@ RSpec.describe "Devices", :db do
 
     click_button "Import"
 
-    expect(page).to have_text("rows.0.model_name must be filled")
+    expect(page).to have_text("rows.0.model_name is missing")
 
     click_button "Bulk upload"
 
