@@ -72,13 +72,13 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
       let(:headers) { {HTTP_MODEL: :bogus} }
 
       it "answers fallback when name is unknown" do
-        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "og_plus")
+        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "generic_16_9")
       end
 
       it "logs debug message" do
         pattern = /
           DEBUG.+Unknown\sname\swhen\stransforming\sHTTP_MODEL\sheader:\s:bogus\.\s
-          Using\sfallback:\sog_plus\.
+          Using\sfallback:\sgeneric_16_9\.
         /x
 
         transformer.call headers
@@ -91,13 +91,13 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
       let(:headers) { {HTTP_MODEL: ""} }
 
       it "answers fallback name when name is unknown" do
-        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "og_plus")
+        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "generic_16_9")
       end
 
       it "logs debug message" do
         pattern = /
           DEBUG.+Unknown\sname\swhen\stransforming\sHTTP_MODEL\sheader:\s\\"\\"\.\s
-          Using\sfallback:\sog_plus\.
+          Using\sfallback:\sgeneric_16_9\.
         /x
 
         transformer.call headers
@@ -110,13 +110,13 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Transformers::ModelName do
       let(:headers) { {HTTP_MODEL: nil} }
 
       it "answers fallback name when name is unknown" do
-        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "og_plus")
+        expect(transformer.call(headers)).to be_success(HTTP_MODEL: "generic_16_9")
       end
 
       it "logs debug message" do
         pattern = /
           DEBUG.+Unknown\sname\swhen\stransforming\sHTTP_MODEL\sheader:\snil\.\s
-          Using\sfallback:\sog_plus\.
+          Using\sfallback:\sgeneric_16_9\.
         /x
 
         transformer.call headers
