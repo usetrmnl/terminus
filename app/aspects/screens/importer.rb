@@ -17,7 +17,7 @@ module Terminus
           :logger,
           model_repository: "repositories.model",
           item_repository: "repositories.playlist_item",
-          playlist_repostiory: "repositories.playlist"
+          playlist_repository: "repositories.playlist"
         ]
         include Initable[metapath: proc { Metapath.new }]
         include Dry::Monads[:result]
@@ -35,26 +35,37 @@ module Terminus
         private
 
         def setup records
-          playlist_id = records.first
-                               .fetch("playlist")
-                               .then { playlist_repostiory.find_or_create(**it.symbolize_keys) }
-                               .id
-
-          item_repository.delete_all(playlist_id:)
-          process playlist_id, records
+          playlist = find_or_create_playlist records
+          item_repository.delete_all playlist_id: playlist.id
+          process(playlist, records).tap { update_current_item playlist }
         end
 
-        def process playlist_id, records
+        def find_or_create_playlist records
+          records.first
+                 .fetch("playlist")
+                 .then { playlist_repository.find_or_create(**it.symbolize_keys) }
+        end
+
+        def process playlist, records
           records.each do |record|
             logger.info { "Processing #{record.path}..." }
-            upsert playlist_id, record
+            upsert playlist, record
           end
 
           records
         end
 
-        def upsert playlist_id, record
-          upsert_screen(record).fmap { |screen| add_to_playlist playlist_id, screen, record }
+        def update_current_item playlist
+          playlist_id = playlist.id
+          current_item = item_repository.first playlist_id: playlist_id
+
+          return unless current_item
+
+          playlist_repository.update playlist_id, current_item_id: current_item.id
+        end
+
+        def upsert playlist, record
+          upsert_screen(record).fmap { |screen| add_to_playlist playlist.id, screen, record }
                                .then { log it }
         end
 

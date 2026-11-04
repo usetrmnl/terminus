@@ -77,6 +77,20 @@ RSpec.describe Terminus::Aspects::Screens::Importer, :db do
       )
     end
 
+    it "updates playlist's current item with first item" do
+      model
+      Factory[:playlist, name: "test"]
+
+      playlist_repository = Terminus::Repositories::Playlist.new
+      item_repository = Terminus::Repositories::PlaylistItem.new
+
+      importer.call temp_dir
+
+      playlist = playlist_repository.find_by name: "test"
+
+      expect(playlist.current_item_id).to eq(item_repository.first(playlist_id: playlist.id).id)
+    end
+
     it "answers success with array of metadata" do
       model
 
