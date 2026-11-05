@@ -23,7 +23,7 @@ module Terminus
         end
 
         def call
-          root = settings.fonts_root.make_dir
+          root = settings.fonts_root.mkpath
           names = YAML.load_file(configuration_path).fetch "names"
 
           delete_unknown_files root, names
