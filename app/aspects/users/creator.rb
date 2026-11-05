@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "initable"
+
 module Terminus
   module Aspects
     module Users
@@ -13,14 +15,8 @@ module Terminus
           account_repository: "repositories.account",
           membership_relation: "relations.membership"
         ]
+        include Initable[defaults: {name: "default", label: "Default"}]
         include Dry::Monads[:result]
-
-        DEFAULTS = {name: "default", label: "Default"}.freeze
-
-        def initialize(defaults: DEFAULTS, **)
-          @defaults = defaults
-          super(**)
-        end
 
         def call **attributes
           result = contract.call(attributes).to_monad
@@ -31,8 +27,6 @@ module Terminus
         end
 
         private
-
-        attr_reader :defaults
 
         def create_user user_attributes, account_attributes
           account_attributes = defaults.merge account_attributes

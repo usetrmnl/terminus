@@ -58,7 +58,7 @@ gem "versionaire", "~> 15.3"
 gem "wholeable", "~> 2.1"
 
 group :quality do
-  gem "caliber", "~> 0.97"
+  gem "caliber", "~> 0.99"
   gem "git-lint", "~> 11.0"
   gem "reek", "~> 6.5", require: false
   gem "rubocop-sequel", "~> 0.3"

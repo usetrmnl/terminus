@@ -7,14 +7,13 @@ module Terminus
   module Serializers
     # A model serializer for specific keys.
     class Firmware
-      include Deps[model_repository: "repositories.firmware_model"]
-      include Initable[transformer: proc { Terminus::Serializers::Transformers::Time }]
-
       KEYS = %i[id version created_at updated_at].freeze
 
-      def initialize(record, keys: KEYS, **)
+      include Deps[model_repository: "repositories.firmware_model"]
+      include Initable[keys: KEYS, transformer: proc { Terminus::Serializers::Transformers::Time }]
+
+      def initialize(record, **)
         @record = record
-        @keys = keys
         super(**)
       end
 
@@ -30,7 +29,7 @@ module Terminus
 
       private
 
-      attr_reader :record, :keys
+      attr_reader :record
 
       # :reek:UtilityFunction
       def add_metadata attributes, record

@@ -9,15 +9,6 @@ module Terminus
     module Devices
       # Bulk imports devices.
       class Importer
-        include Deps[
-          "aspects.devices.creator",
-          contract: "contracts.devices.imports.bulk",
-          model_repository: "repositories.model",
-          playlist_repository: "repositories.playlist"
-        ]
-        include Initable[parser: CSV]
-        include Dry::Monads[:result]
-
         HEADERS = {
           "Label" => :label,
           "Model Name" => :model_name,
@@ -35,10 +26,14 @@ module Terminus
           "Sleep Stop At" => :sleep_stop_at
         }.freeze
 
-        def initialize(headers: HEADERS, **)
-          @headers = headers
-          super(**)
-        end
+        include Deps[
+          "aspects.devices.creator",
+          contract: "contracts.devices.imports.bulk",
+          model_repository: "repositories.model",
+          playlist_repository: "repositories.playlist"
+        ]
+        include Initable[headers: HEADERS, parser: CSV]
+        include Dry::Monads[:result]
 
         def call content
           contract.call(rows: parse(content))
@@ -48,8 +43,6 @@ module Terminus
         end
 
         private
-
-        attr_reader :headers
 
         def parse content
           parser.instance(content, headers: true, header_converters: proc { headers[it] })

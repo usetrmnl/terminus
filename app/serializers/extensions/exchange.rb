@@ -8,8 +8,6 @@ module Terminus
     module Extensions
       # An extension serializer for specific keys.
       class Exchange
-        include Initable[transformer: proc { Terminus::Serializers::Transformers::Time }]
-
         KEYS = %i[
           id
           headers
@@ -23,9 +21,11 @@ module Terminus
           updated_at
         ].freeze
 
-        def initialize(record, keys: KEYS, **)
+        include Initable[keys: KEYS]
+
+        def initialize(record, transformer: Terminus::Serializers::Transformers::Time, **)
           @record = record
-          @keys = keys
+          @transformer = transformer
           super(**)
         end
 
@@ -37,7 +37,7 @@ module Terminus
 
         private
 
-        attr_reader :record, :keys
+        attr_reader :record, :transformer
       end
     end
   end

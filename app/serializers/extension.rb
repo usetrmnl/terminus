@@ -7,12 +7,6 @@ module Terminus
   module Serializers
     # An extension serializer for specific keys.
     class Extension
-      include Deps[
-        model_repository: "repositories.extension_model",
-        device_repository: "repositories.extension_device"
-      ]
-      include Initable[transformer: proc { Terminus::Serializers::Transformers::Time }]
-
       KEYS = %i[
         id
         label
@@ -34,9 +28,14 @@ module Terminus
         updated_at
       ].freeze
 
-      def initialize(record, keys: KEYS, **)
+      include Deps[
+        model_repository: "repositories.extension_model",
+        device_repository: "repositories.extension_device"
+      ]
+      include Initable[keys: KEYS, transformer: proc { Terminus::Serializers::Transformers::Time }]
+
+      def initialize(record, **)
         @record = record
-        @keys = keys
         super(**)
       end
 
@@ -48,7 +47,7 @@ module Terminus
 
       private
 
-      attr_reader :record, :keys
+      attr_reader :record
 
       def model_ids record
         model_repository.where(extension_id: record.id).map(&:model_id)

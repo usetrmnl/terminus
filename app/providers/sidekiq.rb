@@ -7,11 +7,11 @@ module Terminus
   module Providers
     # The Sidekiq provider.
     class Sidekiq < Hanami::Provider::Source
+      RESOLVER = proc { Object.const_get "Sidekiq" }
+
       include Deps[:logger, extension_repository: "repositories.extension"]
 
       using Refinements::Hash
-
-      RESOLVER = proc { Object.const_get "Sidekiq" }
 
       def initialize(resolver: RESOLVER, **)
         @resolver = resolver

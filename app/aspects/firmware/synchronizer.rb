@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+require "initable"
+
 module Terminus
   module Aspects
     module Firmware
       # A firmware attachment synchronizer with Core server.
       class Synchronizer
+        MODEL_MAP = {trmnl_bwry: ["og_bwry"], trmnl_og: %w[og_png og_plus], trmnl_x: ["v2"]}.freeze
+
         include Deps[
           :trmnl_api,
           "aspects.downloader",
@@ -12,15 +16,8 @@ module Terminus
           repository: "repositories.firmware",
           model_repository: "repositories.model"
         ]
+        include Initable[model_map: MODEL_MAP, struct: Structs::Firmware]
         include Dry::Monads[:result]
-
-        MODEL_MAP = {trmnl_bwry: ["og_bwry"], trmnl_og: %w[og_png og_plus], trmnl_x: ["v2"]}.freeze
-
-        def initialize(model_map: MODEL_MAP, struct: Structs::Firmware, **)
-          @model_map = model_map
-          @struct = struct
-          super(**)
-        end
 
         def call
           model_map.keys
@@ -33,8 +30,6 @@ module Terminus
         end
 
         private
-
-        attr_reader :model_map, :struct
 
         def fetch name
           result = trmnl_api.firmware_latest model_name: name

@@ -17,8 +17,8 @@ GEM
     bigdecimal (4.1.3)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    caliber (0.98.0)
-      rubocop (~> 1.91)
+    caliber (0.99.0)
+      rubocop (~> 1.92)
       rubocop-capybara (~> 2.23)
       rubocop-disable_syntax (~> 0.2)
       rubocop-packaging (~> 0.6)
@@ -593,7 +593,7 @@ PLATFORMS
 DEPENDENCIES
   amazing_print (~> 3.0)
   bcrypt (~> 3.1)
-  caliber (~> 0.97)
+  caliber (~> 0.99)
   capybara (~> 3.40)
   capybara-validate_html5 (~> 2.1)
   cogger (~> 2.5)
@@ -677,7 +677,7 @@ CHECKSUMS
   better_errors (2.10.1) sha256=f798f1bac93f3e775925b7fcb24cffbcf0bb62ee2210f5350f161a6b75fc0a73
   bigdecimal (4.1.3) sha256=61ebe1e5e559bdc3cc6f2c0ee7f427321fc838f59611c294356eb04d6e21cf66
   binding_of_caller (2.0.0) sha256=e53eebf8428a85587aede7b43a83e7419eb85b8b690938a96aa330d03052d517
-  caliber (0.98.0) sha256=ce6dd785244bd79c437432333cfd37be6ff3d1a2c6b245eae0c92e1d814251c5
+  caliber (0.99.0) sha256=bca89e5ce4c1ee63980b6c90a79f6c0f9db049685e797a5c9e2eb2ea6b746d89
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-validate_html5 (2.1.0) sha256=9c5bcac8058f05c8468c0856ccfbf91478e24c7ff07c79b8ac7c64ba9291cf5a
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec

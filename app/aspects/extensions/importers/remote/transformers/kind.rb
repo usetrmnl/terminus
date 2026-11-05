@@ -11,11 +11,11 @@ module Terminus
           module Transformers
             # Transforms (mutates) strategy and polling/static attributes for initialization.
             class Kind
+              KINDS = {"polling" => "poll", "static" => "static", "webhook" => "webhook"}.freeze
+
               include Dry::Monads[:result]
 
               using Refinements::Array
-
-              KINDS = {"polling" => "poll", "static" => "static", "webhook" => "webhook"}.freeze
 
               def initialize kinds: KINDS
                 @kinds = kinds
