@@ -24,17 +24,18 @@ RSpec.describe "/api/display", :db do
 
     expect(json_payload).to match(
       filename: /welcome_#{device.id}-\d{10}/,
-      firmware_url: "memory://abc123.bin",
-      firmware_version: "1.2.3",
       image_url: match_shrine_uri(extension: :png),
       image_url_timeout: 0,
-      maximum_compatibility: false,
       refresh_rate: 900,
+      firmware_version: "1.2.3",
+      firmware_url: "memory://abc123.bin",
+      update_firmware: false,
       reset_firmware: false,
-      special_function: "none",
+      maximum_compatibility: false,
       temperature_profile: "default",
       touchbar_mode: "tap",
-      update_firmware: false
+      action: nil,
+      playlist_image_names: nil
     )
   end
 
@@ -62,17 +63,18 @@ RSpec.describe "/api/display", :db do
 
     expect(json_payload).to match(
       filename: /welcome_#{device.id}-\d{10}/,
-      firmware_url: nil,
-      firmware_version: "1.2.3",
       image_url: match_shrine_uri(extension: :png),
       image_url_timeout: 0,
-      maximum_compatibility: false,
       refresh_rate: 900,
+      firmware_version: "1.2.3",
+      firmware_url: nil,
+      update_firmware: false,
       reset_firmware: false,
-      special_function: "none",
+      maximum_compatibility: false,
       temperature_profile: "default",
       touchbar_mode: "tap",
-      update_firmware: false
+      action: nil,
+      playlist_image_names: nil
     )
   end
 
@@ -124,17 +126,18 @@ RSpec.describe "/api/display", :db do
     it "answers error image" do
       expect(json_payload).to match(
         filename: "#{device.screen_name :error}.png",
-        firmware_url: nil,
-        firmware_version: "1.2.3",
         image_url: match_shrine_uri(extension: :png),
         image_url_timeout: 0,
-        maximum_compatibility: false,
         refresh_rate: 900,
+        firmware_version: "1.2.3",
+        firmware_url: nil,
+        update_firmware: false,
         reset_firmware: false,
-        special_function: "none",
+        maximum_compatibility: false,
         temperature_profile: "default",
         touchbar_mode: "tap",
-        update_firmware: false
+        action: nil,
+        playlist_image_names: nil
       )
     end
 

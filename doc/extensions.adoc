@@ -164,7 +164,6 @@ You can find documentation for the above via the {liquid_link} and {superfluid_l
 
 The following tags are supported within your Liquid templates:
 
-* `#`
 * `assign`
 * `break`
 * `capture`
