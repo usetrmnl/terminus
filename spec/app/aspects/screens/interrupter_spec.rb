@@ -22,30 +22,56 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
 
     it "processes device screen first command" do
       device = Factory.structs[:device, command: "screen_first"]
-      interrupter.call device, event: "button"
+      interrupter.call device, event: "screen_first"
 
-      expect(positioner).to have_received(:call).with(device, event: "button", direction: :first)
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "screen_first",
+        direction: :first
+      )
+    end
+
+    it "processes device screen first command as restart playlist" do
+      interrupter.call device, event: "restart_playlist"
+
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "restart_playlist",
+        direction: :first
+      )
     end
 
     it "processes device screen backward command" do
       device = Factory.structs[:device, command: "screen_backward"]
-      interrupter.call device, event: "button"
+      interrupter.call device, event: "screen_backward"
 
-      expect(positioner).to have_received(:call).with(device, event: "button", direction: :backward)
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "screen_backward",
+        direction: :backward
+      )
     end
 
     it "processes device screen forward command" do
       device = Factory.structs[:device, command: "screen_forward"]
-      interrupter.call device, event: "button"
+      interrupter.call device, event: "screen_forward"
 
-      expect(positioner).to have_received(:call).with(device, event: "button", direction: :forward)
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "screen_forward",
+        direction: :forward
+      )
     end
 
     it "processes device screen last command" do
       device = Factory.structs[:device, command: "screen_last"]
-      interrupter.call device, event: "button"
+      interrupter.call device, event: "screen_last"
 
-      expect(positioner).to have_received(:call).with(device, event: "button", direction: :last)
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "screen_last",
+        direction: :last
+      )
     end
 
     it "processes device screen wipe command" do
@@ -69,7 +95,11 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       device = Factory.structs[:device, command: "screen_first"]
       interrupter.call device, event: "EXT0"
 
-      expect(positioner).to have_received(:call).with(device, event: "EXT0", direction: :first)
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "screen_first",
+        direction: :first
+      )
     end
 
     it "renders invalid device command error screen" do
@@ -102,7 +132,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
 
         expect(positioner).to have_received(:call).with(
           device,
-          event: "button",
+          command: "screen_forward",
           direction: :forward
         )
       end

@@ -24,9 +24,10 @@ module Terminus
 
           def handle request, response
             environment = request.env
+            event = environment["HTTP_SPECIAL_FUNCTION"] || environment["HTTP_UPDATE_SOURCE"]
 
             case synchronizer.call environment
-              in Success(device) then interrupt device, environment["HTTP_UPDATE_SOURCE"], response
+              in Success(device) then interrupt device, event, response
               else not_found response
             end
           end
@@ -38,22 +39,21 @@ module Terminus
           private
 
           def interrupt device, event, response
-            interrupter.call(device, event:)
-                       .either -> screen { success device, screen, response },
-                               -> message { error_for device, message, response }
+            case interrupter.call(device, event:)
+              in Success(screen) then success event, device, screen, response
+              in Failure(message) then error_for device, message, response
+            end
           end
 
-          def success device, screen, response
+          # rubocop:todo-next Metrics/ParameterLists
+          def success event, device, screen, response
             attributes = {
               filename: screen.image_name_with_timestamp,
-              image_url: screen.image_uri(host: settings.api_uri)
+              image_url: screen.image_uri(host: settings.api_uri),
+              action: event
             }
 
             response.body = build_payload(device, attributes).to_json
-          end
-
-          def error_for device, message, response
-            error.call(device, message).bind { |screen| any_error device, screen, response }
           end
 
           def build_payload device, attributes
@@ -72,6 +72,10 @@ module Terminus
                 }
               else Core::EMPTY_HASH
             end
+          end
+
+          def error_for device, message, response
+            error.call(device, message).bind { |screen| any_error device, screen, response }
           end
 
           def any_error device, screen, response

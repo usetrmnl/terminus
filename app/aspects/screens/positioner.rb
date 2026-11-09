@@ -19,8 +19,8 @@ module Terminus
         ]
         include Dry::Monads[:result]
 
-        def call device, event: nil, direction: :forward
-          find_playlist(device).bind { |playlist| process event, playlist, by: direction }
+        def call device, command: :current, direction: :forward
+          find_playlist(device).bind { |playlist| process command, playlist, by: direction }
                                .bind { |item| obtain_screen item }
         end
 
@@ -35,8 +35,8 @@ module Terminus
           Failure "Unable to obtain next screen. Can't find playlist with ID: #{id.inspect}."
         end
 
-        def process event, playlist, by:
-          if event || playlist.automatic?
+        def process command, playlist, by:
+          if command != :current || playlist.automatic?
             update playlist, by:
           else
             Success playlist.current_item

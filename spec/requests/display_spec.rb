@@ -18,7 +18,7 @@ RSpec.describe "/api/display", :db do
     Factory[:firmware_model, firmware_id: firmware.id, model_id: model.id]
   end
 
-  it "answers payload with all atttributes" do
+  it "answers payload with all attributes" do
     device
     get routes.path(:api_display), {}, **firmware_headers
 
@@ -34,7 +34,31 @@ RSpec.describe "/api/display", :db do
       maximum_compatibility: false,
       temperature_profile: "default",
       touchbar_mode: "tap",
-      action: nil,
+      action: "timer",
+      playlist_image_names: nil
+    )
+  end
+
+  it "answers payload with special function header" do
+    device
+
+    get routes.path(:api_display),
+        {},
+        **firmware_headers.merge!("HTTP_SPECIAL_FUNCTION" => "identify")
+
+    expect(json_payload).to match(
+      filename: /identify_#{device.id}-\d{10}/,
+      image_url: match_shrine_uri(extension: :png),
+      image_url_timeout: 0,
+      refresh_rate: 900,
+      firmware_version: "1.2.3",
+      firmware_url: "memory://abc123.bin",
+      update_firmware: false,
+      reset_firmware: false,
+      maximum_compatibility: false,
+      temperature_profile: "default",
+      touchbar_mode: "tap",
+      action: "identify",
       playlist_image_names: nil
     )
   end
@@ -73,7 +97,7 @@ RSpec.describe "/api/display", :db do
       maximum_compatibility: false,
       temperature_profile: "default",
       touchbar_mode: "tap",
-      action: nil,
+      action: "timer",
       playlist_image_names: nil
     )
   end

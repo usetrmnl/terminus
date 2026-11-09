@@ -19,6 +19,12 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
       expect(positioner.call(device).success).to have_attributes(label: /Welcome/)
     end
 
+    it "answers current screen when command is current" do
+      expect(positioner.call(device, command: :current).success).to have_attributes(
+        label: /Welcome/
+      )
+    end
+
     it "answers next screen when current screen isn't last" do
       Factory[
         :playlist_item,
@@ -68,7 +74,7 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
         expect(positioner.call(device).value!).to have_attributes(id: screen.id)
       end
 
-      it "answers next screen when event is given" do
+      it "answers next screen when command is given" do
         positioner.call device
 
         screen = Factory[:screen, label: "Test"]
@@ -80,7 +86,7 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
           position: 2
         ]
 
-        expect(positioner.call(device, event: "button").success).to have_attributes(id: screen.id)
+        expect(positioner.call(device, command: "button").success).to have_attributes(id: screen.id)
       end
     end
 
