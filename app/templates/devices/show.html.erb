@@ -157,17 +157,18 @@
         </dt>
         <dd class="value"><%= human_time device.sleep_stop_at %></dd>
 
+        <dt class="key">
+          Synchronized
+          <%= scope(:popover_trigger_button, tip: :info, target: :synced_at).render %>
+        </dt>
+        <dd class="value"><%= human_at device.synced_at %></dd>
+
         <dt class="key">Created</dt>
         <dd class="value"><%= human_at device.created_at %></dd>
 
         <dt class="key">Updated</dt>
         <dd class="value"><%= human_at device.updated_at %></dd>
 
-        <dt class="key">
-          Synchronized
-          <%= scope(:popover_trigger_button, tip: :info, target: :synced_at).render %>
-        </dt>
-        <dd class="value"><%= human_at device.synced_at %></dd>
       </dl>
     </div>
   </div>
