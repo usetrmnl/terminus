@@ -24,7 +24,7 @@ Capybara.server = :puma, {Silent: true, Threads: "2:2"}
 Capybara.javascript_driver = :cuprite
 Capybara.save_path = Hanami.app.root.join "tmp/capybara"
 Capybara.register_driver :cuprite do |app|
-  browser_options = {"disable-gpu" => nil, "disable-dev-shm-usage" => nil, "no-sandbox" => nil}
+  browser_options = Terminus::Chromium::Loader.new.call.browser_options
   Capybara::Cuprite::Driver.new app, browser_options:, window_size: [1920, 1080]
 end
 
