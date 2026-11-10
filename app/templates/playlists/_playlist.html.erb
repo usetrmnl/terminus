@@ -12,7 +12,7 @@
 
   <%= scope(:popover_screen_content, **current_screen.popover_attributes).render %>
   <div class="bit-pill bit-pill-active">Current Screen</div>
-  <%= tag.span playlist.mode.capitalize %>
+  <%= tag.span playlist.mode_label %>
 
   <div class="actions">
     <%= render "shared/actions/view", path: routes.path(:playlist, id: playlist.id) %>

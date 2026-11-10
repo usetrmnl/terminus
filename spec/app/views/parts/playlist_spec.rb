@@ -18,6 +18,12 @@ RSpec.describe Terminus::Views::Parts::Playlist, :db do
 
   before { allow(rendering).to receive(:context).and_return Terminus::Views::Context.new }
 
+  describe "#mode_label" do
+    it "answers capitalized label" do
+      expect(part.mode_label).to eq("Automatic")
+    end
+  end
+
   describe "#current_screen_pill" do
     it "answers pill when current item, screen, and image exist" do
       expect(part.current_screen_pill(part.current_item)).to eq(

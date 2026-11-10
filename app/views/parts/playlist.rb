@@ -9,6 +9,8 @@ module Terminus
       class Playlist < Hanami::View::Part
         include Deps["aspects.screens.faux"]
 
+        def mode_label = mode.capitalize
+
         def current_screen_pill item, label = "Current Screen"
           return unless current_item_id == item.id
 
