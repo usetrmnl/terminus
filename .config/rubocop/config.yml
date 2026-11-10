@@ -30,7 +30,6 @@ Metrics/AbcSize:
     - app/aspects/extensions/importers/remote/transformer.rb
     - app/aspects/screens/converters/color.rb
     - app/aspects/screens/converters/monochrome.rb
-    - app/aspects/screens/interrupter.rb
     - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/BlockLength:

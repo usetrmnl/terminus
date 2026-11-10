@@ -33,10 +33,10 @@ module Terminus
           case command
             when "identify" then identify.call device
             when "screen_first", "restart_playlist"
-              positioner.call(device, command:, direction: :first)
-            when "screen_forward" then positioner.call(device, command:, direction: :forward)
-            when "screen_backward" then positioner.call(device, command:, direction: :backward)
-            when "screen_last" then positioner.call(device, command:, direction: :last)
+              reposition(device, direction: :first, command:)
+            when "screen_forward" then reposition(device, direction: :forward, command:)
+            when "screen_backward" then reposition(device, direction: :backward, command:)
+            when "screen_last" then reposition(device, direction: :last, command:)
             when "screen_wipe" then wipe.call device
             else error.call device,
                             i18n.translate("aspects.screens.interrupter.invalid_command", command:)
@@ -47,8 +47,12 @@ module Terminus
           if device.asleep?
             sleep.call device
           else
-            positioner.call device, direction: :forward
+            reposition device, direction: :forward
           end
+        end
+
+        def reposition device, direction:, command: nil
+          positioner.call device, command:, direction:
         end
 
         def commands

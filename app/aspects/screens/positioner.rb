@@ -6,7 +6,7 @@ require "initable"
 module Terminus
   module Aspects
     module Screens
-      # Updates a device's current playlist item by position.
+      # Updates a device's playlist current item by position.
       class Positioner
         include Deps[
           :i18n,
@@ -19,7 +19,7 @@ module Terminus
         ]
         include Dry::Monads[:result]
 
-        def call device, command: :current, direction: :forward
+        def call device, direction: :forward, command: :skip
           find_playlist(device).bind { |playlist| process command, playlist, by: direction }
                                .bind { |item| obtain_screen item }
         end
@@ -36,7 +36,7 @@ module Terminus
         end
 
         def process command, playlist, by:
-          if command != :current || playlist.automatic?
+          if command != :skip || playlist.automatic?
             update playlist, by:
           else
             Success playlist.current_item

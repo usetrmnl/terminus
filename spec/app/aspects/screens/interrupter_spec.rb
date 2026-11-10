@@ -88,7 +88,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       device = Factory.structs[:device]
       interrupter.call device
 
-      expect(positioner).to have_received(:call).with(device, direction: :forward)
+      expect(positioner).to have_received(:call).with(device, direction: :forward, command: nil)
     end
 
     it "processes device command for the EXT0 event" do
