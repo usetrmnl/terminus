@@ -32,13 +32,18 @@ RSpec.describe Terminus::Schemas::Firmware::Header do
         HTTP_RSSI: -54,
         HTTP_SENSORS: "make=Sensirion;model=SCD41;kind=humidity;" \
                       "value=26;unit=percent;created_at=1735714800",
-        HTTP_SPECIAL_FUNCTION: "identify",
         HTTP_TEMPERATURE_PROFILE: true,
-        HTTP_UPDATE_SOURCE: "Button pressed.",
+        HTTP_UPDATE_SOURCE: "timer",
         HTTP_USB_CONNECTED: false,
         HTTP_WAKE_TIME: 20,
         HTTP_WIDTH: 800,
         HTTP_WIFI_BAND: 2.4
+      )
+    end
+
+    it "answers valid contract with special function only" do
+      expect(contract.call({"HTTP_SPECIAL_FUNCTION" => "identify"}).to_h).to eq(
+        HTTP_SPECIAL_FUNCTION: "identify"
       )
     end
   end

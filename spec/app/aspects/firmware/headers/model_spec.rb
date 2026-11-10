@@ -25,7 +25,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
       sensors: [],
       user_agent: "ESP32HTTPClient",
       wake_duration: 20,
-      wake_reason: "Button pressed.",
+      wake_reason: "timer",
       width: 800,
       wifi_band: 2.4,
       wifi_signal: -40
@@ -37,9 +37,9 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
   describe ".for" do
     it "answers record for raw HTTP headers" do
       record = described_class.for firmware_headers.symbolize_keys!
+
       expect(record).to eq(
         described_class[
-          action: "identify",
           api_key: "abc123",
           battery_capacity: "4860/6000",
           battery_charge: "85",
@@ -66,7 +66,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
                    "unit=percent;created_at=1735714800",
           user_agent: "ESP32HTTPClient",
           wake_duration: "20",
-          wake_reason: "Button pressed.",
+          wake_reason: "timer",
           width: "800",
           wifi_band: "2.4",
           wifi_signal: "-54"
@@ -93,7 +93,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Model do
         image_cached: false,
         panel_revision: "abcdef12",
         wake_duration: 20,
-        wake_reason: "Button pressed.",
+        wake_reason: "timer",
         width: 800,
         wifi_band: 2.4,
         wifi_signal: -40

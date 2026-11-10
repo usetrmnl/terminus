@@ -36,7 +36,6 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
     it "answers header record when success" do
       expect(parser.call(firmware_headers)).to be_success(
         Terminus::Aspects::Firmware::Headers::Model[
-          action: "identify",
           api_key: "abc123",
           battery_capacity: "4860/6000",
           battery_charge: 85.0,
@@ -72,7 +71,7 @@ RSpec.describe Terminus::Aspects::Firmware::Headers::Parser do
           ],
           user_agent: nil,
           wake_duration: 20,
-          wake_reason: "Button pressed.",
+          wake_reason: "timer",
           width: 800,
           wifi_band: 2.4,
           wifi_signal: -54

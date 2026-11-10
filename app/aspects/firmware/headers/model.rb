@@ -74,9 +74,3 @@ module Terminus
     end
   end
 end
-
-# TODO: Remove when finished.
-__END__
-
-HTTP_PANEL_REV
-HTTP_SPECIAL_FUNCTION

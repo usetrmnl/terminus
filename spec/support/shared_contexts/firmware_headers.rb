@@ -25,9 +25,8 @@ RSpec.shared_context "with firmware headers" do
       "HTTP_RSSI" => "-54",
       "HTTP_SENSORS" => "make=Sensirion;model=SCD41;kind=humidity;" \
                         "value=26;unit=percent;created_at=1735714800",
-      "HTTP_SPECIAL_FUNCTION" => "identify",
       "HTTP_TEMPERATURE_PROFILE" => "true",
-      "HTTP_UPDATE_SOURCE" => "Button pressed.",
+      "HTTP_UPDATE_SOURCE" => "timer",
       "HTTP_USB_CONNECTED" => "false",
       "HTTP_USER_AGENT" => "ESP32HTTPClient",
       "HTTP_WAKE_TIME" => "20",
