@@ -9,7 +9,6 @@ require_relative "../app/aspects/designs/middleware"
 
 module Terminus
   # The application base routes.
-  # rubocop:todo-next Metrics/ClassLength
   class Routes < Hanami::Routes
     # Order matters.
     use Rack::Attack
@@ -31,7 +30,6 @@ module Terminus
 
     get "/", to: "dashboard.show", as: :root
 
-    # rubocop:todo-next Metrics/BlockLength
     scope "api" do
       get "/devices", to: "api.devices.index", as: :devices
       get "/devices/:id", to: "api.devices.show", as: :device

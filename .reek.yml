@@ -14,9 +14,14 @@ detectors:
   DataClump:
     exclude:
       - Terminus::Actions::API::Base
+      - Terminus::Actions::API::Display::Show
+      - Terminus::Actions::Bulk::Devices::Import::Create
+      - Terminus::Actions::Designs::Update
+      - Terminus::Actions::Devices::Logs::Index
       - Terminus::Actions::Extensions::Update
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Errors::Problem
+      - Terminus::Relations::FirmwareModel
       - Terminus::Repositories::Screen
   DuplicateMethodCall:
     exclude:
@@ -31,8 +36,11 @@ detectors:
       - Terminus::Actions::API::Base#detail_enum
       - Terminus::Actions::API::Base#detail_foreign_key
       - Terminus::Actions::API::Base#detail_out_of_range
+      - Terminus::Actions::API::Display::Show#add_firmware
       - Terminus::Actions::API::Extensions::Exchanges::Create#failure
       - Terminus::Actions::API::Extensions::Exchanges::Patch#unprocessable_content
+      - Terminus::Actions::API::Firmware::Create#upload
+      - Terminus::Actions::API::Firmware::Patch#replace
       - Terminus::Actions::API::Screens::Create#handle
       - Terminus::Actions::API::Screens::Create#save
       - Terminus::Actions::API::Screens::Patch#replace
@@ -49,12 +57,16 @@ detectors:
       - Terminus::Actions::Playlists::Create#error
       - Terminus::Actions::Playlists::Screens::Show#view_settings
       - Terminus::Actions::Playlists::Update#error
+      - Terminus::Actions::Screens::Create#save
+      - Terminus::Actions::Screens::Update#attach
       - Terminus::Actions::Users::Update#error
       - Terminus::Aspects::Devices::Creator#maybe_redact_api_key
+      - Terminus::Aspects::Devices::Importer#process
       - Terminus::Aspects::Errors::Detailer#build_message
       - Terminus::Aspects::Errors::Problem#enum
       - Terminus::Aspects::Extensions::Cloner#build_attributes
       - Terminus::Aspects::Extensions::Exchanges::Refresher#fetch
+      - Terminus::Aspects::Extensions::Fetcher::Client#build_detailed_failure
       - Terminus::Aspects::Extensions::Fetcher::Client#maybe_alter_mime_type
       - Terminus::Aspects::Extensions::Importers::Remote::Extractor#build
       - Terminus::Aspects::Extensions::Importers::Remote::Transformers::Kind#process
@@ -72,9 +84,11 @@ detectors:
       - Terminus::Aspects::Screens::Creator#find
       - Terminus::Aspects::Screens::Creators::TempPath#capture_input
       - Terminus::Aspects::Screens::Designer::EventStream#render_preview
+      - Terminus::Aspects::Screens::Importer#upsert_screen
       - Terminus::Aspects::Screens::Shoter#render
       - Terminus::Aspects::Screens::TempPather#capture_input
       - Terminus::Aspects::Screens::Upserters::TempPath#capture_input
+      - Terminus::Aspects::Superfluid::Filters::NumberToCurrency#call
       - Terminus::IPFinder#all
       - Terminus::Jobs::Batches::Extension#enqueue_devices
       - Terminus::Jobs::Batches::Extension#enqueue_models
@@ -85,6 +99,9 @@ detectors:
       - Terminus::Repositories::Screen#update_with_image
   LongParameterList:
     enabled: false
+  ManualDispatch:
+    exclude:
+      - Terminus::Views::Parts::Playlist#current_screen
   NestedIterators:
     exclude:
       - Terminus::Providers::RackAttack#allow_subnets
@@ -98,15 +115,23 @@ detectors:
     exclude:
       - Terminus::Aspects::Screens::Faux
       - Terminus::Chromium::Browser
+  TooManyMethods:
+    exclude:
+      - Terminus::Structs::Screen
   TooManyStatements:
     exclude:
       - Terminus::Action#handle_rodauth_redirect
+      - Terminus::Actions::Bulk::Devices::Import::Create#handle_uri
       - Terminus::Actions::Extensions::Poll::Show#fetch
+      - Terminus::Actions::Screens::Create#save
+      - Terminus::Actions::Screens::Update#save
       - Terminus::Aspects::Croner#call
+      - Terminus::Aspects::Devices::Importer#find_device_foreign_ids
       - Terminus::Aspects::Downloader#check
       - Terminus::Aspects::Extensions::Exchanges::RequestBuilder#render
       - Terminus::Aspects::Extensions::Fetcher::Client#parse
       - Terminus::Aspects::Extensions::Generator#process
+      - Terminus::Aspects::Extensions::Importers::Local::Creator#call
       - Terminus::Aspects::Extensions::Importers::Remote::Transformer#process
       - Terminus::Aspects::Extensions::Parser#from_json
       - Terminus::Aspects::Firmware::Downloader#get
@@ -115,14 +140,20 @@ detectors:
       - Terminus::Aspects::Screens::Converters::Monochrome#convert
       - Terminus::Aspects::Screens::Faux#initialize
       - Terminus::Aspects::Screens::Interrupter#interrupt
-      - Terminus::Chromium#call
-      - Terminus::Chromium#initialize
+      - Terminus::Aspects::Screens::Positioner#update
+      - Terminus::Aspects::Superfluid::Filters::NumberWithDelimiter#call
       - Terminus::Chromium::Browser#call
       - Terminus::Chromium::Browser#initialize
+      - Terminus::Chromium::Browser#maybe_recover
       - Terminus::Chromium::Browser#maybe_restart
       - Terminus::Providers::Sidekiq#load_schedule
+      - Terminus::Providers::Sidekiq#load_static_schedules
+      - Terminus::Relations::ExtensionDevice#update_all
+      - Terminus::Relations::ExtensionModel#update_all
+      - Terminus::Relations::FirmwareModel#update_all
       - Terminus::Structs::Device#battery_voltage_to_percent
       - Terminus::Structs::Device#wifi_percentage
+      - Terminus::Structs::Screen#replace
       - Terminus::Views::Parts::DeviceLog#level_class
       - UniversalLoggerPatch#_log_structured
   UncommunicativeMethodName:

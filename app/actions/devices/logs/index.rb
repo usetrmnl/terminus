@@ -5,7 +5,6 @@ module Terminus
     module Devices
       module Logs
         # The index action.
-        # :reek:DataClump
         class Index < Action
           include Deps[
             :htmx,

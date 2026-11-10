@@ -23,7 +23,6 @@ Rodauth::Feature.define :hanami do
   private
 
   def view_template? name
-    # rubocop:todo-next Style/SendWithLiteralMethodName
     view_rendering.renderer.__send__ :lookup, name, view_base.config.default_format
   end
 

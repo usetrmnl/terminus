@@ -20,21 +20,29 @@ I18n/RailsI18n/DecorateString:
 I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
   Exclude:
     - app/views/parts/device.rb
+Layout/FirstArrayElementLineBreak:
+  Exclude:
+    - config/app.rb
 Metrics/AbcSize:
   Exclude:
+    - app/actions/bulk/devices/import/create.rb
+    - app/aspects/extensions/importers/local/creator.rb
     - app/aspects/extensions/importers/remote/transformer.rb
     - app/aspects/screens/converters/color.rb
     - app/aspects/screens/converters/monochrome.rb
+    - app/aspects/screens/interrupter.rb
     - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/BlockLength:
   Exclude:
     - app/aspects/screens/converters/color.rb
     - config/db/migrate/*
+    - config/routes.rb
     - slices/authentication/feature.rb
     - slices/authentication/middleware.rb
 Metrics/ClassLength:
   Exclude:
+    - config/routes.rb
     - lib/terminus/chromium/browser.rb
     - slices/authentication/middleware.rb
 Metrics/CollectionLiteralLength:
@@ -61,6 +69,7 @@ Metrics/MethodLength:
     - cloneable_attributes
     - device_attributes
     - export_attributes
+    - interrupt
     - wifi_percentage
   Exclude:
     - app/aspects/screens/converters/color.rb
@@ -72,8 +81,11 @@ Metrics/MethodLength:
     - lib/terminus/refines/icalendar/event.rb
 Metrics/ParameterLists:
   Exclude:
+    - app/actions/api/display/show.rb
     - app/aspects/extensions/fetcher/request.rb
     - app/aspects/screens/faux.rb
+    - app/aspects/superfluid/filters/number_to_currency.rb
+    - app/views/helpers.rb
 Metrics/PerceivedComplexity:
   Exclude:
     - lib/terminus/refines/icalendar/event.rb
@@ -94,6 +106,9 @@ Style/IpAddresses:
 Style/MissingElse:
   Exclude:
     - app/aspects/screens/converters/color.rb
+Style/SendWithLiteralMethodName:
+  Exclude:
+    - slices/authentication/feature.rb
 Style/SymbolProc:
   Exclude:
     - lib/terminus/refines/icalendar/calendar.rb

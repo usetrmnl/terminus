@@ -8,7 +8,6 @@ module Terminus
     module API
       module Display
         # The show action.
-        # :reek:DataClump
         class Show < Base
           include Deps[
             :settings,
@@ -45,7 +44,6 @@ module Terminus
             end
           end
 
-          # rubocop:todo-next Metrics/ParameterLists
           def success event, device, screen, response
             attributes = {
               filename: screen.image_name_with_timestamp,
@@ -60,7 +58,6 @@ module Terminus
             model[**add_firmware(device), **attributes, **device.display_attributes]
           end
 
-          # :reek:FeatureEnvy
           def add_firmware device
             case firmware_finder.call model_id: device.model_id
               in Success(firmware)

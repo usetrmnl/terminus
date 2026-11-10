@@ -14,7 +14,6 @@ module Terminus
             @decimal = "."
           end
 
-          # :reek:TooManyStatements
           def call value, group = ",", separator = "."
             value = String value
 

@@ -6,7 +6,6 @@ module Terminus
   module Actions
     module Designs
       # The update action.
-      # :reek:DataClump
       class Update < Action
         include Deps[
           :htmx_layout,

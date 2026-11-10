@@ -16,15 +16,20 @@ module Terminus
         firmware_model.changeset(:create, associations).commit
       end
 
-      # :reek:TooManyStatements
       def update_all id, model_ids
         firmware_model.where(firmware_id: id).exclude(model_id: model_ids).delete
 
-        old_ids = firmware_model.where(firmware_id: id, model_id: model_ids).map(:model_id)
+        old_ids = find_ids id, model_ids
         new_ids = model_ids.reject { |id| old_ids.include? id.to_i }
         associations = new_ids.map { |model_id| {firmware_id: id, model_id:} }
 
         firmware_model.changeset(:create, associations).commit
+      end
+
+      private
+
+      def find_ids id, model_ids
+        firmware_model.where(firmware_id: id, model_id: model_ids).map(:model_id)
       end
     end
   end

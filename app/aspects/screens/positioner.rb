@@ -43,16 +43,15 @@ module Terminus
           end
         end
 
-        # :reek:TooManyStatements
         def update playlist, by:
           direction = directions[by]
 
-          return Failure "Invalid playlist direction to move to: #{by}." unless direction
+          return Failure "Invalid playlist direction: #{by}." unless direction
 
           item = find_item playlist, direction
 
           playlist_repository.update_current_item playlist, item
-          logger.debug { "Updated playlist #{playlist.id} current item position by moving: #{by}." }
+          logger.debug { "Updated playlist #{playlist.id} current item position to: #{by}." }
           Success item
         end
 

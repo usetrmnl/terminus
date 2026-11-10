@@ -54,7 +54,6 @@ module Terminus
             end
           end
 
-          # :reek:FeatureEnvy
           def build_success request, result
             if result.success?
               Success response[data: result.success]
@@ -67,7 +66,6 @@ module Terminus
             Failure response[errors: {uri: request.uri, code: nil, type: nil, body:}]
           end
 
-          # :reek:FeatureEnvy
           def build_detailed_failure request, error
             Failure response[
               errors: {uri: request.uri, code: error.code, type: error.mime_type, body: error.body}

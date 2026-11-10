@@ -24,7 +24,6 @@ module Terminus
 
         private
 
-        # :reek:TooManyStatements
         def save record, parameters, response
           id = record.id
           attributes = parameters[:screen]
@@ -35,7 +34,6 @@ module Terminus
           response.redirect_to routes.path(:screen, id:)
         end
 
-        # :reek:FeatureEnvy
         def attach record, image
           return unless image
 

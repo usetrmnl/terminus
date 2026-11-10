@@ -31,8 +31,6 @@ module Terminus
               super(**)
             end
 
-            # :reek:TooManyStatements
-            # rubocop:todo-next Metrics/AbcSize
             def call io, attributes: {}
               unzipper.call(io)
                       .fmap { |entries| transform entries }

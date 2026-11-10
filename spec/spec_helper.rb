@@ -23,7 +23,9 @@ unless ENV["COVERAGE"] == "no"
     group "Structs", "app/structs"
     group "Uploaders", "app/uploaders"
     group "Views", "app/views"
+    skip "config/providers"
     skip "app/templates"
+    skip "slices/authentication/middleware.rb"
     skip "slices/authentication/templates"
   end
 end

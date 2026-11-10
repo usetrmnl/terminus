@@ -55,7 +55,6 @@ module Terminus
                        .grep(/load_/).each { __send__ it }
       end
 
-      # :reek:TooManyStatements
       def load_static_schedules
         jobs = YAML.load_file slice.root.join("config/sidekiq_scheduler.yml")
 

@@ -50,7 +50,6 @@ module Terminus
                 .map { it.to_h.compact }
         end
 
-        # :reek:FeatureEnvy
         def process rows, partition: Hash.new { |nascence, lacuna| nascence[lacuna] = [] }
           rows.each.with_object partition do |row, all|
             case create_device row
@@ -62,7 +61,6 @@ module Terminus
 
         def create_device(row) = find_device_foreign_ids(row).bind { creator.call(**it, **row) }
 
-        # :reek:TooManyStatements
         def find_device_foreign_ids row
           model_id = nil
           model_name = row.delete :model_name

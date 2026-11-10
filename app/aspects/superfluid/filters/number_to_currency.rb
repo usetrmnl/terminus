@@ -10,8 +10,6 @@ module Terminus
             @caster = caster
           end
 
-          # :reek:FeatureEnvy
-          # rubocop:todo-next Metrics/ParameterLists
           def call number, unit = "$", delimiter = ",", separator = ".", precision = 2
             result = caster.call number, delimiter, separator
             dollars, cents = result.split separator

@@ -86,7 +86,6 @@ module Terminus
         end
       end
 
-      # :reek:TooManyStatements
       def maybe_recover
         lock.with_write_lock do
           return if (self.recoveries += 1) > configuration.maximum_recoveries

@@ -53,7 +53,6 @@ module Terminus
                               proc { unprocessable_download uri, response }
           end
 
-          # :reek:FeatureEnvy
           def replace record, content, response
             Pathname.mktmpdir do |root|
               root.join("#{record.version}.bin").write(content).open { record.replace it }

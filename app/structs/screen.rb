@@ -6,7 +6,6 @@ require "refinements/hash"
 module Terminus
   module Structs
     # The screen struct.
-    # :reek:TooManyMethods
     class Screen < DB::Struct
       include Terminus::Uploaders::Image::Attachment[:image]
 
@@ -60,7 +59,6 @@ module Terminus
 
       def mime_type = image_attributes.dig :metadata, :mime_type
 
-      # :reek:TooManyStatements
       def replace(io, **)
         store_id = image_id
         attacher.assign(io, **)

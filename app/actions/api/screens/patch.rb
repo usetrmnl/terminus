@@ -5,7 +5,6 @@ module Terminus
     module API
       module Screens
         # The patch action.
-        # :reek:DataClump
         class Patch < Base
           include Deps["aspects.screens.upserter", repository: "repositories.screen"]
           include Initable[serializer: Serializers::Screen]

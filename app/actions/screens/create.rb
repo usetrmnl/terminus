@@ -27,8 +27,6 @@ module Terminus
 
         private
 
-        # :reek:FeatureEnvy
-        # :reek:TooManyStatements
         def save attributes
           image = attributes.delete :image
           record = repository.create attributes

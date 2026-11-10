@@ -8,7 +8,6 @@ module Terminus
       module Devices
         module Import
           # The create action.
-          # :reek:DataClump
           class Create < Action
             include Deps["aspects.devices.importer", "aspects.errors.detailer"]
 
@@ -44,8 +43,6 @@ module Terminus
               end
             end
 
-            # :reek:TooManyStatements
-            # rubocop:todo-next Metrics/AbcSize
             def handle_uri parameters, response
               uri = parameters.to_h.dig :devices, :uri
               flash = response.flash

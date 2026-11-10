@@ -30,7 +30,6 @@ module Terminus
 
     config.actions.formats.register :problem_details, RFC::API::Problem::MEDIA_TYPE_JSON
 
-    # rubocop:todo-next Layout/FirstArrayElementLineBreak
     config.actions.sessions = :cookie,
                               {
                                 key: "terminus.session",

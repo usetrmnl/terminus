@@ -69,7 +69,6 @@ module Terminus
                                .then { log it }
         end
 
-        # :reek:FeatureEnvy
         def upsert_screen record
           name = record.fetch("model", Core::EMPTY_HASH)["name"]
           model = model_repository.find_by(name:)

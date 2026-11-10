@@ -92,12 +92,12 @@ RSpec.describe Terminus::Aspects::Screens::Positioner, :db do
 
     it "logs debug message for movement" do
       positioner.call device
-      expect(logger.reread).to match(/DEBUG.+Updated playlist.+\d+.+moving.+forward/)
+      expect(logger.reread).to match(/DEBUG.+Updated playlist.+\d+.+to.+forward/)
     end
 
     it "answers failure with invalid direction" do
       expect(positioner.call(device, direction: :bogus)).to be_failure(
-        "Invalid playlist direction to move to: bogus."
+        "Invalid playlist direction: bogus."
       )
     end
 

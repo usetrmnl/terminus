@@ -30,12 +30,10 @@ module Terminus
                .then { it ? [it.public_send(label), it.public_send(id)] : ["Select...", nil] }
       end
 
-      # rubocop:todo-next Metrics/ParameterLists
       def field_included? key, value, attributes, record = nil
         ((record && record.public_send(key)) || attributes[key]).include? value
       end
 
-      # rubocop:todo-next Metrics/ParameterLists
       def field_for key, attributes, record = nil, errors: Core::EMPTY_HASH, prefix: "formatted_"
         real_key = String(key).delete_prefix(prefix).to_sym
 

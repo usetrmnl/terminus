@@ -16,7 +16,6 @@ module Terminus
         extension_device.changeset(:create, associations).commit
       end
 
-      # :reek:TooManyStatements
       def update_all id, device_ids
         extension_device.where(extension_id: id).exclude(device_id: device_ids).delete
 

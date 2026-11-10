@@ -15,7 +15,6 @@ module Terminus
           helpers.tag.div label, class: "bit-pill bit-pill-active"
         end
 
-        # :reek:ManualDispatch
         def current_screen
           if current_item_id && respond_to?(:current_item)
             current_item.screen

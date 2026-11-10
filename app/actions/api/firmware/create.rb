@@ -35,19 +35,20 @@ module Terminus
 
           private
 
-          # :reek:TooManyStatements
           def process parameters, response
             attributes, model_ids = parameters.values_at :firmware, :model_ids
             uri = attributes.delete :uri
             record = repository.create_with_models attributes, model_ids
 
+            download uri, record, response
+          end
+
+          def download uri, record, response
             downloader.call(uri)
                       .either -> http_response { upload record, http_response.body.to_s, response },
                               proc { unprocessable_download uri, response }
           end
 
-          # :reek:FeatureEnvy
-          # :reek:TooManyStatements
           def upload record, content, response
             Pathname.mktmpdir do |root|
               root.join("#{record.version}.bin").write(content).open { record.upload it }

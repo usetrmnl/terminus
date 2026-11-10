@@ -29,8 +29,6 @@ module Terminus
 
         private
 
-        # rubocop:todo-next Metrics/AbcSize
-        # rubocop:todo-next Metrics/MethodLength
         def interrupt device, command
           case command
             when "identify" then identify.call device
