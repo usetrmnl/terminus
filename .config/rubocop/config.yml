@@ -66,7 +66,7 @@ Metrics/MethodLength:
     - app/aspects/screens/converters/monochrome.rb
     - app/views/helpers.rb
     - config/initializers/universal_logger_patch.rb
-    - lib/terminus/chromium.rb
+    - lib/terminus/chromium/browser.rb
     - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/ParameterLists:

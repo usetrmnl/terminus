@@ -44,7 +44,7 @@ RSpec.describe Terminus::Aspects::Screens::Shoter do
     end
 
     it "answers failure when browser has issues" do
-      chromium = instance_double Terminus::Chromium, call: Failure("Danger!")
+      chromium = instance_double Terminus::Chromium::Browser, call: Failure("Danger!")
       shoter = described_class.new(chromium:)
 
       expect(shoter.call(content, path, width: 800, height: 480)).to be_failure("Danger!")
