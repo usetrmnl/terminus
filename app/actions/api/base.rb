@@ -27,9 +27,7 @@ module Terminus
 
         attr_reader :problem
 
-        # simplecov:disable
         def verify_csrf_token?(*) = false
-        # simplecov:enable
 
         private
 

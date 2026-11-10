@@ -6,6 +6,21 @@ RSpec.describe Terminus::Actions::API::Base do
   subject(:action) { implementation.new }
 
   describe "#call" do
+    context "with CSRF capture" do
+      let :implementation do
+        Class.new described_class do
+          def handle(*, response)
+            response[:verify] = verify_csrf_token?
+          end
+        end
+      end
+
+      it "doesn't verify CSRF token" do
+        response = implementation.new.call Hash.new
+        expect(response.exposures[:verify]).to be(false)
+      end
+    end
+
     context "with unique constraint error" do
       let :implementation do
         Class.new described_class do
