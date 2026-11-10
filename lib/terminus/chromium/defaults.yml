@@ -1,0 +1,8 @@
+browser_options:
+  disable-dev-shm-usage: null
+  disable-gpu: null
+  hide-scrollbar: null
+  no-sandbox: null
+maximums:
+  recoveries: 1
+  renders: 500
