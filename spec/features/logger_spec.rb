@@ -2,7 +2,7 @@
 
 require "hanami_helper"
 
-RSpec.describe "Logger" do
+RSpec.describe "Logger", :db do
   include_context "with application dependencies"
 
   it "logs message without a block" do
