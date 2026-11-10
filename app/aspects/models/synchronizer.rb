@@ -39,11 +39,11 @@ module Terminus
 
         def process item, palettes
           attributes = item.to_h
-          names = attributes[:palette_names]
+          default_palette_name = attributes.delete :default_palette_name
           model = upsert item, attributes
 
-          add_missing_palettes names, palettes, model
-          set_default_palette model, names
+          add_missing_palettes attributes[:palette_names], palettes, model
+          set_default_palette model, default_palette_name
         end
 
         def upsert item, attributes
@@ -56,28 +56,27 @@ module Terminus
           end
         end
 
-        # :reek:TooManyStatements
         def add_missing_palettes names, all, model
-          model_id = model.id
           required_ids = all.select { names.include? it.name }
                             .map(&:id)
-          existing_ids = join_repository.where(model_id:).map(&:palette_id)
 
-          (required_ids - existing_ids).each do |palette_id|
-            join_repository.create model_id:, palette_id:
+          (required_ids - existing_palette_ids(model)).each do |palette_id|
+            join_repository.create model_id: model.id, palette_id:
           end
 
           model
         end
 
-        def set_default_palette model, names
+        def existing_palette_ids model
+          join_repository.where(model_id: model.id).map(&:palette_id)
+        end
+
+        def set_default_palette model, name
           return if model.default_palette_id
 
-          palette = palette_repository.find_by name: names.first
-
-          return unless palette
-
-          model_repository.update model.id, default_palette_id: palette.id
+          palette_repository.find_by(name:).then do |palette|
+            model_repository.update model.id, default_palette_id: palette.id if palette
+          end
         end
       end
     end

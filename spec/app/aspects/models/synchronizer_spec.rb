@@ -24,6 +24,7 @@ RSpec.describe Terminus::Aspects::Models::Synchronizer, :db do
                           offset_x: 10,
                           offset_y: 15,
                           palette_names: %w[bw gray-4],
+                          default_palette_name: "bw",
                           css: {classes: {device: "screen-v2", size: "screen-lg"}}
                         ]
                       ]
