@@ -35,6 +35,7 @@ Metrics/BlockLength:
     - slices/authentication/middleware.rb
 Metrics/ClassLength:
   Exclude:
+    - lib/terminus/chromium/browser.rb
     - slices/authentication/middleware.rb
 Metrics/CollectionLiteralLength:
   Exclude:

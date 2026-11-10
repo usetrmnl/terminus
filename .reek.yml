@@ -97,6 +97,7 @@ detectors:
   TooManyInstanceVariables:
     exclude:
       - Terminus::Aspects::Screens::Faux
+      - Terminus::Chromium::Browser
   TooManyStatements:
     exclude:
       - Terminus::Action#handle_rodauth_redirect
@@ -116,6 +117,9 @@ detectors:
       - Terminus::Aspects::Screens::Interrupter#interrupt
       - Terminus::Chromium#call
       - Terminus::Chromium#initialize
+      - Terminus::Chromium::Browser#call
+      - Terminus::Chromium::Browser#initialize
+      - Terminus::Chromium::Browser#maybe_restart
       - Terminus::Providers::Sidekiq#load_schedule
       - Terminus::Structs::Device#battery_voltage_to_percent
       - Terminus::Structs::Device#wifi_percentage

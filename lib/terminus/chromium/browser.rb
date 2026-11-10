@@ -11,8 +11,6 @@ require "refinements/string"
 module Terminus
   module Chromium
     # A headless browser.
-    # :reek:TooManyInstanceVariables
-    # rubocop:todo-next Metrics/ClassLength
     class Browser
       include Deps[:settings, :i18n, :logger]
       include Initable[
@@ -20,16 +18,7 @@ module Terminus
           ferrum_default_timeout: :timeout,
           ferrum_process_timeout: :process_timeout,
           ferrum_javascript_errors: :js_errors
-        },
-        browser_options: {
-          "disable-dev-shm-usage" => nil,
-          "disable-gpu" => nil,
-          "hide-scrollbar" => nil,
-          "no-sandbox" => nil,
-          "process-per-site" => nil
-        },
-        maximum_renders: 500,
-        maximum_recoveries: 1
+        }
       ]
       include Dry::Monads[:result]
       include Inspectable[i18n: :type, client: :type]
@@ -37,10 +26,15 @@ module Terminus
       using Refinements::Hash
       using Refinements::String
 
-      def initialize(client: Ferrum::Browser, **)
+      def initialize(
+        configuration: Terminus::Chromium::Loader.new.call,
+        client: Ferrum::Browser,
+        **
+      )
         super(**)
+        @configuration = configuration
         @application_options = settings.to_h.slice(*options_map.keys).transform_keys!(options_map)
-        @client = client.new application_options.merge!(browser_options:)
+        @client = client.new configuration.merge_options(application_options)
         @lock = Concurrent::ReadWriteLock.new
         @renders = 0
         @recoveries = 0
@@ -70,12 +64,12 @@ module Terminus
       private
 
       attr_accessor :client, :renders, :recoveries
-      attr_reader :application_options, :lock
+      attr_reader :application_options, :configuration, :lock
 
       def log_options
         logger.debug do
           {
-            tags: [application_options, browser_options],
+            tags: [application_options, configuration.browser_options],
             message: i18n.translate("aspects.browser.options")
           }
         end
@@ -83,17 +77,19 @@ module Terminus
 
       def maybe_restart
         lock.with_write_lock do
-          return if (self.renders += 1) < maximum_renders
+          maximum = configuration.maximum_renders
+
+          return if (self.renders += 1) < maximum
 
           restart
-          logger.debug { i18n.translate "aspects.browser.restart", maximum: maximum_renders }
+          logger.debug { i18n.translate "aspects.browser.restart", maximum: }
         end
       end
 
       # :reek:TooManyStatements
       def maybe_recover
         lock.with_write_lock do
-          return if (self.recoveries += 1) > maximum_recoveries
+          return if (self.recoveries += 1) > configuration.maximum_recoveries
 
           restart
         rescue Ferrum::Error => error

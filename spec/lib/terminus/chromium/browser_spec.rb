@@ -12,7 +12,7 @@ RSpec.describe Terminus::Chromium::Browser do
       described_class.new
 
       expect(logger.reread).to match(
-        /DEBUG.+Ferrum browser options.+timeout.+process_timeout.+js_errors.+browser_options.+/
+        /DEBUG.+Ferrum browser options.+timeout.+process_timeout.+js_errors.+no-sandbox.+/
       )
     end
 
@@ -48,7 +48,10 @@ RSpec.describe Terminus::Chromium::Browser do
     end
 
     context "with maximum renders reached" do
-      subject(:browser) { described_class.new client:, maximum_renders: 1 }
+      subject :browser do
+        described_class.new client:,
+                            configuration: Terminus::Chromium::Model[maximums: {"renders" => 1}]
+      end
 
       it "resets render count" do
         browser.call
