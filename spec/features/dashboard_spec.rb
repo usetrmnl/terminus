@@ -9,10 +9,10 @@ RSpec.describe "Dashboard", :db do
   end
 
   it "lists firmware" do
-    firmware = Factory[:firmware]
+    Factory[:firmware]
     visit routes.path(:root)
 
-    expect(page).to have_link("0.0.0", href: Hanami.app[:routes].path(:firmware, id: firmware.id))
+    expect(page).to have_link("0.0.0", href: Hanami.app[:routes].path(:firmwares))
   end
 
   it "renders dashboard when firmware is missing" do

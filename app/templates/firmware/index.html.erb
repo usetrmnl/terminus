@@ -28,7 +28,7 @@
   </header>
 
   <%= scope(:popover_default_content, name: :overview, label: "Overview").render do %>
-    <p>Allows you to manage firmware updates for your devices. New versions will automatically appear via the Firmware Poller (see <a href="https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc">Jobs</a> documentation for details). You can also add your own custom firmware and your devices will automatically update when the new version is higher than the previous version.</p>
+    <p>Allows you to manage firmware updates for your devices. New versions automatically appear via the Firmware Poller (see <a href="https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc">Jobs</a> documentation for details). You can also add your own custom firmware and your devices will automatically update when the new version is higher than the previous version.</p>
 
     <p>💡 To revert to a previous version, for example, do the following:</p>
 
@@ -36,7 +36,7 @@
       <li>Disable the Firmware Poller.</li>
       <li>Upload the older version.</li>
       <li>Delete the undesired newer version.</li>
-      <li>Wait for your devices to update to the desired version.</li>
+      <li>Wait for your devices to update.</li>
       <li>Later, when wanting to pick up a new version, re-enable the Firmware Poller and wait for your devices to upgrade a usual.</li>
     </ul>
 

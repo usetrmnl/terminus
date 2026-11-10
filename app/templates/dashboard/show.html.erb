@@ -42,10 +42,7 @@
 
         <ul class="list">
           <% if firmware %>
-            <li>
-              <%= link_to firmware.version, routes.path(:firmware, id: firmware.id) %>:
-              Latest (<%= size firmware.attachment_size %>).
-            </li>
+            <li><%= link_to firmware.version, routes.path(:firmwares) %>: Latest.</li>
           <% end %>
 
           <li><a href="https://trmnl.com/flash">Flash</a>: A flashing tool.</li>
