@@ -9,13 +9,17 @@ RSpec.describe Terminus::Contracts::Devices::Imports::Device do
     let :attributes do
       {
         model_name: "test",
-        playlist_id: nil,
         label: "Test",
         mac_address: "AA:BB:CC:11:22:33",
         api_key: "secret",
         refresh_rate: 100,
         image_timeout: 0,
         firmware_update: "on",
+        display_compatibility: true,
+        display_profile: "default",
+        command: "screen_forward",
+        screen_duration: 3_600,
+        touch_bar: "tap",
         sleep_start_at: "01:00:00",
         sleep_stop_at: "02:00:00"
       }
