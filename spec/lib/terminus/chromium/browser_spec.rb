@@ -159,6 +159,18 @@ RSpec.describe Terminus::Chromium::Browser do
     end
   end
 
+  describe "#quit" do
+    it "quits the client" do
+      instance = instance_spy Ferrum::Browser
+      client = class_double Ferrum::Browser, new: instance
+      browser = described_class.new(client:)
+
+      browser.quit
+
+      expect(instance).to have_received(:quit)
+    end
+  end
+
   describe "#inspect" do
     it "lists i18n by type only" do
       expect(browser.inspect).to match_inspection(i18n: "Hanami::Providers::I18n::Backend")

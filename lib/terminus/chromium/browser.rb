@@ -61,6 +61,8 @@ module Terminus
       rescue Ferrum::TimeoutError then handle_timeout
       end
 
+      def quit = lock.with_write_lock { client.quit }
+
       private
 
       attr_accessor :client, :renders, :recoveries
