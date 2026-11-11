@@ -161,6 +161,19 @@
                     class: :value %>
   <% end %>
 
+  <%= scope(:form_field, key: :screen_duration, errors:).render do %>
+    <label class="key" for="device_screen_duration">
+      Screen Duration
+      <%= scope(:popover_trigger_button, tip: :info, target: :screen_duration).render %>
+    </label>
+
+    <%= form.number_field :screen_duration,
+                          id: :device_screen_duration,
+                          value: field_for(:screen_duration, fields, device),
+                          class: :value,
+                          min: 0 %>
+  <% end %>
+
   <%= scope(:form_field, key: :touch_bar, errors:).render do %>
     <label class="key" for="device_touch_bar">
       Touch Bar
