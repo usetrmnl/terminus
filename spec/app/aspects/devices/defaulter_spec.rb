@@ -13,7 +13,9 @@ RSpec.describe Terminus::Aspects::Devices::Defaulter do
         firmware_update: true,
         image_timeout: 0,
         label: "TRMNL",
-        refresh_rate: 900
+        refresh_rate: 900,
+        screen_duration: 0,
+        command: "screen_forward"
       )
     end
 
@@ -28,7 +30,9 @@ RSpec.describe Terminus::Aspects::Devices::Defaulter do
         firmware_update: true,
         image_timeout: 0,
         label: "TRMNL",
-        refresh_rate: 900
+        refresh_rate: 900,
+        screen_duration: 0,
+        command: "screen_forward"
       )
     end
   end
