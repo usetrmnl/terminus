@@ -67,14 +67,25 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     end
   end
 
-  describe "#formatted_panel_revision" do
-    it "answers unknown when nil" do
-      expect(part.formatted_panel_revision).to eq("Unknown")
+  describe "#formatted_firmware_version" do
+    it "answers version when present" do
+      expect(part.formatted_firmware_version).to eq("1.2.3")
     end
 
+    it "answers none when nil" do
+      allow(device).to receive(:firmware_version).and_return(nil)
+      expect(part.formatted_firmware_version).to eq("None")
+    end
+  end
+
+  describe "#formatted_panel_revision" do
     it "answers description when present" do
       allow(device).to receive(:panel_revision).and_return("abcdef12")
       expect(part.formatted_panel_revision).to eq("abcdef12")
+    end
+
+    it "answers none when nil" do
+      expect(part.formatted_panel_revision).to eq("None")
     end
   end
 
@@ -91,13 +102,13 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
   end
 
   describe "#wake_description" do
-    it "answers unknown when blank" do
-      expect(part.wake_description).to eq("Unknown")
-    end
-
     it "answers description when present" do
       allow(device).to receive(:wake_reason).and_return("Woken from test.")
       expect(part.wake_description).to eq("Woken from test.")
+    end
+
+    it "answers none when blank" do
+      expect(part.wake_description).to eq("None")
     end
   end
 

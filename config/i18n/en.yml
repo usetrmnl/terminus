@@ -158,12 +158,9 @@ en:
         warning: Font synchronization is disabled.
       model:
         warning: Model synchronization is disabled.
+  shared:
+    none: None
   time:
     formats:
       shorter: "%-I:%M %p"
     start_of_week: 0
-
-  views:
-    parts:
-      device:
-        unknown: "Unknown"
