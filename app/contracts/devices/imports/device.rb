@@ -18,6 +18,7 @@ module Terminus
             optional(:display_compatibility).filled :bool
             optional(:display_profile).filled :string
             optional(:command).filled :string
+            optional(:screen_duration).filled :integer, gteq?: 0
             optional(:touch_bar).filled :string
             optional(:sleep_start_at).maybe :string
             optional(:sleep_stop_at).maybe :string

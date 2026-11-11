@@ -29,10 +29,14 @@ RSpec.describe Terminus::Schemas::Devices::Upsert do
         width: 800,
         height: 480,
         touch_bar: "tap",
+        command: "screen_forward",
+        screen_duration: 3_600,
         wake_duration: 123,
         wake_reason: "Awoken from test.",
         sleep_start_at: "18:00:00",
         sleep_stop_at: "06:00:00",
+        paused_at: "2026-06-01T01:02:03+00:00",
+        setup_at: "2026-06-01T01:02:03+00:00",
         synced_at: "2026-06-01T01:02:03+00:00"
       }
     end
@@ -116,6 +120,14 @@ RSpec.describe Terminus::Schemas::Devices::Upsert do
     it "answers false when charging key is missing" do
       attributes.delete :charging
       expect(contract.call(attributes).to_h).to include(charging: false)
+    end
+
+    it "answers failure when screen duration is less than zero" do
+      attributes[:screen_duration] = -1
+
+      expect(contract.call(attributes).errors.to_h).to include(
+        screen_duration: ["must be greater than or equal to 0"]
+      )
     end
   end
 end

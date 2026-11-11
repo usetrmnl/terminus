@@ -28,10 +28,13 @@ module Terminus
         optional(:wifi_signal).filled :integer
         optional(:touch_bar).filled :string
         optional(:command).filled :string
-        optional(:wake_duration).maybe :integer
+        optional(:screen_duration).filled :integer, gteq?: 0
+        optional(:wake_duration).maybe :integer, gteq?: 0
         optional(:wake_reason).filled :string
         optional(:sleep_start_at).maybe :string
         optional(:sleep_stop_at).maybe :string
+        optional(:paused_at).maybe :string
+        optional(:setup_at).maybe :string
         optional(:synced_at).maybe :string
 
         after(:value_coercer, &Coercers::DefaultToFalse.curry[:charging])
