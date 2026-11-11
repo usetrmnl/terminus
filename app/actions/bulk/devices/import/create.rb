@@ -39,7 +39,7 @@ module Terminus
             def process parameters, response
               case parameters
                 in {devices: {uri: String}} then handle_uri parameters, response
-                in {devices: {attachment:}} then handle_attachment parameters, response
+                in {devices: {attachment: Hash}} then handle_attachment parameters, response
               end
             end
 
