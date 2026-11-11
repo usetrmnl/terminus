@@ -27,11 +27,14 @@ module Terminus
         optional(:wifi_band).filled :float, gteq?: 0
         optional(:wifi_signal).filled :integer
         optional(:command).filled :string
+        optional(:screen_duration).filled :integer, gteq?: 0
         optional(:touch_bar).filled :string
         optional(:wake_duration).maybe :integer
         optional(:wake_reason).filled :string
         optional(:sleep_start_at).maybe :string
         optional(:sleep_stop_at).maybe :string
+        optional(:paused_at).maybe :string
+        optional(:setup_at).maybe :string
         optional(:synced_at).maybe :string
       end
     end
