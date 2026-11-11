@@ -19,7 +19,9 @@ module Terminus
             image_timeout: 0,
             label: "TRMNL",
             mac_address: mac_address_builder.call,
-            refresh_rate: 900
+            refresh_rate: 900,
+            screen_duration: 0,
+            command: "screen_forward"
           }
         end
 
