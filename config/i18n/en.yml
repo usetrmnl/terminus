@@ -165,11 +165,12 @@ en:
     import:
       create:
         notice: Model imported!
+  shared:
+    none: None
   time:
     formats:
       shorter: "%-I:%M %p"
     start_of_week: 0
-
   views:
     parts:
       device:

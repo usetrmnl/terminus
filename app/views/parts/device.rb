@@ -17,16 +17,14 @@ module Terminus
 
         def formatted_display_profile = display_profile.capitalize
 
-        def formatted_panel_revision
-          panel_revision || helpers.translate("views.parts.device.unknown")
-        end
+        def formatted_panel_revision = panel_revision || helpers.translate("shared.none")
 
         def formatted_touch_bar = touch_bar.capitalize
 
         def translated_command = helpers.translate "devices.shared._fields.commands.#{command}"
 
         def wake_description
-          String(wake_reason).empty? ? helpers.translate("views.parts.device.unknown") : wake_reason
+          String(wake_reason).empty? ? helpers.translate("shared.none") : wake_reason
         end
 
         def wifi_measurement_label
@@ -42,7 +40,7 @@ module Terminus
         end
 
         def version_link
-          version = firmware_version || "None"
+          version = firmware_version || helpers.translate("shared.none")
           helpers.link_to version, routes.path(:firmwares)
         end
       end
