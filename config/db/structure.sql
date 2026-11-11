@@ -288,7 +288,11 @@ CREATE TABLE public.device (
     api_key text,
     command text DEFAULT 'screen_forward'::text NOT NULL,
     firmware_reset boolean DEFAULT false NOT NULL,
-    panel_revision text
+    panel_revision text,
+    screen_id integer,
+    screen_duration integer DEFAULT 0 NOT NULL,
+    setup_at timestamp without time zone,
+    paused_at timestamp without time zone
 );
 
 
@@ -1536,6 +1540,14 @@ ALTER TABLE ONLY public.device_log
 
 
 --
+-- Name: device device_screen_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device
+    ADD CONSTRAINT device_screen_id_fkey FOREIGN KEY (screen_id) REFERENCES public.screen(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: device_sensor device_sensor_device_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1855,4 +1867,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20261012111836_add_firmware_model.rb'),
 ('20261021084105_remove_device_width_and_height_columns.rb'),
 ('20261103161019_add_device_panel_revision_column.rb'),
-('20261123093706_update_device_command_default.rb');
+('20261123093706_update_device_command_default.rb'),
+('20261123101009_add_device_screen_and_datetime_columns.rb');
