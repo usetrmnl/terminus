@@ -46,7 +46,9 @@ module Terminus
             attr_reader :schema
 
             def transform entries
-              entries.transform_keys!(key_map).then { {**it, **YAML.load(it[:configuration])} }
+              entries.transform_keys!(key_map).then do |adaptations|
+                {**adaptations, **YAML.load(adaptations.fetch(:configuration, Core::EMPTY_STRING))}
+              end
             end
 
             def create_exchanges extension, attributes

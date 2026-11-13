@@ -147,6 +147,11 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Local::Creator, :db do
       end
     end
 
+    it "answers failure with invalid zip file structure" do
+      io = Terminus::Aspects::Zipper.new.call(Hash.new).value!
+      expect(creator.call(io)).to match(Failure(/version is missing/))
+    end
+
     it "answers failure when extension can't be created" do
       extension_creator = instance_double(
         Terminus::Aspects::Extensions::Importers::Local::Creators::Extension,
