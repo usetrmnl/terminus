@@ -12,7 +12,8 @@ module Terminus
       def asleep? at = Time.now, type: Sequel::SQLTime
         return false unless sleep_start_at && sleep_stop_at
 
-        now = type.create at.hour, at.min, at.sec
+        at in {hour:, min:, sec:}
+        now = type.create hour, min, sec
 
         if sleep_stop_at < sleep_start_at
           now >= sleep_start_at || now <= sleep_stop_at
@@ -25,11 +26,11 @@ module Terminus
         battery_charge.positive? ? battery_charge : battery_voltage_to_percent
       end
 
-      def display_attributes
+      def display_attributes at = Time.now
         {
           image_url_timeout: image_timeout,
           maximum_compatibility: display_compatibility,
-          refresh_rate:,
+          refresh_rate: refresh_rate_until_wake(at),
           temperature_profile: display_profile,
           touchbar_mode: touch_bar,
           firmware_version:,
@@ -38,6 +39,14 @@ module Terminus
       end
 
       def liquid_attributes = {id:, battery_percentage:, wifi_percentage:}.stringify_keys!
+
+      def refresh_rate_until_wake at = Time.now, type: Sequel::SQLTime, day: 86_400
+        return refresh_rate unless asleep? at
+
+        at in {hour:, min:, sec:}
+
+        [(sleep_stop_at - type.create(hour, min, sec)).round.modulo(day), 1].max
+      end
 
       def slug
         return Core::EMPTY_STRING unless mac_address

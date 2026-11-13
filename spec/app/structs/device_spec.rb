@@ -163,6 +163,52 @@ RSpec.describe Terminus::Structs::Device, :db do
     end
   end
 
+  describe "#refresh_rate_until_wake" do
+    subject :device do
+      Factory[
+        :device,
+        refresh_rate: 900,
+        sleep_start_at: Time.utc(2025, 1, 1, 22, 0, 0),
+        sleep_stop_at: Time.utc(2025, 1, 1, 5, 0, 0)
+      ]
+    end
+
+    it "answers seconds until wake when asleep before midnight" do
+      expect(device.refresh_rate_until_wake(Time.utc(2025, 1, 1, 23, 0, 0))).to eq(21_600)
+    end
+
+    it "answers seconds until wake when asleep after midnight" do
+      expect(device.refresh_rate_until_wake(Time.utc(2025, 1, 2, 4, 30, 15))).to eq(1_785)
+    end
+
+    it "answers one second when waking now" do
+      expect(device.refresh_rate_until_wake(Time.utc(2025, 1, 2, 5, 0, 0))).to eq(1)
+    end
+
+    it "answers refresh rate when awake" do
+      expect(device.refresh_rate_until_wake(Time.utc(2025, 1, 2, 12, 0, 0))).to eq(900)
+    end
+
+    it "answers refresh rate when sleep isn't configured" do
+      expect(Factory.structs[:device, refresh_rate: 900].refresh_rate_until_wake).to eq(900)
+    end
+
+    context "when asleep within the same day" do
+      subject :device do
+        Factory[
+          :device,
+          refresh_rate: 900,
+          sleep_start_at: Time.utc(2025, 1, 1, 1, 0, 0),
+          sleep_stop_at: Time.utc(2025, 1, 1, 6, 0, 0)
+        ]
+      end
+
+      it "answers seconds until wake" do
+        expect(device.refresh_rate_until_wake(Time.utc(2025, 1, 1, 2, 0, 0))).to eq(14_400)
+      end
+    end
+  end
+
   describe "#slug" do
     it "answers string with no colons" do
       expect(device.slug).to eq("AABBCC112233")
