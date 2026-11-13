@@ -51,7 +51,7 @@ module Terminus
           end
         end
 
-        def reposition device, direction:, command: nil
+        def reposition device, direction:, command: :skip
           positioner.call device, command:, direction:
         end
 
