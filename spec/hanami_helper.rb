@@ -25,7 +25,17 @@ Capybara.javascript_driver = :cuprite
 Capybara.save_path = Hanami.app.root.join "tmp/capybara"
 Capybara.register_driver :cuprite do |app|
   browser_options = Terminus::Chromium::Loader.new.call.browser_options
-  Capybara::Cuprite::Driver.new app, browser_options:, window_size: [1920, 1080]
+
+  # A view transition takes every click until it ends, so a click made during one is lost.
+  no_view_transitions = <<~JAVASCRIPT
+    delete Document.prototype.startViewTransition;
+    addEventListener("pagereveal", event => event.viewTransition?.skipTransition());
+  JAVASCRIPT
+
+  Capybara::Cuprite::Driver.new app,
+                                browser_options:,
+                                extensions: [{source: no_view_transitions}],
+                                window_size: [1920, 1080]
 end
 
 Sidekiq.testing! :inline
