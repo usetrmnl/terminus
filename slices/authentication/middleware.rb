@@ -12,6 +12,10 @@ module Authentication
     UNVERIFIED_ID = 1
     VERIFIED_ID = 2
 
+    def self.view
+      @view ||= View.new
+    end
+
     plugin :middleware
 
     # TODO: Remove after upgrading to Roda 4.0.0.
@@ -99,9 +103,6 @@ module Authentication
           redirect "/login"
         end
       end
-
-      # Feature (custom): hanami
-      hanami_view(proc { View.new })
 
       # Feature: jwt
       jwt_secret Hanami.app[:settings].app_secret

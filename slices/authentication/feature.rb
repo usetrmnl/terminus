@@ -4,8 +4,6 @@
 require "rodauth"
 
 Rodauth::Feature.define :hanami do
-  auth_value_method :hanami_view, nil
-
   def view(name, *)
     configuration = view_base.config
     layout_path = Pathname(configuration.layouts_dir).join configuration.layout
@@ -43,7 +41,5 @@ Rodauth::Feature.define :hanami do
                       end
   end
 
-  def view_base
-    @view_base ||= hanami_view.call
-  end
+  def view_base = self.class.roda_class.view
 end
