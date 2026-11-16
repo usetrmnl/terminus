@@ -301,8 +301,12 @@ GEM
     mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     mustermann (3.1.1)
     nio4r (2.7.5)
+    nokogiri (1.19.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.7-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.7-aarch64-linux-musl)
@@ -338,6 +342,7 @@ GEM
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.1)
+    prism (2.1.0)
     prism (2.1.0-aarch64-linux-gnu)
     prism (2.1.0-aarch64-linux-musl)
     prism (2.1.0-arm-linux-gnu)
@@ -347,7 +352,7 @@ GEM
     prism (2.1.0-x86_64-linux-gnu)
     prism (2.1.0-x86_64-linux-musl)
     public_suffix (7.0.5)
-    puma (8.0.3)
+    puma (8.1.1)
       nio4r (~> 2.0)
     raabro (1.5.0)
     racc (1.8.1)
@@ -394,7 +399,7 @@ GEM
     rfc-api-problem (0.1.0)
       rack (~> 3.0)
       rexml (~> 3.4)
-    roda (3.109.0)
+    roda (3.110.0)
       rack
     rodauth (2.50.0)
       roda (>= 2.6.0)
@@ -775,8 +780,10 @@ CHECKSUMS
   metapath (0.0.1) sha256=5d5a933926565f65c45e0d78c991c8f98f65787bb4b99a41d4defce8a60e542b
   mini_magick (5.4.0) sha256=f120af581d9ed4ec52c57f35a67a605d112bb1d8f582d1415b147fda42d11d78
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
+  mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
   mustermann (3.1.1) sha256=4c6170c7234d5499c345562ba7c7dfe73e1754286dcc1abb053064d66a127198
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  nokogiri (1.19.7) sha256=abe94507c54cb18f872777b16bdca4aad32b1abdc4c52fe843f1c80fbdf992b8
   nokogiri (1.19.7-aarch64-linux-gnu) sha256=8f5e15d299602456406e1f03a9f3456cceb33a0722811e818d2ee2214eb4c84a
   nokogiri (1.19.7-aarch64-linux-musl) sha256=efe0c3602e6e54521bc21c681930ce5568e2d11203de17400710b2b3ca2e4cb4
   nokogiri (1.19.7-arm-linux-gnu) sha256=7fd1907125691aa89e838cc91161761c758b4e17bb32f0dd9b5515a82cc759af
@@ -793,6 +800,7 @@ CHECKSUMS
   pipeable (2.5.0) sha256=8360821dee6c448ff51dd3c3bf8ad3fb75940f852d4c1ad8fa7146e36ea8da10
   pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
   prettyprint (0.2.1) sha256=d555d57ea6d7cf001d4774b693546a6bd88bec1e778ddffb5c60b68ceec4b7d4
+  prism (2.1.0) sha256=1c0a7c6dea0e93183390fb123f007564dbe663198e2f86ad87204151147601f3
   prism (2.1.0-aarch64-linux-gnu) sha256=808dddc72def68e1a0463689414c97e0ba211938eddbab05387a4844aa2b3ec2
   prism (2.1.0-aarch64-linux-musl) sha256=dd1a0732620c1e575dabb07a297a62911fabd72f8e20ce850b522a866f877930
   prism (2.1.0-arm-linux-gnu) sha256=96b2426b9dbab05448c4add735619929042be3cd7e871ff186468121b62bcfa8
@@ -802,7 +810,7 @@ CHECKSUMS
   prism (2.1.0-x86_64-linux-gnu) sha256=b2b647afce09551e650b8bb3e2fc91d7d73d392a09534ca307ec0d619c33bfd4
   prism (2.1.0-x86_64-linux-musl) sha256=249f45981726923e259b927902246219fa25ad10a76f43849c9aee1a3d3ec5b8
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
-  puma (8.0.3) sha256=6383a60bbc3d9495b2e453d93e60cefa817f7e854a302a5013f31fd9f514a5f3
+  puma (8.1.1) sha256=24800758cf064ecc19d056301b6946f628d77ea14653d485fa17ff6a6331555c
   raabro (1.5.0) sha256=3f998a7bc84f9c84df3ab580634d2e0a5bda4f0841168d56035f529c9877440a
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rack (3.2.8) sha256=1fecc85e463ebc7a2a945fff829ffcd549babeb1556384796fad946c28dc4ec7
@@ -824,7 +832,7 @@ CHECKSUMS
   repl_type_completor (0.1.17) sha256=885c1a13e2cc79ad7f02d9f8d4bc27a6fa5e0eb26c3235498eb3bd621492c541
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rfc-api-problem (0.1.0) sha256=9ef6ca8e9e1ac4a34fac442317464bf37c8c98c6964e5205e80532b9272e877a
-  roda (3.109.0) sha256=470f60355043a7732edb08ece2d12eb2e6912866ac87106c92ded5f6f8a5a8dc
+  roda (3.110.0) sha256=474afda2668759c668b87de5bd6ddb996669a6fe75cca5c90c999c6abd8e7b30
   rodauth (2.50.0) sha256=45551a1877792edfc865f3c671e1989a7ab4031fb588043d4eb44980fd870b51
   rom (5.4.3) sha256=dc8925ba216e9635651edbbb1b4ddc0f145782a100e78458434e5f0aacfec2c8
   rom-changeset (5.4.0) sha256=503b9d2ad082743a28c06da70d431c7f12c18c4c0bca7f90c66d5aa2e13db898
@@ -889,4 +897,4 @@ RUBY VERSION
   ruby 4.0.9
 
 BUNDLED WITH
-  4.0.24
+  4.1.0
