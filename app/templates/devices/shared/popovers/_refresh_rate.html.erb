@@ -1,3 +1,5 @@
 <%= scope(:popover_default_content, name: :refresh_rate, label: "Refresh Rate").render do %>
   <p>The time, in seconds, until the next image is displayed on your device.</p>
+
+  <p>When your device is asleep, the seconds will be dynamically calculated for you based on your your <em>Sleep Stop</em> time. This means the number of seconds, until waking, will slowly get smaller as current time get closer to your <em>Sleep Stop</em> time. Once your device is awake, your refresh rate will remain constant based on your original value.</p>
 <% end %>
