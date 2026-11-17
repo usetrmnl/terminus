@@ -15,13 +15,19 @@ RSpec.describe "Designs", :db do
     expect(page).to have_text(template.label)
   end
 
-  it "creates", :js do
+  it "creates", :aggregate_failures, :js do
     model
     visit routes.path(:designs)
     click_link "New"
     select model.label, from: "model_id"
     fill_in "design[label]", with: "Test"
+    fill_in "design[name]", with: nil
+    click_button "Save"
+
+    expect(page).to have_text("must be filled")
+
     fill_in "design[name]", with: "test"
+    select model.label, from: "model_id"
     click_button "Save"
 
     expect(page).to have_text("Edit Design")

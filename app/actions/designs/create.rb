@@ -42,11 +42,13 @@ module Terminus
         end
 
         def error response, parameters
+          errors = parameters.errors
+
           response.render view,
                           models: model_repository.all,
                           template: nil,
                           fields: parameters[:design],
-                          errors: parameters.errors[:design]
+                          errors: errors[:design] || errors
         end
       end
     end
