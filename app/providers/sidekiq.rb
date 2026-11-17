@@ -9,7 +9,7 @@ module Terminus
     class Sidekiq < Hanami::Provider::Source
       RESOLVER = proc { Object.const_get "Sidekiq" }
 
-      include Deps[:logger, extension_repository: "repositories.extension"]
+      include Deps[:logger]
 
       using Refinements::Hash
 
@@ -27,7 +27,6 @@ module Terminus
       def start
         configure_server
         configure_client
-        load_schedules
         register :sidekiq, sidekiq
       end
 
@@ -48,35 +47,6 @@ module Terminus
           configuration.redis = {url: slice[:settings].keyvalue_url}
           configuration.logger = slice[:logger]
         end
-      end
-
-      def load_schedules
-        private_methods.tap { it.delete __method__ }
-                       .grep(/load_/).each { __send__ it }
-      end
-
-      def load_static_schedules
-        jobs = YAML.load_file slice.root.join("config/sidekiq_scheduler.yml")
-
-        jobs.each do |name, configuration|
-          sidekiq.set_schedule name, configuration
-          job = configuration["class"]
-          Object.const_get(job).perform_in 0
-        rescue NameError, TypeError
-          logger.error { "Unable to initialize job: #{job}." }
-        end
-      end
-
-      def load_extension_schedules
-        extension_repository.all.each { maybe_add_schedule(*it.to_schedule) }
-      end
-
-      def maybe_add_schedule name, configuration
-        existing = sidekiq.get_schedule name
-
-        return if configuration.empty? || existing.hash == configuration.stringify_keys.hash
-
-        sidekiq.set_schedule name, configuration
       end
 
       def sidekiq
