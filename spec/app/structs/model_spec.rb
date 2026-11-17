@@ -54,6 +54,37 @@ RSpec.describe Terminus::Structs::Model do
     end
   end
 
+  describe "#export_attributes" do
+    it "answers attributes" do
+      expect(model.export_attributes).to eq(
+        label: "Test",
+        name: "test",
+        description: nil,
+        kind: "terminus",
+        mime_type: "image/png",
+        colors: nil,
+        bit_depth: 4,
+        rotation: 0,
+        offset_x: 0,
+        offset_y: 0,
+        scale_factor: 1,
+        width: 800,
+        height: 480,
+        css: {
+          "classes" => {
+            "size" => "screen--lg",
+            "density" => "screen--density-2x"
+          },
+          "variables" => [
+            ["--screen-w", "1040px"],
+            ["--screen-h", "780px"],
+            ["--pixel-ratio", "1.8"]
+          ]
+        }
+      )
+    end
+  end
+
   describe "#orientation" do
     it "answers landscape when rotation is zero" do
       expect(model.orientation).to eq("landscape")

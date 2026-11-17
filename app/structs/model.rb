@@ -28,6 +28,25 @@ module Terminus
            .map { |(key, value)| "#{key}: #{value};" }
       end
 
+      def export_attributes
+        {
+          label:,
+          name:,
+          description:,
+          kind:,
+          mime_type:,
+          colors:,
+          bit_depth:,
+          rotation:,
+          offset_x:,
+          offset_y:,
+          scale_factor:,
+          width:,
+          height:,
+          css:
+        }
+      end
+
       def orientation = rotation.zero? ? "landscape" : "portrait"
     end
   end
