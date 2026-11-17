@@ -1,16 +1,18 @@
-firmware_synchronizer:
-  class: Terminus::Jobs::Synchronizers::Firmware
-  cron: "0 */6 * * *"
-  description: "Synchronizes TRMNL Firmware."
-font_synchronizer:
-  class: Terminus::Jobs::Synchronizers::Font
-  cron: "0 0 */1 * *"
-  description: "Synchronizes TRMNL Framework fonts."
-model_synchronizer:
+# Order matters.
+
+synchronizer-model:
   class: Terminus::Jobs::Synchronizers::Model
   cron: "0 0 */1 * *"
   description: "Synchronizes TRMNL models."
-sensor_synchronizer:
+synchronizer-firmware:
+  class: Terminus::Jobs::Synchronizers::Firmware
+  cron: "0 */6 * * *"
+  description: "Synchronizes TRMNL Firmware."
+synchronizer-font:
+  class: Terminus::Jobs::Synchronizers::Font
+  cron: "0 0 */1 * *"
+  description: "Synchronizes TRMNL Framework fonts."
+synchronizer-sensor:
   class: Terminus::Jobs::Synchronizers::Sensor
   cron: "0/1 * * * *"
   description: "Synchronizes server hosted sensor data (if any)."
