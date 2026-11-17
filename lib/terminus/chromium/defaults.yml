@@ -1,4 +1,5 @@
 browser_options:
+  blink-settings: "preferredColorScheme=1"
   disable-dev-shm-usage: null
   disable-gpu: null
   hide-scrollbar: null

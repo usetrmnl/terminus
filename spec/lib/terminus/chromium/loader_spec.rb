@@ -10,6 +10,7 @@ RSpec.describe Terminus::Chromium::Loader do
       expect(loader.call).to eq(
         Terminus::Chromium::Model[
           browser_options: {
+            "blink-settings" => "preferredColorScheme=1",
             "disable-dev-shm-usage" => nil,
             "disable-gpu" => nil,
             "hide-scrollbar" => nil,
