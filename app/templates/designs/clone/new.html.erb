@@ -1,0 +1,45 @@
+<%= render "shared/title", text: "Clone Design" %>
+
+<section class="bit-page">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb">
+        <%= link_to "Designs", routes.path(:designs), class: :link %>
+      </li>
+
+      <li class="bit-breadcrumb">Clone</li>
+    </ul>
+  </header>
+
+  <div class="bit-body">
+    <%= form_for :design,
+                 routes.path(:design_clone, id: template.id),
+                 class: "bit-card bit-form" do |form| %>
+      <h1 class="label">Clone Design</h1>
+
+      <%= render "designs/shared/fields", form:, screens:, template:, fields:, errors: %>
+
+      <%= scope(:form_field, key: :model_id, errors:).render do %>
+        <label class="key" for="model_id">
+          Model
+          <%= scope(:popover_trigger_button, tip: :info, target: :model).render %>
+        </label>
+
+        <%= tag.select id: :model_id, name: :model_id, class: :value do %>
+          <%= tag.option "Select...", value: nil %>
+
+          <% models.each do |model| %>
+            <%= tag.option model.label, value: model.id %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= form.submit "Save", class: "bit-button-accept" %>
+        <%= link_to "Cancel", routes.path(:designs), class: "bit-button-decline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= scope(:tooltip_action_content, label: "Info").render %>
+</section>

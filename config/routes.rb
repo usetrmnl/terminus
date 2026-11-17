@@ -117,6 +117,8 @@ module Terminus
     put "/designs/:id", to: "designs.update", as: :design
     delete "/designs/:id", to: "designs.delete", as: :design
 
+    get "/designs/:id/clone/new", to: "designs.clone.new", as: :design_clone_new
+
     get "/designs/:id/export", to: "designs.export.show", as: :design_export
     post "/designs/import", to: "designs.import.create", as: :design_import
 
