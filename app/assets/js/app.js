@@ -28,7 +28,7 @@ import "../css/bits/text.css";
 import "../css/bits/toggles.css";
 import "../css/bits/tooltips.css";
 import "../css/pages/dashboard.css";
-import "../css/pages/designer.css";
+import "../css/pages/designs.css";
 import "../css/pages/devices.css";
 import "../css/pages/playlists.css";
 import "../css/pages/problem_details.css";
