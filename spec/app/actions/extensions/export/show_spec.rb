@@ -13,11 +13,7 @@ RSpec.describe Terminus::Actions::Extensions::Export::Show, :db do
     let(:unzipper) { Terminus::Aspects::Unzipper.new }
 
     it "renders zip when success" do
-      response = action.call Rack::MockRequest.env_for(
-        "",
-        "router.params" => {extension_id: extension.id}
-      )
-
+      response = action.call Rack::MockRequest.env_for("", "router.params" => {id: extension.id})
       keys = unzipper.call(response.body.first).value!.keys
 
       expect(keys).to eq(%w[configuration.yml template.html.liquid])
@@ -26,11 +22,7 @@ RSpec.describe Terminus::Actions::Extensions::Export::Show, :db do
     it "renders error when failure" do
       exporter = instance_double Terminus::Aspects::Extensions::Exporter, call: Failure("Danger!")
       action = described_class.new(exporter:)
-
-      response = action.call Rack::MockRequest.env_for(
-        "",
-        "router.params" => {extension_id: extension.id}
-      )
+      response = action.call Rack::MockRequest.env_for("", "router.params" => {id: extension.id})
 
       expect(response.body.first).to eq("Danger!")
     end

@@ -6,7 +6,7 @@
     <%= render "shared/actions/edit", path: routes.path(:design_edit, id: template.id) %>
 
     <%= render "shared/actions/download",
-               path: routes.path(:design_export, design_id: template.id),
+               path: routes.path(:design_export, id: template.id),
                name: "design-#{template.name}.zip" %>
 
     <%= render "shared/actions/delete",

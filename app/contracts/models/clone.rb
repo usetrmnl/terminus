@@ -8,7 +8,7 @@ module Terminus
         config.messages.namespace = :model
 
         params do
-          required(:model_id).filled :integer
+          required(:id).filled :integer
           required(:model).filled Schemas::Models::Upsert
         end
 

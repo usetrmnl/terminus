@@ -22,10 +22,10 @@
                    path: routes.path(:playlist_screens, playlist_id: playlist.id) %>
 
         <%= render "shared/actions/clone",
-                   path: routes.path(:playlist_clone_new, playlist_id: playlist.id) %>
+                   path: routes.path(:playlist_clone_new, id: playlist.id) %>
 
         <%= render "shared/actions/mirror",
-                   path: routes.path(:playlist_mirror_edit, playlist_id: playlist.id),
+                   path: routes.path(:playlist_mirror_edit, id: playlist.id),
                    target: "closest .bit-page" %>
       </div>
 

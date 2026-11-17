@@ -9,7 +9,7 @@ module Terminus
           include Deps[repository: "repositories.model"]
 
           def handle request, response
-            model = repository.find request.params[:model_id]
+            model = repository.find request.params[:id]
             fields = {label: "#{model.label} Clone", name: "#{model.name}_clone"}
 
             response.render view, model:, fields:

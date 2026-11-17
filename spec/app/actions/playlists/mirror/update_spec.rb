@@ -12,12 +12,12 @@ RSpec.describe Terminus::Actions::Playlists::Mirror::Update, :db do
     let(:device) { Factory[:device] }
 
     it "answers not found for unknown playlist" do
-      response = action.call playlist_id: 666
+      response = action.call id: 666
       expect(response.status).to eq(404)
     end
 
     it "renders non-htmx response" do
-      response = action.call playlist_id: playlist.id
+      response = action.call id: playlist.id
       expect(response.body.first).to include("<!DOCTYPE html>")
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Terminus::Actions::Playlists::Mirror::Update, :db do
         action.call Rack::MockRequest.env_for(
           playlist.id.to_s,
           "HTTP_HX_REQUEST" => "true",
-          "router.params" => {playlist_id: playlist.id}
+          "router.params" => {id: playlist.id}
         )
       end
 

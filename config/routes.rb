@@ -117,7 +117,7 @@ module Terminus
     put "/designs/:id", to: "designs.update", as: :design
     delete "/designs/:id", to: "designs.delete", as: :design
 
-    get "/designs/:design_id/export", to: "designs.export.show", as: :design_export
+    get "/designs/:id/export", to: "designs.export.show", as: :design_export
     post "/designs/import", to: "designs.import.create", as: :design_import
 
     get "/extensions", to: "extensions.index", as: :extensions
@@ -132,10 +132,10 @@ module Terminus
 
     post "/extensions/import", to: "extensions.import.create", as: :extension_import
 
-    post "/extensions/:extension_id/build", to: "extensions.build.create", as: :extension_build
+    post "/extensions/:id/build", to: "extensions.build.create", as: :extension_build
 
-    get "/extensions/:extension_id/clone/new", to: "extensions.clone.new", as: :extension_clone_new
-    post "/extensions/:extension_id/clone", to: "extensions.clone.create", as: :extension_clone
+    get "/extensions/:id/clone/new", to: "extensions.clone.new", as: :extension_clone_new
+    post "/extensions/:id/clone", to: "extensions.clone.create", as: :extension_clone
 
     get "/extensions/:extension_id/exchanges",
         to: "extensions.exchanges.index",
@@ -156,8 +156,8 @@ module Terminus
            to: "extensions.exchanges.delete",
            as: :extension_exchange
 
-    get "/extensions/:extension_id/export", to: "extensions.export.show", as: :extension_export
-    get "/extensions/:extension_id/preview", to: "extensions.preview.show", as: :extension_preview
+    get "/extensions/:id/export", to: "extensions.export.show", as: :extension_export
+    get "/extensions/:id/preview", to: "extensions.preview.show", as: :extension_preview
     get "/extensions/:extension_id/sources", to: "extensions.sources.index", as: :extension_sources
     get "/extensions/:extension_id/sensors", to: "extensions.sensors.index", as: :extension_sensors
 
@@ -177,8 +177,8 @@ module Terminus
     put "/models/:id", to: "models.update", as: :model
     delete "/models/:id", to: "models.delete", as: :model
 
-    get "/models/:model_id/clone/new", to: "models.clone.new", as: :model_clone_new
-    post "/models/:model_id/clone", to: "models.clone.create", as: :model_clone
+    get "/models/:id/clone/new", to: "models.clone.new", as: :model_clone_new
+    post "/models/:id/clone", to: "models.clone.create", as: :model_clone
 
     get "/playlists", to: "playlists.index", as: :playlists
     get "/playlists/:id", to: "playlists.show", as: :playlist
@@ -188,8 +188,8 @@ module Terminus
     put "/playlists/:id", to: "playlists.update", as: :playlist
     delete "/playlists/:id", to: "playlists.delete", as: :playlist
 
-    get "/playlists/:playlist_id/clone/new", to: "playlists.clone.new", as: :playlist_clone_new
-    post "/playlists/:playlist_id/clone", to: "playlists.clone.create", as: :playlist_clone
+    get "/playlists/:id/clone/new", to: "playlists.clone.new", as: :playlist_clone_new
+    post "/playlists/:id/clone", to: "playlists.clone.create", as: :playlist_clone
 
     get "/playlists/:playlist_id/items", to: "playlists.items.index", as: :playlist_items
     get "/playlists/:playlist_id/items/:id", to: "playlists.items.show", as: :playlist_item
@@ -201,10 +201,8 @@ module Terminus
     put "/playlists/:playlist_id/items/:id", to: "playlists.items.update", as: :playlist_item
     delete "/playlists/:playlist_id/items/:id", to: "playlists.items.delete", as: :playlist_item
 
-    get "/playlists/:playlist_id/mirror/edit",
-        to: "playlists.mirror.edit",
-        as: :playlist_mirror_edit
-    put "/playlists/:playlist_id/mirror", to: "playlists.mirror.update", as: :playlist_mirror
+    get "/playlists/:id/mirror/edit", to: "playlists.mirror.edit", as: :playlist_mirror_edit
+    put "/playlists/:id/mirror", to: "playlists.mirror.update", as: :playlist_mirror
 
     get "/playlists/:playlist_id/screens", to: "playlists.screens.index", as: :playlist_screens
     get "/playlists/:playlist_id/screens/:id", to: "playlists.screens.show", as: :playlist_screen

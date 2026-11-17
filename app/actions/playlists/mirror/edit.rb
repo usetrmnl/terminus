@@ -12,7 +12,7 @@ module Terminus
             device_repository: "repositories.device"
           ]
 
-          params { required(:playlist_id).filled :integer }
+          params { required(:id).filled :integer }
 
           def handle request, response
             parameters = request.params
@@ -20,7 +20,7 @@ module Terminus
             halt :unprocessable_content unless parameters.valid?
 
             response.render view,
-                            playlist: repository.find(parameters[:playlist_id]),
+                            playlist: repository.find(parameters[:id]),
                             devices: device_repository.all,
                             layout: htmx_layout.call(request)
           end

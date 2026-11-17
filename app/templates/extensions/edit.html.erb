@@ -29,14 +29,14 @@
 
 
         <%= render "extensions/build/button",
-                   path: routes.path(:extension_build, extension_id: extension.id) %>
+                   path: routes.path(:extension_build, id: extension.id) %>
       </div>
 
       <%= scope(:popover_default_content, name: :preview, label: nil).render do %>
         <% model = extension.models.any? ? extension.models.first : default_model %>
         <% device_id = extension.devices.first.id if extension.devices.any? %>
         <% uri = routes.path :extension_preview,
-                             extension_id: extension.id,
+                             id: extension.id,
                              model_id: model.id,
                              device_id: %>
 

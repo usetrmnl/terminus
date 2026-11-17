@@ -11,10 +11,10 @@
     <% end %>
 
     <%= render "shared/actions/clone",
-               path: routes.path(:extension_clone_new, extension_id: extension.id) %>
+               path: routes.path(:extension_clone_new, id: extension.id) %>
 
     <%= render "shared/actions/download",
-               path: routes.path(:extension_export, extension_id: extension.id),
+               path: routes.path(:extension_export, id: extension.id),
                name: "extension-#{extension.name}.zip" %>
 
     <%= render "shared/actions/delete",

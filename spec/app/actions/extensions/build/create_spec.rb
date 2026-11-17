@@ -11,7 +11,7 @@ RSpec.describe Terminus::Actions::Extensions::Build::Create, :db do
     let :response do
       action.call Rack::MockRequest.env_for(
         extension.id.to_s,
-        "router.params" => {extension_id: extension.id}
+        "router.params" => {id: extension.id}
       )
     end
 

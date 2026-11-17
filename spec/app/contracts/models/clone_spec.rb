@@ -8,7 +8,7 @@ RSpec.describe Terminus::Contracts::Models::Clone do
   describe "#call" do
     let :attributes do
       {
-        model_id: 1,
+        id: 1,
         model: {
           default_palette_id: 1,
           name: "test",

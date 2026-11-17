@@ -13,7 +13,7 @@ module Terminus
           using Refinements::Hash
 
           params do
-            required(:extension_id).filled :integer
+            required(:id).filled :integer
             required(:extension).filled Schemas::Extensions::Upsert
           end
 
@@ -30,7 +30,7 @@ module Terminus
           private
 
           def save parameters, response
-            case cloner.call parameters[:extension_id], **parameters[:extension]
+            case cloner.call parameters[:id], **parameters[:extension]
               in Success then response.redirect_to routes.path(:extensions)
               in Failure(errors) then error parameters, errors, response
             end
@@ -41,10 +41,7 @@ module Terminus
               start_at: -> value { value.strftime("%Y-%m-%dT%H:%M:%S") }
             )
 
-            response.render view,
-                            extension: repository.find(parameters[:extension_id]),
-                            fields:,
-                            errors:
+            response.render view, extension: repository.find(parameters[:id]), fields:, errors:
           end
         end
       end

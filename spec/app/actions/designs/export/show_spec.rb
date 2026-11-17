@@ -15,7 +15,7 @@ RSpec.describe Terminus::Actions::Designs::Export::Show, :db do
     it "renders zip when success" do
       response = action.call Rack::MockRequest.env_for(
         "",
-        "router.params" => {design_id: screen_template.id}
+        "router.params" => {id: screen_template.id}
       )
 
       keys = unzipper.call(response.body.first).value!.keys
@@ -29,7 +29,7 @@ RSpec.describe Terminus::Actions::Designs::Export::Show, :db do
 
       response = action.call Rack::MockRequest.env_for(
         "",
-        "router.params" => {design_id: screen_template.id}
+        "router.params" => {id: screen_template.id}
       )
 
       expect(response.body.first).to eq("Danger!")

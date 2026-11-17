@@ -16,13 +16,13 @@ module Terminus
           ]
 
           params do
-            required(:playlist_id).filled :integer
+            required(:id).filled :integer
             optional(:mirror).filled(:hash) { required(:device_ids).array :integer }
           end
 
           def handle request, response
             parameters = request.params
-            playlist = repository.find parameters[:playlist_id]
+            playlist = repository.find parameters[:id]
 
             halt :not_found unless playlist
 
@@ -42,7 +42,7 @@ module Terminus
             htmx.response! response.headers, push_url: routes.path(:playlist, id:)
             response.render view,
                             playlist:,
-                            items: playlist_item_repository.where(playlist_id: id),
+                            items: playlist_item_repository.where(id: id),
                             layout: htmx_layout.call(request)
           end
         end

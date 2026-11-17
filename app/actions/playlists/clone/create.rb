@@ -9,7 +9,7 @@ module Terminus
           include Deps["aspects.playlists.cloner", repository: "repositories.playlist"]
 
           params do
-            required(:playlist_id).filled :integer
+            required(:id).filled :integer
 
             required(:playlist).hash do
               required(:label).filled :string
@@ -31,14 +31,14 @@ module Terminus
           private
 
           def clone parameters, response
-            case cloner.call parameters[:playlist_id], **parameters[:playlist]
+            case cloner.call parameters[:id], **parameters[:playlist]
               in Success then response.redirect_to routes.path(:playlists)
               in Failure(errors) then render_form_error parameters, errors, response
             end
           end
 
           def render_form_error parameters, errors, response
-            id, fields = parameters.to_h.values_at :playlist_id, :playlist
+            id, fields = parameters.to_h.values_at :id, :playlist
             response.render view, playlist: repository.find(id), fields:, errors:
           end
         end

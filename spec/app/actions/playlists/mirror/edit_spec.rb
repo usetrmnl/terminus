@@ -10,7 +10,7 @@ RSpec.describe Terminus::Actions::Playlists::Mirror::Edit, :db do
     let(:playlist) { Factory[:playlist] }
 
     it "answers 200 OK status with valid parameters" do
-      response = action.call playlist_id: playlist.id
+      response = action.call id: playlist.id
       expect(response.status).to eq(200)
     end
 
@@ -18,7 +18,7 @@ RSpec.describe Terminus::Actions::Playlists::Mirror::Edit, :db do
       response = action.call Rack::MockRequest.env_for(
         playlist.id.to_s,
         "HTTP_HX_REQUEST" => "true",
-        "router.params" => {playlist_id: playlist.id}
+        "router.params" => {id: playlist.id}
       )
 
       expect(response.body.first).to have_htmx_title(/Mirror Playlist \d+ Playlist/)

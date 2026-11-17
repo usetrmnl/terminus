@@ -12,14 +12,14 @@ module Terminus
 
           using Refines::Actions::Response
 
-          params { required(:design_id).filled :integer }
+          params { required(:id).filled :integer }
 
           def handle request, response
             parameters = request.params
 
             halt :unprocessable_content unless parameters.valid?
 
-            extension = repository.find parameters[:design_id]
+            extension = repository.find parameters[:id]
 
             case exporter.call extension
               in Success(body) then response.with body: body.read

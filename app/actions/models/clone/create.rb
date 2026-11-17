@@ -23,14 +23,14 @@ module Terminus
           private
 
           def clone parameters, response
-            case cloner.call parameters[:model_id], **parameters[:model]
+            case cloner.call parameters[:id], **parameters[:model]
               in Success then response.redirect_to routes.path(:models)
               in Failure(errors) then render_form_error parameters, errors, response
             end
           end
 
           def render_form_error parameters, errors, response
-            id, fields = parameters.to_h.values_at :model_id, :model
+            id, fields = parameters.to_h.values_at :id, :model
             response.render view, model: repository.find(id), fields:, errors:
           end
         end
