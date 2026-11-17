@@ -11,7 +11,7 @@ RSpec.describe Terminus::Aspects::Models::Cloner, :db do
 
     it "clones model without overrides" do
       clone = cloner.call(original.id).value!
-      expect(clone).to have_attributes(label: "Test Clone", name: "test_clone")
+      expect(clone).to have_attributes(label: "Test Clone", name: "test_clone", kind: "terminus")
     end
 
     it "clones model with overrides" do
@@ -20,6 +20,7 @@ RSpec.describe Terminus::Aspects::Models::Cloner, :db do
       expect(clone).to have_attributes(
         label: "Test Clone",
         name: "test_clone",
+        kind: "terminus",
         colors: 256,
         scale_factor: 1.5
       )

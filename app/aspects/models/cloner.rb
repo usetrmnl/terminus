@@ -12,19 +12,24 @@ module Terminus
 
         def call id, **overrides
           original = repository.find id
-          attributes = {label: "#{original.label} Clone", name: "#{original.name}_clone"}
 
-          Success create(original, attributes, overrides)
+          defaults = {
+            label: "#{original.label} Clone",
+            name: "#{original.name}_clone",
+            kind: "terminus"
+          }
+
+          Success create(original, defaults, overrides)
         rescue ROM::SQL::UniqueConstraintError => error
           build_failure error.message
         end
 
         private
 
-        def create original, attributes, overrides
+        def create original, defaults, overrides
           repository.create(
             **original.to_h.except(:id, :created_at, :updated_at),
-            **attributes,
+            **defaults,
             **overrides
           )
         end
