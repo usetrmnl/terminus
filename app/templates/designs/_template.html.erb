@@ -5,6 +5,9 @@
     <%= render "shared/actions/view", path: routes.path(:design, id: template.id) %>
     <%= render "shared/actions/edit", path: routes.path(:design_edit, id: template.id) %>
 
+    <%= render "shared/actions/clone",
+               path: routes.path(:design_clone_new, id: template.id) %>
+
     <%= render "shared/actions/download",
                path: routes.path(:design_export, id: template.id),
                name: "design-#{template.name}.zip" %>
