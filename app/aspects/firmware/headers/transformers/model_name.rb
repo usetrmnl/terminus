@@ -28,7 +28,7 @@ module Terminus
                 "xiao_epaper_display" => "og_plus",
                 "xteink_x4" => "xteink_x4"
               },
-              fallback: "generic_16_9"
+              fallback: "byod_custom"
             ]
 
             include Dry::Monads[:result]
