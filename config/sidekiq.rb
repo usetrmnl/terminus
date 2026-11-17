@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-require "hanami/boot"
+require "hanami/prepare"
+
+Hanami.app.start :sidekiq
