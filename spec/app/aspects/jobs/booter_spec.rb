@@ -2,20 +2,17 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Jobs::Booter do
+RSpec.describe Terminus::Aspects::Jobs::Booter, :db do
   using Refinements::Array
   using Refinements::Pathname
 
-  subject(:booter) { described_class.new schedule:, extension_repository: }
+  subject(:booter) { described_class.new schedule: }
 
   let(:schedule) { instance_spy Terminus::Aspects::Jobs::Schedule }
-  let(:extension_repository) { instance_double Terminus::Repositories::Extension }
 
   include_context "with application dependencies"
 
   describe "#call" do
-    before { allow(extension_repository).to receive(:all).and_return([]) }
-
     it "enqueues synchronizers" do
       Sidekiq::Testing.fake! do
         booter.call
@@ -48,9 +45,8 @@ RSpec.describe Terminus::Aspects::Jobs::Booter do
     end
 
     it "upserts extension schedules" do
-      extension = Factory.structs[:extension, unit: "minute", interval: 1]
+      extension = Factory[:extension, unit: "minute", interval: 1]
 
-      allow(extension_repository).to receive(:all).and_return([extension])
       booter.call
 
       expect(schedule).to have_received(:upsert).with(*extension.to_schedule)
