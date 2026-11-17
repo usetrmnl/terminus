@@ -59,7 +59,7 @@ module Terminus
 
         def rotatable? = !rotation.zero?
 
-        def viewport = {width:, height:}
+        def viewport = rotatable? ? {width: height, height: width} : {width:, height:}
       end
     end
   end
