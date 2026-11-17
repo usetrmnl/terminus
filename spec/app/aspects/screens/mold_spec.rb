@@ -191,8 +191,15 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
       expect(mold.with(**viewport).viewport).to eq(viewport)
     end
 
-    it "answers flipped width and height when rotatable" do
+    it "answers flipped width and height when ninety degrees (positive)" do
       expect(mold.with(width: 800, height: 480, rotation: 90).viewport).to eq(
+        width: 480,
+        height: 800
+      )
+    end
+
+    it "answers flipped width and height when ninety degrees (negative)" do
+      expect(mold.with(width: 800, height: 480, rotation: -90).viewport).to eq(
         width: 480,
         height: 800
       )
