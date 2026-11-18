@@ -53,6 +53,25 @@
 
     <div class="widgets">
       <fieldset class="box">
+        <legend class="label">
+          Tools
+
+          <%= scope(
+            :popover_trigger_button,
+            tip: :info,
+            target: :tools,
+            width: 20,
+            height: 20).render %>
+        </legend>
+
+        <ul class="list">
+          <li><%= link_to "WiFi Troubleshoot", "https://trmnl.com/wifi-troubleshoot" %>: Diagnose common network issues.</li>
+        </ul>
+      </fieldset>
+    </div>
+
+    <div class="widgets">
+      <fieldset class="box">
         <legend class="label bit-text-center">Designs</legend>
         <p class="number"><%= link_to design_count, routes.path(:designs) %></p>
       </fieldset>
