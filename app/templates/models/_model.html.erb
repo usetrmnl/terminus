@@ -8,6 +8,11 @@
     <%= render "shared/actions/view", path: routes.path(:model, id: model.id) %>
     <%= render "shared/actions/edit", path: routes.path(:model_edit, id: model.id) %>
     <%= render "shared/actions/clone", path: routes.path(:model_clone_new, id: model.id) %>
+
+    <%= render "shared/actions/download",
+               path: routes.path(:model_export, id: model.id),
+               name: "model-#{model.name}.zip" %>
+
     <%= render "shared/actions/delete", path: routes.path(:model, id: model.id), subject: :model %>
   </div>
 </li>

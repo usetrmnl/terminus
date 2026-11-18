@@ -56,6 +56,17 @@ RSpec.describe "Models", :db do
     expect(page).to have_text("Clone Test")
   end
 
+  it "exports" do
+    model
+
+    visit routes.path(:models)
+    within ".bit-card", text: model.label do
+      click_link "Download"
+    end
+
+    expect(page.source.encoding).to eq(Encoding::ASCII_8BIT)
+  end
+
   it "deletes", :js do
     model
     visit routes.path(:models)

@@ -183,6 +183,8 @@ module Terminus
     get "/models/:id/clone/new", to: "models.clone.new", as: :model_clone_new
     post "/models/:id/clone", to: "models.clone.create", as: :model_clone
 
+    get "/models/:id/export", to: "models.export.show", as: :model_export
+
     get "/playlists", to: "playlists.index", as: :playlists
     get "/playlists/:id", to: "playlists.show", as: :playlist
     get "/playlists/new", to: "playlists.new", as: :playlist_new
