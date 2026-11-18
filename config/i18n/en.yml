@@ -60,6 +60,9 @@ en:
       headers:
         parser:
           debug: Processing device request headers.
+    models:
+      importer:
+        imported: Imported model.
     screens:
       interrupter:
         invalid_command: "Invalid device command: %{command}. Please check your device's settings."
