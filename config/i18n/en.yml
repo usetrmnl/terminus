@@ -161,6 +161,10 @@ en:
         warning: Font synchronization is disabled.
       model:
         warning: Model synchronization is disabled.
+  models:
+    import:
+      create:
+        notice: Model imported!
   time:
     formats:
       shorter: "%-I:%M %p"

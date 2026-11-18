@@ -1,0 +1,30 @@
+<%= scope(:popover_default_content, name: :import, label: "Import").render do %>
+  <%= form_for :model,
+               routes.path(:model_import),
+               enctype: "multipart/form-data",
+               class: "bit-form" do |form| %>
+
+    <p>Please attach a zip file to import a previously exported model into your collection.</p>
+
+    <%= form.file_field :attachment,
+                        id: :model_attachment,
+                        value: nil,
+                        class: :value,
+                        accept: "application/zip" %>
+
+    <div class="form-actions">
+      <%= form.submit "Submit",
+                      class: "bit-button-accept",
+                      **HTMX[
+                        post: routes.path(:model_import),
+                        encoding: "multipart/form-data",
+                        trigger: :click,
+                        target: ".site-body",
+                        select: ".site-body",
+                        disable: "this"
+                      ] %>
+
+      <%= link_to "Cancel", routes.path(:models), class: "bit-button-decline" %>
+    </div>
+  <% end %>
+<% end %>

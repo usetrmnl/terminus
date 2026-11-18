@@ -17,9 +17,20 @@
     <div class="bit-actions">
       <%= render "shared/actions/search", path: routes.path(:models), query: %>
 
+      <%= scope(
+        :popover_trigger_button,
+        icon: :upload,
+        tip: :import,
+        target: :import,
+        width: 25,
+        height: 25
+      ).render %>
+
       <%= render "shared/actions/new", path: routes.path(:model_new) %>
     </div>
   </header>
+
+  <%= render :import %>
 
   <%= scope(:popover_default_content, name: :overview, label: "Overview").render do %>
     <p>Models provide the low-level specifications for <%= link_to "Devices", routes.path(:devices) %> and <%= link_to "Screens", routes.path(:screens) %>. These specifications dictate how screens should be created and rendered on your devices. All models must use unique labels and names so you can distinguish between them.</p>
@@ -50,6 +61,7 @@
 
   <%= scope(:tooltip_action_content, label: "Info").render %>
   <%= scope(:tooltip_action_content, label: "New").render %>
+  <%= scope(:tooltip_action_content, label: "Import").render %>
   <%= scope(:tooltip_action_content, label: "Search").render %>
   <%= scope(:tooltip_action_content, label: "Clear").render %>
   <%= scope(:tooltip_action_content, label: "View").render %>
