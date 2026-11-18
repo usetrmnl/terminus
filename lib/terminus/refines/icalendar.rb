@@ -6,7 +6,7 @@ module Terminus
     module Icalendar
       def self.rfc_3339(at) = (at.to_datetime.rfc3339 if at)
 
-      def self.map_3339(collection) = collection.map { rfc_3339 it }
+      def self.map_3339(collection) = collection.flatten.map { rfc_3339 it }
     end
   end
 end

@@ -37,5 +37,10 @@ RSpec.describe Terminus::Refines::Icalendar do
         ]
       )
     end
+
+    it "answers array of flattened date/times" do
+      collection = [[Date.new(2026, 10, 5)]]
+      expect(described_class.map_3339(collection)).to contain_exactly("2026-10-05T00:00:00+00:00")
+    end
   end
 end
