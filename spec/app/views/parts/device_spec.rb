@@ -111,4 +111,15 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
       expect(part.wifi_measurement_label).to eq("2.4 GHz (90%)")
     end
   end
+
+  describe "#version_link" do
+    it "answers linked version" do
+      expect(part.version_link).to eq(%(<a href="/firmware">1.2.3</a>))
+    end
+
+    it "answers none link" do
+      allow(device).to receive(:firmware_version).and_return(nil)
+      expect(part.version_link).to eq(%(<a href="/firmware">None</a>))
+    end
+  end
 end

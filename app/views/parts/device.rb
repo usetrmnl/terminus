@@ -7,7 +7,7 @@ module Terminus
     module Parts
       # The device presenter.
       class Device < Hanami::View::Part
-        include Deps["aspects.screens.fetcher", "aspects.screens.faux"]
+        include Deps[:routes, "aspects.screens.fetcher", "aspects.screens.faux"]
 
         def battery_measurement_label minimum_voltage: 4.2
           return "Charging" if charging || battery_voltage >= minimum_voltage
@@ -39,6 +39,11 @@ module Terminus
         def current_screen
           fetcher.call(value).either -> screen { screen },
                                      proc { faux.with id: id }
+        end
+
+        def version_link
+          version = firmware_version || "None"
+          helpers.link_to version, routes.path(:firmwares)
         end
       end
     end
