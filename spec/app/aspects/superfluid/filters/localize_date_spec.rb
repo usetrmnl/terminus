@@ -6,6 +6,18 @@ RSpec.describe Terminus::Aspects::Superfluid::Filters::LocalizeDate do
   subject(:filter) { described_class.new }
 
   describe "#call" do
+    it "answers nil when nil" do
+      expect(filter.call(nil, "%Y-%m-%d")).to be(nil)
+    end
+
+    it "answers empty string when empty" do
+      expect(filter.call("", "%Y-%m-%d")).to eq("")
+    end
+
+    it "answers blank string when blank" do
+      expect(filter.call("\r\n", "%Y-%m-%d")).to eq("\r\n")
+    end
+
     it "answers now as formatted date/time" do
       expect(filter.call("now", "%Y-%m-%d")).to match(/\d{4}-\d{2}-\d{2}/)
     end
