@@ -90,7 +90,7 @@ GEM
     dry-events (1.1.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.1)
-    dry-files (1.1.0)
+    dry-files (1.2.0)
     dry-inflector (1.3.1)
     dry-initializer (3.2.0)
     dry-logger (1.3.0)
@@ -156,7 +156,7 @@ GEM
       zeitwerk (~> 2.8)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    ferrum (0.20.1)
+    ferrum (0.20.2)
       addressable (~> 2.5)
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
@@ -467,7 +467,7 @@ GEM
       rubocop-ast (>= 1.49.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.52.0)
+    rubocop-ast (1.53.0)
       ast (~> 2.4)
       parser (>= 3.3.7.2)
       prism (>= 1.7)
@@ -719,7 +719,7 @@ CHECKSUMS
   dry-configurable (1.4.0) sha256=e35d1b5f3c081753ef361f564919db79000f32cfa6f20ee3a3ba5921b41b73ce
   dry-core (1.2.0) sha256=0cc5a7da88df397f153947eeeae42e876e999c1e30900f3c536fb173854e96a1
   dry-events (1.1.0) sha256=53f13960daf02cc06c2ea6cdf3209e29b0dd400f8977a8020834a68c044a78de
-  dry-files (1.1.0) sha256=4fe91d007ad78d303b7f3a8a2321bbfc554fcc01aa11a6b37246658bbf8d41de
+  dry-files (1.2.0) sha256=3cc17a445337498e4e6e24ef7ec2c637575a3971fb3ff7c609b51b25a9704948
   dry-inflector (1.3.1) sha256=7fb0c2bb04f67638f25c52e7ba39ab435d922a3a5c3cd196120f63accb682dcc
   dry-initializer (3.2.0) sha256=37d59798f912dc0a1efe14a4db4a9306989007b302dcd5f25d0a2a20c166c4e3
   dry-logger (1.3.0) sha256=284ff2b6f5168c664034651ed2ef876c71cb1ff13d088b9ad1d7d8c10177536a
@@ -737,7 +737,7 @@ CHECKSUMS
   et-orbi (1.4.2) sha256=bb555dae668419cb24caa2a293a170e58be6d4df1e017c51f5030bdc133cd20c
   etcher (4.6.0) sha256=a99cd751468fac664383666901c0944f0b36ead8ca7bc2b742731ecccade921b
   faker (3.8.0) sha256=c147b308df73a90f27a4fc84f18d4c22ef0ad9c2a64b2b61c86fd0ca71753efc
-  ferrum (0.20.1) sha256=3a33d27f3e48ec66a36f7eaffa29180a9f1f4ff32694e8f2bc43d249f47612dc
+  ferrum (0.20.2) sha256=0bfa34ca95cf81800092c7dafaf8f6fdf75cd24e973300c653ac0669a1c42068
   fiber-annotation (0.2.0) sha256=7abfadf1d119f508867d4103bf231c0354d019cc39a5738945dec2edadaf6c03
   fiber-local (1.1.0) sha256=c885f94f210fb9b05737de65d511136ea602e00c5105953748aa0f8793489f06
   fiber-storage (1.0.1) sha256=f48e5b6d8b0be96dac486332b55cee82240057065dc761c1ea692b2e719240e1
@@ -851,7 +851,7 @@ CHECKSUMS
   rspec-mocks (3.13.9) sha256=ea5c7ff3054a6098ca6039aacef80aec69d5a8a3ef80be8fc88337359b672a30
   rspec-support (3.13.8) sha256=e4160030309b7e3e9d9863dfe720a35dfcc577162f5402cd68fc8c5258a0ffd6
   rubocop (1.92.3) sha256=fd77feac46e8e91c3a534f868a1702c59f5bf8173515fd00a3c6ce1198672ff6
-  rubocop-ast (1.52.0) sha256=18d5c58fe4e59c9a9222172dc5ba4c52642d445ce4e696ed86646beea675fe8d
+  rubocop-ast (1.53.0) sha256=027984d28485d6502ae4c72f9341080f54f538599f5dbb54f81875a4ddcad574
   rubocop-capybara (3.1.0) sha256=1712900b04178272b643f7bffa385f7b1d157c4f83a0ad502ae10690e18f5096
   rubocop-disable_syntax (0.2.0) sha256=1e61645773b3fc2f74e995ec65f605f7db59437c274fdfd4f385f60bf86af73e
   rubocop-i18n (3.3.0) sha256=6cd5977aeac9eb9e34962c0d2bd8e0225a4b43117d21b7e315dc56500c38a96b
