@@ -52,6 +52,16 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       )
     end
 
+    it "processes device screen backward command as rewind" do
+      interrupter.call device, event: "rewind"
+
+      expect(positioner).to have_received(:call).with(
+        device,
+        command: "rewind",
+        direction: :backward
+      )
+    end
+
     it "processes device screen forward command" do
       device = Factory.structs[:device, command: "screen_forward"]
       interrupter.call device, event: "screen_forward"

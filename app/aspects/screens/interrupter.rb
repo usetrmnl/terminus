@@ -17,7 +17,7 @@ module Terminus
         ]
         include Initable[
           buttons: %w[button EXT0],
-          functions: %w[restart_playlist send_to_me guest_mode]
+          functions: %w[restart_playlist rewind send_to_me guest_mode]
         ]
 
         def call device, event: nil
@@ -35,7 +35,7 @@ module Terminus
             when "screen_first", "restart_playlist"
               reposition(device, direction: :first, command:)
             when "screen_forward" then reposition(device, direction: :forward, command:)
-            when "screen_backward" then reposition(device, direction: :backward, command:)
+            when "screen_backward", "rewind" then reposition(device, direction: :backward, command:)
             when "screen_last" then reposition(device, direction: :last, command:)
             when "screen_wipe" then wipe.call device
             else error.call device,
