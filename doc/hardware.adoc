@@ -1,0 +1,35 @@
+:toc: macro
+:toclevels: 5
+:figure-caption!:
+
+:brant_herbert_link: link:https://www.thingiverse.com/az3dr[Brant Herbert]
+:onshape_link: link:https://www.onshape.com[Onshape]
+:orange_pi_link: link:http://www.orangepi.org[Orange Pi]
+:pi_link: link:https://alchemists.io/projects/pi[Pi]
+:raspberry_pi_link: link:https://www.raspberrypi.com[Raspberry Pi]
+:sensor_project_link: link:https://github.com/usetrmnl/sensor_scanner[Sensor Scanner]
+:sparkfun_link: link:https://www.sparkfun.com[SparkFun]
+
+= Hardware
+
+We support {raspberry_pi_link} and {orange_pi_link} hardware. We also use and test Terminus on the following:
+
+* link:https://www.raspberrypi.com/products/raspberry-pi-5[Raspberry Pi 5]: Recommended due to great performance and feature set.
+* link:https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/[Raspberry Pi Zero 2 W]: Good if you want a compact form factor and don't care about speed.
+* link:http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-Zero-3W.html[Orange Pi Zero 3W]: Provides the compact size (nearly) of a Raspberry Pi Zero 2 W with the power of a Raspberry 5 at a lower cost (does run warmer, though).
+
+toc::[]
+
+== Setup
+
+To setup multiple devices, use the {pi_link} to configure, flash, and manage multiple device profiles. The Pi project provides Bash shell scripts for formatting, flashing, and spinning up Terminus. This includes scripts for {sensor_project_link} and Terminus itself. You can even override or as you own scripts as well!
+
+== 3D Cases
+
+For those that have a 3D printer and would like Terminus branded 3D cases to print and use with your Raspberry Pi hardware, then definitely check out the following:
+
+* link:https://www.thingiverse.com/thing:7319921[Raspberry Pi 5 Case] by {brant_herbert_link}: Comes complete with open/closed variations for GPIO ports.
+* link:https://www.thingiverse.com/thing:7319935[Raspberry Pi Zero 2 W Case] by {brant_herbert_link}: Comes complete with open/closed variations for GPIO ports.
+* link:https://www.thingiverse.com/thing:7319907[Sensor Stand] by {brant_herbert_link}: Provides a tray/stand with mounts for up to two {sparkfun_link} sensors.
+
+💡 For those that use the {onshape_link} CAD software, you can find the STI files link:https://cad.onshape.com/documents/a33dd8b532e108e0b9e9aca4/w/7153ef51463a5e0ac02bf67e/e/981016e3ff668d397a23e45b[here] for further customization.

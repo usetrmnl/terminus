@@ -12,7 +12,7 @@
 :doc_extensions_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/extensions.adoc[Extensions]
 :doc_internationalization_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/internationalization.adoc[Internationalization]
 :doc_jobs_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/jobs.adoc[Jobs]
-:doc_raspberry_pi_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/raspberry_pi.adoc[Raspberry PI]
+:doc_hardware_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/hardware.adoc[Hardware]
 :doc_render_link: link:[link:https://github.com/usetrmnl/terminus/blob/main/doc/render.adoc[Render]]
 :doc_screens_link: link:https://github.com/usetrmnl/terminus/blob/main/doc/screens.adoc[Screens]
 :docker_link: link:https://www.docker.com[Docker]
@@ -220,9 +220,9 @@ See {doc_api_link} documentation for details.
 
 See {doc_docker_link} documentation for details.
 
-=== Raspberry Pi
+=== Hardware
 
-See {doc_raspberry_pi_link} documentation for details.
+See {doc_hardware_link} documentation for details.
 
 === Kubernetes
 
