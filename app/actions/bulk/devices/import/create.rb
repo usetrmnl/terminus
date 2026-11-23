@@ -21,6 +21,8 @@ module Terminus
               super(**)
             end
 
+            protected
+
             def handle request, response
               parameters = request.params
 
@@ -38,12 +40,12 @@ module Terminus
 
             def process parameters, response
               case parameters
-                in {devices: {uri: String}} then handle_uri parameters, response
-                in {devices: {attachment: Hash}} then handle_attachment parameters, response
+                in {devices: {uri: String}} then process_uri parameters, response
+                in {devices: {attachment: Hash}} then process_attachment parameters, response
               end
             end
 
-            def handle_uri parameters, response
+            def process_uri parameters, response
               uri = parameters.to_h.dig :devices, :uri
               flash = response.flash
 
@@ -58,7 +60,7 @@ module Terminus
               response.redirect_to routes.path(:devices)
             end
 
-            def handle_attachment parameters, response
+            def process_attachment parameters, response
               path = parameters.to_h.dig :devices, :attachment, :tempfile
               flash = response.flash
 

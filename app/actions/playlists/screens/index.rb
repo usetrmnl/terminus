@@ -11,6 +11,8 @@ module Terminus
 
           params { required(:playlist_id).filled :integer }
 
+          protected
+
           def handle request, response
             parameters = request.params
 

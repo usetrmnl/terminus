@@ -18,6 +18,8 @@ module Terminus
 
           params { required(:extension_id).filled :integer }
 
+          protected
+
           def handle request, response
             extension = repository.find request.params[:extension_id]
 

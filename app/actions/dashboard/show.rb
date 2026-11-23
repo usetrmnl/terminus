@@ -8,7 +8,9 @@ module Terminus
         include Deps[:settings, firmware_repository: "repositories.firmware"]
         include Initable[ip_finder: proc { Terminus::IPFinder.new }]
 
-        def handle _request, response
+        protected
+
+        def handle *, response
           response.render view,
                           api_uri: settings.api_uri,
                           firmware: firmware_repository.latest,

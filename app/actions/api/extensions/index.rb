@@ -9,6 +9,8 @@ module Terminus
           include Deps[repository: "repositories.extension"]
           include Initable[serializer: Serializers::Extension]
 
+          protected
+
           def handle(*, response) = response.body = {data:}.to_json
 
           private

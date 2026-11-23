@@ -12,6 +12,8 @@ module Terminus
           show_view: "views.users.show"
         ]
 
+        protected
+
         def handle request, response
           case updater.call(**request.params.to_h)
             in Success(user) then save user, response

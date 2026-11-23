@@ -95,7 +95,7 @@ detectors:
   TooManyStatements:
     exclude:
       - Terminus::Action#rodauth_redirect
-      - Terminus::Actions::Bulk::Devices::Import::Create#handle_uri
+      - Terminus::Actions::Bulk::Devices::Import::Create#process_uri
       - Terminus::Actions::Extensions::Poll::Show#fetch
       - Terminus::Actions::Screens::Create#save
       - Terminus::Actions::Screens::Update#save

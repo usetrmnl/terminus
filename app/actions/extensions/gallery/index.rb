@@ -14,6 +14,8 @@ module Terminus
             optional(:page).filled :integer
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 

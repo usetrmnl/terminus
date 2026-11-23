@@ -7,6 +7,8 @@ module Terminus
       class Index < Action
         include Deps[:htmx, repository: "repositories.firmware"]
 
+        protected
+
         def handle request, response
           query = request.params[:query]
           firmware = load query

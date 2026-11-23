@@ -18,6 +18,8 @@ module Terminus
             end
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 

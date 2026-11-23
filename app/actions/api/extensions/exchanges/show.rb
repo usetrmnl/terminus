@@ -10,6 +10,8 @@ module Terminus
             include Deps[repository: "repositories.extension_exchange"]
             include Initable[serializer: Serializers::Extensions::Exchange]
 
+            protected
+
             def handle request, response
               extension_id, id = request.params.to_h.values_at :extension_id, :id
               exchange = repository.find_by(extension_id:, id:)

@@ -15,6 +15,8 @@ module Terminus
 
         using Refinements::Hash
 
+        protected
+
         def handle request, response
           case updater.call(request.params.to_h, validator:)
             in Success(extension) then success extension, response

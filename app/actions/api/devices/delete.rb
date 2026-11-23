@@ -11,6 +11,8 @@ module Terminus
 
           using Refines::Actions::Response
 
+          protected
+
           def handle request, response
             device = deleter.call request.params[:id]
 

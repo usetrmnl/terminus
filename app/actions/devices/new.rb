@@ -12,6 +12,8 @@ module Terminus
           playlist_repository: "repositories.playlist"
         ]
 
+        protected
+
         def handle request, response
           response.render view,
                           models: model_repository.all,

@@ -13,6 +13,8 @@ module Terminus
             extension_repository: "repositories.extension"
           ]
 
+          protected
+
           def handle request, response
             case creator.call(request.params.to_h, validator:)
               in Success then success request, response

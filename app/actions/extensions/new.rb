@@ -12,6 +12,8 @@ module Terminus
           super(**)
         end
 
+        protected
+
         def handle request, response
           response.render view, fields: defaults, layout: htmx_layout.call(request)
         end

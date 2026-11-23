@@ -11,6 +11,8 @@ module Terminus
 
           using Refines::Actions::Response
 
+          protected
+
           def handle request, response
             repository.find(request.params[:id]).then do |firmware|
               firmware ? success(firmware, response) : failure(response)

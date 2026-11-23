@@ -18,6 +18,8 @@ module Terminus
             required(:device_id).maybe :integer
           end
 
+          protected
+
           def handle request, response
             id, model_id, device_id = request.params.to_h.values_at :id, :model_id, :device_id
             extension = repository.find id

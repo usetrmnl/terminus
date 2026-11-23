@@ -25,6 +25,8 @@ module Terminus
             required(:model_id).filled :integer
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 
@@ -32,7 +34,7 @@ module Terminus
               clone parameters, response
             else
               errors = parameters.errors
-              render_form_error parameters, (errors[:design] || errors), response
+              render_form_error parameters, errors[:design], response
             end
           end
 

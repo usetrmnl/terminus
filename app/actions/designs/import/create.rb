@@ -11,6 +11,8 @@ module Terminus
 
           contract Contracts::Designs::Import
 
+          protected
+
           def handle request, response
             parameters = request.params
 

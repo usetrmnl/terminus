@@ -7,6 +7,8 @@ module Terminus
       class New < Action
         include Deps[:htmx_layout]
 
+        protected
+
         def initialize(defaults: Aspects::Models::DEFAULTS, **)
           @defaults = defaults
           super(**)

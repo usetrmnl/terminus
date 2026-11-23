@@ -9,6 +9,8 @@ module Terminus
           include Deps[repository: "repositories.playlist"]
           include Initable[serializer: Serializers::Playlist]
 
+          protected
+
           def handle request, response
             playlist = repository.with_items.by_pk(request.params[:id]).one
 

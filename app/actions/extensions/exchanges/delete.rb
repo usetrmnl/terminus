@@ -15,6 +15,8 @@ module Terminus
 
           using Terminus::Refines::Actions::Response
 
+          protected
+
           def handle request, response
             case deleter.call request.params.to_h, validator: contract
               in Success then response.with body: ""

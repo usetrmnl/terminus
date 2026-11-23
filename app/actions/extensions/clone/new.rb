@@ -10,6 +10,8 @@ module Terminus
 
           params { required(:id).filled :integer }
 
+          protected
+
           def handle request, response
             extension = repository.find request.params[:id]
             fields = {label: "#{extension.label} Clone", name: "#{extension.name}_clone"}

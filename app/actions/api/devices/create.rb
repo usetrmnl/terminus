@@ -13,6 +13,8 @@ module Terminus
 
           contract Contracts::Devices::Create
 
+          protected
+
           def handle request, response
             parameters = request.params
 

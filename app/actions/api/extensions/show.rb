@@ -9,6 +9,8 @@ module Terminus
           include Deps[repository: "repositories.extension"]
           include Initable[serializer: Serializers::Extension]
 
+          protected
+
           def handle request, response
             extension = repository.find request.params[:id]
 

@@ -17,6 +17,8 @@ module Terminus
               required(:id).filled :integer
             end
 
+            protected
+
             def handle request, response
               case deleter.call request.params.to_h, validator: contract
                 in Success(extension) then success extension, response

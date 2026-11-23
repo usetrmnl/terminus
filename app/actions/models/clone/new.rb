@@ -8,6 +8,8 @@ module Terminus
         class New < Action
           include Deps[repository: "repositories.model"]
 
+          protected
+
           def handle request, response
             model = repository.find request.params[:id]
             fields = {label: "#{model.label} Clone", name: "#{model.name}_clone"}

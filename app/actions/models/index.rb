@@ -7,6 +7,8 @@ module Terminus
       class Index < Action
         include Deps[:htmx, repository: "repositories.model"]
 
+        protected
+
         def handle request, response
           query = request.params[:query].to_s
           models = load query

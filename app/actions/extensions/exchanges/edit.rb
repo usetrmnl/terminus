@@ -17,6 +17,8 @@ module Terminus
             required(:id).filled :integer
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 

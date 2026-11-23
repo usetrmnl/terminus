@@ -9,6 +9,8 @@ module Terminus
           include Deps[repository: "repositories.device"]
           include Initable[serializer: Serializers::Device]
 
+          protected
+
           def handle request, response
             device = repository.find request.params[:id]
 

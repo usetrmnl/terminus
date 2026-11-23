@@ -20,6 +20,8 @@ module Terminus
             optional(:mirror).filled(:hash) { required(:device_ids).array :integer }
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
             playlist = repository.find parameters[:id]

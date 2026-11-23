@@ -8,6 +8,8 @@ module Terminus
         class Index < Action
           include Deps[repository: "repositories.playlist_item"]
 
+          protected
+
           def handle request, response
             parameters = request.params
             playlist_id = parameters[:playlist_id]

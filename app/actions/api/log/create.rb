@@ -37,6 +37,10 @@ module Terminus
             end
           end
 
+          protected
+
+          def authorize(*) = nil
+
           def handle request, response
             parameters = request.params
             device = device_repository.find_by api_key: request.get_header("HTTP_ACCESS_TOKEN")
@@ -46,10 +50,6 @@ module Terminus
 
             save device, parameters, response
           end
-
-          protected
-
-          def authorize(*) = nil
 
           private
 

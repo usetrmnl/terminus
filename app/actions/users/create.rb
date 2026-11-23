@@ -13,6 +13,8 @@ module Terminus
           index_view: "views.users.index"
         ]
 
+        protected
+
         def handle request, response
           case creator.call(**request.params.to_h.slice(:user))
             in Success(Structs::User)

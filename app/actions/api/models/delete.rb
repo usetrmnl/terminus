@@ -11,6 +11,8 @@ module Terminus
 
           using Refines::Actions::Response
 
+          protected
+
           def handle request, response
             model = repository.delete request.params[:id]
 

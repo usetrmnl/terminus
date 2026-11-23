@@ -11,6 +11,8 @@ module Terminus
 
           using Refines::Actions::Response
 
+          protected
+
           def handle request, response
             id = request.params[:id]
             playlist = repository.with_items.by_pk(id).one

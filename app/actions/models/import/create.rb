@@ -13,6 +13,8 @@ module Terminus
             required(:model).filled(:hash) { required(:attachment).filled Schemas::Attachment }
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 

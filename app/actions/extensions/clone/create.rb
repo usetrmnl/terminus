@@ -17,6 +17,8 @@ module Terminus
             required(:extension).filled Schemas::Extensions::Upsert
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 

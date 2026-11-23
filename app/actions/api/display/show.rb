@@ -16,10 +16,13 @@ module Terminus
             "aspects.screens.interrupts.error",
             firmware_finder: "aspects.firmware.finder"
           ]
-
           include Initable[model: TRMNL::API::Models::Display]
 
           using Refines::Actions::Response
+
+          protected
+
+          def authorize(*) = nil
 
           def handle request, response
             environment = request.env
@@ -30,10 +33,6 @@ module Terminus
               else not_found response
             end
           end
-
-          protected
-
-          def authorize(*) = nil
 
           private
 

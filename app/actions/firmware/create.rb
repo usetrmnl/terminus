@@ -21,6 +21,8 @@ module Terminus
           required(:model_ids).filled(:array).each(:integer)
         end
 
+        protected
+
         def handle request, response
           parameters = request.params
           attachment = parameters.dig :firmware, :attachment, :tempfile

@@ -18,6 +18,8 @@ module Terminus
               required(:exchange).filled :hash, Schemas::Extensions::Exchanges::Patch
             end
 
+            protected
+
             def handle request, response
               case updater.call request.params.to_h, validator: contract
                 in Success(extension) then success extension, response

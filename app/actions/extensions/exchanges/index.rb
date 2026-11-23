@@ -12,6 +12,8 @@ module Terminus
             repository: "repositories.extension_exchange"
           ]
 
+          protected
+
           def handle request, response
             response.render view, **view_settings(request)
           end

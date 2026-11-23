@@ -5,6 +5,8 @@ module Terminus
     module ProblemDetails
       # The index action.
       class Index < Action
+        protected
+
         def handle(_request, response) = response.render view
       end
     end

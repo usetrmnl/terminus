@@ -20,6 +20,8 @@ module Terminus
             super(**)
           end
 
+          protected
+
           def handle request, response
             exchanges = repository.where extension_id: request.params[:extension_id]
             content = json_formatter.call coalescer.call(exchanges)

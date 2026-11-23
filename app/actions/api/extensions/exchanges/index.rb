@@ -12,6 +12,8 @@ module Terminus
             include Deps[repository: "repositories.extension_exchange"]
             include Initable[serializer: Serializers::Extensions::Exchange]
 
+            protected
+
             def handle request, response
               response.body = {data: load_data(request.params[:extension_id])}.to_json
             end

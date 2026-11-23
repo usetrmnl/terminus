@@ -11,6 +11,8 @@ module Terminus
 
           params { required(:id).filled :integer }
 
+          protected
+
           def handle request, response
             extension = repository.find request.params[:id]
             enqueue extension, response

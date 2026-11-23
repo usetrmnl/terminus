@@ -11,6 +11,8 @@ module Terminus
           model_repository: "repositories.model"
         ]
 
+        protected
+
         def handle request, response
           response.render view,
                           models: model_repository.all,

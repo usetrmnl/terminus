@@ -14,6 +14,8 @@ module Terminus
             extension_repository: "repositories.extension"
           ]
 
+          protected
+
           def handle request, response
             case updater.call(request.params.to_h, validator:)
               in Success(exchange) then success exchange, response

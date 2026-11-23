@@ -10,6 +10,8 @@ module Terminus
 
           contract Contracts::Models::Clone
 
+          protected
+
           def handle request, response
             parameters = request.params
 

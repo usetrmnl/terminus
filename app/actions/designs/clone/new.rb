@@ -12,6 +12,8 @@ module Terminus
             model_repository: "repositories.model"
           ]
 
+          protected
+
           def handle request, response
             template = repository.find request.params[:id]
             fields = {label: "#{template.label} Clone", name: "#{template.name}_clone"}

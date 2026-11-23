@@ -15,16 +15,16 @@ module Terminus
 
           using Refines::Actions::Response
 
+          protected
+
+          def authorize(*) = nil
+
           def handle request, response
             case firmware_parser.call request.env
               in Success(model) then process model, response
               in Failure(result) then unprocessable_content result.errors.to_h, response
             end
           end
-
-          protected
-
-          def authorize(*) = nil
 
           private
 

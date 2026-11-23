@@ -17,6 +17,8 @@ module Terminus
             required(:playlist_item).hash { required(:screen_id).filled :integer }
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
             playlist = playlist_repository.find parameters[:playlist_id]

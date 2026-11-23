@@ -9,6 +9,8 @@ module Terminus
           include Deps[repository: "repositories.model"]
           include Initable[serializer: Serializers::Model]
 
+          protected
+
           def handle *, response
             data = repository.all.map { serializer.new(it).to_h }
             response.body = {data:}.to_json

@@ -14,6 +14,8 @@ module Terminus
 
           params { required(:id).filled :integer }
 
+          protected
+
           def handle request, response
             case import request.params
               in Success(extension)
@@ -39,11 +41,6 @@ module Terminus
 
           def render_error message, response
             response.flash[:alert] = message
-            response.redirect_to routes.path(:extensions_gallery)
-          end
-
-          def render_errors result, response
-            response.flash[:alert] = detailer.call result, "Gallery "
             response.redirect_to routes.path(:extensions_gallery)
           end
         end

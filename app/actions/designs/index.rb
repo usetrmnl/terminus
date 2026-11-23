@@ -7,6 +7,8 @@ module Terminus
       class Index < Action
         include Deps[:htmx, repository: "repositories.screen_template"]
 
+        protected
+
         def handle request, response
           query = request.params[:query].to_s
           templates = load query
