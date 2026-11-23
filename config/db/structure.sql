@@ -286,7 +286,7 @@ CREATE TABLE public.device (
     touch_bar text DEFAULT 'tap'::text NOT NULL,
     wifi_band double precision DEFAULT 0 NOT NULL,
     api_key text,
-    command text DEFAULT 'none'::text NOT NULL,
+    command text DEFAULT 'screen_forward'::text NOT NULL,
     firmware_reset boolean DEFAULT false NOT NULL,
     panel_revision text
 );
@@ -1854,4 +1854,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20261012090556_add_screen_template_kind.rb'),
 ('20261012111836_add_firmware_model.rb'),
 ('20261021084105_remove_device_width_and_height_columns.rb'),
-('20261103161019_add_device_panel_revision_column.rb');
+('20261103161019_add_device_panel_revision_column.rb'),
+('20261123093706_update_device_command_default.rb');
