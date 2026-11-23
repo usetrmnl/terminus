@@ -35,6 +35,7 @@ detectors:
       - Terminus::Aspects::Devices::Creator#maybe_redact_api_key
       - Terminus::Aspects::Devices::Importer#process
       - Terminus::Aspects::Errors::Detailer#build_message
+      - Terminus::Aspects::Errors::Finesse#enum
       - Terminus::Aspects::Errors::Problem#enum
       - Terminus::Aspects::Extensions::Cloner#build_attributes
       - Terminus::Aspects::Extensions::Exchanges::Refresher#fetch
@@ -143,6 +144,9 @@ detectors:
       - Terminus::Aspects::Errors::Problem#foreign_key
       - Terminus::Aspects::Errors::Problem#out_of_range
       - Terminus::Aspects::Liquid::Filters#json
+      - Terminus::Aspects::Errors::Finesse#duplicate
+      - Terminus::Aspects::Errors::Finesse#foreign_key
+      - Terminus::Aspects::Errors::Finesse#out_of_range
 
 directories:
   "app/actions/**":
