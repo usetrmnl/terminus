@@ -13,6 +13,7 @@ detectors:
       - Terminus::Aspects::Screens::Positioner#process
   DataClump:
     exclude:
+      - Terminus::Action
       - Terminus::Actions::API::Base
       - Terminus::Actions::API::Display::Show
       - Terminus::Actions::Bulk::Devices::Import::Create
@@ -93,7 +94,7 @@ detectors:
       - Terminus::Structs::Screen
   TooManyStatements:
     exclude:
-      - Terminus::Action#handle_rodauth_redirect
+      - Terminus::Action#rodauth_redirect
       - Terminus::Actions::Bulk::Devices::Import::Create#handle_uri
       - Terminus::Actions::Extensions::Poll::Show#fetch
       - Terminus::Actions::Screens::Create#save
