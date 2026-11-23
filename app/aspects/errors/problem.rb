@@ -16,54 +16,38 @@ module Terminus
         using Refinements::Array
         using Refinements::Hash
 
-        def duplicate message, instance
-          key, value = message.match(/Key \((?<key>[^)]+)\)=\((?<value>[^)]+)\)/m)
-                              .named_captures
-                              .values_at "key", "value"
-
+        def duplicate message, instance, finesse: Finesse
           RFC::API::Problem[
             type: "/problem_details#duplicate_value",
             status: :conflict,
-            detail: "#{key.capitalize} must be unique. " \
-                    "Please use a value other than #{value.inspect}.",
+            detail: finesse.public_send(__method__, message),
             instance:
           ]
         end
 
-        def enum message, instance
-          key, value = message.match(/"(?<value>.+?)".+:(?<key>.+?)\s/)
-                              .named_captures
-                              .values_at "key", "value"
-          allowed = JSON(message[/\[".+?"\]/m]).to_usage :or
-
+        def enum message, instance, finesse: Finesse
           RFC::API::Problem[
             type: "/problem_details#invalid_enum",
             status: :unprocessable_content,
-            detail: "Invalid value for #{key}: #{value.inspect}. Use: #{allowed}.",
+            detail: finesse.public_send(__method__, message),
             instance:
           ]
         end
 
-        def foreign_key message, instance
-          key, value = message.match(/Key \((?<key>[^)]+)\)=\((?<value>[^)]+)\)/m)
-                              .named_captures
-                              .values_at "key", "value"
-
+        def foreign_key message, instance, finesse: Finesse
           RFC::API::Problem[
             type: "/problem_details#invalid_foreign_key",
             status: :unprocessable_content,
-            detail: "Invalid `#{key}` value: #{value}. Does not exist.",
+            detail: finesse.public_send(__method__, message),
             instance:
           ]
         end
 
-        def out_of_range message, instance
-          detail = message.delete_prefix("PG::NumericValueOutOfRange: ERROR:  ").capitalize
-
+        def out_of_range message, instance, finesse: Finesse
           RFC::API::Problem[
             type: "/problem_details#invalid_numeric",
             status: :unprocessable_content,
-            detail: "#{detail}. Use a smaller value.",
+            detail: finesse.public_send(__method__, message),
             instance:
           ]
         end
