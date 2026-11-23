@@ -6,9 +6,15 @@ RSpec.describe Terminus::Actions::API::Base do
   subject(:action) { implementation.new }
 
   describe "#call" do
+    let :errors do
+      YAML.load_file SPEC_ROOT.join("support/fixtures/errors.yml"), symbolize_names: true
+    end
+
     context "with CSRF capture" do
       let :implementation do
         Class.new described_class do
+          protected
+
           def handle(*, response)
             response[:verify] = verify_csrf_token?
           end
@@ -23,13 +29,13 @@ RSpec.describe Terminus::Actions::API::Base do
 
     context "with unique constraint error" do
       let :implementation do
+        message = errors.fetch :duplicate
+
         Class.new described_class do
-          def handle(*)
-            fail ROM::SQL::UniqueConstraintError, StandardError.new(<<~CONTENT)
-              PG::UniqueViolation: ERROR:  duplicate key value violates unique
-              constraint "model_label_key"
-              DETAIL:  Key (label)=(Demo) already exists.
-            CONTENT
+          protected
+
+          define_method :handle do |*|
+            fail ROM::SQL::UniqueConstraintError, StandardError.new(message)
           end
         end
       end
@@ -42,13 +48,12 @@ RSpec.describe Terminus::Actions::API::Base do
 
     context "with enum error" do
       let :implementation do
-        Class.new described_class do
-          def handle(*)
-            message = <<~CONTENT
-              "other" (String) has invalid type for :mode violates constraints
-              (included_in?(["automatic", "manual"], "other") failed)
-            CONTENT
+        message = errors.fetch :enum
 
+        Class.new described_class do
+          protected
+
+          define_method :handle do |*|
             fail Dry::Types::SchemaError.new(:mode, "other", message)
           end
         end
@@ -62,13 +67,13 @@ RSpec.describe Terminus::Actions::API::Base do
 
     context "with foreign key error" do
       let :implementation do
+        message = errors.fetch :foreign_key
+
         Class.new described_class do
-          def handle(*)
-            fail ROM::SQL::ForeignKeyConstraintError, StandardError.new(<<~CONTENT)
-              PG::ForeignKeyViolation: ERROR:  insert or update on table "playlist_item"
-              violates foreign key constraint "playlist_item_playlist_id_fkey"
-              DETAIL:  Key (playlist_id)=(29) is not present in table "playlist"
-            CONTENT
+          protected
+
+          define_method :handle do |*|
+            fail ROM::SQL::ForeignKeyConstraintError, StandardError.new(message)
           end
         end
       end
@@ -81,10 +86,13 @@ RSpec.describe Terminus::Actions::API::Base do
 
     context "with numeric out of range error" do
       let :implementation do
+        message = errors.fetch :out_of_range
+
         Class.new described_class do
-          def handle(*)
-            fail ROM::SQL::DatabaseError,
-                 StandardError.new("PG::NumericValueOutOfRange: ERROR:  integer out of range")
+          protected
+
+          define_method :handle do |*|
+            fail ROM::SQL::DatabaseError, StandardError.new(message)
           end
         end
       end

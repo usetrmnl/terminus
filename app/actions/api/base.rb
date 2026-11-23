@@ -10,10 +10,6 @@ module Terminus
       # The base action.
       class Base < Action
         config.formats.accept :json
-        handle_exception Dry::Types::SchemaError => :detail_enum,
-                         ROM::SQL::DatabaseError => :detail_out_of_range,
-                         ROM::SQL::ForeignKeyConstraintError => :detail_foreign_key,
-                         ROM::SQL::UniqueConstraintError => :detail_duplicate
 
         using Refines::Actions::Response
 
@@ -25,30 +21,26 @@ module Terminus
 
         protected
 
-        attr_reader :problem
+        attr_reader :problem, :problem_detail
 
         def verify_csrf_token?(*) = false
 
-        private
-
-        attr_reader :problem_detail
-
-        def detail_duplicate request, response, error
+        def render_duplicate request, response, error
           payload = problem_detail.duplicate error.message, request.path
           response.with body: payload.to_json, format: :problem_details, status: payload.status
         end
 
-        def detail_enum request, response, error
+        def render_enum request, response, error
           payload = problem_detail.enum error.message, request.path
           response.with body: payload.to_json, format: :problem_details, status: payload.status
         end
 
-        def detail_foreign_key request, response, error
+        def render_foreign_key request, response, error
           payload = problem_detail.foreign_key error.message, request.path
           response.with body: payload.to_json, format: :problem_details, status: payload.status
         end
 
-        def detail_out_of_range request, response, error
+        def render_out_of_range request, response, error
           payload = problem_detail.out_of_range error.message, request.path
           response.with body: payload.to_json, format: :problem_details, status: payload.status
         end
