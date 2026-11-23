@@ -13,6 +13,8 @@ module Terminus
 
         contract Contracts::Models::Create
 
+        protected
+
         def handle request, response
           parameters = request.params
 
@@ -20,21 +22,23 @@ module Terminus
             repository.create parameters[:model]
             response.render index_view, **view_settings(request)
           else
-            error response, parameters
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+
+          response.render view,
+                          models: repository.all,
+                          fields: parameters[:model],
+                          errors: parameters.errors[:model],
+                          layout: htmx_layout.call(request)
         end
 
         private
 
         def view_settings(request) = {models: repository.all, layout: htmx_layout.call(request)}
-
-        def error response, parameters
-          response.render view,
-                          models: repository.all,
-                          fields: parameters[:model],
-                          errors: parameters.errors[:model],
-                          layout: false
-        end
       end
     end
   end

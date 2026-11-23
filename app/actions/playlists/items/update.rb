@@ -17,14 +17,26 @@ module Terminus
             required(:playlist_item).hash { required(:screen_id).filled :integer }
           end
 
+          protected
+
           def handle request, response
             parameters = request.params
 
             if parameters.valid?
               save parameters, response
             else
-              error parameters, response
+              render_errors request, response
             end
+          end
+
+          def render_errors request, response
+            parameters = request.params
+
+            response.render view,
+                            playlist:,
+                            fields: parameters[:playlist],
+                            errors: parameters.errors[:playlist],
+                            layout: false
           end
 
           private
@@ -35,14 +47,6 @@ module Terminus
             repository.update id, **parameters[:playlist_item]
 
             response.render show_view, item: repository.find(id), layout: false
-          end
-
-          def error parameters, response
-            response.render view,
-                            playlist:,
-                            fields: parameters[:playlist],
-                            errors: parameters.errors[:playlist],
-                            layout: false
           end
         end
       end

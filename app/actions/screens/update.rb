@@ -9,6 +9,8 @@ module Terminus
 
         contract Contracts::Screens::Update
 
+        protected
+
         def handle request, response
           parameters = request.params
           screen = repository.find parameters[:id]
@@ -18,8 +20,18 @@ module Terminus
           if parameters.valid?
             save screen, parameters, response
           else
-            error screen, parameters, response
+            handle_errors request, response
           end
+        end
+
+        def handle_errors request, response
+          parameters = request.params
+
+          response.render view,
+                          models: model_repository.all,
+                          screen: repository.find(parameters[:id]),
+                          fields: parameters[:screen],
+                          errors: parameters.errors[:screen]
         end
 
         private
@@ -42,14 +54,6 @@ module Terminus
 
           record.replace tempfile, metadata: {"filename" => "#{record.name}#{extension}"}
           repository.update record.id, image_data: record.image_attributes
-        end
-
-        def error screen, parameters, response
-          response.render view,
-                          models: model_repository.all,
-                          screen:,
-                          fields: parameters[:screen],
-                          errors: parameters.errors[:screen]
         end
       end
     end

@@ -19,6 +19,8 @@ module Terminus
           end
         end
 
+        protected
+
         def handle request, response
           parameters = request.params
 
@@ -26,13 +28,13 @@ module Terminus
             repository.create parameters[:playlist]
             response.render index_view, playlists: repository.all, layout: htmx_layout.call(request)
           else
-            error response, parameters
+            render_errors request, response
           end
         end
 
-        private
+        def render_errors request, response
+          parameters = request.params
 
-        def error response, parameters
           response.render view,
                           playlist: nil,
                           fields: parameters[:playlist],

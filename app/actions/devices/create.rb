@@ -16,23 +16,21 @@ module Terminus
 
         contract Contracts::Devices::Create
 
+        protected
+
         def handle request, response
           parameters = request.params
 
           case process parameters
             in Success
               response.render index_view, devices: repository.all, layout: htmx_layout.call(request)
-            else error response, parameters
+            else render_errors request, response
           end
         end
 
-        private
+        def render_errors request, response
+          parameters = request.params
 
-        def process parameters
-          parameters.valid? ? creator.call(**parameters[:device]) : Failure
-        end
-
-        def error response, parameters
           response.render view,
                           models: model_repository.all,
                           playlists: playlist_repository.all,
@@ -41,6 +39,10 @@ module Terminus
                           errors: parameters.errors[:device],
                           layout: false
         end
+
+        private
+
+        def process(parameters) = parameters.valid? ? creator.call(**parameters[:device]) : Failure
       end
     end
   end

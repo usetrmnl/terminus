@@ -28,14 +28,26 @@ module Terminus
           end
         end
 
+        protected
+
         def handle request, response
           parameters = request.params
 
           if parameters.valid?
             save request, parameters, response
           else
-            error request, parameters, response
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+
+          response.render view,
+                          template: find_template(parameters),
+                          fields: parameters[:design],
+                          errors: parameters.errors[:design],
+                          layout: htmx_layout.call(request)
         end
 
         private
@@ -47,16 +59,6 @@ module Terminus
 
           job.perform_async screen.model_id, screen_template.screen_attributes.stringify_keys!
           response.render view, template: screen_template, layout: htmx_layout.call(request)
-        end
-
-        def error request, parameters, response
-          template = find_template parameters
-
-          response.render view,
-                          template: template,
-                          fields: parameters[:design],
-                          errors: parameters.errors[:design],
-                          layout: htmx_layout.call(request)
         end
 
         def find_template(parameters) = repository.find parameters[:id]

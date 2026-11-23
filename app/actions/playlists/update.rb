@@ -6,6 +6,7 @@ module Terminus
       # The update action.
       class Update < Action
         include Deps[
+          :htmx_layout,
           repository: "repositories.playlist",
           item_repository: "repositories.playlist_item",
           show_view: "views.playlists.show"
@@ -21,6 +22,8 @@ module Terminus
           end
         end
 
+        protected
+
         def handle request, response
           parameters = request.params
           playlist = repository.find parameters[:id]
@@ -28,30 +31,34 @@ module Terminus
           halt :unprocessable_content unless playlist
 
           if parameters.valid?
-            save playlist, parameters, response
+            render_view request, response
           else
-            error playlist, parameters, response
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+          playlist = repository.find parameters[:id]
+
+          response.render view,
+                          playlist:,
+                          fields: parameters[:playlist],
+                          errors: parameters.errors[:playlist],
+                          layout: htmx_layout.call(request)
         end
 
         private
 
-        def save playlist, parameters, response
-          id = playlist.id
+        def render_view request, response
+          parameters = request.params
+          id = parameters[:id]
           repository.update id, **parameters[:playlist]
 
           response.render show_view,
                           playlist: repository.find(id),
                           items: item_repository.where(playlist_id: id),
-                          layout: false
-        end
-
-        def error playlist, parameters, response
-          response.render view,
-                          playlist:,
-                          fields: parameters[:playlist],
-                          errors: parameters.errors[:playlist],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
       end
     end

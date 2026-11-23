@@ -14,6 +14,8 @@ module Terminus
 
         contract Contracts::Screens::Create
 
+        protected
+
         def handle request, response
           parameters = request.params
 
@@ -21,8 +23,18 @@ module Terminus
             save parameters[:screen]
             response.render index_view, screens: repository.all
           else
-            error response, parameters
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+
+          response.render view,
+                          models: model_repository.all,
+                          screen: nil,
+                          fields: parameters[:screen],
+                          errors: parameters.errors[:screen]
         end
 
         private
@@ -35,14 +47,6 @@ module Terminus
 
           record.upload tempfile, metadata: {"filename" => "#{record.name}#{extension}"}
           repository.update record.id, image_data: record.image_attributes
-        end
-
-        def error response, parameters
-          response.render view,
-                          models: model_repository.all,
-                          screen: nil,
-                          fields: parameters[:screen],
-                          errors: parameters.errors[:screen]
         end
       end
     end

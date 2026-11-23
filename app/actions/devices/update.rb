@@ -14,6 +14,8 @@ module Terminus
 
         contract Contracts::Devices::Update
 
+        protected
+
         def handle request, response
           parameters = request.params
           device = repository.find parameters[:id]
@@ -21,22 +23,16 @@ module Terminus
           halt :unprocessable_content unless device
 
           if parameters.valid?
-            save device, parameters, response
+            save request, response
           else
-            error device, parameters, response
+            render_errors request, response
           end
         end
 
-        private
+        def render_errors request, response
+          parameters = request.params
+          device = repository.find parameters[:id]
 
-        def save device, parameters, response
-          id = device.id
-          repository.update id, **parameters[:device]
-
-          response.render show_view, device: repository.find(id), layout: false
-        end
-
-        def error device, parameters, response
           response.render view,
                           models: model_repository.all,
                           playlists: playlist_repository.all,
@@ -44,6 +40,16 @@ module Terminus
                           fields: parameters[:device],
                           errors: parameters.errors[:device],
                           layout: false
+        end
+
+        private
+
+        def save request, response
+          parameters = request.params
+          id = parameters[:id]
+
+          repository.update id, **parameters[:device]
+          response.render show_view, device: repository.find(id), layout: false
         end
       end
     end

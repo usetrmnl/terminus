@@ -22,14 +22,27 @@ module Terminus
           end
         end
 
+        protected
+
         def handle request, response
           parameters = request.params
 
           if parameters.valid?
             create_with_screen parameters, response
           else
-            error response, parameters
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+          errors = parameters.errors
+
+          response.render view,
+                          models: model_repository.all,
+                          template: nil,
+                          fields: parameters[:design],
+                          errors: errors[:design] || errors
         end
 
         private
@@ -39,16 +52,6 @@ module Terminus
 
           upserter.call(model_id: parameters[:model_id], **screen_template.screen_attributes)
           response.redirect_to routes.path(:design_edit, id: screen_template.id)
-        end
-
-        def error response, parameters
-          errors = parameters.errors
-
-          response.render view,
-                          models: model_repository.all,
-                          template: nil,
-                          fields: parameters[:design],
-                          errors: errors[:design] || errors
         end
       end
     end

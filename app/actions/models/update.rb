@@ -9,6 +9,8 @@ module Terminus
 
         contract Contracts::Models::Update
 
+        protected
+
         def handle request, response
           parameters = request.params
           model = repository.find parameters[:id]
@@ -18,8 +20,18 @@ module Terminus
           if parameters.valid?
             save model, parameters, response
           else
-            error model, parameters, response
+            render_errors request, response
           end
+        end
+
+        def render_errors request, response
+          parameters = request.params
+
+          response.render view,
+                          model: repository.find(parameters[:id]),
+                          fields: parameters[:model],
+                          errors: parameters.errors[:model],
+                          layout: false
         end
 
         private
@@ -29,14 +41,6 @@ module Terminus
           repository.update id, **parameters[:model]
 
           response.render show_view, model: repository.find(id), layout: false
-        end
-
-        def error model, parameters, response
-          response.render view,
-                          model:,
-                          fields: parameters[:model],
-                          errors: parameters.errors[:model],
-                          layout: false
         end
       end
     end
