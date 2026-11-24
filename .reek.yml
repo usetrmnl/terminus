@@ -128,6 +128,7 @@ detectors:
       - Terminus::Structs::Device#battery_voltage_to_percent
       - Terminus::Structs::Device#wifi_percentage
       - Terminus::Structs::Screen#replace
+      - Terminus::Views::Helpers#field_for
       - Terminus::Views::Parts::DeviceLog#level_class
       - UniversalLoggerPatch#_log_structured
   UncommunicativeMethodName:

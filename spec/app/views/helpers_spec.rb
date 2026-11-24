@@ -46,6 +46,11 @@ RSpec.describe Terminus::Views::Helpers do
       expect(helper.field_for(:label, attributes, record)).to eq("One")
     end
 
+    it "answers empty string when errors are nil" do
+      errors = nil
+      expect(helper.field_for(:formatted_label, attributes, record, errors:)).to eq("")
+    end
+
     it "answers attributes value when key includes prefix and errors are present" do
       errors = {label: "danger"}
       expect(helper.field_for(:formatted_label, attributes, record, errors:)).to eq("Other")

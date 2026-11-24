@@ -34,7 +34,8 @@ module Terminus
         ((record && record.public_send(key)) || attributes[key]).include? value
       end
 
-      def field_for key, attributes, record = nil, errors: Core::EMPTY_HASH, prefix: "formatted_"
+      def field_for key, attributes, record = nil, errors: nil, prefix: "formatted_"
+        errors ||= Core::EMPTY_HASH
         real_key = String(key).delete_prefix(prefix).to_sym
 
         return attributes[key] unless record
