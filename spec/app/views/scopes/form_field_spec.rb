@@ -19,7 +19,12 @@ RSpec.describe Terminus::Views::Scopes::FormField do
   end
 
   describe "#toggle_error" do
-    it "answers default kind without errors" do
+    it "answers default kind when errors is nil" do
+      locals[:errors] = nil
+      expect(scope.toggle_error).to eq("form-field")
+    end
+
+    it "answers default kind when errors is empty" do
       locals[:errors].clear
       expect(scope.toggle_error).to eq("form-field")
     end
@@ -39,6 +44,11 @@ RSpec.describe Terminus::Views::Scopes::FormField do
   end
 
   describe "#error_message" do
+    it "answers empty string when errors is nil" do
+      locals[:errors] = nil
+      expect(scope.error_message).to eq("")
+    end
+
     it "answers empty string when given no errors" do
       locals[:errors].clear
       expect(scope.error_message).to eq("")

@@ -20,11 +20,12 @@ module Terminus
         end
 
         def toggle_error kind = "form-field"
-          errors.fetch(key, Core::EMPTY_ARRAY).any? ? [kind, "error"].compact.join(" ") : kind
+          Hash(errors).fetch(key, Core::EMPTY_ARRAY).any? ? [kind, "error"].compact.join(" ") : kind
         end
 
         def error_message
           return Core::EMPTY_STRING unless locals.key? :errors
+          return Core::EMPTY_STRING unless errors
           return Core::EMPTY_STRING unless errors.key? key
 
           errors[key].to_sentence
