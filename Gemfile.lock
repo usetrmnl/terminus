@@ -94,9 +94,9 @@ GEM
     dry-files (1.2.0)
     dry-inflector (1.3.1)
     dry-initializer (3.2.0)
-    dry-logger (1.3.0)
+    dry-logger (1.3.1)
       logger
-    dry-logic (1.6.0)
+    dry-logic (1.6.1)
       bigdecimal
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.1)
@@ -190,12 +190,12 @@ GEM
       dry-monads (~> 1.11)
       refinements (~> 14.0)
       zeitwerk (~> 2.8)
-    hanami (3.0.2)
+    hanami (3.0.3)
       bundler (>= 2.0)
       dry-configurable (~> 1.0, >= 1.2.0, < 2)
       dry-core (~> 1.0, < 2)
       dry-inflector (~> 1.0, >= 1.1.0, < 2)
-      dry-logger (~> 1.2, < 2)
+      dry-logger (~> 1.3, >= 1.3.1)
       dry-monitor (~> 1.0, >= 1.0.1, < 2)
       dry-system (~> 1.1)
       hanami-cli (>= 2.3.1)
@@ -224,7 +224,7 @@ GEM
       rom (~> 5.4, >= 5.4.1)
       rom-sql (~> 3.7)
       zeitwerk (~> 2.6)
-    hanami-router (3.0.0)
+    hanami-router (3.0.1)
       csv (~> 3.3)
       mustermann (~> 3.1)
       rack (>= 2.2.16)
@@ -233,14 +233,14 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.0, < 2)
       dry-transformer (~> 1.0, < 2)
-    hanami-view (3.0.2)
+    hanami-view (3.0.3)
       dry-configurable (~> 1.4)
       dry-core (~> 1.0)
       dry-inflector (~> 1.0, < 2)
       temple (~> 0.10.0, >= 0.10.2)
       tilt (~> 2.3)
       zeitwerk (~> 2.6)
-    hanami-webconsole (3.0.0)
+    hanami-webconsole (3.0.1)
       better_errors (~> 2.10, >= 2.10.1)
       binding_of_caller (~> 2.0)
     htmx (4.2.0)
@@ -273,8 +273,8 @@ GEM
     irb-kit (2.5.0)
       irb (~> 1.16)
       zeitwerk (~> 2.8)
-    json (3.1.0)
-    jwt (3.3.0)
+    json (3.2.0)
+    jwt (3.3.1)
       base64
     language_server-protocol (3.17.0.6)
     launchy (3.1.1)
@@ -724,8 +724,8 @@ CHECKSUMS
   dry-files (1.2.0) sha256=3cc17a445337498e4e6e24ef7ec2c637575a3971fb3ff7c609b51b25a9704948
   dry-inflector (1.3.1) sha256=7fb0c2bb04f67638f25c52e7ba39ab435d922a3a5c3cd196120f63accb682dcc
   dry-initializer (3.2.0) sha256=37d59798f912dc0a1efe14a4db4a9306989007b302dcd5f25d0a2a20c166c4e3
-  dry-logger (1.3.0) sha256=284ff2b6f5168c664034651ed2ef876c71cb1ff13d088b9ad1d7d8c10177536a
-  dry-logic (1.6.0) sha256=da6fedbc0f90fc41f9b0cc7e6f05f5d529d1efaef6c8dcc8e0733f685745cea2
+  dry-logger (1.3.1) sha256=0e1592ee517ab7561e49767758f7b7265cf715194d055e8c4749b39753b34c23
+  dry-logic (1.6.1) sha256=3cea14d2108b62f1a99d20b993dff3a5c365136a3995202fd33d9a163baedd31
   dry-monads (1.11.1) sha256=d38f17407f0f122f63e0435e5b43cdb2ec47ea343dad5c849edfc4682853e100
   dry-monitor (1.0.1) sha256=4ac8ed1f85b14bfde1aa0bce9496d7d2fc699c5a4a1131010c8014d5f9e7a309
   dry-schema (1.17.0) sha256=404b448f4266998795b88edcd9f5dc51af798d8b3831cc6f60da5a1af8d5faa1
@@ -747,15 +747,15 @@ CHECKSUMS
   functionable (1.6.0) sha256=e308adf6104a32b85718f3709ebc03d7320226f999653bef245b9bbb430b5154
   git-lint (11.3.0) sha256=e2a8214c9625ada6a66d53b6a7f699560fabfef131560fa1f4c78c94e3095e31
   gitt (5.5.1) sha256=baed2c3d61ddcf949682d9512dbf75549ee336d8f6e0dddd576ef011fa63d9c6
-  hanami (3.0.2) sha256=4fb9180c24fb1edd8932efc71848e9fe2e41e366286a0bf59a7938904a194e2b
+  hanami (3.0.3) sha256=9e08d54ff71829964728fa1570fdc333f56a5f69e1f88cc07a7f8610b8711163
   hanami-action (3.0.1) sha256=cacef6a80e366a0c9c3666dfd83365f3c07ac96bd7be444ceecd62df1488451d
   hanami-assets (3.0.0) sha256=b9ce246ca12ffa8e79f71194e312a484ffbb0d8fd28582b22869706c0afbd3da
   hanami-cli (3.0.0) sha256=9d51bb7b0f0b4eaf67ea1dc8b27774428ee831647b107d2e9f6ad3317b1598ec
   hanami-db (3.0.0) sha256=01d25fd514896b355c9677730e2a45bc3a0b847e2d569a67cb50954c17b1d499
-  hanami-router (3.0.0) sha256=2438db070c7ed7d3f28f1777fc32bdc86e7a9b744a29ab51098f4fa41408210b
+  hanami-router (3.0.1) sha256=529d1bac93cbd842a2e0b7f916e0a19c9dcf269425ff281f53d060ec14a7ef0d
   hanami-utils (3.0.1) sha256=0d46181bd86115127a04a6d0481df819eb558714ce58c6b4da7e0bb65c5dcd9b
-  hanami-view (3.0.2) sha256=b145c23a720e76b05f178ef087340ffe27ea00495ec4d4a53bd1bd391fbb0592
-  hanami-webconsole (3.0.0) sha256=5d8f46e1e2783e03403c58500cbad6274e2022cbc60867a7354442e6b60c2bdd
+  hanami-view (3.0.3) sha256=aba79f0ee943526eb7589776901682693800029bab6f30bf430de2eeb845a85f
+  hanami-webconsole (3.0.1) sha256=71b361dc081710fbc5cd2866c3dc4737e353de550a11d881a4bba48800759de3
   htmx (4.2.0) sha256=6aa873b3cc35eaae9728fb8fc23d40f86bfe0326a440d640bab2288ac69d6c2e
   http (6.0.4) sha256=3768f902489ea8309424f1881c668af8d3ca73675648a755dfe2cb0030d42d26
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
@@ -769,8 +769,8 @@ CHECKSUMS
   io-console (0.9.5) sha256=83dd9bbf4c4680416629245b39cd4212eb5f4d9a4ea91804870c1f6b846414d5
   irb (1.19.0) sha256=55ee56acbdd6c9fe06a2e6909f46a24e5c41f45f16906bab04e8049cf46f1d27
   irb-kit (2.5.0) sha256=8ea492c46876cfc3a3c7a4d72709584a1f44d74d3c76eb9933c8036df124d7c4
-  json (3.1.0) sha256=3ce7ccf8fde58960177a3a756c31f292a4c1e1dedee884547096a5b0604e3bd8
-  jwt (3.3.0) sha256=44cc34fbc341c148233cf66641522b4bce0dfb1ce55e8073f05c56f44f4ee546
+  json (3.2.0) sha256=4a4e222a9ee6ffb296ab3171b6b39d85fec83afc4e7b57eee17edf68c74aec87
+  jwt (3.3.1) sha256=d3f8f74f2a4ba373e0ebf6b756858567a6ce4d2fd150c126f91b82bd1f924d03
   language_server-protocol (3.17.0.6) sha256=5ef2c0c138f8267e1bc631d3328347d354f96724b0af22f2c79516120443b7f0
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
