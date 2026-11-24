@@ -1,0 +1,12 @@
+duplicate: |
+  PG::UniqueViolation: ERROR:  duplicate key value violates unique
+  constraint "model_label_key"
+  DETAIL:  Key (label)=(Demo) already exists.
+enum: |
+  "other" (String) has invalid type for :mode violates constraints
+  (included_in?(["automatic", "manual"], "other") failed)
+foreign_key: |
+  PG::ForeignKeyViolation: ERROR:  insert or update on table "playlist_item"
+  violates foreign key constraint "playlist_item_playlist_id_fkey"
+  DETAIL:  Key (playlist_id)=(29) is not present in table "playlist"
+out_of_range: "PG::NumericValueOutOfRange: ERROR:  integer out of range"
