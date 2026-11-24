@@ -32,34 +32,6 @@ detectors:
     exclude:
       - Hanami::Action::Response#with_details
       - Terminus::Action#authorize
-      - Terminus::Actions::API::Base#detail_duplicate
-      - Terminus::Actions::API::Base#detail_enum
-      - Terminus::Actions::API::Base#detail_foreign_key
-      - Terminus::Actions::API::Base#detail_out_of_range
-      - Terminus::Actions::API::Display::Show#add_firmware
-      - Terminus::Actions::API::Extensions::Exchanges::Create#failure
-      - Terminus::Actions::API::Extensions::Exchanges::Patch#unprocessable_content
-      - Terminus::Actions::API::Firmware::Create#upload
-      - Terminus::Actions::API::Firmware::Patch#replace
-      - Terminus::Actions::API::Screens::Create#handle
-      - Terminus::Actions::API::Screens::Create#save
-      - Terminus::Actions::API::Screens::Patch#replace
-      - Terminus::Actions::Devices::Create#process
-      - Terminus::Actions::Devices::Update#edit
-      - Terminus::Actions::Extensions::Create#failure
-      - Terminus::Actions::Extensions::Gallery::Create#render_error
-      - Terminus::Actions::Extensions::Gallery::Create#render_schema_error
-      - Terminus::Actions::Extensions::Gallery::Index#render_error
-      - Terminus::Actions::Extensions::Update#success
-      - Terminus::Actions::Firmware::Create#error
-      - Terminus::Actions::Firmware::Update#error
-      - Terminus::Actions::Models::Update#error
-      - Terminus::Actions::Playlists::Create#error
-      - Terminus::Actions::Playlists::Screens::Show#view_settings
-      - Terminus::Actions::Playlists::Update#error
-      - Terminus::Actions::Screens::Create#save
-      - Terminus::Actions::Screens::Update#attach
-      - Terminus::Actions::Users::Update#error
       - Terminus::Aspects::Devices::Creator#maybe_redact_api_key
       - Terminus::Aspects::Devices::Importer#process
       - Terminus::Aspects::Errors::Detailer#build_message
@@ -172,3 +144,7 @@ detectors:
       - Terminus::Aspects::Errors::Problem#out_of_range
       - Terminus::Aspects::Liquid::Filters#json
 
+directories:
+  "app/actions/**":
+    FeatureEnvy:
+      enabled: false
