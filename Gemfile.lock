@@ -203,7 +203,7 @@ GEM
       json (>= 2.7.2)
       rack-session
       zeitwerk (~> 2.6)
-    hanami-action (3.0.1)
+    hanami-action (3.0.3)
       dry-configurable (~> 1.4)
       dry-core (~> 1.0)
       hanami-utils (~> 3.0.0.rc)
@@ -748,7 +748,7 @@ CHECKSUMS
   git-lint (11.3.0) sha256=e2a8214c9625ada6a66d53b6a7f699560fabfef131560fa1f4c78c94e3095e31
   gitt (5.5.1) sha256=baed2c3d61ddcf949682d9512dbf75549ee336d8f6e0dddd576ef011fa63d9c6
   hanami (3.0.3) sha256=9e08d54ff71829964728fa1570fdc333f56a5f69e1f88cc07a7f8610b8711163
-  hanami-action (3.0.1) sha256=cacef6a80e366a0c9c3666dfd83365f3c07ac96bd7be444ceecd62df1488451d
+  hanami-action (3.0.3) sha256=c389d5831ecbd6cacdb63c57772df06cf0dda827c309813c65f3ce4fa740be18
   hanami-assets (3.0.0) sha256=b9ce246ca12ffa8e79f71194e312a484ffbb0d8fd28582b22869706c0afbd3da
   hanami-cli (3.0.0) sha256=9d51bb7b0f0b4eaf67ea1dc8b27774428ee831647b107d2e9f6ad3317b1598ec
   hanami-db (3.0.0) sha256=01d25fd514896b355c9677730e2a45bc3a0b847e2d569a67cb50954c17b1d499
