@@ -9,6 +9,7 @@ module Terminus
         # The index action.
         class Index < Action
           include Deps[
+            :htmx_layout,
             repository: "repositories.extension",
             sensor_repository: "repositories.device_sensor"
           ]
@@ -27,7 +28,9 @@ module Terminus
 
             content = load_content extension
 
-            response.render view, content: json_formatter.call(content), layout: false
+            response.render view,
+                            content: json_formatter.call(content),
+                            layout: htmx_layout.call(request)
           end
 
           def load_content extension

@@ -7,6 +7,7 @@ module Terminus
         # The new action.
         class New < Action
           include Deps[
+            :htmx_layout,
             playlist_repository: "repositories.playlist",
             screen_repository: "repositories.screen"
           ]
@@ -26,7 +27,7 @@ module Terminus
                             playlist:,
                             screens: screen_repository.all,
                             screen_selection:,
-                            layout: false
+                            layout: htmx_layout.call(request)
           end
 
           private

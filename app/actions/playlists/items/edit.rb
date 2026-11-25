@@ -7,6 +7,7 @@ module Terminus
         # The edit action.
         class Edit < Action
           include Deps[
+            :htmx_layout,
             repository: "repositories.playlist_item",
             screen_repository: "repositories.screen"
           ]
@@ -29,7 +30,7 @@ module Terminus
                             screens: screen_repository.all,
                             item:,
                             screen_selection: screen_selection(item),
-                            layout: false
+                            layout: htmx_layout.call(request)
           end
 
           private

@@ -5,7 +5,7 @@ module Terminus
     module Devices
       # The index action.
       class Index < Action
-        include Deps[:htmx, repository: "repositories.device"]
+        include Deps[:htmx, :htmx_layout, repository: "repositories.device"]
 
         protected
 
@@ -15,7 +15,7 @@ module Terminus
 
           if htmx.request? request.env, :source, "input#search"
             add_htmx_headers response, query
-            response.render view, devices:, query:, layout: false
+            response.render view, devices:, query:, layout: htmx_layout.call(request)
           else
             response.render view, devices:, query:
           end

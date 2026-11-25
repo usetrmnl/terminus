@@ -5,7 +5,7 @@ module Terminus
     module Firmware
       # The index action.
       class Index < Action
-        include Deps[:htmx, repository: "repositories.firmware"]
+        include Deps[:htmx, :htmx_layout, repository: "repositories.firmware"]
 
         protected
 
@@ -15,7 +15,7 @@ module Terminus
 
           if htmx.request? request.env, :source, "input#search"
             add_htmx_headers response, query
-            response.render view, firmware:, query:, layout: false
+            response.render view, firmware:, query:, layout: htmx_layout.call(request)
           else
             response.render view, firmware:, query:
           end

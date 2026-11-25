@@ -22,7 +22,7 @@ module Terminus
         def handle request, response
           case creator.call(request.params.to_h, validator:)
             in Success then success request, response
-            in Failure(result) then failure result, response
+            in Failure(result) then failure request, result, response
           end
         end
 
@@ -32,12 +32,15 @@ module Terminus
           response.render index_view, extensions: repository.all, layout: htmx_layout.call(request)
         end
 
-        def failure result, response
+        def failure request, result, response
           fields = result[:extension].transform_with!(
             start_at: -> value { value.strftime("%Y-%m-%dT%H:%M:%S") }
           )
 
-          response.render view, fields:, errors: result.errors[:extension], layout: false
+          response.render view,
+                          fields:,
+                          errors: result.errors[:extension],
+                          layout: htmx_layout.call(request)
         end
       end
     end

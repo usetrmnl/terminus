@@ -31,7 +31,7 @@ module Terminus
                           statuses: status_repository.all,
                           fields: result[:user],
                           errors: result.errors[:user],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
       end
     end

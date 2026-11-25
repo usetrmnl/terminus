@@ -7,6 +7,7 @@ module Terminus
         # The create action.
         class Create < Action
           include Deps[
+            :htmx_layout,
             repository: "repositories.playlist_item",
             playlist_repository: "repositories.playlist",
             show_view: "views.playlists.items.show"
@@ -25,7 +26,9 @@ module Terminus
 
             halt :unprocessable_content unless parameters.valid? && playlist
 
-            response.render show_view, item: create(playlist, parameters), layout: false
+            response.render show_view,
+                            item: create(playlist, parameters),
+                            layout: htmx_layout.call(request)
           end
 
           private

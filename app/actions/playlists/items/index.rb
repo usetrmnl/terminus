@@ -6,7 +6,7 @@ module Terminus
       module Items
         # The index action.
         class Index < Action
-          include Deps[repository: "repositories.playlist_item"]
+          include Deps[:htmx_layout, repository: "repositories.playlist_item"]
 
           protected
 
@@ -14,7 +14,10 @@ module Terminus
             parameters = request.params
             playlist_id = parameters[:playlist_id]
 
-            response.render view, playlist_id:, items: repository.where(playlist_id:), layout: false
+            response.render view,
+                            playlist_id:,
+                            items: repository.where(playlist_id:),
+                            layout: htmx_layout.call(request)
           end
         end
       end

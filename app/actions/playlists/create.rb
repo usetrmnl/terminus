@@ -39,7 +39,7 @@ module Terminus
                           playlist: nil,
                           fields: parameters[:playlist],
                           errors: parameters.errors[:playlist],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
       end
     end

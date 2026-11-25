@@ -5,7 +5,7 @@ module Terminus
     module Models
       # The update action.
       class Update < Action
-        include Deps[repository: "repositories.model", show_view: "views.models.show"]
+        include Deps[:htmx_layout, repository: "repositories.model", show_view: "views.models.show"]
 
         contract Contracts::Models::Update
 
@@ -18,7 +18,7 @@ module Terminus
           halt :unprocessable_content unless model
 
           if parameters.valid?
-            save model, parameters, response
+            save request, response
           else
             render_errors request, response
           end
@@ -31,16 +31,18 @@ module Terminus
                           model: repository.find(parameters[:id]),
                           fields: parameters[:model],
                           errors: parameters.errors[:model],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
 
         private
 
-        def save model, parameters, response
-          id = model.id
+        def save request, response
+          parameters = request.params
+          id = parameters[:id]
+
           repository.update id, **parameters[:model]
 
-          response.render show_view, model: repository.find(id), layout: false
+          response.render show_view, model: repository.find(id), layout: htmx_layout.call(request)
         end
       end
     end

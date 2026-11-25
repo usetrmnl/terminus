@@ -6,7 +6,7 @@ module Terminus
       module Items
         # The show action.
         class Show < Action
-          include Deps[repository: "repositories.playlist_item"]
+          include Deps[:htmx_layout, repository: "repositories.playlist_item"]
 
           params do
             required(:playlist_id).filled :integer
@@ -22,7 +22,7 @@ module Terminus
 
             item = repository.find_by playlist_id: parameters[:playlist_id], id: parameters[:id]
 
-            response.render view, item:, layout: false
+            response.render view, item:, layout: htmx_layout.call(request)
           end
         end
       end

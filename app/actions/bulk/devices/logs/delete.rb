@@ -7,7 +7,7 @@ module Terminus
         module Logs
           # The delete action.
           class Delete < Action
-            include Deps[repository: "repositories.device_log"]
+            include Deps[:htmx_layout, repository: "repositories.device_log"]
 
             params { required(:device_id).filled :integer }
 
@@ -19,7 +19,7 @@ module Terminus
               halt :unprocessable_content unless parameters.valid?
 
               repository.delete_all_by_device parameters[:device_id]
-              response.render view, layout: false
+              response.render view, layout: htmx_layout.call(request)
             end
           end
         end

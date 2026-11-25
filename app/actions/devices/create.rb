@@ -37,7 +37,7 @@ module Terminus
                           device: nil,
                           fields: parameters[:device],
                           errors: parameters.errors[:device],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
 
         private

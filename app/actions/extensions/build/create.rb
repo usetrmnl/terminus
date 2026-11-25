@@ -6,7 +6,7 @@ module Terminus
       module Build
         # The create action.
         class Create < Action
-          include Deps[:htmx, repository: "repositories.extension"]
+          include Deps[:htmx, :htmx_layout, repository: "repositories.extension"]
           include Initable[job: Jobs::Batches::Extension]
 
           params { required(:id).filled :integer }
@@ -15,16 +15,16 @@ module Terminus
 
           def handle request, response
             extension = repository.find request.params[:id]
-            enqueue extension, response
+            enqueue request, extension, response
           end
 
           private
 
-          def enqueue extension, response
+          def enqueue request, extension, response
             job.perform_async extension.id
 
             response.status = 202
-            response.render view, extension:, layout: false
+            response.render view, extension:, layout: htmx_layout.call(request)
           end
         end
       end

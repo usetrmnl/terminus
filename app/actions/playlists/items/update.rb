@@ -7,6 +7,7 @@ module Terminus
         # The update action.
         class Update < Action
           include Deps[
+            :htmx_layout,
             repository: "repositories.playlist_item",
             show_view: "views.playlists.items.show"
           ]
@@ -23,7 +24,7 @@ module Terminus
             parameters = request.params
 
             if parameters.valid?
-              save parameters, response
+              save request, response
             else
               render_errors request, response
             end
@@ -36,17 +37,18 @@ module Terminus
                             playlist:,
                             fields: parameters[:playlist],
                             errors: parameters.errors[:playlist],
-                            layout: false
+                            layout: htmx_layout.call(request)
           end
 
           private
 
-          def save parameters, response
+          def save request, response
+            parameters = request.params
             item = repository.find_by playlist_id: parameters[:playlist_id], id: parameters[:id]
             id = item.id
             repository.update id, **parameters[:playlist_item]
 
-            response.render show_view, item: repository.find(id), layout: false
+            response.render show_view, item: repository.find(id), layout: htmx_layout.call(request)
           end
         end
       end

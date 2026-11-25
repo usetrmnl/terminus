@@ -6,6 +6,7 @@ module Terminus
       # The update action.
       class Update < Action
         include Deps[
+          :htmx_layout,
           repository: "repositories.device",
           model_repository: "repositories.model",
           playlist_repository: "repositories.playlist",
@@ -39,7 +40,7 @@ module Terminus
                           device:,
                           fields: parameters[:device],
                           errors: parameters.errors[:device],
-                          layout: false
+                          layout: htmx_layout.call(request)
         end
 
         private
@@ -49,7 +50,7 @@ module Terminus
           id = parameters[:id]
 
           repository.update id, **parameters[:device]
-          response.render show_view, device: repository.find(id), layout: false
+          response.render show_view, device: repository.find(id), layout: htmx_layout.call(request)
         end
       end
     end
