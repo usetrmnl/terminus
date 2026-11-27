@@ -2,4 +2,5 @@
 
 require "hanami/prepare"
 
+Hanami.app.start :shrine
 Hanami.app.start :sidekiq
